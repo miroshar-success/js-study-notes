@@ -1,0 +1,68 @@
+%relative{
+	position:relative;
+}
+@mixin border-1px {
+	content:"";
+	position:absolute;
+	left:0;
+	width:100%;
+	border-top-width:1px;
+	border-top-style:solid;
+}
+
+@mixin border-top-1px($color) {
+	@extend %relative;
+	&:before{
+		top:0;
+		border-top-color:$color;
+		@include border-1px;
+		transform-origin:0 top;
+	}
+	@media screen and (min-device-pixel-ratio:1.5),(-webkit-min-device-pixel-ratio:1.5){
+		&:before{
+			transform:scaleY(0.7);
+			-webkit-transform:scaleY(0.7);
+		}
+	}
+	@media screen and (min-device-pixel-ratio:2),(-webkit-min-device-pixel-ratio:2){
+		&:before{
+			transform:scaleY(0.5);
+			-webkit-transform:scaleY(0.5);
+		}
+	}
+}
+
+@mixin border-bottom-1px($color){
+	@extend %relative;
+	&:after{
+		bottom:0;
+		border-top-color:$color;
+		@include border-1px;
+		transform-origin:0 bottom;
+	}
+	@media screen and (min-device-pixel-ratio:1.5),(-webkit-min-device-pixel-ratio:1.5){
+		&:after{
+			transform:scaleY(0.7);
+			-webkit-transform:scaleY(0.7);
+		}
+	}
+	@media screen and (min-device-pixel-ratio:2),(-webkit-min-device-pixel-ratio:2){
+		&:after{
+			transform:scaleY(0.5);
+			-webkit-transform:scaleY(0.5);
+		}
+	}
+}
+
+@mixin bg-image($url){
+	background-image:url($url+"@2x.png");
+	@media screen and (min-device-pixel-ratio:3),(-webkit-min-device-pixle-ratio:3){
+		background-image:url($url+"@3x.png");
+	}
+}
+
+@mixin border-none{
+	&:before,&:after{
+		border:none;
+	}
+}
