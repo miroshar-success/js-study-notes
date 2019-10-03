@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map数据结构</title>
+</head>
+<body>
+    <script>
+        const m = new Map();
+        const o = {p:'Hello World'};
+        m.set(o,'content');
+        console.log( m.get(o) );    // content
+
+        console.log( m.has(o) );    // true
+
+        m.delete(o);
+        console.log(m.has(o));      // false
+        
+
+        const map = new Map([
+            ['name','kyrie'],
+            ['title','player']
+        ]);
+        console.log( map.size );
+        console.log( map.has('name') ); // true
+        console.log( map.get('name'));  // kyrie
+        console.log( map.has('title')); // true
+        console.log( map.get('title')); // player
+
+        console.log(map);
+
+        const items = [
+            ['name','kyrie'],
+            ['title','player'],
+            ['position','guard'],
+            ['age','26']
+        ]
+        const player = new Map();
+        items.forEach( ([key,value]) => player.set(key,value) );
+
+        console.log(player);
+
+        const set = new Set([
+            ['foo',1],
+            ['bar',2]
+        ]);
+
+        const m1 = new Map(set);
+        console.log( m1.get('foo') );   // 1
+        console.log(set);   
+
+        const m2 = new Map([
+            ['baz',3],
+        ]);
+        const m3 = new Map(m2);
+        console.log(m3.get('baz')); // 3
+
+        const s1 = new Map();
+        s1.set(['a'],555);
+        console.log( s1.get(['a']) );   // undefined
+
+        const s2 = new Map();
+        let k1 = ['a'];
+        let k2 = ['a'];
+
+        s2.set(k1,111);
+        s2.set(k2,222);
+
+        console.log(s2.get(k1));    // 111
+        console.log(s2.get(k2));    // 222
+
+        let ma = new Map();
+        ma.set(-0,123);
+        console.log(ma.get(+0));    // 123
+
+        ma.set(true,'boolean');
+        console.log(ma.get('true'));    // undefined
+        console.log(ma.get(true));      // boolean
+
+        ma.set(undefined,'undefined');  
+        console.log( ma.get(undefined) );   // undefined
+        console.log( ma.get(null)); // unfefined
+
+        ma.set(NaN,'nan');
+        console.log(ma.get(NaN));   // nan
+
+
+    </script>
+</body>
+</html>

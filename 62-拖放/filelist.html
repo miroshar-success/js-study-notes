@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>FileList</title>
+		<style>
+			body,ul,ol,p{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			img{
+				width: 200px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="file" multiple id='myFile'>
+		<input type="file" multiple class='select'>
+		<button class='show'>显示图片</button>
+		<script>
+			const oMyFile = document.getElementById('myFile');
+			oMyFile.onchange = function(){
+				var files = oMyFile.files;
+				for(let i = 0,file; file = files[i]; i++){
+					console.log(file);
+				}
+				for(let i = 0 ,len = files.length; i < len; i++){
+					console.log( files.item(i) );
+					const file = files[i];
+					console.log(file.name);
+				}
+			}
+			let oSelect = document.querySelector('.select');
+			let oShow = document.querySelector('.show');
+			oShow.addEventListener('click',function(event){
+				event = event || window.event;
+				event.preventDefault(); 
+				let files = oSelect.files;
+				console.log(files);
+				Array.prototype.forEach.call(files,(function(item){
+					let fileRead = new FileReader();
+					fileRead.readAsDataURL(item);
+					fileRead.onload = function(){
+						let oImg = document.createElement('img');
+						oImg.src = `${this.result}`;
+						document.body.appendChild(oImg);
+					}
+				}));
+			},false);
+		</script>
+	</body>
+</html>

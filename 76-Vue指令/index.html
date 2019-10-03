@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			img{
+				width: 300px;
+			}
+			.box{
+				width: 100px;
+				height: 100px;
+				background-color: skyblue;
+			}
+			.box1{
+				width: 150px;
+				height: 150px;
+				background-color:red;
+			}
+			.box2{
+				width: 100px;
+				height: 100px;
+				background-color:skyblue;
+			}
+			.box3{
+				width: 50px;
+				height: 50px;
+				background-color:pink;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1">{{player}}</div>
+		<div id="app">
+			<span>Message:{{msg}}</span>
+			<br>
+			<span v-once>This will nerver change:{{msg}}</span>
+		</div>
+		<div id="box2">
+			<div v-html="img"></div>
+		</div>
+		
+		<div id="box3">
+			<button @click="f">点击</button>
+			<div v-on:mouseover="a" class="box"></div>
+		</div>
+		<div id="box4">
+			<div class="box1" @click="fun">
+				我是Box1
+				<div class="box2" @click.stop="fun">
+					我是box2
+					<div class="box3" @click="fun">我是box3</div>
+				</div>
+			</div>
+		</div>
+		<div id="box5">
+			<button v-on:click.once="one">点我</button>
+		</div>
+		<div id="box6">
+			<img :src="imgSrc" alt="">
+			<button @click="change">点击切换图片</button>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			let vm1 = new Vue({
+				el:'#box1',
+				data:{
+					player:'kyrie'
+				}
+			});
+			
+			const app = new Vue({
+				el:'#app',
+				data:{
+					msg:'Hello Vue!'
+				}
+			});
+			console.log(app);
+			
+			new Vue({
+				el:'#box2',
+				data:{
+					img:`<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554093815383&di=f5126944f4c1c967cd577ae71d1ee593&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201607%2F19%2F20160719064142_NLihM.jpeg">`
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById('box3'),
+				methods:{
+					f(){
+						console.log('Hello World!');
+					},
+					a(){
+						console.log('鼠标经过我了');
+					}
+				}
+			});
+			
+			let vm2 = new Vue({
+				el:document.getElementById("box4"),
+				methods:{
+					fun(e){
+						console.log('触发了' + e.currentTarget.className);
+					}
+				}
+			});
+			
+			const vm3 = new Vue({
+				el:"#box5",
+				methods:{
+					one(){
+						console.log('只能触发一次');
+					}
+				}
+			});
+			
+			let vm4 = new Vue({
+				el:"#box6",
+				data:{
+					imgSrc:'./1.jpg',
+					flag:true,
+				},
+				methods:{
+					change(event){
+						// this表示当前的实例 vm4
+						console.log(this);
+// 						if(this.flag){
+// 							this.imgSrc = './2.jpg';
+// 							this.flag = false;
+// 						}else{
+// 							this.imgSrc = './1.jpg';
+// 							this.flag = true;
+// 						}
+						this.imgSrc = './1.jpg' ? this.imgSrc ='./2.jpg' : this.imgSrc = './1.jpg';
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

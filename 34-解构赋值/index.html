@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解构赋值</title>
+</head>
+<body>
+    
+    <script>
+        var a = {n:1};
+        var b = a;
+        a.x = a = {n:2};
+        console.log(a.x);   // undefined;
+        console.log(b.x);   // {n:2};
+        
+        function m1(...rest){
+            console.log(arguments);
+        }
+        m1(1,2,3,4,5);
+        m1(...[1,2,3,4,5]);
+
+        let [x,y] = [1,2];
+        console.log(x,y);
+
+        // let [foo,[[bar],baz]] = [1,[[3],3]];
+        // console.log(foo,bar,baz);   // 1 3 3
+
+        let [,,third] = ['foo','bar','baz'];
+        console.log(third); // baz
+
+        let [m,,n] = [1,2,3];
+        console.log(m,n);   // 1 3
+
+        let [head,...tail] = [1,2,3,4];
+        console.log(head,tail);
+
+        let [o,p,...q] = ['a'];
+        console.log(o,p,q); // a undefined []
+
+        let [z] = [];
+        console.log(z);
+
+        // 不完全解构
+
+        var [f1,[f2],f3] = [1,[2,3],4];
+        console.log(f1,f2,f3);
+        
+        // let [bug] = 1;
+        // let [bug] = false;
+        // let [bug] = NaN;
+        // let [bug] = undefined;
+        // let [bug] = null;
+        // let [bug] = {};
+
+        var [h = true] = [false];
+        console.log(h);
+        
+        var [lbj = 1] = [null];
+        console.log(null);
+
+        let {foo,bar} = {foo:'aaa',bar:'bbb'};
+        console.log(foo,bar);
+
+        let {baz} = {foo:'aaa',bar:'bbb'};
+        console.log(baz);
+        
+        // 先找到同名属性,然后给该属性对应的变量赋值
+        let {foo:sign} = {foo:'aaa',bar:'bbb'};
+        console.log(sign);
+
+        let object = {
+            p:[
+                'hello',
+                {y1:'world'}
+            ]
+        };
+        let {p:[x1,{y1:y2}]} = object;
+        console.log(x1,y2);
+        
+        
+    </script>
+</body>
+</html>

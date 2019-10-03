@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件传参</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="demo"></div>
+<div id="clock"></div>
+<div id="counter"></div>
+<script src="node_modules/babel-standalone/babel.min.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    function GetDate(props){
+        return (
+            <div>
+                <p>现在是{props.hour}:时</p>
+                <p>{props.minute}分</p>
+                <p>{props.second}秒</p>
+            </div>
+        )
+    }
+    function update(){
+        const ele = (
+            <GetDate
+            hour={new Date().getHours()}
+            minute={new Date().getMinutes()}
+            second={new Date().getSeconds()}
+            />
+        )
+        ReactDOM.render(
+            ele,
+            document.querySelector("#app")
+        )
+    }
+    update();
+    setInterval(update,1000);
+
+    // class组件  React.Component 都要大写
+    class Player extends React.Component{
+        constructor (){
+            super(...arguments);
+            this.name = "kyrie";
+            this.age = 26;
+            console.log(this);
+            this.state = {
+                abc:this.props.title
+            }
+        //    构造函数里的this指向的是当前的组件
+            console.log(this.changeState);
+            this.changeState = this.changeState.bind(this);
+        }
+        say(){
+            console.log("name",this.name);
+            console.log("age",this.age);
+        }
+        changeState(){
+            console.log("点击了",this);
+            this.setState({
+                abc:"我是修改后的数据"
+            })
+        }
+        changeMessage = ()=>{
+            console.log("点击了",this);
+        }
+        render(){
+            return(
+                <div>
+                    <p>
+                    {   // 先判断是有值,然后再输出
+                        this.state.abc && this.state.abc
+                    }</p>
+                    <button onClick={this.changeState.bind(this)}>点击切换</button>
+                    <button onClick={this.changeState}>切换this</button>
+                    <button onClick={this.changeMessage}>箭头函数</button>
+                    <button onClick={this.say.bind(this)}>说出你的故事</button>
+                </div>
+
+            )
+        }
+    }
+    const element = (
+        <Player title="这是一个有状态的组件"></Player>
+    )
+    ReactDOM.render(
+        element,
+        document.querySelector("#demo")
+    )
+
+/*    tick()
+    function Clock(props){
+        console.log(props);
+        return(
+            <div>
+                <h1>Hello,World!</h1>
+                <h2>It is {props.date.toLocaleTimeString()}</h2>
+            </div>
+        )
+    }
+    function tick(){
+        ReactDOM.render(
+            <Clock date={new Date()}/>,
+            document.getElementById("clock")
+        )
+    }
+    setInterval(tick,1000);*/
+
+    class Clock extends React.Component{
+        constructor(){
+            super();
+            // 构造函数是唯一可以给state赋值的地方
+            this.state = {
+                date:new Date()
+            }
+        }
+        // 声明周期
+        componentDidMount(){
+            this.Timer = setInterval(()=>{
+                this.tick();
+            })
+        }
+        componentWillUnmount(){
+            clearInterval(this.Timer);
+        }
+        tick(){
+            this.setState({
+                date:new Date()
+            })
+        }
+        render(){
+            return (
+                <div>
+                    <h1>Hello World!</h1>
+                    <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Clock></Clock>,
+        document.querySelector("#clock")
+    )
+
+    class Counter extends React.Component{
+        constructor(){
+            super();
+            this.state = {
+                count:0
+            }
+        }
+        addCount = (data,e)=>{
+            console.log(this);
+            console.log(data,e);
+        }
+        reduceCount(){
+            console.log(this);
+        }
+        render(){
+            return (
+                <div>
+                    <p>{this.state.count}</p>
+                    <button onClick={this.addCount.bind(this,"Hello")}>+</button>
+                    <button onClick={this.reduceCount}>-</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Counter></Counter>,
+        document.getElementById("counter")
+    )
+
+
+
+</script>
+</body>
+</html>

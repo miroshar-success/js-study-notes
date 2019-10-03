@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSX表示对象</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="demo"></div>
+<div id="root"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    /*
+    * Babel会把JSX转译成为一个名为 React.createElement()函数调用
+    * */
+    const ele1 = (
+        <h1 className="greeting">
+            Hello World!
+        </h1>
+    )
+    ReactDOM.render(
+        ele1,
+        document.querySelector("#app")
+    )
+
+    const element = React.createElement(
+        "h1",
+        {className:"greeting"},
+        "Hello World!"
+    )
+    ReactDOM.render(
+        element,
+        document.querySelector("#demo")
+    )
+//    事件
+/*    function handleClick(){
+        console.log("函数调用");
+    }
+    const element1 = (
+        <div>
+            <button onClick={alert("Hello")}>自执行</button>
+            <button onClick={()=>{alert("箭头函数调用")}}>箭头函数</button>
+            <button onClick={handleClick}>函数调用</button>
+        </div>
+    )
+    ReactDOM.render(
+        element1,
+        document.querySelector("#root")
+    )*/
+    function handleMove(e){
+        e = e || window.e;
+        console.log(e.clientX,e.clientY);
+    }
+    const styleObj = {
+        width:"200px",
+        height:"200px",
+        backgroundColor:"red"
+    }
+    function handleKeyDown(e){
+        // console.log(e.keyCode);
+        // let str = String.fromCharCode(e.keyCode);
+        // console.log("正在查询"+str);
+        if(e.keyCode === 13){
+            console.log("正在查询");
+        }
+    }
+    // 传递数据时,第一个参数是传递的数据,第二个参数才是event事件对象
+    function handleGetData(data,event){
+        console.log(data,event.target);
+    }
+
+    const element1 = (
+        <div>
+            <div className="box" onMouseMove={handleMove} style={styleObj}></div>
+            <input type="text" onKeyDown={handleKeyDown} defaultValue="123"/>
+            <input type="button" onClick={handleGetData.bind(this,"这是传递的数据")} defaultValue="点我"/>
+        </div>
+    )
+/*    ReactDOM.render(
+        element1,
+        document.querySelector("#root")
+    )*/
+    let str = "Hello World";
+    const element2 = (
+        <div>
+            <p>{str}</p>
+        </div>
+    );
+    ReactDOM.render(
+        element2,
+        document.querySelector("#root")
+    );
+    setTimeout(()=>{
+        str = "你好,世界";
+    },2000);
+</script>
+</body>
+</html>

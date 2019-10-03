@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数组去重</title>
+	</head>
+	<body>
+		<ul class="list">
+			<li class="item">1</li>
+			<li class="item">2</li>
+			<li class="item">3</li>
+		</ul>
+		<script>
+			let arr = [1,2,3,1,NaN,"kyrie",undefined,null,true,"true","false",false,5,3,"kyrie",NaN,null];
+			// 1. 利用ES6的 Set数据结构自动去重
+			let s = new Set();
+			arr.forEach(function(item){
+				s.add(item);
+			});
+			console.log(s);
+			console.log([...s]);
+			
+			function unique(array){
+				return [...new Set(array)];
+			}
+			let newArr = unique(arr);
+			console.log(newArr);
+			
+			let arr1 = [1,4,2,4,3,1,5,2];
+			function repeat(arr){
+				// return [...new Set(arr)];
+				return Array.from(new Set(arr));
+			}
+			let newArray = repeat(arr1);
+			console.log(newArray);
+			
+			// 2. 数组的splice方法
+			 function getRepeat(arr){
+				for(let i = 0,len = arr.length; i < len; i++){
+					for(let j = i+1,len = arr.length; j < len; j++){
+						if(arr[i] === arr[j]){
+							arr.splice(j,1);
+							console.log(j);
+							j--;
+						}
+					}
+				}
+				return arr;
+			 }
+			 
+			 let array = ["kyrie","lebron","lebron","lebron","lebron","durant","lebron","curry","durant"];
+			 console.log(array);
+			 let newPlayer = getRepeat(array);
+			 console.log(newPlayer);
+			 
+			 let arr2 = ["a","b","a","c",NaN,NaN,undefined,null,+0,-0];
+			 const newArr2 = getRepeat(arr2);
+			 console.log(newArr2);
+			 
+			 function splitArr(arr){
+				 for(let i = 0; i < arr.length; i++){
+					 for(let j = i+1; j < arr.length; j++){
+						 // 利用Object.is()可以去除NaN
+						 if( Object.is(arr[i],arr[j]) ){
+							arr.splice(j,1);
+							j--;
+						}
+					 }
+				 }
+				 return arr;
+			 }
+			 
+			 let newArr21 = splitArr(arr2);
+			 console.log(newArr21);
+			 
+			const aItem = document.querySelectorAll(".list>li");
+/*			window.onload = function(){
+				for(var i = 0; i < aItem.length; i++){
+					aItem[i].onclick = function(){
+						console.log(i);
+					}
+				}
+			}
+			
+			window.onload = function(){
+				for(let i = 0; i < aItem.length; i++){
+					aItem[i].onclick = function(){
+						console.log(i);
+					}
+				}
+			}
+*/
+			window.onload = function(){
+				for(var i = 0; i < aItem.length; i++){
+					(function(arg){	// 形参
+						aItem[i].onclick = function(){
+							console.log(arg);
+						}
+					})(i);	// 实参
+				}
+			}
+			
+			window.onload = function(){
+				for(var i = 0; i < aItem.length; i++){
+					aItem[i].index = i;
+					console.log(i);
+					aItem[i].onclick = function(){
+						console.log(this.index);
+					}
+				}
+			}
+			for(let i = 0; i < 3; i++){
+				for(let j = 0; j < 2; j++){
+					console.log("kyrie");
+					console.log(i);
+				}
+			}
+			
+			// 利用IndexOf,新建一个空数组,循环要查重的数组,判断新建的数组是否存在当前元素,如果有的话则跳过,否则push进数组
+			function indexArr(arr){
+				let temp = [];
+				for(let i = 0 ,len = arr.length; i < len; i++){
+					if(temp.indexOf(arr[i]) === -1){
+						temp.push(arr[i]);
+					}
+				}
+				return temp;
+			}
+			let arr3 = ["a","b","c","a","b","c"];
+			let newArr3 = indexArr(arr3);
+			console.log(newArr3);	// ["a","b","c"]
+			
+			function f1(arr){
+				let temp = [];
+				for(let i = 0, item; item = arr[i]; i++){
+					if(temp.indexOf(item) === -1){
+						temp.push(item);
+					}
+				}
+				return temp;
+			}
+			let arr4 = ["a","b","a","c","b"];
+			const newArr4 = f1(arr4);
+			console.log(newArr4);
+			
+			// 4. 利用sort对数组进行排序,然后分别判断前后两个元素是否相等,相等的话则跳过,否则添加进一个空数组
+			
+			function f2(arr){
+				let temp = [arr[0]];
+				// 先左右排序,如果不相等的话则添加进空数组
+				arr = arr.sort();
+				for(let i = 1,len=arr.length; i < len ; i++){
+					if(arr[i] !== arr[i-1]){
+						temp.push(arr[i]);
+					}
+				}
+				return temp;
+			}
+			let sortArr = ["a","kyrie","b","a","lebon","kyrie","b"];
+			let newSortArr = f2(sortArr);
+			console.log(newSortArr);
+			
+			// 5. 利用Includes方法去重
+			function f3(arr){
+				let array = [];
+				for(let i = 0,item; item = arr[i]; i++){
+					if(!array.includes(item)){
+						array.push(item);
+					}
+				}
+				return array;
+			}
+			let inArr = ["a","v","c","a","c"];
+			let newInArr = f3(inArr);
+			console.log(newInArr);
+			
+		</script>
+	</body>
+</html>

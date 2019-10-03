@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>demo</title>
+	</head>
+	<body>
+		<button class="btn1">push1</button>
+		<button class="btn2">push2</button>
+		<button class="btn3">replace</button>
+		<button class="btn4">back1</button>
+		<button class="btn5">back2</button>
+		<button class="btn6">go</button>
+		<a href="#index" class="text1">百度</a>
+		<a href="#index" class="text2">百度</a>
+		<button class="qq1">腾讯</button>
+		<button class="qq2">腾讯</button>
+		<script>
+			function _$(selector){
+				return document.querySelector(selector);
+			}
+			window.addEventListener("popstate",function(event){
+				event = event || window.event;
+				console.log("location:" + document.location + ",state:" + JSON.stringify(event.state));
+			},false);
+			
+			document.addEventListener("click",function(event){
+				event = event || window.event;
+				const btn = event.target.className;
+				switch(btn){
+					case "btn1":
+					window.history.pushState({page:1},"title 1","?page=1");
+					break;
+					case "btn2":
+					window.history.pushState({page:2},"title 2","?page=2");
+					break;
+					case "btn3":
+					window.history.replaceState({page:3},"title 3","?page=3");
+					break;
+					case "btn4":
+					window.history.back();
+					break;
+					case "btn5":
+					window.history.back();
+					break;
+					case "btn6":
+					window.history.go(2);
+					break;
+				}
+			},false);
+			
+			setInterval(function(){
+				console.log(window.history.length);
+				console.log(window.history.state);
+			},1000);
+			
+			// pushState 同一个地址 也会添加进即使记录
+			_$(".qq1").onclick = function(){
+				window.history.pushState({page:"page1"},"title 1","?page=4");
+			};
+			_$(".qq2").onclick = function(){
+				window.history.pushState({page:"page2"},"title 1","?page=4");
+			};
+		</script>
+	</body>
+</html>

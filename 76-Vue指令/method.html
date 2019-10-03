@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<p v-show="flag">这是一段文本</p>
+			<button @click="handleClose">点击</button>
+		</div>
+		<div id="root">
+			<ul class="list">
+				<li v-for="(item,index) in books">{{item.name}}--{{index}}</li>
+			</ul>
+		</div>
+		<!-- v-for也可以写在template上 -->
+		<div id="box">
+			<ul>
+				<template v-for="item in books">
+					<li>{{item.name}}</li>
+				</template>
+			</ul>
+			<ul>
+				<li v-for="(value,key) in user">{{key}}--{{value}}</li>
+				<li v-for="key in n">{{key}}</li>
+			</ul>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm1 = new Vue({
+				el:document.getElementById("app"),
+				data:{
+					flag:true,
+				},
+				methods:{
+					handleClose(){
+						this.close();
+					},
+					close(){
+						this.flag = false
+					}
+				}
+			});
+			
+			new Vue({
+				el:"#root",
+				data:{
+					books:[
+						{name:"<Vue.js实战>"},
+						{name:"<JavaScript语言精粹>"},
+						{name:"<JavaScript高级程序设计>"}
+					]
+				}
+			});
+			
+			new Vue({
+				el:"#box",
+				data:{
+					books:[
+						{name:"<Vue.js实战>"},
+						{name:"<JavaScript语言精粹>"},
+						{name:"<JavaScript高级程序设计>"}
+					],
+					user:{
+						name:"kyrie",
+						age:"26"
+					},
+					n:5
+				}
+			})
+		</script>
+	</body>
+</html>

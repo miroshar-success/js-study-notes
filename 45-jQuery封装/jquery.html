@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery</title>
+</head>
+<body>
+
+    <script>
+        (function(){
+            function jQuery(selector,context){
+                return new jQuery.fn.init(selector,context);
+            }
+            jQuery.fn = jQuery.prototype = {
+                // 核心方法
+                // 回调系统
+                // 异步队列
+                // 数据缓存
+                // 队列操作
+                // 属性操作
+                // 节点遍历
+            }
+            window.$ = jQuery.fn;
+        })();  
+
+        (function(window,undefined){
+            function jQuery(){};
+            window.jQuery = window.$ = jQuery;
+        })(window);
+
+        // 类一
+        function ajQuery(){
+            this.name = 'ajQuery';
+            this.sayName = function(){
+                console.log(this.name);
+            }
+        }
+        var a = new ajQuery();
+        a.sayName();
+        console.log(a); // {name:'ajQuery',sayName:f}
+
+        // 类二
+        function bjQuery(){
+            this.name = 'bjQuery';
+        }
+        bjQuery.prototype = {
+            sayName:function(){
+                console.log(this.name);
+            }
+        }
+        let b = new bjQuery();
+        b.sayName();
+        console.log(b); // {name:'bjQuery'}
+        
+
+        // jQuery的写法
+        function $jQuery(selector,context){
+            return new $jQuery.fn.init(selector,context);
+        }
+        $jQuery.fn = $jQuery.prototype = {
+            init:function(){
+                this.name = '$jQuery';
+                console.log(this);
+            },
+            constructor:$jQuery
+        }
+        var $a = $jQuery();
+        console.log($a);
+        
+    </script>
+</body>
+</html>

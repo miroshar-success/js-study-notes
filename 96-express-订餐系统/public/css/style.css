@@ -1,0 +1,31 @@
+body,ul,ol{
+    padding: 0;
+    margin: 0;
+}
+ul,ol{
+    list-style:none;
+}
+ul>li{
+    line-height:28px;
+    height:28px;
+}
+.container{
+    margin:20px auto 0;
+    width: 380px;
+    height: 260px;
+    background-color:skyblue;
+    border:3px solid red;
+    text-align:center;
+}
+input[type="submit"]{
+    border-radius:3px;
+    outline:none;
+}
+a{
+    text-decoration:none;
+    color:#000;
+    line-height:40px;
+}
+a:hover{
+    color:red;
+}

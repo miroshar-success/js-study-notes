@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>window.requestAnimationFrame() 和 window.cancelAnimationFrame()</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			.box1{
+				width: 100px;
+				height: 100px;
+				background-color:pink;
+			}
+			.box2{
+				width: 100px;
+				height: 100px;
+				background-color:skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<script>
+			const oBox1 = document.querySelector(".box1");
+			const oBox2 = document.querySelector('.box2');
+			oBox2.style.position = 'absolute';
+			oBox1.style.position = "absolute";
+			let x = 0;
+			function step(stamp){
+				console.log(stamp);
+				x+=10;
+				oBox1.style.left = x + 'px';
+				let timer = window.requestAnimationFrame(step);
+				if(x > 300){
+					window.cancelAnimationFrame(timer);
+				}
+			}
+			// step();
+			
+			
+			let leftX = 0;
+			function run(){
+				let timer = setTimeout(function(){
+					leftX += 10;
+					oBox2.style.left = leftX + 'px';
+					run();
+				},1000/60);
+				if(leftX > 300){
+					clearTimeout(timer);
+				}
+			}
+			run();
+			
+			
+			function move(){
+				let timer = setInterval(function(){
+					leftX += 10;
+					oBox2.style.left = leftX + 'px';
+					if(leftX > 300){
+						clearInterval(timer);
+					}
+				},1000/60);
+			}
+			// move();
+			
+
+		</script>
+	</body>
+</html>

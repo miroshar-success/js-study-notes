@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ref回调</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="parent"></div>
+<div id="counter"></div>
+<script src="node_modules/babel-standalone/babel.min.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    class CustomTextInput extends React.Component{
+        constructor(props){
+            super(props)
+            // 定义绑定ref元素为null
+            this.textInput = null;
+/*            this.inputRef = element => {
+                console.log(element);
+                this.textInput = element;
+            }*/
+            this.childElement = null;
+            this.inputRef = element => {
+                console.log(element);
+                this.textInput = element;
+            }
+            this.childRef = element => {
+                this.childElement = element;
+            }
+            this.handleFocus = this.handleFocus.bind(this);
+            this.getElement = this.getElement.bind(this);
+        }
+        handleFocus(){
+            this.textInput.focus();
+            console.log(this,this.refs);
+        }
+        getElement(){
+            console.log(this);
+            console.log(this.childElement);
+        }
+        render(){
+            return (
+                <div>
+                    <input
+                        type="text"
+                        ref={this.inputRef}
+                    />
+                    <input
+                        type="button"
+                        onClick={this.handleFocus}
+                        defaultValue="Click Me"
+                    />
+                    <input
+                        type="button"
+                        onClick={this.getElement}
+                        defaultValue="Get"
+                    />
+                    <Child ref={this.childRef}/>
+                </div>
+            )
+        }
+    }
+
+    class Child extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return(
+                <div>
+                    <p>Hello World!</p>
+                </div>
+            )
+        }
+
+    }
+    ReactDOM.render(
+        <CustomTextInput/>,
+        document.querySelector("#app")
+    )
+
+    class Parent extends React.Component{
+        render(){
+            return(
+                <div>
+                    <Son data={"Hello,我是你父亲"}/>
+                    <p>我是父节点</p>
+                </div>
+            )
+        }
+    }
+    class Son extends React.Component{
+        constructor(){
+            // 在构造函数里获取props传递的数据,需要传递参数
+            super(...arguments)
+            console.log(this.props);
+        }
+        getMsg = ()=>{
+            console.log(this.props.data);
+        }
+        render(){
+            return(
+                <div>
+                    <p>我是子节点</p>
+                    <button onClick={this.getMsg}>获取父节点数据</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Parent/>,
+        document.getElementById("parent")
+    )
+
+
+    class Counter extends React.Component{
+        constructor(){
+            super();
+            this.state = {
+                // 初始值
+                num:0,
+                // 自增
+                count:1
+            }
+            this.handleClickAdd = this.handleClickAdd.bind(this);
+            this.handleClickReduce = this.handleClickReduce.bind(this);
+        }
+
+        handleClickAdd(){
+            this.setState({
+                num:this.state.count++,
+            })
+            console.log(this.state);
+        }
+        handleClickReduce(){
+            this.setState({
+                num:this.state.count--,
+           })
+            console.log(this.state.num);
+        }
+        render(){
+            return(
+                <div>
+                    <input
+                        type="button"
+                        defaultValue="+"
+                        onClick={this.handleClickAdd}
+                    />
+                    <button>{this.state.num}</button>
+                    <input
+                        type="button"
+                        defaultValue="-"
+                        onClick={this.handleClickReduce}
+                    />
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Counter/>,
+        document.querySelector("#counter")
+    )
+
+
+</script>
+</body>
+</html>

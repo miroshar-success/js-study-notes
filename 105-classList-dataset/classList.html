@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>classList</title>
+</head>
+<body>
+    <div class="box"></div>
+    <input type="button" value="增加">
+    <input type="button" value="删除">
+    <input type="button" value="获取">
+    <input type="button" value="判断">
+    <input type="button" value="切换">
+    <script>
+        let oInput = document.querySelectorAll("input");
+        let oBox = document.querySelector(".box");
+        oInput.forEach((item,index) => {
+            item.addEventListener('click',function(){
+                switch(index){
+                    case 0:
+                        oBox.classList.add("item","item1"); // 增加的类名不会重复
+                        break;
+                    case 1:
+                        oBox.classList.remove("box");
+                        break;
+                    case 2:
+                        console.log(oBox.classList.length);
+                        break;
+                    case 3:
+                        console.log(oBox.classList.contains("box"));
+                        break;
+                    case 4:
+                        oBox.classList.toggle("box");
+                        break;
+                }
+            },false);
+        })
+    </script>
+</body>
+</html>

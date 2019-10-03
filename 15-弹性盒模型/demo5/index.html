@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹性盒模型作业——五</title>
+    <style>
+        body,ul,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6{
+            margin: 0;
+        }
+        ul,ol{
+            padding: 0;
+            list-style:none;
+        }
+        h1,h2,h3,h4,h5,h6{
+            font-weight:normal;
+        }
+        a{
+            text-decoration:none;
+        }
+        html{
+            height:100%;
+        }
+        body{
+            height:100%;
+            background:url("./imgs/bg1.jpg") no-repeat center/cover;
+            overflow:hidden;
+        }
+        .btn,.btn:before{
+            width: 205px;
+            height: 205px;
+            background:url("./imgs/1.png") 206px -153px;
+        }
+        .btn{
+            margin:200px auto;
+            cursor:pointer;
+        }
+        .btn:before{
+            content:'';
+            display:block;
+        }
+        .btn:hover:before{
+            animation:shake .3s infinite;
+        }
+        @keyframes shake{
+            100%{
+                transform:scale(1.4);
+                opacity:.2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="btn"></div>
+</body>
+</html>

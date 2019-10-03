@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vuex-getter</title>
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vuex@2.0.0"></script>
+		<script>
+			const store = new Vuex.Store({
+				state:{
+					todos:[
+						{id:1,text:"学习Vuex",done:true},
+						{id:2,text:"学习React",done:false},
+						{id:3,text:"学习React-Native",done:false}
+					]
+				},
+				getters:{
+					doneTodos:(state,getters) => {
+						return state.todos.filter(todo => todo.done);
+					},
+					falseTodos:state => {
+						return state.todos.filter(todo => !todo.done);
+					},
+					getTodoById:state => {
+						return (id) => {
+							return state.todos.find(todo => todo.id === id);
+						}
+					}
+				}
+			})
+			const myComponent = Vue.component("my-component",{
+				data(){
+					return{
+						completedList:this.$store.getters.doneTodos,
+						unCompletedList:this.$store.getters.falseTodos
+					}
+				},
+				template:`
+				<div>
+					Hello,World!
+					<h5>已经学完的</h5>
+					<ul>
+						<li v-for="(item,index) in this.$store.getters.doneTodos" :key="index">
+							{{item.text}}
+						</li>
+					</ul>
+					<h5>没有学完的</h5>
+					<ul>
+						<li v-for="(item,index) in this.$store.getters.falseTodos" :key="index">
+							{{item.text}}
+						</li>
+					</ul>
+					<h5>查找id为1的项</h5>
+					<p>{{this.$store.getters.getTodoById(2)}}</p>
+				</div>`,
+				mounted(){
+					console.log(this.completedList,this.unCompletedList);
+				},
+			});
+			new Vue({
+				el:"#app",
+				store,
+				components:{
+					"my-component":myComponent
+				}
+			})
+		</script>
+	</body>
+</html>

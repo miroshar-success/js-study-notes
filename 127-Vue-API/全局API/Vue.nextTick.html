@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue.nextTick</title>
+	</head>
+	<body>
+		<div id="demo">{{message}}</div>
+		<div id="app">
+			<example></example>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el:"#demo",
+				data:{
+					message:"Hello World!"
+				}
+			});
+			vm.message = "new message";
+			console.log(vm.$el.innerText);	// Hello World;	还未更新
+			console.log(vm.$el.textContent);	// Hello World;
+			vm.$nextTick(()=>{
+				console.log(vm.$el.textContent);	// new message
+			});
+			
+			const example = Vue.component("example",{
+				template:"<div><p class='text'>{{message}}</p><button @click='updateMsg'>更新数据</button></div>",
+				data(){
+					return{
+						message:"未更新"
+					}
+				},
+				methods:{
+					updateMsg(){
+						this.message = "已更新",
+						console.log(this.$el.innerText);
+						this.$nextTick(()=>{
+							console.log(this.$el.innerText);
+						})
+					}
+				}
+			});
+			new Vue({
+				el:document.getElementById("app"),
+				components:{
+					example
+				}
+			})
+		</script>
+	</body>
+</html>

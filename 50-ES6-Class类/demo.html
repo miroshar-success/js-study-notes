@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Class继承</title>
+</head>
+<body>
+    <script>
+        class Point{
+            constructor(x,y){
+                this.x = x;
+                this.y = y;
+            }
+            toString() {
+                return this.x + this.y;
+            }
+        }    
+        class ColorPoint extends Point{
+            constructor(x,y,color){
+                super(x,y);
+                this.color = color;
+            }
+            toString() {
+                console.log( this.color + ' ' + super.toString() );
+            }
+        }
+        let color = new ColorPoint(1,2,'red');
+        color.toString();   // 'red' 3
+
+        let cp = new ColorPoint(25,8,'green');
+        console.log( cp instanceof ColorPoint );    // true
+        console.log( cp instanceof Point);          // true
+
+        class A{
+            static hello(){
+                console.log('Hello World');
+            }
+        }
+        class B extends A{}
+
+        B.hello();  // Hello
+
+        function Animal(name){
+            this.name = name;
+        }
+        Animal.prototype.say = function(){
+            console.log('喵喵');
+        }
+        let cat = new Animal('小花');
+        cat.say();
+        console.log( cat instanceof Animal );   // true
+
+        // Object.getPrototypeOf()  
+        console.log( Object.getPrototypeOf(cat) === Animal );   // false
+        console.log( Object.getPrototypeOf(ColorPoint) === Point);  // true
+        
+        // 子类的构造函数,必须先执行一个super函数
+
+        class Player {
+            sayName(){
+                console.log(this.name);
+            }
+        }
+
+        class Kyrie extends Player{
+            constructor(name){
+                super();
+                this.name = name;
+            }
+        }
+        let kyrie = new Kyrie('kyrie');
+        kyrie.sayName();    // kyrie
+        console.log( Kyrie.name );
+        console.log( Object.getPrototypeOf( Kyrie ) === Player );   // true
+
+        class X{
+            constructor(){
+                console.log( new.target.name );
+            }
+        }
+        class Y extends X{
+            constructor(){
+                super();
+            }
+        }
+        new X();    // x
+        new Y();    // y
+        
+
+        class Foo {
+            say(){
+                console.log('Hello World!');
+            }
+        }
+        class Bar extends Foo{
+            constructor() {
+                super();
+                super.say();
+            }
+        }
+        let bar = new Bar();    // Hello World!
+
+
+        function Car(name){
+            this.name = name;
+            this.getColor = function(){
+                console.log('红色');
+            }
+        }
+        Car.prototype.sayName = function(){
+            console.log(this.name);
+        }
+        let car = new Car('奔驰');
+        car.sayName();  // 奔驰
+        car.getColor(); // 红色
+
+
+        // class M{
+        //     constructor(){
+        //         this.p = 2;
+        //     }
+        // }
+        // class N extends M{
+        //     m(){
+        //         console.log(super.p);
+        //     }
+        // }
+        // let n = new N();
+        // n.m();  // undefined
+        class M {};
+        M.prototype.x = 2;
+
+        class N extends M{
+            constructor(){
+                super();
+                console.log(super.x);
+            }
+        }
+        let n = new N();    // 2
+
+        class E{
+            constructor(){
+                this.e = 5;
+            }
+        }
+        class F extends E{
+            constructor(){
+                super();
+                console.log(super.p);
+            }
+        }
+        let f = new F();    // undefined
+
+
+        class P {}
+        P.prototype.name = 'p';
+
+        class Q extends P{
+            constructor(){
+                super();
+                console.log(super.name);
+            }
+        }
+        let q = new Q();    // p
+        
+
+        class Map{
+            p(){
+                console.log(2);
+            }
+        }
+        class NaNa extends Map{
+            constructor(){
+                super();
+                super.p();
+            }
+        }
+        let nan = new NaNa();   // 2;
+
+        class Irving{};
+        Irving.prototype.name = 'kyrie irving';
+
+        class small extends Irving{
+            constructor(){
+                super();
+                console.log(super.name);
+            }
+        }
+        let s = new small();
+
+
+        class Phone {
+            constructor(){
+                this.x = 1;
+            }
+            print(){
+                console.log(this.x);
+            }
+        }
+        class Apple extends Phone{
+            constructor(){
+                super();
+                this.x = 2;
+
+            }
+            m(){
+                super.print();
+            }
+        }
+        let apple = new Apple();
+        apple.m();  // 2
+        
+        class Message{
+            constructor(){
+                this.x = 2;
+            }
+        }
+        class Msg extends Message{
+            constructor(){
+                super();
+                this.x = 3;
+                super.x = 3;
+                super.name = 'kyrie';
+                console.log(this.name); // undefined
+                console.log(super.name);    // undefined
+                console.log(super.x);   // undefined
+                console.log(this.x);    // 3
+            }
+        }
+        let msg = new Msg();
+
+
+        // class Parent {
+        //     static myMethod(msg){
+        //         console.log('static',msg);
+        //     }
+        //     myMethod(msg){
+        //         console.log('instance',msg);
+        //     }
+        // }
+        // class Child extends Parent{
+        //     static myMethod(msg){
+        //         super.myMethod(msg);
+        //     }
+        //     myMethod(msg){
+        //         super.myMethod(msg);
+        //     }
+        // }
+        // Child.myMethod(1);  // static 1
+        // let child = new Child();
+        // child.myMethod(2);  // instance 2
+
+
+        class Parent{
+            constructor(){
+                this.msg = 'message';
+            }
+            myMethod(){
+                console.log(this.msg);
+            }
+        }
+        class Child extends Parent{
+            constructor(){
+                super();
+                this.msg = 'msg';
+            }
+            printMsg(){
+                super.myMethod();
+            }
+        }
+        let child = new Child();
+        child.printMsg();   // message
+
+
+        class Father{
+            constructor(){
+                this.x = 1;
+            }
+            static print(){
+                console.log(this.x);
+            }
+        }
+        class Son extends Father{
+            constructor(){
+                super();
+                this.x = 2;
+            }
+            static m(){
+                super.print();
+            }
+        }
+        Son.x = 3;
+        Son.m();    // 3 
+
+        class AA{}
+        class BB extends AA{}
+
+        console.log( BB.__proto__ == AA );  // true
+        console.log( BB.prototype.__proto__ == AA.prototype);   // true
+
+        console.log(typeof BB); // function
+        console.log(typeof AA); // function
+
+
+    </script>
+</body>
+</html>

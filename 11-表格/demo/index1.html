@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表格作业——一</title>
+    <style>
+        body{
+            background-color:#ddd;
+            margin: 0;
+        }
+        table th,table td{
+            padding: 0;
+        }
+        table{
+            margin:50px auto;
+            width: 700px;
+            height: 404px;
+            background-color:#fff;
+        }
+        table th{
+            background-color:#4f81bd;
+            color:#fff;
+            height:42px;
+        }
+        tbody tr:nth-of-type(2n+1){
+            background-color:#d0d8e8;
+        }
+        table td{
+            height:32px;
+            text-indent:.5em;
+        }
+        tbody tr:nth-of-type(2n+1) td:nth-of-type(1){
+            text-align:center;
+        }
+        tbody tr:nth-of-type(2n){
+            background-color:#e9edf4;
+        }
+        tbody tr:nth-of-type(7),tbody tr:nth-of-type(8),tbody tr:nth-of-type(9){
+            background-color:#d0d8e8;
+        }
+        tbody tr:nth-of-type(2) td{
+            font-size:13px;
+            height:62px;
+        }
+        tbody tr:nth-of-type(9) td:nth-of-type(1){
+            text-align:left;
+        }
+        table th,table td{
+            border-spacing:1px 1px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">《课程一》静态网站开发</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>第一章</td>
+                <td>《基础班》开学典礼</td>
+            </tr>
+            <tr>
+                <td colspan="2">《互联网概述|什么是网站|什么是网页|构成网页的元素|网站只做流程讲解|怎么样才能学好拿高薪|WEB前端开发
+                    职业的前途|WEB前端开发课程目标及）
+                </td>
+            </tr>
+            <tr>
+                <td>第二章</td>
+                <td>HTML常用标签+背景</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td>第三章</td>
+                <td>元素选择符+背景</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">第四章</td>
+                <td>css样式(Font+Text)+特殊符号</td>
+            </tr>
+            <tr>
+                <td>特殊符号</td>
+            </tr>
+            <tr>
+                <td>(Font+Text)</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

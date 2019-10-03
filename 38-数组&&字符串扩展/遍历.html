@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数组遍历的方法</title>
+	</head>
+	<body>
+		<script>
+			let age = [2,4,6,8];
+			age.forEach((item,index,arr) => {
+				age[index] = item/2;
+			});
+			console.log(age);
+			
+			let ages = [2,3,4,5];
+			age.forEach(function(item,index,array){
+				if(item%2 === 0) return;
+				console.log(item);	// 1 3
+			})
+			
+			/*
+			ages.forEach(function(item,index,array){
+				if(item%2 === 0){
+					break;	// 报错
+				}
+				console.log(item);
+			}) */
+			
+			
+			function isBigEnough(element,index,array){
+				return element >= 10;
+			}
+			console.log( [12,5,8,130].every(isBigEnough) );	// false
+			
+			
+			let array = [1,2,3,4,5];
+			console.log( array.some(function(value,index,array){
+				return value > 4;
+			}) );	// true
+			
+			
+			
+			let words = ['spray','limit','elite','exuberant','destruction','present'];
+			const result = words.filter( item => {
+				return item.length > 6;
+			} )
+			console.log(result);	//  ["exuberant", "destruction", "present"]
+			
+			
+			var numbers = [1,4,9,16];
+			const number = numbers.map(item => {
+				return Math.sqrt(item);
+			})
+			console.log(number);	// [1,2,3,4]
+			
+			
+			// reduce 将数组按 不同的 value值区分
+			var people = [
+				{name:'Alice',age:21},
+				{name:'Max',age:20},
+				{name:'Jane',age:20}
+			]
+			/*
+			{ 
+			  20: [
+			    { name: 'Max', age: 20 }, 
+			    { name: 'Jane', age: 20 }
+			  ], 
+			  21: [{ name: 'Alice', age: 21 }] 
+			}
+			*/
+			function peopleGroup(arr,prop){
+				return arr.reduce((initialValue,accumulator) => {
+					var key = accumulator[prop]; 
+					if(!initialValue[key]){
+						initialValue[key] = [];
+					}
+					initialValue[key].push(accumulator);
+					return initialValue;
+				},{});
+			}
+			
+			let newPeople = peopleGroup(people,'age');
+			console.log(newPeople);
+			
+			
+			let colors = ['red','blue','yellow'];
+			console.log(colors.keys());
+			console.log(colors.entries());
+			console.log(colors.values());
+			for(let key of colors.keys()){
+				console.log(key);	// 0 1 2
+			}
+			for(let value of colors.values()){
+				console.log(value);	// red blue yellow
+			}
+			for(let [key,value] of colors.entries()){
+				console.log(key,value);	
+				/*
+				0 "red"
+				1 "blue"
+				2 "yellow"
+				*/ 
+			}
+			
+			let obj = {
+				firstName:'kyrie',
+				lastName:'irving',
+				age:26
+			}
+			for(let key of Object.keys(obj)){
+				console.log(key);		// firstName lastName  age 
+			}
+			for(let value of Object.values(obj)){
+				console.log(value);	// kyrie  irving 26 
+			}
+			for(let [key,value] of Object.entries(obj)){
+				console.log(key,value);
+				/*
+				firstName kyrie
+				lastName irving
+				age 26
+				*/
+			}
+			
+			console.log(Array.prototype.length);	// 0
+			
+			
+			let res1 = [1,4,-5,10].find(n => n < 0);
+			console.log(res1);	// -5
+		
+			let res2 = [1,4,-5,10].find(n => n > 12);
+			console.log(res2);	// undefined
+			
+			let index1 = [1,4,-5,10].findIndex(n => n < 0);
+			let index2 = [1,4,-5,10].findIndex(n => n > 12);
+			console.log(index1,index2);	// 2 -1
+		
+		
+			let a = [2,17,22,16,30].find(n => n > 17)
+			console.log(a);	// 22
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Template • TodoMVC</title>
+	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	<link rel="stylesheet" href="src/static/css/app.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="node_modules/babel-standalone/babel.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<!--头部组件-->
+<script type="text/babel" src="components/head.jsx"></script>
+<!--主要组件-->
+<script type="text/babel" src="components/main.jsx"></script>
+<!--底部组件-->
+<script type="text/babel" src="components/footer.jsx"></script>
+<!--信息组件-->
+<script type="text/babel" src="components/info.jsx"></script>
+<!--入口文件-->
+<script type="text/babel" src="src/static/js/app.jsx"></script>
+<!--负责渲染的文件-->
+<script type="text/babel" src="src/index.js"></script>
+
+</body>
+</html>

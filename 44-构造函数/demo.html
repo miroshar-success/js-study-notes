@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>继承的种类</title>
+</head>
+<body>
+    <script>
+        function Father(){
+            this.name = 'Father';
+        }
+        Father.prototype = {
+            say(){
+                console.log(this.name+'say');
+            }
+        }
+
+        function Son(){
+            this.name = 'Son';
+        }
+        // Son.prototype = Father.prototype;
+        // Son.prototype.dance = function(){
+        //     console.log(this.name + 'dance');
+        // }
+        let son = new Son();
+        let father = new Father();
+
+        // father.say();
+        // son.say();
+        // father.dance();
+
+        console.log( typeof Father.prototype ); // object
+        console.log(Father.prototype.__proto__.constructor);    // Object
+        
+        function Kyrie(){
+            this.name = 'kyrie';
+            this.age = 26;
+        }
+        Kyrie.prototype = {
+            skill1(){
+                console.log('crossover');
+            }
+        }
+
+        function Lebron(){
+            this.name = 'lebron james';
+            this.age = 34;
+        }
+        Lebron.prototype = new Kyrie;
+
+        Lebron.prototype.skill2 = function(){
+            console.log('dunk');
+        }
+        let lebron = new Lebron();
+        let kyrie = new Kyrie();
+        console.log(lebron);
+        lebron.skill1();
+        lebron.skill2();
+
+
+        // Player.prototype.skill = function(){
+        //     console.log('crossover');
+        // }
+        // Player.prototype.handle = function(){
+        //     console.log('dunk');
+        // }
+        
+        function ClassA(){
+            this.name = '我是函数a';
+            this.method = 'say';
+        }
+        ClassA.prototype = {
+            say(){
+                console.log(`我是函数${this.name}`);
+            }
+        }
+        function ClassB(){
+            this.name = '我是函数b';
+        }
+        // ClassB.prototype = ClassA.prototype;
+
+        // let a = new ClassA();
+        // let b = new ClassB();
+
+        // b.say();    // 我是函数b
+        // a.say();    // 我是函数a
+        // console.log( a.method );    // say
+        // console.log( b.method );    // undefined
+        // console.log(typeof ClassA.prototype);   // object
+
+        ClassB.prototype = new ClassA();
+
+        let a = new ClassA();
+        let b = new ClassB();
+
+        a.say();    // 我是函数a
+        b.say();    // 我是函数b
+        console.log( a.method );    // say
+        console.log( b.method );    // say
+
+        console.log(b.constructor); // Object
+
+        function Function(x,y){
+            this.a = x + y;
+        }
+        let fun = new Function(2,3);
+        console.log(fun);
+
+        console.log(parseInt(''));  // NaN
+        console.log(parseInt(' ')); // NaN
+        console.log(Number(''));    // 0
+        console.log(Number(' '));   // 0
+
+        function Point(x,y){
+            this.x = x;
+            this.y = y;
+            this.cal = function(){
+                console.log(this.x * this.y);
+            }        
+        }
+        Point.prototype.add = function(){
+            console.log(this.x + this.y);
+        }
+        let p = new Point(3,4);
+        p.add();
+        p.cal();    // 12
+
+        console.log( Object.keys(Point.prototype) );
+
+        class Sum {
+            constructor(x,y){
+                this.x = x;
+                this.y = y;
+            }
+            add(){
+                console.log(this.x + this.y);
+            }
+        }
+        let num = new Sum(5,3);
+        num.add();  // 8
+        console.log( Object.keys(Sum.prototype) );
+        
+        console.log(typeof Sum);    // function
+        console.log(typeof Point);  // function
+
+        console.log(Point == Point.prototype.constructor);  // true
+
+        class Bar {
+            say(){
+                console.log('my name is bar');
+            }
+            sing(){
+                console.log('hello world');
+            }
+        }
+        let bar = new Bar();
+        bar.say();
+        bar.sing();
+
+        console.log(bar.constructor);
+        console.log(Bar.prototype);
+
+        for(let key in Bar.prototype){
+            console.log(key);
+        }
+        // for(let item of Bar.prototype){
+        //     console.log(item);
+        // }
+        // Bar.prototype    不可枚举属性
+
+        // class Calc {
+        //     constructor(a,b){
+        //         this.a = a;
+        //         this.b = b;
+        //     }
+            // add(){
+            //     console.log(this.a+this.b);
+            // }
+            // minus(){
+            //     console.log(this.a-this.b);
+            // }
+            // mul(){
+            //     console.log(this.a*this.b);
+            // }
+            // div(){
+            //     console.log(this.a/this.b);
+            // }
+        // }
+        // let number = new Calc(3,6);
+        // number.add();   // 9
+        // number.minus(); // -3
+        // number.mul();   // 18
+        // number.div();   // 0.5
+
+        // class Calc{
+        //     constructor(a,b){
+        //         this.a = a;
+        //         this.b = b;
+        //     }
+        // }
+        class Calc{
+            constructor(a,b){
+                this.a = a;
+                this.b = b;
+            }
+        };
+        console.log(Calc.prototype.constructor);
+
+        Calc.prototype.add = function(){
+            console.log(this.a+this.b);
+        }
+        Calc.prototype.minus = function(){
+            console.log(this.a-this.b);
+        }
+        Calc.prototype.mul = function(){
+            console.log(this.a*this.b);
+        }
+        Calc.prototype.div = function(){
+            console.log(this.a/this.b);
+        }
+
+        let number = new Calc(3,6);
+        number.add();
+        number.minus();
+        number.mul();
+        number.div();
+
+        class C {}
+        let c = new C();
+        console.log(c);
+        console.log(c.__proto__.constructor);
+        console.log(C.prototype.constructor);
+        console.log(c.__proto__ === C.prototype);   // true
+
+        // for(let item of Calc.prototype){
+        //     console.log(item);
+        // }
+        // 
+        for(let key in Calc.prototype){
+            console.log(key);
+        }
+    </script>
+</body>
+</html>

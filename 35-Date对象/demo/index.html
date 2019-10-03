@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时间对象</title>
+    <style>
+        body,ul,ol,p{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            display:block;
+            outline:none;
+            margin:10px auto 0;
+            width: 400px;
+            height: 30px;
+            border:1px solid #ccc;
+            color:#b9b4af;
+            background-color:#ededed;
+            text-align:center;
+            line-height:30px;
+            cursor:not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="time"></div>
+    <button class='box'>
+        <span class='txt'>请认真阅读服务条款和声明</span>
+        <span class='count'></span>
+    </button>
+    <script>
+        /*功能:在页面上获取现在的时间*/
+        var oTime = document.querySelector('.time');
+        function currentTime(){
+            setInterval(function(){
+                let time = new Date(),
+                [h,m,s] = [time.getHours(),time.getMinutes(),time.getSeconds()];
+                oTime.innerHTML = h + '时:' + m + '分:' + s + '秒';
+            },1000/60);
+        }
+        currentTime();
+        
+        /*倒计时功能
+            1. 按钮右边有时间倒计时，设置的时间为5s
+            2. 当5s时间过后,修改按钮里面的内容为'我已阅读',并修改字体颜色
+            3. 倒计时完成后修改鼠标指针样式并可以触发点击事件，结束前cursor为不可点击的状态
+        */
+        (function(){
+            let oBox = document.querySelector('.box'),
+            oCount = document.querySelector('.count');
+            let i = 5;
+            oCount.innerHTML = '(5s)';
+            var Timer = setInterval(function(){
+                i--;
+                oCount.innerHTML = '(' + i + 's)';
+                if(i == -1){
+                    clearInterval(Timer);
+                    oBox.style.cursor = 'pointer';
+                    oBox.innerText = '我已阅读';
+                    oBox.addEventListener('click',function(e){
+                        e = e || window.e;
+                        alert('提交成功');
+                    },false);
+                }
+            },1000);
+        })();
+    </script>
+</body>
+</html>

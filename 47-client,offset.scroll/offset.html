@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>获取元素的宽高</title>
+		<style>
+			html,body,p,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			.big{
+				position:relative;
+				margin-left:100px;
+				padding:10px;
+				width:300px;
+				height:300px;
+				border:1px solid #000;
+			}
+			.small{
+				position:absolute;
+				left:30px;
+				top:20px;
+				padding:10px;
+				margin:10px;
+				border:5px solid red;
+				width:50px;
+				height:50px;
+				background-color:black;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="big">
+			<div class="small"></div>
+		</div>
+		<script>
+			function _$(el){
+				return document.querySelector(el);
+			}
+			// offsetTop 此时big 设置了 position:relative;
+			console.log("offsetTop",_$(".small").offsetTop);	// 30
+			console.log("offsetParent",_$(".small").offsetParent);	// bigElement
+			
+			// 如果big没有position:relative;
+			console.log("offsetParent",_$(".small").offsetParent);	// body
+			
+			// 如果当前元素的style.position 为fixed,
+			console.log("offsetParent",_$(".small").offsetParent);
+			
+			
+			// offsetLeft
+			console.log("offsetLeft",_$(".small").offsetLeft);
+			
+			// offsetWidth
+			console.log("offsetWidth",_$(".small").offsetWidth);	// 80
+			// offsetHeight
+			console.log("offsetHeight",_$(".small").offsetHeight);	// 80
+			
+			console.log(_$(".small").getBoundingClientRect());
+			
+		</script>
+	</body>
+</html>

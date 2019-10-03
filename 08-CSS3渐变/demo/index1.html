@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>渐变作业 —— 一</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .container{
+            margin:20px auto;
+            width: 400px;
+            height: 400px;
+            border-radius:50%;
+            border:2px solid #010101;
+            background:radial-gradient(circle at 35px 35px,#000 35px,#fff 35px) no-repeat 165px 65px/70px 70px,
+            radial-gradient(circle at 35px 35px,#fff 35px,#000 35px) no-repeat 165px 265px/70px 70px,
+            radial-gradient(circle at 100px 100px, #fff 100px,rgba(255,255,255,0) 100px) no-repeat top center/200px 200px,
+            radial-gradient(circle at 100px 100px,#000 100px,rgba(255,255,255,0) 100px) no-repeat bottom center/200px 200px,
+            linear-gradient(90deg, #000 50%,#fff 50%);   
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+</body>
+</html>

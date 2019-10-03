@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React-ToggleList</title>
+    <style>
+        body{
+            text-align:center;
+        }
+        body,ul,ol,h4{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        h4,ul{
+            user-select:none;
+            cursor:pointer;
+        }
+        h4{
+            background-color:#ccc;
+            line-height:30px;
+        }
+        ul{
+            background-color:skyblue;
+        }
+        ul>li{
+            line-height:30px;
+        }
+        ul>li:hover{
+            background-color:pink;
+        }
+        #app{
+            margin:10px auto;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="node_modules/babel-standalone/babel.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="./data.js"></script>
+<script type="text/babel">
+    class App extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                data:friendList,
+                arr:[true,false,false]
+            }
+            this.handleToggle = this.handleToggle.bind(this)
+        }
+        handleToggle(index){
+            console.log(index);
+            let flag = this.state.arr;
+            flag[index] = !this.state.arr[index];
+            this.setState({
+                state:flag
+            })
+        }
+        render(){
+            console.log(this.state.data);
+            return(
+                <div>
+                    {
+                        Object.keys(this.state.data).map((item,index)=>{
+                            return (
+                                <section key={index}>
+                                    <h4
+                                        onClick={this.handleToggle.bind(this,index)}
+                                        >
+                                        {this.state.data[item].category}
+                                    </h4>
+                                    {
+                                        this.state.arr[index] && (
+                                            <ul>
+                                                {
+                                                    this.state.data[item].list.map((value,index)=>{
+                                                        return(
+                                                            <li key={index}>{value.name}</li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        )
+                                    }
+                                </section>
+
+                            )
+                        })
+                    }
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.querySelector("#app")
+    )
+</script>
+</body>
+</html>

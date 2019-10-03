@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>粘性布局</title>
+	</head>
+	<style>
+		body,dl,dd{
+			padding: 0;
+			margin: 0;
+		}
+		.container{
+			margin:10px auto 0;
+			width:300px;
+			height:300px;
+			overflow-y:auto;
+		}
+		dl>dt{
+			position:sticky;
+			position:-weibkit-sticky;
+			top:0;
+			line-height:30px;
+			font-weight:bold;
+			font-size:20px;
+			background-color:#f1f1f1;
+		}
+		dl>dd{
+			height:40px;
+			line-height:40px;
+			text-indent:1em;
+			border-bottom:1px solid #ccc;
+		}
+		.title{
+			text-align:center;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<h4 class="title">联系人列表</h4>
+		  <dl>
+			<dt>A</dt>
+			<dd>Andrew W.K.</dd>
+			<dd>Apparat</dd>
+			<dd>Arcade Fire</dd>
+			<dd>At The Drive-In</dd>
+			<dd>Aziz Ansari</dd>
+		  </dl>
+		  <dl>
+			<dt>C</dt>
+			<dd>Chromeo</dd>
+			<dd>Common</dd>
+			<dd>Converge</dd>
+			<dd>Crystal Castles</dd>
+			<dd>Cursive</dd>
+		  </dl>
+		  <dl>
+			<dt>E</dt>
+			<dd>Explosions In The Sky</dd>
+		  </dl>
+		  <dl>
+			<dt>T</dt>
+			<dd>Ted Leo & The Pharmacists</dd>
+			<dd>T-Pain</dd>
+			<dd>Thrice</dd>
+			<dd>TV On The Radio</dd>
+			<dd>Two Gallants</dd>
+		  </dl>
+		</div>
+	</body>
+</html>

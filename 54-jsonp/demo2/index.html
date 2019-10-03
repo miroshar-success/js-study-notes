@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax获取数据并渲染</title>
+    <style>
+        body,ul,ol,p{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .list{
+            margin:10px auto 0;
+            width: 1150px;
+            height:620px;
+            border:1px solid #ccc;
+        }
+        .list>li{
+            padding:10px;
+            float:left;
+            width: 210px;
+            height: 280px;
+        }
+        .list>li .title{
+            text-align:center;
+            color:red;
+        }
+        .list>li img{
+            border-radius:5px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list"></ul>
+    <script>
+        let oList = document.querySelector('.list');
+        let url = 'http://comics.apiaz.cn/api/v1/book_list';
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET',url,true);
+        xhr.send(null);
+
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                var data = JSON.parse(xhr.responseText).list;
+                console.log(data);
+                let fragment = document.createDocumentFragment();
+                data.forEach(function(item){
+                    let oLi = document.createElement('li');
+                    oLi.innerHTML = `
+                        <p class='title'>${item.title}</p>
+                        <a href=''><img src='${item.cover}' width='210' height='280' title=${item.description}></a>
+                    `;
+                    fragment.appendChild(oLi);
+                })
+                oList.appendChild(fragment);
+            }   
+        }
+    </script>
+</body>
+</html>

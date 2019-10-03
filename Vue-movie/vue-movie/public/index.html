@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+	<link rel="stylesheet" href="<%= BASE_URL %>common/reset.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1242223_vloail4g0f.css">
+    <title>vue-movie</title>
+		<style>
+			#app{
+				display:flex;
+			}
+			#app .loading{
+					margin:auto;
+			}
+		</style>
+		<script>
+			(function(){
+				remChange();
+				function remChange(){
+						//  在设计稿为 750px下,1rem = 100px;
+						let baseWidth = 750;
+						let html = document.querySelector("html");
+						let deviceWidth = html.getBoundingClientRect().width;
+						let rem = deviceWidth / baseWidth * 100;
+						html.style.fontSize = rem + "px";
+				}
+				window.addEventListener("resize",remChange,false);
+			})()
+		</script>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but vue-movie doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app">
+			<p class="loading">正在努力加载中...</p>
+		</div>
+  </body>
+</html>

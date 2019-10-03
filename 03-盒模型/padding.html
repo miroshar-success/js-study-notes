@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>padding</title>
+		<style>
+			body,h3,h4{
+				margin: 0;
+				padding: 0;
+			}
+			.title{
+				background-color:green;
+				padding:50px 20px 20px 50px;
+			}
+			.text{
+				background-color:blue;
+				padding:40px 50px 50px 40px;
+			}
+			.box{
+				width:0;
+				height:0;
+				padding:20px;
+				background-color:red;
+			}
+			.content{
+				width:100px;
+				height:200px;
+				padding-left:10%;	
+				padding-top:10%;
+				overflow:hidden;
+				background-color:pink;
+			}
+			.father{
+				width:150px;
+				height:200px;
+				border:1px solid #000;
+			}
+			.son{
+				width:30px;
+				height:30px;
+				padding-left:10%;
+				padding-top:10%;
+				background-color:skyblue;
+			}
+			span{
+				line-height:50px;
+				padding:10px;
+				margin-top:10px;
+			}
+			img{
+				margin-top:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h4 class="title">Hello World!</h4>
+		<h3 class="text">The padding is different in this line.</h3>
+		<div class="box"></div>
+		<div class="content">
+			指定一个值时 该值指定四个边的内边距
+			指定两个值时 第一个值指定上下两边的内边距 第二个指定左右两边的内边距
+			指定三个值时 第一个指定上边的内边距.第二个指定左右两边 第三个指定下边
+			指定四个值时分别为上 右 下 左（顺时针顺序）
+		</div>
+		<div class="father">
+			<div class="son"></div>
+		</div>
+		<span>我是行内元素</span>
+		<img src="http://img3.imgtn.bdimg.com/it/u=802493941,3970098876&fm=26&gp=0.jpg" alt="">
+	</body>
+</html>

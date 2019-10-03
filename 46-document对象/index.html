@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>document对象</title>
+    <style>
+        body,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .img{
+            width: 400px;
+        }
+        .parent{
+            position:relative;
+            width: 500px;
+            height: 500px;
+            background-color:red;
+            margin-left:100px;
+        }
+        .parent>.son{
+            position:absolute;
+            left:150px;
+            top:50px;
+            width: 100px;
+            height: 100px;
+            background-color:pink;
+        }
+    </style>
+    <!-- <script>
+        let d = document.getElementsByTagName('ul')[0];
+        console.log(d); // undefined
+    </script> -->
+</head>
+<body>
+    <div id="box"></div>
+    <ul class="list">
+        <li class='item1'>1</li>
+        <li class='item2'>2</li>
+        <li class='item3'>3</li>
+    </ul>
+    <ul class="mylist">
+        <li>Coffee</li>
+        <li>Milk</li>
+    </ul>
+    <a href="http://www.baidu.com" target="_blank">百度</a>
+    <img src="http://b-ssl.duitang.com/uploads/item/201411/02/20141102145745_MZURW.jpeg" alt="" class='img'>
+    <ul id="b-list"></ul>
+    <h1 class='title'>我是一级标题</h1>
+
+    <div class="box1">我是box1</div>
+    <ul class="children">
+        <li class='item1'>我是第一个子元素</li>
+        <li class='item2'>我是第二个子元素</li>
+        <li class='item3'>我是第三个子元素</li>
+    </ul>
+    <div class="parent">
+        我是父亲
+        <div class="son">我是儿子</div>
+    </div>
+    <form action="" id='myForm'>
+        <input type="text" value='我是表单'>
+    </form>
+    <form action="">
+        <select name="" id="">
+            <option>Hello</option>
+            <option>World</option>
+        </select>
+    </form>
+    <ul class="big">
+        <li>Hello</li>
+        <li>World</li>
+    </ul>
+    <div id="father">我是父亲</div>
+    <script src='./index.js'></script>
+</body>
+</html>

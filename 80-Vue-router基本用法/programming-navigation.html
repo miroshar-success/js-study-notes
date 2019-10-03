@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编程式导航</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			.list{
+				line-height:40px;
+				background-color:pink;
+				display:flex;
+			}
+			li{
+				list-style:none;
+				display:inline-block;
+				flex:1;
+				text-align:center;
+			}
+			.content{
+				margin:10px auto;
+				width:500px;
+				height:500px;
+				border:1px solid #f00;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul class="list">
+<!-- 				<router-link tag="li" to="/apple">苹果</router-link>
+				<router-link tag="li" to="/mi">小米</router-link>
+				<router-link tag="li" to="/huawei">华为</router-link> -->
+				<li @click="goToApple">苹果</li>
+				<li @click="goToMi">小米</li>
+				<li @click="goToHuawei">华为</li>
+			</ul>
+			<router-view class="content"></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const Apple = Vue.component("apple",{
+				template:`<div>
+					<p>苹果公司（Apple Inc. ）是美国一家高科技公司。由史蒂夫·乔布斯、斯蒂夫·沃兹尼亚克和罗·韦恩(Ron Wayne)等人于1976年4月1日创立，
+					并命名为美国苹果电脑公司（Apple Computer Inc. ），2007年1月9日更名为苹果公司，总部位于加利福尼亚州的库比蒂诺。</p>
+				</div>`
+			});
+			const Mi = Vue.component("mi",{
+				template:`<div>
+					<p>
+					北京小米科技有限责任公司成立于2010年3月3日 [1]  ，是一家专注于智能硬件和电子产品研发的移动互联网公司，同时也是一家专注于高端智能手机、
+					互联网电视以及智能家居生态链建设的创新型科技企业。 [2]  小米公司创造了用互联网模式开发手机操作系统、发烧友参与开发改进的模式。
+					</p>
+				</div>`
+			});
+			const Huawei = Vue.component("huawei",{
+				template:`<div>
+					<p>华为技术有限公司是一家生产销售通信设备的民营通信科技公司，于1987年正式注册成立，总部位于中国广东省深圳市龙岗区坂田华为基地。 [1]  
+					华为是全球领先的信息与通信技术（ICT）解决方案供应商，专注于ICT领域，坚持稳健经营、持续创新、开放合作，在电信运营商、企业、终端和云计算等
+					领域构筑了端到端的解决方案优势，为运营商客户、企业客户和消费者提供有竞争力的ICT解决方案、
+					产品和服务，并致力于实现未来信息社会、构建更美好的全联接世界。2013年，华为首超全球第一大电信设备商爱立信，
+					排名《财富》世界500强第315位。</p>
+				</div>`
+			})
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/apple",
+						component:Apple
+					},
+					{
+						path:"/mi",
+						component:Mi
+					},
+					{
+						path:"/huawei",
+						component:Huawei
+					}
+				]
+			})
+			new Vue({
+				el:"#app",
+				router,
+				mounted(){
+					console.log(this.$router);
+				},
+				methods:{
+					goToApple(){
+						this.$router.push("/apple");
+					},
+					goToMi(){
+						this.$router.push("/mi");
+					},
+					goToHuawei(){
+						this.$router.push("/huawei");
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

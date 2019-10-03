@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rem适配方案</title>
+    <script>
+        (function(){
+            remChange();
+            window.addEventListener("resize",remChange,false);
+            function remChange(){
+                let html = document.querySelector("html");
+                let oWidth = html.getBoundingClientRect().width;
+                html.style.fontSize = oWidth/10 + "px";
+            }
+        })()
+    </script>
+    <style>
+        body,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .live .top>li:nth-of-type(1){
+            width:6.67rem;
+        }
+        .live li{
+            float:left;
+            height:3.33rem;
+        }
+        .live .top>li:nth-of-type(2),.live .bottom>li{
+            height:3.33rem;
+            width:3.33rem;
+        }
+        .live li>img{
+            width:100%;
+            height:100%;
+            display:block;
+        }
+    </style>
+</head>
+<body>
+<div class="live">
+    <ul class="top">
+        <li><img src="./imgs/1.jpg" alt=""></li>
+        <li><img src="./imgs/2.jpg" alt=""></li>
+    </ul>
+    <ul class="bottom">
+        <li><img src="./imgs/3.jpg" alt=""></li>
+        <li><img src="./imgs/4.jpg" alt=""></li>
+        <li><img src="./imgs/5.jpg" alt=""></li>
+    </ul>
+</div>
+
+</body>
+</html>

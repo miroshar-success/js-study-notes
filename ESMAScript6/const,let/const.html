@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>const</title>
+	</head>
+	<body>
+		<script>
+			// 一 声明一个常量,一旦声明,常量的值就不能改变.并且一旦声明就必须立即初始化,不能留到以后赋值
+			const PI = 3.1415;
+			console.log(PI);
+			
+			// 二 只在所在的块级作用域内有效.无变量提升,存在暂时性死区
+			/*var message = "Hello"
+			let age = 25
+			
+			const message = "Goodbye"
+			const age = 30 */
+			
+			// const保证的是变量指向的那个内存地址所保存的数据不得改动
+			const foo = {};
+			foo.firstName = "kyrie"
+			foo.lastName = "irving";
+			console.log(foo);
+			
+			const a = [];
+			a.push("kyrie");
+			console.log(a);
+			
+			// 顶层对象属性
+			function sayName(){
+				console.log("my name is kyrie");
+			}
+			console.log(window.sayName);
+			
+			
+			// let const class命令声明的全局变量,不属于顶层的对象,从ES6开始,全局变量将逐步与顶层对象的属性脱钩.
+			var b = 1;
+			console.log(window.b);
+			
+			let c = 1;
+			console.log(window.c);	// undefined
+		</script>
+	</body>
+</html>

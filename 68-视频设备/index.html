@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>调用视频设备</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<video src="" id='video'></video>
+		<script>
+			console.log(window.navigator);
+/*			window.navigator.getUserMedia({video:true,audio:true},function(data){
+				console.log(data);
+			},function(error){
+				console.log(error);
+				console.log(error.name);	// NotAll;owError
+				console.log(error.message);	// Permission denied
+			});
+*/
+/*		旧的调用视频/音频设备的方式
+		const videoElement = document.getElementById('video');
+		window.navigator.getUserMedia({video:true},function(MediaStream){
+			console.log(MediaStream);
+			videoElement.srcObject = MediaStream;
+			videoElement.play();
+		},function(err){
+			console.log(err);
+		})
+*/	
+	// 新的方式
+/*		window.navigator.mediaDevices.getUserMedia({
+			video:true,
+			audio:true
+		}).then(function(stream){
+			const videoElement = document.getElementById('video');
+			videoElement.srcObject = stream;
+			videoElement.play();
+			console.log(stream);
+		}).catch(function(error){
+			console.log(error);
+		});
+*/
+		
+		window.navigator.mediaDevices.getUserMedia({video:{
+			facingMode:'user'
+		}}).then( stream => {
+			console.log(stream);
+			const video = document.getElementById('video');
+			video.srcObject = stream;
+			video.play();
+		}).catch(err => {
+			console.log(err);
+		});
+		
+		console.log(window.navigator.mediaDevices.getUserMedia({audio:true}) );	// Promise{pending}
+
+		</script>
+	</body>
+</html>

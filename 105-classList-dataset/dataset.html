@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>dataset</title>
+</head>
+<body>
+<div class="item"></div>
+<button>设置dataset属性</button>
+<button>修改dataset属性</button>
+<button>setAttribute</button>
+<button>getAttribute</button>
+<script>
+    let oItem = document.querySelector(".item");
+    let aBtn = document.querySelectorAll("button");
+    aBtn[0].onclick = function(){
+        oItem.dataset.name = 'kyrie';
+    }
+    aBtn[1].onclick = function(){
+        // 在没有属性的时候会设置上,有属性的时候会覆盖
+        oItem.dataset.name = "irving";
+        oItem.dataset.age = 26;
+        console.log(oItem.dataset);
+    }
+    // setAttribute方法 和 getAttribute方法设置 ,前面需要加上 data-
+    aBtn[2].onclick = function(){
+        oItem.setAttribute("data-name","lebron");
+    }
+    aBtn[3].onclick = function(){
+        console.log (oItem.getAttribute("data-name") );
+    }
+
+</script>
+</body>
+</html>

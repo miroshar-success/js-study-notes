@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>setTimeout</title>
+	</head>
+	<body>
+		<script>
+			/*setTimeout(function(){
+				const myWindow = window.open("","","width=200,height=200");
+				myWindow.document.write('<p>这是一个新窗口</p>');
+			},2000);
+			*/
+		   
+		  /* setTimeout(function(){
+			   console.log("1");
+		   },0);
+		   console.log("2");
+		   
+		   // setTimeout的参数
+		   setTimeout((a,b)=>{
+			   console.log(a+b);
+		   },1000,1,2);
+		   
+		   // 关于this指向
+		   var x = 1;
+		   var obj = {
+			   x : 2,
+			   y: function(){
+				   console.log(this.x);
+			   }
+		   }
+		   setTimeout(obj.y,1000);	//1
+		   window.setTimeout(function(){
+			   obj.y();	// 2
+		   },1000);
+		   
+		   setTimeout(function(){
+			   console.log(this.x);	// 1
+		   },1000);
+		   
+		   
+		   function Animal(name){
+			   this.name = name;
+			   this.sayHi = function(){
+				   console.log(this.name);
+			   }
+		   }
+		   var dog = new Animal('John');
+		   console.log(dog);
+		   setTimeout(dog.sayHi,1000);
+		   
+		   window.setTimeout(function(){
+			   dog.sayHi();	// John;
+		   },1000);
+		   
+		   /*
+		   setTimeout(function(){
+			   console.log(1111);	// 这里控制台不会输出,因为主线程已经造成了死循环.
+		   });
+		   while(true){}   */
+		   
+		   // for(var i = 0; i < 5; i++){
+			  //  setTimeout(function(){
+				 //   console.log(i);	// 
+			  //  },i*1000);
+		   // }
+		   
+		   /*
+		   for(let i = 0; i < 5; i++){
+			   setTimeout(function() {
+				   console.log(i);
+			   },i*1000);
+		   }
+		   
+		   var a = [];
+		   for(var i = 0; i < 5; i++){
+			   a[i] = function(){
+				   console.log(i);
+			   }
+		   }
+		   a[3]()
+		   
+		   var b = [];
+		   for(let i = 0; i < 5; i++){
+			   b[i] = function(){
+				   console.log(i);
+			   }
+		   }
+		   b[3]()
+		   */
+		  
+		  /*
+		  for(let i = 0; i < 5; i++){
+			  setTimeout(function(){
+				  console.log(i);
+			  },i*1000);
+		  }
+		  
+		  for(var i = 0; i < 5; i++){
+			  setTimeout(function (i){
+				  console.log(i);
+			  }.bind(null,i),i*1000);
+		  }
+		  
+		  for(var i = 0; i < 5; i++){
+			  setTimeout(function(i) {
+				  console.log(i);
+			  },i*1000,i);
+		  }
+		  
+		  var loop = function (i) {
+		    setTimeout(function timer() {
+		      console.log(i);  
+		    }, i*1000);
+		  };
+		  for (var i = 0;i < 5; i++) {
+		    loop(i);
+		  }
+		  */
+		 
+		/*
+		demo 1
+		console.log("start");
+		
+		setTimeout(function() {
+			console.log("hello");
+		})
+		
+		setTimeout(function() {
+			console.log("world");
+		})
+		console.log('end');
+		*/
+	   
+	   
+		console.log("start");
+		setTimeout(function() {
+			console.log("hello");
+		},200);
+		
+		setTimeout(function(){
+			console.log("world");
+		},300);
+		
+		for(var i = 0; i < 1000; i++){
+			console.log(1000);
+		}
+	    
+		 setTimeout(function(){
+			 console.log("I am run");
+		 },100);
+		 
+		 console.log("end");
+		  
+		  
+		setInterval(function(){
+			console.log("setInterval");
+		},1000);
+		  
+		function run(){
+			setTimeout(function(){
+				console.log("setTimeout");
+				run();
+			},1000);
+		}
+		run();
+		
+		  
+		</script>
+	</body>
+</html>

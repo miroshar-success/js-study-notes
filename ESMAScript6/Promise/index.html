@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Promise</title>
+	</head>
+	<body>
+		<script>
+			/*
+			Promise构造函数接受一个函数作为参数,该函数的两个参数分别为resolve和reject。 
+			resolve 作用: 从pending--->resolved,在异步操作成功时调用并将异步操作的结果作为参数传递出去
+			reject  作用: 从pending--->rejected,在异步操作失败时调用并将异步操作报出的错误作为参数传递出去。
+			*/
+		   
+		   let p1 = new Promise(function(resolve,reject){
+			   setTimeout(()=>{
+					let m = Math.random();
+				   if(m>0.5){
+					   resolve("success"+m);
+				   }else{
+					   reject("failure"+m);
+				   }
+			   },100)
+		   })
+		   /*
+		   then方法可以接受两个回调函数作为参数。第一个回调函数是Promise对象的状态变为 resolved时调用，第二个回调函数是Promise
+		   对象的状态变为rejected时调用。 两个函数都接受Promise对象传出的值作为参数。
+		   */ 
+		   p1.then(function(value){
+			   console.log(value);
+		   },function(err){
+			   console.log(err);
+		   })
+		   
+		   p1.then(value=>{
+			   console.log(value);
+		   }).catch(err=>{
+			   console.log(err);
+		   })
+		   
+		   
+		   function timeout(ms){
+			   return new Promise(function(resolve,reject){
+				   setTimeout(resolve,ms,"done");
+			   })
+		   }
+		   timeout(100).then((value)=>{
+			   console.log(value);	// done
+		   })
+		   
+		   
+		   // Promise新建后就会立即执行, 下面的函数输出顺序为  Promise Hi resolved
+		   let promise = new Promise(function(resolve,reject){
+			   console.log("Promise");
+			   resolve();
+		   })
+			promise.then(function(){
+				console.log("resolved")
+			})
+		   console.log("Hi");
+		   
+		   
+		   /*
+			Promise.prototype.then() 
+		   Promise实例具有then方法,then方法定义在原型对象Promise.prototype上。then方法返回的是一个新的Promise实例
+		   可以采取链式写法,即then方法后面再调用另一个then方法。
+		   
+		   Promise.Prototype.catch()
+		   是.then(null,rejection) 或.then(undefined,rejection)的别名
+		   */
+		  
+		  
+			// Promise.prototype.finally() 不管Promise对象最后的状态如何,都会执行的操作.
+			let promise1 = new Promise(function(resolve,reject){
+				setTimeout(function(){
+					let a = Math.floor(Math.random()*100)
+					if(a>50){
+						resolve("success:"+a);
+					}else{
+						reject("failure:"+a);
+					}
+				},2000);
+			})
+			promise1.then(function(data){
+				console.log(data);
+			}).catch(function(err){
+				console.log(err);
+			}).finally(function(){
+				console.log("运行结束");
+			})
+			
+			/*
+			Promise.all() 方法用于将多个Promise实例,包装成一个新的Promise实例.
+			const p = Promise.all([p1,p2,p3])
+			*/
+		   const pro1 = new Promise(function(resolve,reject){
+			   setTimeout(()=>{
+				   resolve("我是第一个promise对象");
+			   },2000);
+		   });
+		   const pro2 = new Promise(function(resolve,reject){
+			   setTimeout(()=>{
+				   resolve("我是第二个promise对象");
+			   },1000);
+		   })
+		   const BigPromise = Promise.all([pro1,pro2])
+		   .then(function(data){
+			   console.log(data);
+		   });
+		   // tips: 如果作为参数的Promise实例,自己定义了catch方法,那么一旦被rejected,并不会触发Promise.all()的catch()方法
+		   let a1 = new Promise((resolve,reject)=>{
+			   resolve("hello");
+		   })
+		   .then(result => result)
+		   .catch(e => e)
+		   
+		   let a2 = new Promise((resolve,reject)=>{
+			   throw new Error("报错了");
+		   })
+		   .then(result => result)
+		   .catch(err => err);
+		   
+		   Promise.all([a1,a2]).then((result) => console.log(result))
+		   .catch(e => console.log(e));
+		   
+		   
+		   // 下例b2没有自己的 catch方法,会触发Promise.all() 的catch方法
+		   const b1 = new Promise((resolve,reject)=>{
+			   resolve("hello")
+		   })
+		   .then(result => result);
+		   
+		   const b2 = new Promise((resolve,reject)=>{
+			   throw new Error("报错了");
+		   })
+		   .then(result => result);
+		   
+		   Promise.all([b1,b2])
+		   .then(function(data){
+			   console.log(data);
+		   })
+		   .catch((err)=>{
+			   console.log(err);
+		   })
+		   
+		   // Promise.resolve() 方法将现有对象转为Promise对象.参数有四种情况
+		   /*
+		   1. Promise实例,那么Promise.resolve()将不做任何修改,原封不动地返回这个实例
+		   2. 参数是一个thenable对象
+		   3. 参数不是具有then方法的对象,或者不是对象
+		   4. 不带任何参数
+		   */
+		  // 2 参数是一个有 then 方法的对象.
+		   let thenable = {
+			   then:function(resolve,reject){
+				   resolve(42)
+			   }
+		   }
+		   Promise.resolve(thenable).then(function(value){
+			   console.log(value);		// 42
+		   })
+		   
+		   //3 参数没有then方法 或者根本就不是对象
+		   Promise.resolve("Hello").then(function(res){
+			   console.log(res);	// Hello 
+		   })
+		   
+		   // 没有then方法 
+		   let obj1 = {
+			   firstName:"kyrie",
+			   lastName:"irving",
+			   age:26,
+		   }
+		   Promise.resolve(obj1).then(data=>{
+			   console.log(data);	// {firstName: "kyrie", lastName: "irving", age: 26}
+		   })
+		   
+		   let obj2 = {
+			   firstName:"Kyrie",
+			   lastName:"Irving",
+			   age:26,
+			   then:function(resolve,reject){
+				   resolve(this.firstName+","+this.lastName);
+			   }
+		   }
+		   Promise.resolve(obj2).then(data=>{
+			   console.log(data);	// Kyrie Irving
+		   })
+		   
+		   // tips: 立即resolve()的Promise对象,是在"本轮"事件循环的结束时执行,而不是在下一轮事件循环 的开始时执行
+			setTimeout(function(){
+				console.log("three");
+			},0);
+			Promise.resolve("two").then(function(data){
+				console.log(data)
+			});
+			console.log("one");		// one two three
+			
+			
+			// Promise.reject()
+			/*
+			Promise.reject(reason)方法也会返回一个新的Promise实例,该实例的状态为rejected。
+			
+			tips:
+			Promise.reject()方法的参数,会原封不动地作为reject的理由
+			*/
+		   Promise.reject("出错了").then(null,function(res){
+			   console.log(res);	// "出错了"
+		   })
+		   
+		   const rejectObj = {
+			   then:function(resolve,reject){
+				   reject("重复的reason");
+			   }
+		   }
+		   Promise.reject(rejectObj).catch(function(err){
+			   console.log(rejectObj === err)	// true   此处err返回的就是 rejectObj对象
+		   })
+		</script>
+	</body>
+</html>

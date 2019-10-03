@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H5拖拽</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color:skyblue;
+            position:absolute;
+            left:100px;
+            top:100px;
+        }
+        .item{
+            position:absolute;
+            width: 100px;
+            height: 100px;
+            background-color:purple;
+            border-radius:50%;
+            user-select:none;
+            text-align:center;
+            line-height:100px;
+        }
+        .container{
+            margin:20px auto 0;
+            width: 200px;
+            height: 200px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="box" draggable="true"></div>-->
+<div class="item" draggable="true">123</div>
+<div class="container">将文件拖入目标</div>
+<script>
+/*    let oBox = document.querySelector(".box");
+    oBox.ondrag = function(e){
+        console.log(e.clientX,e.clientY);
+        this.style.cssText = `left:${e.clientX - 100}px;top:${e.clientY-100}px;`;
+    }
+
+    oBox.ondragend = function(event){
+        event = event || window.event;
+        this.style.cssText = `left:${event.clientX-100}px;top:${event.clientY-100}px;`;
+    }*/
+
+    function _$(ele){
+        return document.querySelector(ele);
+    }
+    _$(".item").ondragstart = function(){
+        this.style.backgroundColor = "red";
+    }
+    _$(".item").ondrag = function(event){
+        this.innerText = "我在被拖动..";
+        // this.style.cssText = `left:${event.clientX - this.offsetLeft}px;top:${event.clientY-this.offsetTop}px`;
+    }
+    _$(".item").ondragend = function(){
+        this.style.backgroundColor = "purple";
+        this.innerText = "123";
+    }
+    // 进入被拖动元素的目标
+    _$(".container").ondragenter = function(){
+        this.innerText = "请释放鼠标";
+    }
+    // 在目标元素连续触发
+    _$(".container").ondragover = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+    }
+    _$(".container").ondragleave = function(){
+        this.innerText = "将文件拖入目标";
+    }
+    // 在目标元素上释放鼠标
+    _$(".container").ondrop = function(){
+        document.body.removeChild(_$(".item"));
+        console.log("放置成功");
+    }
+</script>
+</body>
+</html>

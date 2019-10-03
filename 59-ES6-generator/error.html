@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Generator.prototype.throw</title>
+</head>
+<body>
+    <script>
+        let g1 = function* (){
+            try{
+                yield;
+            }catch(e){
+                console.log('内部捕获',e);
+            }
+        }    
+        let i = g1();
+        i.next();
+        try{
+            i.throw(new Error('a'));
+            i.throw(new Error('b'));
+        }catch(e){
+            console.log('外部捕获',e);
+        }
+
+        function* g(){
+            try{
+                yield;
+            }catch(e){
+                console.log(e);
+            }
+        }
+        let it = g();
+        it.next();
+        it.throw(new Error('出错了'));
+
+        function* g2(){
+            // while(true){
+                try{
+                    yield;
+                }catch(e){
+                    // if(e != 'a') throw e;
+                    console.log('内部捕获',e);
+                }
+            // }
+        }
+        let hi = g2();
+        hi.next();
+        try{
+            hi.throw(new Error('a'));
+            hi.throw(new Error('b'));
+        }catch(e){
+            console.log('外部捕获',e);
+        }
+
+
+        // 如果Generator函数内部没有部署try...catch代码块,那么throw方法抛出的错误,将被外部try...catch代码块捕获。
+        function* generator(){
+            while(true){
+                yield;
+                console.log('内部捕获',e);
+            }
+        }
+        let gen = generator();
+        gen.next();
+        try{
+            gen.throw('a');
+            gen.throw('b');
+        }catch(e){
+            console.log('外部捕获',e);
+        }
+
+        function* m1(){
+            try{
+                yield console.log('a');
+            }catch(e){
+
+            }
+            yield console.log('b');
+            yield console.log('c');
+        }
+
+        let m = m1();   // a
+        console.log( m.next() );    // {value:undefined,done:false}
+        m.throw();  // b
+        console.log( m.next() );    // {value:undefined,done:false}
+        console.log( m.next() );    // {value:undefined,done:true}
+
+        let m2 = function* (){
+            yield console.log('Hello');
+            yield console.log('World');
+        }
+        let mi = m2();
+        mi.next();
+
+        try{
+            throw new Error();
+        }catch(e){
+            mi.next();
+        }
+
+        function* foo(){
+            let x = yield 3;
+            let y = x.toUpperCase();
+            yield y;
+        }
+        let f = foo();
+        console.log( f.next() );    // {value:3,done:false}
+
+        try{
+            f.next(42);
+        }catch(err){
+            console.log(err);
+        }
+
+
+        function* bar(){
+            yield 'Hello';
+            console.log('throw an exception');
+            throw new Error('generator broke!');
+            yield 2;
+            yield 3;
+        }
+
+        function log(generator){
+            let v;
+            try{
+                v = generator.next();
+                console.log('第一次运行next方法',v);
+            }catch(e){
+                console.log('捕捉错误',v);
+            }
+            try{
+                v = generator.next();
+                console.log('第二次运行next方法',v);
+            }catch(e){
+                console.log('捕捉错误',v);
+            }
+            try{
+                v = generator.next();
+                console.log('第三次运行next方法',v);
+            }catch(e){
+                console.log('捕捉错误',v);
+            }
+        }
+        log(bar());
+
+    </script>
+</body>
+</html>

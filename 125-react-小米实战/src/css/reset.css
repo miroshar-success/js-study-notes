@@ -1,0 +1,34 @@
+html{
+    font-size:13.33333vw;
+}
+body,ul,ol,p,input,button,textarea{
+    padding: 0;
+    margin: 0;
+}
+ul,ol{
+    list-style:none;
+}
+input,button,textarea{
+    border:none;
+    outline:none;
+}
+a{
+    display:block;
+    text-decoration:none;
+}
+i,em{
+    font-style:normal;
+}
+img{
+    display:block;
+    width:100%;
+    height:100%;
+}
+body{
+    background-color:#fff;
+    color:#747474;
+    font-size:.25rem;
+}
+*{
+    touch-action:pan-x pinch-zoom;
+}

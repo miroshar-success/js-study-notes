@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>async/await</title>
+	</head>
+	<body>
+		<script>
+			// async 返回一个 promise
+			function timeout(ms){
+				return new Promise((resolve,reject)=>{
+					setTimeout(resolve,ms);
+				})
+			}
+			
+			async function asyncPrint(value,ms){
+				await timeout(ms);
+				console.log(value);
+			}
+			asyncPrint('hello world',1000);
+			
+			
+			function m1(ms,value){
+				return new Promise(function(resolve,reject){
+					setTimeout(resolve,ms,value);
+				})
+			}
+			m1(1500,'done').then(data=>{
+				console.log(data);
+			});
+			
+			
+			async function time1(ms){
+				await new Promise((resolve) => {
+					setTimeout(resolve,ms);
+				})
+			}
+			
+			async function asyncTime1(value,ms){
+				await time1(ms);
+				console.log(value);
+			}
+			asyncTime1('hello China',3000);
+			
+			
+			async function f1(){
+				return 'hello world'
+			}
+			f1().then(data=>{
+				console.log(data);
+			})
+			
+			// async内部抛出错误
+			async function f2(){
+				throw new Error('出错了');
+			}
+			f2().then(v=>{
+				console.log(v);
+			})
+			.catch(err=>{
+				console.log(err);	// 出错了
+			})
+			
+			// await 后面是一个 普通值    
+			async function f3(){
+				return await 123;
+			}
+			f3().then(v => {
+				console.log(v);	// 123
+			})
+			
+			
+			// thenable 对象
+			class Sleep{
+				constructor(timeout){
+					this.timeout = timeout;
+				}
+				then(resolve,reject){
+					let startTime = Date.now();
+					setTimeout(function(){
+						resolve( Date.now() - startTime )
+					},this.timeout);
+				}
+			}
+			(async () => {
+				let sleepTime = await new Sleep(1000);	// 这个实例不是Promise对象,但是定义了then方法,await会将其视为Promise处理.
+				console.log(sleepTime);
+			})()
+			
+			
+			
+			// demo
+			async function fun(){
+				let name = await new Promise((resolve,reject)=>{
+					setTimeout(function(){
+						resolve("kyrie");
+					},000);
+				})
+				console.log(name);
+			}
+			fun();
+			
+			
+			// 休眠
+			function sleep(interval){
+				return new Promise(resolve => {
+					setTimeout(resolve,interval);
+				})
+			}
+			async function one2FiveInAsync() {
+				for(let i = 0; i < 5; i++){
+					console.log(i);
+					await sleep(1000);
+				}
+			}
+			one2FiveInAsync()
+			
+			
+			async function m2(){
+				await Promise.reject('出错了');
+			}
+			m2().then(v => console.log(v))
+			.catch(e => console.log(e));
+			
+			
+			
+			async function m3(){
+				await Promise.reject('出错');
+				await Promise.resolve('hello 出错了吗');
+			}
+			m3().then(v => {
+				console.log(v);
+			})
+			.catch(err => {
+				console.log(err);
+			})
+			
+		</script>
+	</body>
+</html>

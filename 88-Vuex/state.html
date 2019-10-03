@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vuex-state</title>
+	</head>
+	<body>
+		<div id="app">
+			<user></user>
+			<my-component></my-component>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vuex@2.0.0"></script>
+		<script>
+			const store = new Vuex.Store({
+				state:{
+					count:0
+				},
+				mutations:{
+					increment(state){
+						state.count++;
+					}
+				}
+			});
+			store.commit("increment");
+			
+			const user = Vue.component("user",{
+				template:"<div>Hello,user!--{{this.$store.state.count}}</div>",
+				mounted(){
+					console.log(this.$store);
+				}
+			});
+			
+			const myComponent = Vue.component("my-component",{
+				template:`<div>
+					<button @click="handleClick">+1</button>
+					<p>{{this.$store.state.count}}</p>
+				</div>`,
+				methods:{
+					handleClick(){
+						this.$store.commit("increment");
+					}
+				}
+			})
+			new Vue({
+				el:"#app",
+				store,	// 通过store选项,提供了一种机制将状态从根组件"注入"到每一个子组件中.
+				components:{
+					user,
+					"my-component":myComponent
+				}
+			})
+		</script>
+	</body>
+</html>

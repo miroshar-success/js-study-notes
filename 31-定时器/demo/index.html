@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>盒子运动</title>
+    <style>
+        body,p,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            position:absolute;
+            left:0;
+            width: 100px;
+            height: 100px;
+            background-color:pink;
+        }
+        button{
+            transform:translateY(100px);
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <button>点击</button>
+    <script>
+        var oBox = document.querySelector('.box');
+        var oBtn = document.querySelectorAll('button')[0];
+        var Timer = null;
+        var l = 0;
+        oBtn.addEventListener('click',function(e){
+            e = e || window.e;
+            Timer = setInterval(function(){
+                l+=10;
+                if (l >= 300){
+                    clearInterval(Timer);
+                    return;
+                }
+                oBox.style.left = l + 'px';
+            },1000/60);
+        },false);
+    </script>
+</body>
+</html>

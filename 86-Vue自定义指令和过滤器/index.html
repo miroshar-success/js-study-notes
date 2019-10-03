@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue自定义指令</title>
+		<style>
+			ul,ol{
+				list-style:none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			<form action="">
+				<input type="text" v-focus>
+			</form>
+		</div>
+		<div id="app">
+			<p v-demo:foo.a.b="message"></p>
+			<form action="">
+				<input type="text" v-auto-focus>
+			</form>
+		</div>
+		<div id="example">
+			<ul class="player">
+				<li 
+				v-for="(item,index) in player" 
+				:key="index"
+				v-my-color:foo.a.b="message"
+				>{{item}}</li>
+			</ul>
+		</div>
+		<div id="example1">
+			<p>{{ price | formPrice}}</p>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			let vm = new Vue({
+				el:document.getElementById("demo"),
+				directives:{
+					focus:{
+						inserted:function(el){
+							el.focus();
+							console.log(el);
+						}
+					}
+				}
+			});
+			
+			Vue.directive("demo",{
+				bind:function(el,binding,vnode){
+					console.log("name:" , binding.name);
+					console.log("value:", binding.value);
+					console.log("expression:",binding.arg);
+					console.log("modifiers:",binding.modifiers);
+					console.log("vnode keys:",Object.keys(vnode).join(","));
+					console.log(vnode);
+				}
+			});
+			Vue.directive("auto-focus",{
+				inserted:function(el){
+					el.focus();
+				}
+			})
+			new Vue({
+				el:document.getElementById("app"),
+				data:{
+					message:"hello!"
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("example"),
+				data:{
+					player:["kyrie","lebron","durant","curry"],
+					message:"changeColor"
+				},
+				directives:{
+					// 指令的名字
+					myColor:{
+						inserted:function(el,binding,vnode){
+							console.log("el:",el);
+							console.log("binding:",binding);
+							console.log("vnode:",vnode.tag);
+							console.log(binding.expression);
+							console.log(binding.arg);
+							el.style.color = "red";
+						}
+					}
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("example1"),
+				data:{
+					price:20
+				},
+				filters:{
+					formPrice(value){
+						console.log(value);
+						return "$" + value;
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯函数</title>
+</head>
+<body>
+<form name="BMI">
+    <h2>BMI Calculator</h2>
+    <p>
+        <input type="text" placeholder="Weight(kg)" name="weight">
+    </p>
+    <p>
+        <input type="text" placeholder="Height(cm)" name="height">
+    </p>
+    <button type="submit">
+        Calculate BMI
+    </button>
+    <div class="calculation">
+        <div>
+            BMI calculation: <span class="result"></span>
+        </div>
+        <div>
+            This means you are: <span class="health"></span>
+        </div>
+    </div>
+</form>
+<script>
+    // 这个是纯函数
+    function add(x,y){
+        console.log(x+y);
+    }
+    add(2,3);
+    add(3,2);
+
+    //这个不是纯函数,函数内部需要的变量a要从函数外部获取,
+    let a = 1;
+    function increment(b){
+        console.log(a + b);
+    }
+    increment(3);
+    // 纯函数不能改变传入的参数值
+
+
+    function _$(el){
+        return document.querySelector(el);
+    }
+    (()=>{
+        let form = document.querySelector("form");
+		//   阻止表单的提交跳转事件
+        const onSubmit = event => {
+            // 防止表单实际提交
+            event.preventDefault();
+            let healthMessage;
+            let height = parseInt(_$('input[name="height"]').value,10);
+            let weight = parseInt(_$("input[name='weight']").value,10);
+            const bmi = ( weight / Math.pow(height/100,2) ).toFixed(1);
+            if(bmi < 18.5){
+                healthMessage = "lower";
+            }else if(bmi >= 18.5 && bmi < 24){
+                healthMessage = "normal";
+            }else if(bmi >= 24 && bmi < 28){
+                healthMessage = "overweight";
+            }else{
+                healthMessage = "over-overweight";
+                console.log(healthMessage);
+            };
+            _$(".result").innerText = bmi;
+            _$(".health").innerText = healthMessage;
+
+        }
+        form.addEventListener("submit",onSubmit,false);
+    })()
+
+/*
+* 上述函数的过程
+* 从DOM中获取值,
+* 将值进行计算得出bmi,
+* 判断bmi所在的区间,
+* 然后再向DOM写入值
+* */
+    // 将上述代码重构
+/*
+    let weight = parseInt(_$(".weight").value,10 );
+    let height = parseInt(_$(".height").value,10 );
+    const bmi = getBMI(weight,height);*/
+    /*
+    * getBMI 是一个纯函数,因为它接收参数并基于这些参数返回一个新的数据。给定相同的输入,
+    * 就会得到相同的输出
+    * */
+/*    const getBMI = (weight,height) => {
+        let newWeight = parseInt(weight,10);
+        let newHeight = parseInt(height,10);
+        return (newWeight / Math.pow(newHeight/100,2)).toFixed(1);
+    }
+
+    const getHealthMessage = (bmi) => {
+        let healthMessage;
+        if(bmi < 18.5){
+            healthMessage = "lower";
+        }else if(bmi >= 18.5 && bmi < 24){
+            healthMessage = "normal";
+        }else if(bmi >= 24 && bmi < 28){
+            healthMessage = "overweight";
+        }else{
+            healthMessage = "over-overweight";
+            console.log(healthMessage);
+        };
+        return healthMessage;
+    }*/
+
+    (()=>{
+    //    先获取两个输入框的值,然后将值输入函数进行计算
+        const form = document.querySelector("form");
+
+        const onSubmit = event => {
+            event.preventDefault();
+            // 获取输入的身高和体重作为参数参数getBMI()
+            let weight = document.querySelector("input[name='weight']").value;
+            let height = document.querySelector("input[name='height']").value;
+            const getBMI = (weight,height) => {
+                let newWeight = parseInt(weight,10);
+                let newHeight = parseInt(height,10);
+                return (newWeight/Math.pow(newHeight/100,2)).toFixed(1);
+            }
+
+            let bmi = getBMI(weight,height);    // 计算bmi,是一个纯函数,相同的输入得到相同的输入,不依赖外部变量也没有副作用。
+
+            let result = document.querySelector(".result");
+            let health = document.querySelector(".health");
+            const getHealthMessage = (bmi) => {
+                let healthMessage;
+                if(bmi < 18.5){
+                    healthMessage = "lower";
+                }else if(bmi >= 18.5 && bmi < 24){
+                    healthMessage = "normal";
+                }else if(bmi >= 24 && bmi < 28){
+                    healthMessage = "overweight";
+                }else{
+                    healthMessage = "over-overweight";
+                    console.log(healthMessage);
+                };
+                return healthMessage;
+            }
+            result.innerText = bmi;
+            // 这里传入的参数bmi是另一个纯函数调用的结果,依然是一个纯函数
+            health.innerText = getHealthMessage(bmi);
+        }
+        form.addEventListener("submit",onSubmit,false);
+    })()
+
+</script>
+</body>
+</html>

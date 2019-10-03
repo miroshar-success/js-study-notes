@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>伪类和文字相关属性</title>
+    <style>
+        .father{
+            font-size:20px;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color:#faa;
+        }
+        .box p{
+            /* font-size:18px; */
+            font-size:1.5em;
+        }
+        .item{
+            font-size:18px;
+            width:10em;
+            height:15em;
+            background-color:skyblue;
+        }
+        .text{
+            width: 300px;
+            height:200px;
+            border:1px solid #000;
+            /* white-space:wrap; */
+            /* white-space:wrap; */
+            /* word-wrap:break-word; */
+            word-wrap:break-word;
+        }
+        .content{
+            width: 300px;
+            height:100px;
+            border:1px solid #faa;
+            /* overflow:hidden;
+            text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:1; */
+            overflow:hidden;
+            text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
+        }
+        @font-face{
+            font-family:'金体';
+            src:url("./1.ttf");
+        }
+        p.jk{
+            font-family:'金体';
+        }
+        .eng{
+            text-transform:lowercase;
+            text-transform:uppercase;
+            text-transform:capitalize;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="box">
+            <p>秋风清,秋月明。落叶聚还散,寒鸦栖复惊！</p>
+        </div>
+    </div>
+    <div class="item">
+    </div>
+    <p class="text">君不见黄河之水天上来,奔流到海不复回。君不见高堂明镜悲白发,</p>
+    <p class="text">where is the lion from,he is aaaaaaaaaaaaaaaaaaaa from africa,he is veryaaa 爱就像蓝天白云晴空万里突然暴风雨,冷热交替
+    </p>
+    <div class="content">
+        轻轻地我走了,正如我轻轻地来。我轻轻地挥手,作别西天的云彩。纳河畔的金柳，是夕阳中的新娘。波光里的艳影，在我的心头荡漾。
+    </div>
+    <p class="jk">昨夜西风凋碧树,独上高楼望尽天涯路!</p>
+    <p class="eng">
+        Hello World!
+    </p>
+</body>
+</html>

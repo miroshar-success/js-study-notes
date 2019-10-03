@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Computed-demo</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			ul>li{
+				padding:5px 10px;
+			}
+/* 			[v-cloak]{
+				display:none;
+			} */
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul class="list">
+				<li v-for="item in package1">
+					<span>{{item.name}}</span>
+					<span>{{item.price}}</span>
+					<span>{{item.count}}</span>
+				</li>
+				<li v-for="item of package2">
+					<span>{{item.name}}</span>
+					<span>{{item.price}}</span>
+					<span>{{item.count}}</span>
+				</li>
+			</ul>
+			<p>总价：{{prices}}</p>
+		</div>
+		<div id="root">
+			<input type="text" v-model="firstName">
+			<input type="text" v-model="lastName">
+			<p>姓名：{{fullName}}</p>
+		</div>
+		<div id="box">
+			<p v-cloak>{{message}}</p>
+			<!-- 当需要渲染一段文本的时候，可以把v-if写在template而template并不会被渲染 -->
+			<template v-if="status == 1">
+				<p>这是一段文本</p>
+				<p>这是一段文本</p>
+				<p>这是一段文本</p>
+			</template>
+		</div>
+		<div id="example">
+			<template v-if="type=='name'">
+				<label for="">用户名</label>
+				<input type="text" placeholder="请输入用户名">
+			</template>
+			<template v-else>
+				<label for="">邮箱</label>
+				<input type="text" placeholder="请输入邮箱">
+			</template>
+			<button @click="change">切换</button>
+		</div>
+		<div id="box1">
+			<template v-if="type=='name'">
+				<label for="">用户名</label>
+				<input type="text" placeholder="请输入用户名" key="name-input">
+			</template>
+			<template v-else>
+				<label for="">邮箱</label>
+				<input type="text" placeholder="请输入邮箱" key="mail-input">
+			</template>
+			<button v-on:click="changeType">切换</button>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el:document.getElementById("app"),
+				data:{
+					package1:[
+						{
+							name:"iPhone7",
+							price:7199,
+							count:2
+						},
+						{
+							name:"iPad",
+							price:4299,
+							count:3
+						}
+					],
+					package2:[
+						{
+							name:"apple",
+							price:3,
+							count:5
+						},
+						{
+							name:"banana",
+							price:5,
+							count:10
+						}
+					]
+				},
+				computed:{
+					prices(){
+						let prices = 0;
+						for(let i = 0; i < this.package1.length; i++){
+							prices += this.package1[i].price * this.package1[i].count;
+						};
+						for(let i = 0; i < this.package2.length; i++){
+							prices += this.package2[i].price * this.package2[i].count;
+						};
+						return prices;
+					}
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("root"),
+				data:{
+					firstName:"Kyrie",
+					lastName:"Irving"
+				},
+				computed:{
+					// fullName此时是一个对象
+					fullName:{
+						get: function() {
+							return this.firstName + " " + this.lastName;
+						},
+						set:function(value){
+							let newName = value.split(" ");
+							this.firstName = newName[0];
+							this.lastName = newName[newName.length - 1];
+						}
+					}
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("box"),
+				data:{
+					message:'Hello Vue.js',
+					status:1
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("example"),
+				data:{
+					type:"name"
+				},
+				methods:{
+					// 点击按钮,虽然DOM变了,但是输入框的内容并没有改变,只是替换了placeholder的内容.说明input元素被复用了
+					change(){
+						this.type = this.type == "name" ? "mail" : "name";
+					}
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("box1"),
+				data:{
+					type:"name"
+				},
+				methods:{
+					changeType:function(event){
+						console.log(event);
+						this.type = this.type == "name" ? "mail" : "name";
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

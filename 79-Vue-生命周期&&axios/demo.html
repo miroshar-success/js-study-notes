@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue-钩子函数</title>
+	</head>
+	<body>
+		<div id="demo">
+			<p>{{message}}</p>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el:document.getElementById("demo"),
+				data:{
+					message:"Hello Vue.js!"
+				},
+				beforeCreate(){
+					// 组件实例刚被创建 undefined undefined
+					console.log(this.$el,this.$data);
+				},
+				created(){
+					// 组件实例创建完成,属性已经绑定,但DOM还未生成
+					console.log(this.$el,this.$data);
+				},
+				beforeMount(){
+					// 此时数据还未渲染到p标签,这里应该用的虚拟DOM,
+					console.log(this.$el,this.$data);
+					const p = document.querySelector("#demo>p");
+					console.log(p);
+				},
+				mounted:function(){
+					console.log(this.$el,this.$data);
+					const p = document.querySelector("#demo>p");
+					console.log(p);
+					setTimeout(()=>{
+						this.message = "hello world!";
+					},1000);
+				},
+				beforeUpdate(){
+					console.log(this.$el,this.$data,this.message);
+				},
+				updated(){
+					console.log(this.$el,this.$data,this.message);
+				}
+			})
+		</script>
+	</body>
+</html>

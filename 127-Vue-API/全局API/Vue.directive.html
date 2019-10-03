@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue.directive</title>
+	</head>
+	<body>
+		<h5>自定义指令,文本自动聚焦</h5>
+		<div id="app">
+			<input type="text" v-focus="focus">
+		</div>
+		<h5>指令的参数,表达式</h5>
+		<div id="demo" v-demo:foo.a.b="message"></div>
+		<h5>动态传入指定参数</h5>
+		<div id="root">
+			<p>Scroll down the page</p>
+			<p v-pin="300">Stick me 200px from the top of the page</p>
+			<p v-pinl:[direction]="250">Stick me 200px from the left of the page</p>	
+			<h5>指令表达式为一个对象</h5>
+			<p v-font="{color:'red',text:'hello'}"></p>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			// 注册全局指令,文本框自动聚焦
+			Vue.directive("focus",{
+				bind:function(el,binding){
+					console.log("bind",el);
+					console.log("name",binding.name);
+					console.log("value",binding.value);
+					console.log("expression",binding.expression);
+				},
+				inserted:function(el){
+					console.log("focus",el);
+					el.focus();
+				}
+			});
+			new Vue({
+				el:"#app",
+				data:{
+					focus:"focus"
+				}
+			});
+			
+			// 钩子函数的参数
+			Vue.directive("demo",{
+				bind:function(el,binding,vnode){
+					console.log("name",binding.name);
+					console.log("value",binding.value);
+					console.log("expression",binding.expression);
+					console.log("argument",binding.arg);
+				}
+			})
+			new Vue({
+				el:"#demo",
+				data:{
+					message:"Hello!"
+				}
+			});
+			
+			// 动态指令参数 
+			Vue.directive("pin",{
+				bind:function(el,binding){
+					el.style.position = "fixed";
+					el.style.top = binding.value + "px";
+				}
+			});
+			
+			Vue.directive("pinl",{
+				bind:function(el,binding){
+					el.style.position = "fixed";
+					console.log(binding.arg,typeof binding.arg);	// left string
+					el.style[binding.arg] = binding.value + "px";
+				},
+			});
+			
+			Vue.directive("font",{
+				bind:function(el,binding){
+					console.log('expression',binding.expression,'value',binding.value);
+					console.log(typeof binding.expression,typeof binding.value);	// string object
+					console.log("color",binding.value.color,"text",binding.value.text);
+					el.textContent = binding.value.text;
+					el.style.color = binding.value.color;
+				},
+			})
+			
+			new Vue({
+				el:"#root",
+				data:{
+					direction:"left",
+				}
+			})
+		</script>
+	</body>
+</html>

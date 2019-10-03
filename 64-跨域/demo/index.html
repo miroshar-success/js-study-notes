@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>跨域</title>
+	</head>
+	<body>
+		<h3>Fetch 跨域访问 </h3>
+		<script>
+			fetch('http://localhost:3000/api/actor')
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+				if(res.msg === 'ok'){
+					const oImg = document.createElement('img');
+					oImg.src = res.data.img;
+					document.body.appendChild(oImg);
+				}
+			})
+		</script>
+		<script>
+			function getData(data){
+				console.log(data);
+			}
+		</script>
+		<script src="http://localhost:3000/api/user?cb=getData"></script>
+		<script>
+			// fetch 使用 post 传递数据
+			// fetch(`http://localhost:3000/api/post`,{
+			// 	method:'POST',
+			// 	headers:{
+			// 		'Content-Type':'application/x-www-form-urlencoded'
+			// 	},
+			// 	body:'firstName=kyrie&lastName=irving'
+			// })
+			// .then(res => {
+			// 	return res.json();
+			// })
+			// .then(data => {
+			// 	console.log(data);
+			// })
+			
+			
+			// fetch 使用post 方法 通过 formData 传递数据
+			const formData = new FormData();
+			formData.append('firstName','lebron');
+			formData.append('lastName','lebron');
+			fetch('http://localhost:3000/api/post',{
+				method:'POST',
+				headers:{
+					'Content-Type':'application/x-www-form-urlencoded'
+				},
+				body:formData
+			})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+			})
+			
+			
+			// post请求的时候,传递JSON格式类型的数据, 设置请求头为 'application/json'时会报错,后台也需要相应的设置
+			// 	res.header('Access-Control-Allow-Headers','Content-Type');
+			
+			const data = {name:'kyrie',age:26}
+			
+			fetch('http://localhost:3000/api/post',{
+				method:'POST',
+				headers:{
+					'Content-Type':'application/json'
+				},
+				body:JSON.stringify(data)
+			})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+			})
+			
+			
+		</script>
+	</body>
+</html>

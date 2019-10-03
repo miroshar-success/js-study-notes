@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无缝轮播</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_478280_52cafl9aw4a.css">
+    <style>
+        body,ul,ol,p{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        body{
+            background-color:#333;
+        }
+        .carousel{
+            margin:20px auto 0;
+            position:relative;
+            width: 900px;
+            height: 500px;
+            border:1px solid #fff;
+            border-radius:8px;
+            overflow:hidden;
+        }
+        .carousel .list{
+            position:absolute;
+        }
+        .carousel .list>li{
+            float:left;
+            width: 900px;
+            height: 500px;
+        }
+        .carousel .list img{
+            display:block;
+            width:100%;
+            height:100%;
+        }
+        .carousel .l-btn,.carousel .r-btn{
+            position:absolute;
+            font-size:50px;
+            top:50%;
+            z-index:10;   
+            color:rgba(255,255,255,.65);
+            cursor:pointer;
+        }
+        .carousel .r-btn{
+            right:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <ul class='list'>
+            <li><img src="./imgs/5.jpg" alt=""></li>
+            <li><img src="./imgs/1.jpg" alt=""></li>
+            <li><img src="./imgs/2.jpg" alt=""></li>
+            <li><img src="./imgs/3.jpg" alt=""></li>
+            <li><img src="./imgs/4.jpg" alt=""></li>
+            <li><img src="./imgs/5.jpg" alt=""></li>
+            <li><img src="./imgs/1.jpg" alt=""></li>
+        </ul>
+        <i class="iconfont icon-arrow-left l-btn"></i>
+        <i class="iconfont icon-arrow-left1 r-btn"></i>
+    </div>
+    <script src='./main.js'></script>
+</body>
+</html>

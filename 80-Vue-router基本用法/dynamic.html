@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue-Router动态路由</title>
+	</head>
+	<body>
+		<div id="app">
+			<p><input type="text" placeholder="请输入手机号" v-model="tel"></p>
+			<p><input type="text" placeholder="请输入姓名" v-model="name"></p>
+			<router-link :to=`/user/${name}?tel=${tel}`>点击登陆</router-link>
+			<router-view></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const User = Vue.component("user",{
+				template:"<div><p>你好,您的姓名为:{{this.$route.params.name}}</p></div>",
+				mounted(){
+					console.log(this.$route);
+				}
+			});
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/user/:name",
+						component:User,
+					}
+				]
+			});
+			new Vue({
+				el:"#app",
+				data:{
+					tel:"",
+					name:""
+				},
+				router
+			})
+		</script>
+	</body>
+</html>

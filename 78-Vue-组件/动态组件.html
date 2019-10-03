@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>动态组件</title>
+		<style>
+			ul,ol{
+				list-style:none;
+				padding: 0;
+				margin: 0;
+			}
+			.posts-container{
+				display:flex;
+				padding:15px;
+				width:500px;
+				min-height:100px;
+				border:1px solid rgba(7,17,27,0.5);
+			}
+			.posts-list{
+				padding-right:10px;
+				width:120px;
+				border-right:1px solid rgba(7,17,27,0.5);
+			}
+			.posts-list>li{
+				font-size:14px;
+				line-height:30px;
+			}
+			.posts-list>li.active{
+				background-color:rgb(173,216,220);
+			}
+			.content{
+				flex:1;
+				padding-left:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button 
+				v-for='(tab,index) in tabs' 
+				:key='index'
+				@click='handleChangeTab(tab)'
+				:class='{active:currentTab === tab}'
+			>{{tab | capitalize}}</button>
+			<keep-alive>
+				<component :is='currentTabComponent' class='tab'></component>
+			</keep-alive>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			Vue.component('tab-archive',{
+				template:`<div>
+					Archive component
+				</div>`
+			});
+			Vue.component('tab-posts',{
+				data() {
+					return{
+						lists:[
+							{
+								title:'Cat Ipsum',
+								content:`Dont wait for the storm to pass, dance in the rain kick up litter decide to want nothing to do ,
+								with my owner today demand to be let outside at once, and expect owner to wait for me as i think about it 
+								cat cat moo moo lick ears lick paws so make meme, make cute face but lick the other cats. Kitty poochy chase 
+								imaginary bugs, but stand in front of the computer screen. Sweet beast cat dog hate mouse eat string barf pillow
+								 no baths hate everything stare at guinea pigs. My left donut is missing, as is my right loved it, hated it, loved it, 
+								 hated it scoot butt on the rug cat not kitten around`
+							},
+							{
+								title:'Hipster Ip sum',
+								content:`Bushwick blue bottle scenester helvetica ugh, meh four loko. Put a bird on it lumbersexual franzen shabby chic,
+								 street art knausgaard trust fund shaman scenester live-edge mixtape taxidermy viral yuccie succulents. Keytar poke bicycle rights, 
+								 crucifix street art neutra air plant PBR&B hoodie plaid venmo. Tilde swag art party fanny pack vinyl letterpress venmo jean shorts offal 
+								 mumblecore. Vice blog gentrify mlkshk tattooed 
+								occupy snackwave, hoodie craft beer next level migas 8-bit chartreuse. Trust fund food truck drinking vinegar gochujang`
+							},
+							{
+								title:'Cupcake Ipsum',
+								content:`Icing dessert soufflé lollipop chocolate bar sweet tart cake chupa chups. Soufflé marzipan jelly beans ,
+								croissant toffee marzipan cupcake icing fruitcake. Muffin cake pudding soufflé wafer jelly bear claw sesame snaps marshmallow.
+								 Marzipan soufflé croissant lemon drops gingerbread sugar plum lemon drops 
+								apple pie gummies. Sweet roll donut oat cake toffee cake. Liquorice candy macaroon toffee cookie marzipan`
+							}
+						],
+						selectedPost:null,
+					}
+				},
+				template:` 
+					<div class='posts-container'>
+						<ul class='posts-list'>
+							<li 
+								v-for='(item,index) in lists' 
+								:key='index'
+								@click='handleClickTab(item)'
+								:class='{active:item===selectedPost}'
+							>{{item.title}}</li>
+						</ul>
+						<div class='content'>
+							<template v-if='selectedPost'>
+								<h4>{{selectedPost.title}}</h4>
+								<p>{{selectedPost.content}}</p>
+							</template>
+							<template v-else>
+								<strong>Click on a blog title to the left to view it</strong>
+							</template>
+						</div>
+					</div> `,
+				methods:{
+					handleClickTab(post){
+						this.selectedPost = post;
+					}
+				}
+			})
+			
+			new Vue({
+				el:'#app',
+				data:{
+					currentTab:'posts',
+					tabs:['posts','archive']
+				},
+				filters:{
+					capitalize(value){
+						return value.slice(0,1).toUpperCase() + value.slice(1);
+					}
+				},
+				computed:{
+					currentTabComponent(){
+						return 'tab-' + this.currentTab
+					}
+				},
+				methods:{
+					handleChangeTab(tab){
+						this.currentTab = tab;
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style":{
+				"app-plus":{
+					"titleNView":{
+						"backgroundColor":"#ffffff",
+						"searchInput":{
+							"backgroundColor":"#f7f7f7",
+							"align":"left",
+							"borderRadius":"36upx",
+							"disabled":true
+						},
+						"buttons":[
+							{
+								"fontSrc":"./static/iconfont.ttf",
+								"text":"&#xe63a;",
+								"float":"right",
+								"fontSize":"32upx"
+							},
+							{
+								"fontSrc":"./static/iconfont.ttf",
+								"text":"&#xe683;",
+								"float":"left",
+								"fontSize":"32upx"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path":"pages/search/search",
+			"style":{
+				"titleNView":{
+					"backgroundColor":"#ffffff",
+					"searchInput":{
+						"backgroundColor":"#f7f7f7",
+						"borderRadius":"36upx",
+						"align":"left",
+						"autoFocus":true
+					}
+				}
+			}
+		},
+		{
+			"path":"pages/detail/detail",
+			"style":{
+				"titleNView":{
+					"titleText":"Hello World",
+					"backgroundColor":"rgb(140,12,12)",
+					"titleColor":"#ffffff"
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

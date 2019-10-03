@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6-generator</title>
+</head>
+<body>
+    <script>
+        let arr = ['kyrie','lebron','kobe','curry'];
+        function* player(){
+            for(let i = 0, len = arr.length; i < len; i++){
+                yield arr[i];
+            }
+        }
+        let obj = player();
+        // console.log(obj.next().value);
+        console.log(arr.length);
+
+        for(let i = 0; i < arr.length; i++){
+            console.log(obj.next().value);
+        }
+
+        let str = 'Hello World!';
+        function* say(){
+            for(let i = 0, l = str.length; i < l; i++){
+                yield str[i];
+            }
+        }
+        let newStr = say();
+        // console.log(newStr.next().value);
+        // console.log(newStr.next().value);
+
+        for(let i = 0; i < str.length; i++){
+            console.log(newStr.next().value);
+        }
+
+        function* helloWorldGenerator(){
+            yield 'Hello';
+            yield 'World';
+            return 'ending';
+        }
+        let a = helloWorldGenerator();
+        console.log(a);
+        // console.log( a.next().value );
+        // console.log( a.next().value );
+        // console.log( a.next().value );
+        // console.log( a.next().value );
+        console.log( a.next() );    
+        // {value:'Hello',done:false}
+        console.log( a.next() );
+        // {value:'World',done:false}
+        console.log( a.next() );
+        // {value:'ending',done:true}
+        console.log( a.next() );
+
+        function* m1(){
+            yield 'kyrie';
+            yield 'lebron';
+            yield 'curry';
+        }
+        let m = m1();
+        console.log(m.next());
+        console.log(m.next());
+        console.log(m.next());
+        console.log(m.next());
+
+        function* m2(){
+            yield 'irving';
+            yield 'james';
+            yield 'durant';
+            return
+        }
+        let d = m2();
+        console.log(d.next());
+        console.log(d.next());
+        console.log(d.next());
+        console.log(d.next());
+
+        function* gen(){
+            yield 123 + 456;
+        }
+        let sum = gen();
+        console.log(sum)
+        console.log( sum.next().value );    // 579
+        console.log( sum.next().value); // undefined
+
+        function* f(){
+            console.log('执行了');
+        }
+        var generator = f();
+        setTimeout(()=>{
+            generator.next();
+        },2000);
+
+        function* f1(){
+            console.log('函数执行了');
+        }
+        let foo = f1();
+        foo.next();
+
+        let array = [1,[[2,3],4],[5,6]];
+        let flat = function* (a){
+            let length = a.length;
+            for(let i = 0; i < length; i++){
+                let item = a[i];
+                if(typeof item !== 'number'){
+                    yield* flat(item);
+                }else{
+                    yield item;
+                }
+            }
+        };
+        // var newArr = flat(array);
+        // console.log(newArr.next());
+        // console.log(newArr.next());
+        // console.log(newArr.next());
+        flat(array).next();
+        flat(array).next();
+        
+        function* demo(){
+            // console.log('Hello World' + yield);
+            // console.log('Hello' + yield 123);
+            console.log('Hello' + (yield));
+            console.log('Hello' + (yield 123));
+        }
+        let b = demo();
+        console.log(b.next());
+        console.log(b.next());
+        console.log(b.next());
+
+        let myIterator = {};
+        myIterator[Symbol.iterator] = function* (){
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+        console.log( [...myIterator] ); // [1,2,3]
+
+        function* player(){
+
+        }
+        let p = player();
+        console.log( p[Symbol.iterator]() === p );  // true
+
+        // for(let i = 0; false; i++){
+        //     console.log(i);
+        // }
+        function* bar(){
+            for(let i = 0; true; i++){
+                yield i;
+            }
+        }
+        let bb = bar();
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+        console.log(bb.next().value);
+
+        function* car(){
+            for(let i = 0; true; i++){
+                let rest = yield i;
+                console.log(rest);  // undefined
+                if(rest) {i = -1};
+            }
+        }
+        let c = car();
+        console.log( c.next().value );  // 0
+        console.log( c.next().value);   // 1
+        console.log( c.next().value);   // 2
+        console.log( c.next(true).value);   // 0
+        console.log( c.next().value);   // 1
+
+        function* name(){
+            let aa = yield 'name';
+            console.log(aa);
+        }
+        let n = name();
+        console.log(n.next().value);
+        console.log(n.next().value);
+
+        function* countApple(){
+            let saleList = [3,7,5];
+            for(let i = 0; i < saleList.length; i++){
+                yield saleList[i];
+            }
+        }
+        let appleStore = countApple();
+        console.log(appleStore.next());
+        console.log(appleStore.next());
+        console.log(appleStore.next());
+
+        function* valueOfYield(){
+            let value_of_yield = yield 1;
+            console.log('value of yield:',value_of_yield);
+        }
+        let it = valueOfYield();
+        console.log( it.next() );   // {value:1,done:false}
+        console.log( it.next() );   // {value:undefined,done:true}
+        // value of yield: undefined
+
+        function* Yield(){
+            let valueOfYield = yield 1;
+            console.log('value of yield',valueOfYield);
+            console.log(valueOfYield);
+        }
+        let hi = Yield();
+        console.log( hi.next('hello') );   // {value:1,done:false};
+        // console.log( hi.next() );
+
+        function* baz(){
+            for(let i = 0; true; i++){
+                let reset = yield i;
+                console.log(reset);
+                if(reset){i = -3};
+            }
+        }
+        let ball = baz();
+        console.log(ball.next('abc'));
+        console.log( ball.next() ); // {value:0,done:false}
+        console.log( ball.next() ); // {value:1,done:false}
+        console.log( ball.next() ); // {value:2,done:false}
+        console.log( ball.next() ); // {value:3,done:false}
+        console.log( ball.next(true));  // 
+
+
+        
+    </script>
+</body>
+</html>

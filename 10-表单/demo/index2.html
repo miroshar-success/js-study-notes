@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单作业——二</title>
+    <style>
+        body,ul,p{
+            margin: 0;
+        }
+        ul,ol{
+            padding: 0;
+            list-style:none;
+        }
+        a{
+            text-decoration:none;
+        }
+        .container{
+            margin:50px auto 0;
+            width: 425px;
+            height: 415px;
+            border:1px solid #ccc;
+            border-radius:10px;
+            padding:40px 43px 0 0;
+            box-sizing:border-box;
+        }
+        .list li{
+            margin-bottom:20px;
+            position:relative;
+        }
+        .list li p{
+            font-size:14px;
+            display:inline-block;
+            text-align:right;
+            width: 80px;
+        }
+        .list li input{
+            width: 290px;
+            height: 40px;
+            border-radius:5px;
+            border:1px solid #ccc;
+            outline:none;
+            text-indent:.5em;
+        }
+        .container input[type="submit"],.container .account{
+            height: 30px;
+            background-color:#3c6cb1;
+            color:#fff;
+            font-size:13px;
+            border-radius:5px;
+        }
+        .container input[type="submit"]{
+            border:0;
+            width: 80px;
+            transform:translateX(132px);
+            cursor:pointer;
+        }
+        .container .account{
+            display:block;
+            width: 140px;
+            text-align:center;
+            line-height:30px;
+            float:right;
+        }
+        .container .tips{
+            position:absolute;
+            width: 300px;
+            height:60px;
+            background-color:#56a9de;
+            border-radius:5px;
+            right:-305px;
+            top:-10px;
+            color:#fff;
+            text-align:center;
+            display:none;
+        }
+        .container .tips:before{
+            content:'';
+            display:block;
+            width:0;
+            border-width:10px 10px 10px 0;
+            border-color:transparent #56a9de transparent transparent;
+            border-style:solid;
+            transform:translate(-10px,20px);
+        }
+        .container .list li:hover .tips{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="GET">
+            <ul class="list">
+                <li>
+                    <p>用户名</p>
+                    <input type="text" name="user" placeholder="输入英文字母或者数字">
+                    <div class="tips">用户名必须为4-16位数字或英文字母</div>
+                </li>
+                <li>
+                    <p>密码</p>
+                    <input type="password" name="pwd">
+                    <div class="tips">请输入密码</div>
+                </li>
+                <li>
+                    <p>确认密码</p>
+                    <input type="password" name="confirm">
+                    <div class="tips">请再次确认密码</div>
+                </li>
+                <li>
+                    <p>email</p>
+                    <input type="email" name="email">
+                    <div class="tips">请输入邮箱</div>
+                </li>
+                <li>
+                    <p>昵称</p>
+                    <input type="text" name="nickname" placeholder="输入英文字母或者数字">
+                    <div class="tips">请输入昵称</div>
+                </li>
+            </ul>
+            <input type="submit" value="注册" name="login" class="login">
+            <a href="#" class="account">我有账号,我要登陆</a>
+        </form>
+    </div>
+</body>
+</html>

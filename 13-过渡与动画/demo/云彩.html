@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过渡与动画作业——三</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .sky{
+            position:relative;
+            margin:0 auto;
+            width: 1477px;
+            height:500px;
+            background-color:#147cc3;
+            overflow:hidden;
+        }
+        .sky .cloud{
+            width: 2954px;
+            height: 499px;
+            position:absolute;
+            left:0;
+        }
+        .sky .cloud:nth-of-type(1){
+            background-image:url("./imgs/cloud_one.png");
+            animation:cloudMove 20s linear infinite;
+        }
+        .sky .cloud:nth-of-type(2){
+            background-image:url("./imgs/cloud_two.png");
+            animation:cloudMove 18s linear infinite;
+        }
+        .sky .cloud:nth-of-type(3){
+            background-image:url("./imgs/cloud_three.png");
+            animation:cloudMove 16s linear infinite;
+        }
+        @keyframes cloudMove{
+            0%{
+                left:0;
+            }
+            100%{
+                left:-1477px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sky">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+    </div>
+</body>
+</html>

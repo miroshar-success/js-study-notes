@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组排序可视化</title>
+    <style>
+        body,ul,ol,p,input,h3{
+            margin: 0;
+            padding: 0;
+        }
+        h3{
+            font-size:100%;
+            font-weight:normal;
+        }
+        input {
+            border: 0;
+            outline: none;
+        }
+        ul,ol {list-style: none;}
+        body{
+            background-color:#333;
+        }
+        ul.list,ul.container{
+            position: relative;
+            margin: 20px auto;
+            height: 450px;
+            width: 600px;
+            text-align:center;
+            border:1px solid #000;
+        }
+        .list li,.container li{
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            font-size:12px;
+            transition:left .2s;
+        }
+        .title1,.title2{
+            margin:20px auto;
+            width: 100px;
+            height:30px;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="title1">冒泡排序法</div>
+    <ul class="list"></ul>
+    <script>
+        var oList = document.querySelector('.list');
+        // 生产随机颜色
+        function randomColor() {
+            var r = Math.floor(Math.random() * 256),
+                g = Math.floor(Math.random() * 256),
+                b = Math.floor(Math.random() * 256),
+                color = 'rgb(' + r + ',' + g + ',' + b + ')';
+            return color;
+        }
+        var order = new Array(30).fill(0).map((item, index) => index).sort(() => Math.random() - 0.5);
+        // 渲染页面
+        function render() {
+            for (let i = 0,len = order.length; i < len; i++) {
+                var oLi = document.createElement('li');
+                oLi.innerText = `${i + 1}`;
+                oLi.style.backgroundColor = `${randomColor()}`;
+                oLi.style.height = 15 * (i + 1) + 'px';
+                oList.appendChild(oLi);
+            }
+        }
+        render();
+        
+        // 获取页面元素,并把元素的left值按乱序数组的值设置.
+        // 因为元素的颜色也是随机生产的,反复调用函数也会修改颜色,把不变的量分装到一个函数里,变的量封装到另一个函数,
+        // 排序时调用需要变量的量的函数就可以.
+        var aLi = document.querySelectorAll('.list li');
+        function changePosition(order){
+            for(let i = 0, len = aLi.length; i < len; i++){
+                aLi[i].style.left = order[i] * 20 + 'px';
+            }
+        }
+        changePosition(order);
+
+        var count = 1;
+        // 冒泡排序算法
+        function bubbleSort(arr) {
+            for(let i = 0, len = arr.length; i < len - 1; i++){
+                /*
+                1.i=0时,如果是5个数比较,此时已经比较了4次.
+                2. i=1时,因为上一次已经把最大的一个元素排列到最后了,这一次最后一个数无需参与冒泡排序了
+                只需进行三次比较即可,
+                // 循环次数 数组长度    比较次数
+                i = 0       len = 5    4
+                i = 1       len = 5    3 len-i-1
+                i = 2       len = 5    2  len-i-1
+                i = 3       len = 5    1  len-i-1
+                */ 
+                // 此处是做了一个优化
+                for (let j = 0; j < len-i-1; j++) {
+                    setTimeout(function(){
+                        if (arr[j] > arr[j+1]) {
+                            [arr[j],arr[j+1]] = [arr[j+1],arr[j]];
+                            changePosition(order);
+                        }
+                    },(count++)*80);
+                }
+            }
+        }
+        bubbleSort(order);
+    </script>
+</body>
+</html>

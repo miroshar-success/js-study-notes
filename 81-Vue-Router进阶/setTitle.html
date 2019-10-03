@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<style>
+			ul{
+				padding: 0;
+				margin: 0;
+				list-style:none;
+				background-color:pink;
+			}
+			li{
+				display:inline-block;
+				margin:0 20px;
+				height:40px;
+				line-height:40px;
+			}
+			.content{
+				width:320px;
+				height:300px;
+				background-color:skyblue;
+				text-align:center;
+			}
+			#app{
+				width:320px;
+				border:1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul >
+				<router-link tag="li" to="/index">首页</router-link>
+				<router-link tag="li" to="/about">关于</router-link>
+				<router-link tag="li" to="/info">个人主页</router-link>
+			</ul>
+			<router-view class="content"></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const Index = Vue.component("index",{
+				template:"<div>首页</div>",
+				beforeRouteEnter(to,from,next){
+					console.log(to,from);
+					next();
+				}
+			});
+			const About = Vue.component("about",{
+				template:"<div>关于</div>",
+				beforeRouteLeave(to,from,next){
+					const answer = window.confirm("Do you really want to leave?");
+					if(answer){
+						next();
+					}else{
+						next(false);
+					}
+				}
+			});
+			const Info = Vue.component("info",{
+				template:"<div>个人主页</div>"
+			});
+			
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/index",
+						component:Index,
+						meta:{
+							title:"首页"
+						}
+					},
+					{
+						path:"/about",
+						component:About,
+						meta:{
+							title:"关于"
+						}
+					},
+					{
+						path:"/info",
+						component:Info,
+						meta:{
+							title:"个人中心"
+						}
+					}
+				]
+			});
+			router.beforeEach((to,from,next) => {
+				console.log(to);
+				window.document.title = to.meta.title;
+				next();
+			});
+			new Vue({
+				el:"#app",
+				router
+			})
+		</script>
+	</body>
+</html>

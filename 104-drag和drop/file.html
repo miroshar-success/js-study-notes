@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>File</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            background-color:#ddd;
+        }
+        .container{
+            margin:100px auto 0;
+            width: 750px;
+            min-height: 300px;
+            height:auto;
+            background-color:#ccc;
+            text-align:center;
+            color:#fff;
+            user-select:none;
+            border-radius:8px;
+            display:flex;
+            flex-flow:row wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    </div>
+    <script>
+        let oContainer = document.querySelector(".container");
+        let oSpan = oContainer.querySelector("span");
+        oContainer.addEventListener("dragenter",drag,false);
+        oContainer.addEventListener("dragover",drag,false);
+        oContainer.addEventListener("dragleave",drag,false);
+        oContainer.addEventListener("drop",drag,false);
+        function drag(event){
+            event = event || window.event;
+            event.preventDefault();
+            event.stopPropagation();
+            let type = event.type;
+            switch(type){
+/*                case "dragenter":
+                    this.innerText = "请释放鼠标";
+                    break;
+                case "dragleave":
+                    this.innerText = "将文件拖入此处";
+                    break;*/
+                case "drop":
+                    /* console.log(event.dataTransfer.files);
+                    let file = event.dataTransfer.files.item(0);
+                    console.log(file);
+                    console.log("name:",file.name);
+                    console.log("size:",file.size);
+                    console.log("type:",file.type);
+                    console.log("lastModified:",file.lastModified);*/
+                    // 在此处读取图片数据
+                    let files = event.dataTransfer.files;
+                    for(let i = 0,item; item = files.item(i); i++){
+                        let fs = new FileReader();  // 创建文件读取对象
+                        fs.readAsDataURL(item);
+                        fs.onload = function(){
+                            let img = new Image(250,200);
+                            img.style.borderRadius = '5px';
+                            img.src = this.result;
+                            img.onload = function(){
+                                oContainer.appendChild(img);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

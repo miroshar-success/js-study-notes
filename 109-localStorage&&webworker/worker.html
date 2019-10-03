@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>web-worker</title>
+</head>
+<body>
+<script>
+/*    document.onclick = function(){
+        console.time(1);
+        let str = "";
+        for(let i = 0; i < 50000; i++){
+            str += String.fromCharCode(i);
+        }
+        document.body.innerText = str;
+        console.timeEnd(1); // 25.1879ms
+    }*/
+
+    document.onclick = function(){
+    //    创建一个web worker对象
+        console.time(1);
+        let w = new Worker("./worker.js");
+        // 传递数据到 worker.js文件
+        w.postMessage(50000);
+        w.onmessage = function(data){
+            document.body.innerText = event.data;
+        }
+        console.timeEnd(1);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>重定向</title>
+	</head>
+	<body>
+		<div id="app">
+			<h1>首页</h1>
+			<ul>
+				<router-link tag="li" to="/foo">foo</router-link>
+				<router-link tag="li" to="/bar">bar</router-link>					
+			</ul>
+			<router-view></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const Foo = Vue.component('foo',{
+				template:"<div>Foo</div>"
+			});
+			const Bar = Vue.component("bar",{
+				template:"<div>Bar</div>"
+			})
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/",
+						redirect:"/foo"
+					},
+					{
+						path:"/foo",
+						name:"foo",
+						component:Foo,
+						alias:"/bar"
+					},
+					{
+						path:"/bar",
+						name:"bar",
+						component:Bar
+					}
+				]
+			});
+			
+			new Vue({
+				el:"#app",
+				router
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>formidable接收Post请求的数据</title>
+</head>
+<body>
+<form action="/login" method="POST">
+    <p>姓名:<input type="text" name="name"></p>
+    <p>性别:<input type="text" name="sex"></p>
+    <p>年龄:<input type="text" name="age"></p>
+    <p>
+        你最喜欢的球员：
+        <input type="radio" name="player" value="james">詹姆斯
+        <input type="radio" name="player" value="kobe">科比
+        <input type="radio" name="player" value="curry">库里
+    </p>
+    <input type="submit">
+</form>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>setTimeout/setInterval/requestAnimationFrame 实现进度条</title>
+		<style>
+			.bar1,.bar2,.bar3{
+				height:20px;
+				background-color:#409eff;
+				width:0;
+				border-radius:10px;
+				color:#fff;
+				font-size:14px;
+				line-height:20px;
+				text-indent:1em;
+			}
+			.btn{
+				margin-top:20px;
+				cursor:pointer;
+				background-color:#409eff;
+				border: 1px solid #dcdfe6;
+				color:#fff;
+				font-weight:500;
+				width:50px;
+				height:30px;
+				border-radius: 5px;
+				outline:none;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>setInterval()实现的进度条</h3>
+		<div class='bar1'></div>
+		<h3>setTimeout()实现的进度条</h3>
+		<div class='bar2'></div>
+		<h3>window.requestAnimationFrame()实现的进度条</h3>
+		<div class='bar3'></div>
+		<button class='btn'>运行</button>
+		<script>
+			function _$(el){
+				return document.querySelector(el);
+			}
+			
+			function getStyle(el,attr){
+				if(el.currentStyle){
+					return el.currentStyle[attr]
+				}else{
+					return window.getComputedStyle(el)[attr];
+				}
+			}
+			
+			let timer1 = null,
+			timer2 = null,
+			timer3 = null;
+			
+			_$('.btn').addEventListener('click',function(){
+				clearInterval(timer1);
+				let x = 0;
+				timer1 = setInterval(function() {
+					x += 5;
+					_$('.bar1').style.width = x + 'px';
+					_$('.bar1').innerText = parseInt(getStyle(_$('.bar1'),'width'))/5 + '%';
+					if(x >= 500){
+						clearInterval(timer1);
+					}
+				},1000/60);
+			},false);
+			
+			
+			_$('.btn').addEventListener('click',function(){
+				clearTimeout(timer2);
+				let x = 0;
+				function move(){
+					timer2 = setTimeout(function () {
+						x += 5;
+						_$('.bar2').style.width = x + 'px';
+						_$('.bar2').innerText = parseInt( getStyle(_$('.bar2'),'width'))/5 + '%';
+						move();
+					},1000/60)
+					if(x >= 500){
+						clearTimeout(timer2);
+					}
+				}
+				move()
+			},false);
+			
+			
+			
+			_$('.btn').addEventListener('click',function() {
+				window.cancelAnimationFrame(timer3);
+				let x = 0;
+				function run(){
+					x += 5;
+					_$('.bar3').style.width = x + 'px';
+					_$('.bar3').innerText = parseInt( getStyle(_$('.bar3'),'width'))/5 + '%';
+					timer3 = window.requestAnimationFrame(run);
+					if(x >= 500){
+						window.cancelAnimationFrame(timer3);
+					}
+				}
+				run();
+			});
+			let k=-2; document.write(++k + k++ + ++k + k);
+		</script>
+	</body>
+</html>

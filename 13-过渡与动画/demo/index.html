@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过渡与动画作业——一</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .box{
+            width: 180px;
+            height: 270px;
+            position:relative;
+            animation:boxMove 4s linear 0s infinite;
+        }
+        .box .girl{
+            width: 180px;
+            height: 270px;
+            background-image:url("./imgs/4.png");
+            background-position-x:0;
+            animation-name:girlMove;
+            animation-timing-function:steps(7);
+            animation-duration:.6s;
+            animation-iteration-count:infinite;
+        }
+        @keyframes boxMove{
+            0%{
+                left:1100px;
+            }
+            100%{
+                left:0;
+            }
+        }
+        @keyframes girlMove{
+            100%{
+                background-position-x:-1260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="girl"></div>
+    </div>
+</body>
+</html>

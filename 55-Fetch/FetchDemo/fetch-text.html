@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Fetch-text-example</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			h2,ul.list{
+				text-align:center;
+			}
+			ul.list>li{
+				display:inline-block;
+				margin:0 15px;
+				color:blue;
+				text-decoration:underline;
+				cursor:pointer;
+			}
+			article{
+				padding:10px;
+				margin:20px auto 0;
+				width: 400px;
+				height: 500px;
+				background-color:#ffe;
+				border-radius:10px;
+				box-shadow:2px 3px 3px 3px #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Fetch text example</h2>
+		<ul class="list">
+			<li data-page='page1'>Page1</li>
+			<li data-page='page2'>Page2</li>
+			<li data-page='page3'>Page3</li>
+		</ul>
+		<article>
+			<h2 class='title'></h2>
+			<p class='content'></p>
+		</article>
+		<script>
+			const aLi = document.querySelectorAll('.list>li');
+			const oArticle = document.querySelector('article');
+			// 给每个li绑定一个点击事件,获取是第几个元素
+			/*
+			怎么判断获取的是第几个元素
+			*/ 
+			for(let i = 0,aBtn; aBtn = aLi[i]; i++){
+				aBtn.addEventListener('click',function(e){
+					e = e || window.e;
+					e.preventDefault();
+					e.stopPropagation();
+					let index = e.target.getAttribute('data-page');
+					getData(index);
+				},false);
+			}
+			function getData(page){
+				console.log(page);
+				var myFetch = new Request('https://mdn.github.io/fetch-examples/fetch-text/'+page + '.txt');
+				fetch(myFetch)
+				.then( function(response){
+					if(!response.ok){
+						throw new Error('报错');
+					}else{
+						return response.text();
+					}
+				})
+				.then(function(data){
+					console.log(data);
+					oArticle.innerHTML = data;
+				})
+			}
+			
+		</script>
+	</body>
+</html>

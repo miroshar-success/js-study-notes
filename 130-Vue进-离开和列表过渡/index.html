@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue-过渡</title>
+		<style>
+			.fade-enter-active{
+				transition:all 2s linear;
+			}
+			.fade-leave-active{
+				transition:all .5s linear;
+			}
+			.fade-enter,.fade-leave-to{
+				opacity:0;
+			}
+			.check-enter-active{
+				transition:all .3s ease;
+			}
+			.check-leave-active{
+				transition:all .8s cubic-bezier(1.0,0.5,0.8,1.0);
+			}
+			.check-enter,.check-leave-to{
+				transform:translateX(10px);
+				opacity:0;
+			}
+			@keyframes bounce-in{
+				0%{
+					transform:scale(0);
+				}
+				50%{
+					transform:scale(1.5);
+				}
+				100%{
+					transform:scale(1);
+				}
+			}
+			.bounce-enter-active{
+				animation:bounce-in 1s;
+			}
+			.bounce-leave-active{
+				animation:bounce-in .5s reverse;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			<button @click="handleToggleShow">Toggle</button>
+			<transition name="fade">
+				<p v-show="showText">hello</p>
+			</transition>
+		</div>
+		
+		<h3>CSS过渡：常用过渡都是CSS过渡</h3>
+		<div id="app">
+			<button @click="handleChangeText">切换</button>
+			<transition name="check" type="transition">
+				<p v-if="show">Hello Vue!</p>
+			</transition>
+		</div>
+		
+		<h3>CSS动画: CSS动画用法和CSS过渡相同,区别是在动画中v-enter类名在节点插入DOM后不会立即删除,而是在animationend事件触发时删除</h3>
+		<div id="example">
+			<button @click="handleLargeText">放大字体</button>
+			<transition name="bounce" type="animation">
+				<p v-if="show">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, 
+					at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus
+				</p>
+			</transition>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el:"#demo",
+				data:{
+					showText:true
+				},
+				methods:{
+					handleToggleShow(){
+						this.showText = !this.showText;
+					}
+				}
+			});
+			
+			new Vue({
+				el:"#app",
+				data:{
+					show:true
+				},
+				methods:{
+					handleChangeText() {
+						this.show = !this.show;
+					}
+				}
+			})
+			
+			new Vue({
+				el:"#example",
+				data:{
+					show:true
+				},
+				methods:{
+					handleLargeText() {
+						this.show = !this.show;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

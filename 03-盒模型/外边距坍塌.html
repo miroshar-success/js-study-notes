@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>margin外边距坍塌</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            width: 200px;
+            height: 200px;
+            background-color:#000;
+        }
+        .container .item{
+            width: 50px;
+            background-color:pink;
+            height: 50px;
+            margin:20px;
+            display:inline-block;
+        }
+        .box{
+            width: 50px;
+            height: 50px;
+            margin:30px;
+        }
+        .box1{
+            background-color:skyblue;
+        }
+        .box2{
+            background-color:greenyellow;
+        }
+        .content{
+            width: 150px;
+            height: 150px;
+            background-color:#000;
+        }
+        .content .item{
+            width: 30px;
+            height: 30px;
+            background-color:#fff;
+            float:left;
+        }
+        .father{
+            width: 250px;
+            height: 250px;
+            background-color:#f00;
+        }
+        .son{
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            margin-top:20px;
+        }
+        img{
+            width: 100px;
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item"></div>
+    </div>
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="content">
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <div class="father">
+        <img src="./1.jpg" alt="">
+        <div class="son"></div>
+    </div>
+</body>
+</html>

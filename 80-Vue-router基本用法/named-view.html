@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>命名视图</title>
+		<style>
+			body,p{
+				padding: 0;
+				margin: 0;
+			}
+			body,html,#app{
+				height:100%;
+			}
+			.header{
+				height:80px;
+				background-color:orange;
+			}
+			.container{
+				width:100%;
+				display:flex;
+				height:calc(100% - 80px);
+			}
+			.left{
+				background-color:lightgreen;
+				flex:2;
+			}
+			.right{
+				background-color:lightpink;
+				flex:8;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+			<div class="container">
+				<router-view name="left"></router-view>
+				<router-view name="right"></router-view>
+			</div>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const HeaderBox = Vue.component("header-box",{
+				template:"<div><p class='header'>头部</p></div>"
+			});
+			
+			const LeftBox = Vue.component("left-box",{
+				template:"<div class='left'>左边</div>"
+			});
+			
+			const RightBox = Vue.component("right-box",{
+				template:"<div class='right'>右边</div>"
+			});
+			
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/",
+						//  注意此处是components
+						components:{
+							default:HeaderBox,
+							left:LeftBox,
+							right:RightBox
+						}
+					}
+				]
+			});
+			new Vue({
+				el:"#app",
+				router
+			})
+		</script>
+	</body>
+</html>

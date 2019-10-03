@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组排序方法</title>
+</head>
+<body>
+    <script>
+        /*数组的sort方法    快速排序*/  
+        let arr = [21, 22, 33, 14, 7, 52, 9, 50, 47];
+        // console.log( arr.sort( (a,b)=> a-b ) );   
+        var newArr = [];
+        function sortMethod(arr) {
+            while (arr.length > 0) {
+                let len = arr.length;
+                for (let i = 0; i < len; i++) {
+                    var max = Math.max.apply(null, arr); // 先找到数组的最大值
+                    var j = arr.indexOf(max);   // 找到第一次出现最大值时的下标
+                    arr[j] = arr[len - 1];        // 先将数组最后一个元素 放在 最大值出现的位置上
+                    arr[len - 1] = max;       // 然后将最大值放在数组的最后一个位置上
+                }
+                newArr.push(max);   // 将最大值添加进新数组
+                arr.length = len - 1;   // 修改源数组的length,删除最后一个元素
+            }
+            console.log(newArr);
+        }
+        // sortMethod(arr);
+        
+
+        // 对上面的代码进行优化
+        let array = [1,2,3,4,5,20,17,23,15,8,44,50,37,100,32,77,65,43,19];
+        var newArray = [];
+        function sort(arr){
+            while(arr.length > 0){
+                for(let i = 0,len = arr.length; i < len; i++){
+                    let min = Math.min(...arr); 
+                    newArray.push(min);
+                    let index = arr.indexOf(min);
+                    arr.splice(index,1);
+                }
+                console.log(newArray);
+            }
+        }
+        // sort(array);    // 时间复杂度
+
+        // 测试自己写的从大到小排列的,新建一个数量级比较大的数组
+        var randomArr = new Array(10).fill(0).map((item,index)=>index).sort(()=>Math.random()-.5);
+        // console.log(randomArr);
+        // console.log(randomArr.sort((a,b)=>a-b));
+        // sort(randomArr);
+
+
+        // 冒泡排序
+        /*相邻两个依次排序,小的放左边,大的放右边*/
+        let a = [3,13,2,5,1,17,9,8];
+        let num = 0;
+        function bubbleSort(arr){
+            let len = arr.length;
+            while(num<len){
+                // 注意不能越界 
+                for(let i = 0; i < arr.length-1; i++){
+                    if(arr[i] > arr[i+1]){
+                        [ arr[i],arr[i+1] ] = [ arr[i+1],arr[i] ];
+                    }
+                }
+                num++;
+            }
+        }
+        bubbleSort(a);
+        console.log(a);
+        // bubbleSort(randomArr);
+    </script>
+</body>
+</html>

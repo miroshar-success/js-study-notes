@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>文字</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			canvas{
+				background-color:skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas1"></canvas>
+		<canvas id="canvas2"></canvas>
+		<canvas id="canvas3"></canvas>
+		<script>
+			const canvas1 = document.getElementById('canvas1');
+			const ctx1 = canvas1.getContext('2d');
+			ctx1.font = '30px 微软雅黑';
+			ctx1.save();
+			ctx1.strokeStyle = 'red';
+			ctx1.strokeText('Hello World',10,50);
+			
+			ctx1.restore();
+			ctx1.fillStyle = 'green';
+			ctx1.fillText('Hello World',100,100);
+			
+			// 渐变文字
+			const canvas2 = document.getElementById('canvas2');
+			const ctx2 = canvas2.getContext('2d');
+			
+			const gradient = ctx2.createLinearGradient(0,0,300,150);
+			gradient.addColorStop(.2,'blue');
+			gradient.addColorStop(.8,'red')
+			ctx2.fillStyle = gradient;
+			ctx2.font = '30px 宋体';
+			ctx2.textAlign = 'center';
+			
+			ctx2.fillText('Kyrie Irving',150,60);
+			ctx2.fillText('Lebron James',150,90)
+			
+			const canvas3 = document.getElementById('canvas3');
+			const ctx3 = canvas3.getContext('2d');
+			
+			ctx3.textAlign = 'center';
+			ctx3.font = '30px 宋体';
+			ctx3.textBaseline = 'middle';
+			ctx3.fillText('Hello World!',150,75);
+			
+			
+		</script>
+	</body>
+</html>

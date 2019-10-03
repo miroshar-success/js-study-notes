@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浮动作业 —— 三</title>
+    <style>
+        body,ul{
+            margin: 0;
+        }
+        ul{
+            padding: 0;
+            list-style:none;
+        }
+        .nav{
+            padding-left:225px;
+            height:15px;
+            margin:36px 0 26px 0;
+        }
+        .container{
+            width: 1180px;
+            height: 587px;
+            border:1px solid #ccc;
+            margin:10px auto;
+        }
+        .nav li{
+            color:#555;
+            font-size:12px;
+            line-height:15px;
+            cursor:pointer;
+        }
+        .nav li .line{
+            margin:0 28px 0 25px;
+        }
+        .nav li .nav-item:hover{
+            color:#f00;
+        }
+        .list-left,.list-center,.list-right,.list-left li,.list-right li,.nav li{
+            float:left;
+        }
+        .list-left{
+            width: 559px;
+            height: 499px;
+        }
+        .list-left li{
+            border-right:1px solid #f1e3e8;
+        }
+        .list-center{
+            width: 209px;
+            height: 499px;
+        }
+        ul li img{
+            display:block;
+        }
+        .list-center li:nth-of-type(3){
+            border-bottom-width:0;
+        }
+        .list-right{
+            width: 400px;
+            height:499px;
+        }
+        .list-right li:nth-of-type(1),.list-center li{
+            border-bottom:1px solid #f1e3e8;
+            border-right:1px solid #f1e3e8;
+        }
+        .list-right li:nth-of-type(2),.list-left li:nth-of-type(2){
+            border-bottom:1px solid #f1e3e8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="nav">
+            <li>
+                <span class="nav-item">护肤</span>  
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">彩妆</span>
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">美发</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">美体</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">香氛</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">肌肤</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">产品</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">唇部</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">精华</span> 
+                <span class="line">|</span>
+            </li>
+            <li>
+                <span class="nav-item">修护</span>
+            </li>
+        </ul>
+        <ul class="list-left">
+            <li><img src="./imgs/1.jpg" alt="" width="329" height="499"></li>
+            <li><img src="./imgs/2.jpg" alt="" width="228" height="248"></li>
+            <li><img src="./imgs/3.jpg" alt="" width="228" height="250"></li>
+        </ul>
+        <ul class="list-center">
+            <li><img src="./imgs/4.jpg" alt="" width="208" height="178"></li>
+            <li><img src="./imgs/5.jpg" alt="" width="208" height="164"></li>
+            <li><img src="./imgs/6.jpg" alt="" width="208" height="155"></li>
+        </ul>
+        <ul class="list-right">
+            <li><img src="./imgs/7.jpg" alt="" width="199" height="178"></li>
+            <li><img src="./imgs/8.jpg" alt="" width="200" height="178"></li>
+            <li><img src="./imgs/9.jpg" alt="" width="400" height="320"></li>
+        </ul>
+    </div>
+</body>
+</html>

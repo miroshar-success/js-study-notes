@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>运动框架封装</title>
+    <style>
+        body,p,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            position:absolute;
+            width: 100px;
+            height: 100px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        /*
+        定义一个函数, 需要传入的参数 el,初始状态,结束状态,运动时间,回调函数
+        1. 初始状态和结束对象均为对象
+        {left:100px;top:100px;height:30px}
+        2. 通过getComputedStyle可以获取元素的初始状态，并保存在一个对象里
+        3. 遍历传入的属性,将结束的运动状态 减去初始的状态除以总时间就是每个属性的 运动速率
+        3. 初始时间为 t1, 结束时间为t2,通过Date对象获取当前的时间 和 运动时的时间
+        4. 通过此时的时间可以计算当前运动的状态。
+        6. 通过传入的时间,判断运动结束条件。如果到了运动时间就结束运动
+        */
+        let oBox = document.querySelector('.box');
+        function getStyle(el){
+            if(window.getComputedStyle){
+                return window.getComputedStyle(el);
+            }else{
+                return el.currentStyle;
+            }
+        }
+        var t1 = new Date();
+        function move(el,endjson,time,callback){
+            let startValue = {},
+            speedValue = {};
+            for(let key in endjson){
+                startValue[key] = parseInt(getStyle(el)[key]);
+                speedValue[key] = (endjson[key]-startValue[key])/time;
+            }
+            console.log(speedValue);
+            function run(){
+                var t2 = new Date();
+                for(let key in speedValue){
+                    el.style[key] = speedValue[key]*(t2-t1) + startValue[key] + 'px';
+                }
+                if(t2-t1>=time){
+                    callback && callback();
+                    cancelAnimationFrame(run);
+                }else{
+                    window.requestAnimationFrame(run);
+                }
+            }
+            run();
+        }
+        move(oBox,{left:300,top:400,height:200},2000,function(){
+            console.log('运动完成了');
+        });
+        
+        // 定义一个函数,传入两个参数和一个回调函数,
+        // 再定义一个空数组,遍历其中的一个参数,并将回调函数的两个参数计算结果赋值给定义的空数组,并返回空数组
+        var arr1 = [1,2,3];
+        var arr2 = [4,5,6];
+
+        function calc(start,end,callback){
+            let output = [];
+            start.forEach(function(i,j){
+                output[j] = callback(i,end[j]);
+            });
+            console.log(output);
+        }
+        calc(arr1,arr2,(a,b)=>a+b);
+    </script>
+</body>
+</html>

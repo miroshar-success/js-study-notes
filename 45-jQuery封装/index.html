@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery</title>
+    <style>
+        html,body,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <div id="box"></div>
+    <script src='./js/jquery.js'></script>
+    <script>
+        // 代码封装的封闭性(尽可能少的暴露接口),严谨性
+        (function(window){
+            function trim(str){
+                return str.replace(/(^\s*)|(\s*$)/g,"");
+            }
+           function fun(selector){
+               return new fun.prototype.init(selector);
+           } 
+           fun.prototype = {
+               init:function (selector){
+                   // 只能判断单个字符串,因为原生js获取页面元素的方法只能传入单个字符串选择器
+                   function selectType(selector){
+                        if(/^\./.test(selector)) return 'classname';
+                        if(/^[a-z]/.test(selector)) return 'tagname';
+                        if(/^#/.test(selector)) return 'id';
+                        return 'html';
+                   }
+                   // 判断输入的选择器,可以是对象,也可以是字符串
+                   // 如果是字符串,再判断 输入的选择器 是什么选择器 id class tag
+                   var selectorTools = {
+                       // tips: 当输入的选择器是类名 或 id时,需要去除 . 和 #
+                       'tagname':function(selector){
+                           return document.getElementsByTagName(selector);
+                       },
+                       'classname':function(selector){
+                           var selector = selector.slice(1);
+                           return document.getElementsByClassName(selector);
+                       },
+                       'id':function(selector){
+                           var selector = selector.slice(1);
+                           return [document.getElementById(selector)];
+                       },
+                       'html':function(selector){
+                           let parent = document.createElement('div');
+                           parent.innerHTML = selector;
+                           return parent.children;
+                       }
+                   }
+                   var arr = [];
+                   if(typeof selector == 'string'){
+                       // 去除首位空格
+                        selector = trim(selector);
+                        arr = selectorTools[selectType(selector)](selector);    
+                        console.log(arr);
+                    }
+               },
+               each:function(array,fn){
+                    for(let i = 0, l = array.length; i < l; i++){
+                        fn(array[i],i,array);
+                    }
+               },
+               css:function(arg1,arg2){
+                    if(typeof arg1 == 'string'){
+                        this.each(this,function(item,index,arr){
+                            item.style[arg1] = arg2;
+                        });
+                    }else{  
+                        this.each(this,function(item,index,arr){
+                            for(var key in arg1){
+                                item.style[key] = arg1[key];                                
+                            }
+                        });
+                    }
+                    return this;
+               }
+           }
+           fun.prototype.init.prototype = fun.prototype;
+           // 静态方法
+           fun.ajax = function(){
+               console.log('我是ajax');
+           }
+           window._$ = fun;
+        })(window);
+
+        _$(' .list');
+        _$('#box');
+
+        $('<div>123</div>').appendTo('body');
+        _$('<ul><li>123</li></ul>');
+        _$('li').css({backgroundColor:'red',margin:'10px',width:'100px',height:'100px'});
+        $('li').css({backgroundColor:'red',margin:'10px',width:'100px',height:'100px'});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React-生命周期</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="node_modules/babel-standalone/babel.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+const element = React.createElement(
+    "h2",
+    {className:"item"},
+    "你好,世界!"
+)
+/*const element1 = {
+    type:"h2",
+    props:{
+        className:"item",
+        children:"Hello React!"
+    }
+}*/
+class Greeting extends React.Component{
+    render(){
+        return(
+            <div>
+                <p>Hello React.Component</p>
+            </div>
+        )
+    }
+}
+
+class Greet extends React.PureComponent{
+    constructor(){
+        super(...arguments);
+        this.state={
+            name:"kyrie",
+            age:27
+        }
+        console.log("01--构造函数执行");
+        console.log("当前组件实例:",this);
+        this.handleChange = this.handleChange.bind(this);
+        this.myRef = React.createRef();
+    }
+    //可以在此处获取数据
+    componentWillMount(){
+        console.log("02--组件即将被挂载");
+        console.log(this.element);  // null
+    //    this.setState 是异步的
+        let name = "Lebron James";
+        this.setState({
+            name,
+        })
+/*        setTimeout(()=>{
+            console.log(this.state.name);
+        },2000);*/
+    }
+    // 组件渲染完成
+    componentDidMount(){
+        console.log("04---组件渲染完成");
+        // 在此请求数据接口
+    }
+    handleChange(){
+        let data = "我是修改后的组件数据";
+        this.setState({
+            name:data
+        })
+        console.log(this.element);
+        console.log(this.txt);
+        console.log(this.refs.text);
+        this.refs.text.style.color = "pink";
+        console.log(this.myRef.current);
+    }
+    render(){
+        console.log("03--开始渲染组件");
+        //此处可以获取到渲染的数据
+        console.log(this.state.name);
+        return(
+            <div>
+                {this.state.name}
+                <h2 ref={this.myRef}>我是PureComponent组件</h2>
+                <h3 ref={text => this.txt = text}>你好,我是h3元素</h3>
+                <p ref={"text"}>我是文本标签</p>
+                <span ref={this.myRef}>我是span元素,Hello refs</span>
+                <button onClick={this.handleChange}>点击</button>
+            </div>
+        )
+    }
+}
+ReactDOM.render(
+    // <Greeting/>,
+    <Greet/>,
+    document.getElementById("app")
+)
+
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>z-index堆叠顺序</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			ul{
+				list-style:none;
+			}
+			.list1{
+				position:relative;
+				width: 200px;
+				height: 200px;
+				border:1px solid #000;
+			}
+			.list1>.item{
+				width: 80px;
+				height: 80px;
+				text-align:center;
+				line-height:80px;
+				color:#fff;
+				font-size:28px;
+			}
+			.list1>.item1{
+				position:absolute;
+				top:0;
+				background-color:pink;
+			}
+			.list1>.item2{
+				top:20px;
+				background-color:seagreen;
+			}
+			.list1>.item3{
+				position:absolute;
+				top:40px;
+				background-color:skyblue;
+			}
+			.list2{
+				position:relative;
+				width: 300px;
+				height: 300px;
+				border:1px solid #f00;
+			}
+			.list2>.item{
+				text-align:center;
+				box-sizing:border-box;
+				width: 100px;
+				height: 100px;
+				background-color:hotpink;
+			}
+			.list2>.item1{
+				opacity:0.3;
+				border:1px solid #000;
+			}
+			.list2>.item2{
+				width:150px;
+				transform:translate(10px,-50px);
+				float:left;
+				background-color:skyblue;
+			}
+			.list2>.item3{
+				left:60px;
+				position:absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="list1">
+			<div class="item item1">1</div>
+			<div class="item item2">2</div>
+			<div class="item item3">3</div>
+		</div>
+		<div class="list2">
+			<div class="item item1">
+				No position
+				<span>Hello World!</span>
+			</div>
+			<div class="item item2">float</div>
+			<div class="item item3">absolute</div>
+			<span>Hello,World!</span>
+		</div>
+	</body>
+</html>

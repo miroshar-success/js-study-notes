@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bind</title>
+</head>
+<body>
+<script>
+    var module = {
+        x:42,
+        getX:function(){
+            console.log(this.x);
+        }
+    }
+    let bar = module.getX;
+    bar();  // undefined        函数在全局范围内调用,this隐式地绑定到了全局环境
+
+    function foo(){
+        console.log(this.a);
+    }
+    var obj = {
+        a:2,
+        foo:foo
+    }
+    var a = "hello world!";
+    let baz = obj.foo;
+    baz();      // hello world
+
+    this.x = 9;
+    var sayX = {
+        x:81,
+        getX:function(){
+            console.log(this.x);
+        },
+    }
+    sayX.getX();    // 81
+    var retireveX = module.getX;
+    retireveX();  //    9
+
+    var boundGetX = retireveX.bind(sayX);
+    boundGetX();    // 81
+
+    noArgBindGetX = retireveX.bind();
+    noArgBindGetX();    // 9
+
+
+    function list(){
+        return Array.prototype.slice.call(arguments);
+    }
+    function addArguments(arg1,arg2){
+        return arg1 + arg2;
+    }
+    var list1 = list(1,2,3);
+    console.log(list1);
+
+    var result1 = addArguments(1,2);
+    console.log(result1);
+
+    var leadingThirtysevenList = list.bind(null,37);
+    var list2 = leadingThirtysevenList();
+    console.log(list2); // [37]
+
+    var addThirtySeven = addArguments.bind(null,37);
+    let list3 = leadingThirtysevenList(1,2,3);
+    console.log(list3);
+
+    let result2 = addThirtySeven(5);
+    console.log(result2);   // 42
+
+    let result3 = addThirtySeven(3,10);
+    console.log(result3);   // 40
+
+
+    function add(a,b,c){
+        console.log([...arguments]);
+        return a + b + c;
+    }
+    let res1 = add(1,2,3);
+    console.log(res1);  // 6
+
+    let addBind = add.bind(null,2,4);
+    let res2 = addBind(6);
+    console.log(res2);  // 12
+
+
+    function increment(a,b){
+        console.log([...arguments]);
+        console.log(a + b);
+    }
+    var addOne = increment.bind(null,2);
+
+    addOne(5);  // [2,5]  7
+
+
+
+
+
+
+</script>
+</body>
+</html>

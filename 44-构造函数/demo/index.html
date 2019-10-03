@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象案例</title>
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+        }
+        img{
+            display:block;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>  
+    <script>
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        document.body.appendChild(div);
+        div.appendChild(img);
+        img.setAttribute('src','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546502599773&di=aed6c075b16d10e88f910ba214675616&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn21%2F254%2Fw750h1104%2F20180603%2Fe33a-hcmurvh0875818.jpg');
+        
+        div.removeChild(img);   // 移除标签
+
+        div.parentNode.removeChild(div);
+
+        // Object.assign()
+        const object1 = {
+            a:1,
+            b:2,
+            c:3
+        }
+        const object2 = Object.assign({c:3,d:4},object1);
+        console.log(object1);   // {a:1,b:2,c:3}
+        console.log(object2);   // {c:3,d:4,a:1,b:2}
+
+        let obj = {a:1};
+        let newObj = Object.assign({},obj);
+        console.log(newObj);    // {a:1}
+
+        obj.a = 3;
+        console.log(obj,newObj);    // {a:3} {a:1}
+
+        let arr = [1,2,3];
+        let newArr = Object.assign([],arr);
+        console.log(newArr);
+        arr[0] = 'a';
+        console.log(arr,newArr);    // ['a',2,3] [1,2,3]
+
+        function test(){
+            'use strict'
+            let obj1 = {a:0,b:{c:0}};
+
+            let obj2 = Object.assign({},obj1);
+            console.log( JSON.stringify(obj2) );    // {a:0,b:{c:0}}
+            
+            obj1.a = 1;
+            console.log(JSON.stringify(obj1));  //  {a:1,b:{c:0}}
+            console.log(JSON.stringify(obj2));  //  {a:0,b:{c:0}}
+
+            obj2.a = 2;
+            console.log(JSON.stringify(obj1));  // {a:1,b:{c:0}}
+            console.log(JSON.stringify(obj2));  // {a:2,b:{c:0}}
+
+            obj2.b.c = 3;
+            console.log(JSON.stringify(obj1));  // {a:1,b:{c:3}}
+            console.log(JSON.stringify(obj2));  // {a:2,b:{c:3}}
+        }
+        test();
+
+        const target = {a:1};
+        const source1 = {b:2,c:3};
+        const source2 = {c:4,d:5};
+
+        let newTarget1 = Object.assign(target,source1,source2);
+        console.log(newTarget1);    // {a:1,b:2,c:4,d:5}
+        console.log(target,source1,source2);
+
+        let newTarget2 = Object.assign(target,source2,source1);
+        console.log(newTarget2);    // {a:1,c:3,d:5,b:2}
+
+
+        // 设置了源对象的属性为不可枚举
+        let t = {a:1};
+        let source = {b:2};
+        Object.defineProperty(source,'b',{
+            value:2,
+            enumerable:false,
+        });
+        console.log(Object.assign(t,source));   // {a:1}
+        console.log(t); // {a:1}
+
+        // 如果参数不是对象
+        console.log(Object.assign(2));
+        console.log(typeof Object.assign(2));   // object
+        console.log(Object.assign({},2));
+        // console.log(Object.assign(undefined));  // 报错 
+        // console.log(Object.assign(null));   // 报错
+
+        let o = {};
+        Object.defineProperty({},'invisble',{
+            enumerable:false,
+            value:'Hello'
+        });
+        console.log( Object.assign({a:'world'},o) ) ;   // {a:'hello"};
+
+        const obj3 = {a:{b:1}};
+        const obj4 = Object.assign({},obj3);
+        obj3.a.b = 4;
+        console.log(obj4);  // {a:{b:4}}
+
+        // 会把数组当作对象处理
+        let arr1 = [1,2,3,4];
+        let arr2 = [4,5,6];
+        console.log(Object.assign(arr1,arr2));
+        console.log(arr1,arr2);
+        
+        console.log(Object.create(null));
+        
+        const person = {
+            isHuman:false,
+            printIntroduction:function(){
+                console.log(`My name is ${this.name} Am i human?${this.isHuman}`);
+            }
+        }
+        const me = Object.create(person);
+        me.name = 'Jack';
+        me.isHuman = true;
+        me.printIntroduction(); // My name is Jack Am i human?true
+        console.log(me);
+        console.log(me.__proto__.__proto__ == Object.prototype);    // true
+        console.log(Object.prototype == person);    // false
+        console.log(person.__proto__.constructor);  // Object
+        console.log(person.constructor);    // Oobject
+        // let person = new Object()
+        console.log(person.__proto__ == Object.prototype);  // true
+        
+        function Shape(){
+            this.x = 0;
+            this.y = 0;
+        }
+        Shape.prototype.move = function(x,y){
+            this.x += x;
+            this.y += y;
+            console.info('Shape moved');
+        }
+
+        function Rectangle(){
+            Shape.call(this);
+        }
+        Rectangle.prototype = Object.create(Shape.prototype);
+        // Rectangle.prototype.constructor = Rectangle;
+
+        let rect = new Rectangle();
+
+        console.log(Rectangle.prototype.__proto__.constructor); // Shape
+        console.log(Rectangle.prototype.constructor);  // Shape 
+
+        console.log(Object.create(Object.prototype));
+        console.log({});
+        console.log(Object.create(null));
+        let a = Object.create(null);
+        console.log( a.__proto__ == null ); // true
+
+        console.log(Object.prototype);
+        console.log(typeof Object.prototype);   // object
+        console.log(Object.prototype.__proto__);    // null
+
+        // Object.create(proto,[propertiesObject])
+        /*
+        1. proto: 新创建对象的原型对象
+        2. propertiesObject:可选.要添加到新对象的可枚举属性(自身的属性,不是原型链上的属性)
+        */
+        const car = {
+            isSportsCar : false,
+            introduction:function(){
+                console.log(`Hi girl,this is a ${this.name}.Do you like to have a drink with me ? ${this.isSportsCar}`);
+            }
+        }
+        const porsche = Object.create(car,{
+            color:{
+                enumerable:false,
+                writable:true,
+                configurable:true,
+                value:'yellow',
+            },
+            size:{
+                enumerable:false,
+                value:'4m',
+                configurable:false,
+                writable:false
+            }
+        });
+        porsche.name = 'Porsche 911';
+        porsche.isSportsCar = true;
+        porsche.introduction(); // Hi girl,this is a Porsche 911.Do you like to have a drink with me ? true
+        console.log(porsche.color); // yellow 
+        console.log(porsche.size);  // 100cm
+        console.log(porsche.__proto__); // 
+
+
+        let object3 = Object.create(null,{
+            a:{
+                writable:true,
+                configurable:true,
+                value:1,
+                enumerable:false,
+            }
+        });
+        console.log(object3);
+        
+        let object4 = Object.create({},{
+            a:{
+                writable:true,
+                configurable:true,
+                value:1,
+                enumerable:true,
+            }
+        });
+        console.log(object4);
+        console.log(object4.__proto__.__proto__ == Object.prototype);   // false
+        let object5 = Object.create(Object.prototype,{
+            a:{
+                value:1,
+                writable:true,
+                configurable:true,
+            }
+        });
+        console.log(object5);
+        console.log(object5.__proto__);
+        console.log(object5.__proto__ == Object.prototype); // true
+
+     </script>  
+</body>
+</html>

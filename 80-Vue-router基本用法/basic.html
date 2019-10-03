@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue-router基本用法</title>
+	</head>
+	<body>
+		<h2>路由的基本使用</h2>
+		<div id="app">
+			<ul>
+				<li><router-link to="/foo">G to Foo</router-link></li>
+				<li><router-link to="/bar">G to Bar</router-link></li>
+			</ul>
+			<router-view></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const Foo = Vue.component("foo",{
+				template:"<div><p>我是Foo组件</p></div>",
+				mounted(){
+					console.log(this.$route);
+				}
+			});
+			const Bar = Vue.component("bar",{
+				template:"<div><p>我是Bar组件</p></div>"
+			})
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/foo",
+						component:Foo
+					},
+					{
+						path:"/bar",
+						component:Bar
+					}
+				]
+			})
+			new Vue({
+				el:document.getElementById("app"),
+				router
+			});
+		</script>
+	</body>
+</html>

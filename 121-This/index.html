@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this指向</title>
+</head>
+<body>
+<script>
+    function baz(){
+        console.log("baz");
+        bar();
+    }
+    function bar(){
+        console.log("bar");
+        foo();
+    }
+    function foo(){
+        console.log("foo");
+    }
+    baz();
+
+/*    function sayName(){
+        "use strict"
+        console.log(this.a);
+        console.log(this === undefined);    // true
+    }
+    let a = 2;
+    sayName();  // 2*/
+
+// 严格模式下,禁止this关键字指向全局对象, this的值为undefined
+    function sayName(){
+        console.log(this.a);
+        console.log(this);
+    }
+    let a = 2;
+    (function(){
+        "use strict"
+        sayName();  // 2
+        console.log(this);  // undefined
+    })();
+
+    function b(){
+        console.log(this);  // window
+    }
+    function f1(){
+        "use strict";
+        console.log(this);  // undefined
+        b();
+    }
+    f1();
+
+
+    // 函数不是在全局对象下的时候
+    function f2(){
+        console.log(this);
+        console.log(this.name);
+    }
+    let obj = {
+        name:'kyrie',
+        foo:f2
+    }
+    obj.foo();
+
+
+    function f3(){
+        console.log(this.b);
+    }
+    var obj2 = {
+        b:30,
+        f3:f3
+    }
+    var obj1 = {
+        b:3,
+        obj2:obj2
+    }
+    obj1.obj2.f3(); // 30
+
+    console.log(obj1.obj2);
+
+
+    function m1(){
+        console.log(this);
+        console.log(this.age);
+    }
+    var player = {
+        age:26,
+        m1:m1
+    }
+    player.m1();
+    var m2 = player.m1;
+    var age = 30;
+    m2();   // 30
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>createPattern</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			canvas{
+				border:1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="https://wx1.sinaimg.cn/mw690/6e48db9ely1g1bjiobpxmj20hs0m8taw.jpg" alt="" width='300' height='375'>
+		<canvas id="canvas1" width='400' height='400'></canvas>
+		<canvas id="canvas2" width='300' height='375'></canvas>
+		<canvas id="canvas3" width='300' height='375'></canvas>
+		<script>
+			const canvas1 = document.getElementById('canvas1');
+			const ctx1 = canvas1.getContext('2d');
+			var img = new Image();
+			img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+			const pattern = ctx1.createPattern(img,'repeat');
+			// 需要在图片加载完后才可以绘制图片
+			img.onload = function(){
+				ctx1.fillStyle = pattern;
+				console.log(pattern);
+				ctx1.fillRect(0,0,canvas1.width,canvas1.height);
+			}
+			
+			const canvas2 = document.getElementById('canvas2');
+			const ctx2 = canvas2.getContext('2d');
+			const image = document.querySelector('img');
+			image.onload = function(){
+				var pattern1 = ctx2.createPattern(image,'no-repeat');
+				ctx2.fillStyle = pattern1;
+				ctx2.fillRect(0,0,300,375);
+			}
+			
+			
+			const img1 = document.createElement('img');
+			img1.src = 'https://wx1.sinaimg.cn/mw690/6e48db9ely1g1bjiobpxmj20hs0m8taw.jpg';
+			const canvas3 = document.getElementById('canvas3');
+			const ctx3 = canvas3.getContext('2d');
+			img1.onload = function(){
+				const pattern2 = ctx3.createPattern(img1,'no-repeat');
+				ctx3.fillStyle = pattern2;
+				ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+			}
+			
+		</script>
+	</body>
+</html>

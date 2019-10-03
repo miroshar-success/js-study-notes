@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册组件</title>
+		<style>
+			ul,ol{
+				padding: 0;
+				margin: 0;
+				list-style:none;
+			}
+			li{
+				display:inline-block;
+				width:64px;
+				height:40px;
+				background-color:rgb(240,240,240);
+				text-align:center;
+				line-height:40px;
+				font-size:14px;
+				border-radius:6px;
+				cursor:pointer;
+			}
+			.wrapper{
+				width:190px;
+				height:30px;
+				border:1px solid #e5e5e5;
+				text-align:center;
+				line-height:30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button-counter></button-counter>
+		</div>
+		<div id="root">
+			<counter></counter>
+		</div>
+		<div id="blog">
+			<blog-post title="My journey with Vue"></blog-post>
+			<blog-post title="Blogging with Vue"></blog-post>
+			<blog-post title="Why Vue is so fun"></blog-post>
+		</div>
+		
+		<!-- 只传递一个博文的标题 -->
+		<div id="title">
+			<blog-title 
+				v-for="(item,index) in posts" 
+				:key="index"
+				:title="item.title"
+			></blog-title>
+		</div>
+		
+		<!-- 当传递的数据越来越复杂的时候,让它变成接受一个单独的 prop -->
+		<div id="phone">
+			<div :style="{fontSize:postFontSize + 'em'}">
+				<phone-component
+					v-for="(item,index) in phones"
+					:key="index"
+					v-bind:phone="item"
+					v-on:enlarge-text="handleClick"
+				></phone-component>
+			</div>
+		</div>
+		<div id="demo">
+			<input type="text" v-model="msg">
+			<p>{{msg}}</p>
+			
+			<input type="text" 
+				:value="searchText"
+				@input="handleSearchText"
+			>
+			<p>{{searchText}}</p>
+			
+			
+			<custom-input :value="text" @input="handleChangeText"></custom-input>
+			<p>{{text}}</p>
+		</div>
+		
+		<div id="component-demo">
+			<div class="container">
+				<ul>
+					<li 
+						v-for="(item,index) in category" 
+						:key="index"
+						@click="handleChangeComponent(item)"
+					>{{item}}</li>
+				</ul>
+				<div class="wrapper">
+					<component :is="currentTabComponent"></component>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			/*
+			1. 注册组件,传入一个扩展过的构造器
+			Vue.component("my-component",Vue.extend({}))
+			
+			2. 注册组件,传入一个选项对象 (自动调用Vue.extend)
+			Vue.component("my-component",{})
+			
+			*/ 
+		   
+		   // 传入一个选项对象,自动调用Vue.extend 
+		   Vue.component("button-counter",{
+			   template:"<button @click='handleClick'>clicked me {{count}} times</button>",
+			   data(){
+				   return{
+					   count:0
+				   }
+			   },
+			   methods:{
+				   handleClick(){
+					   this.count++;
+				   }
+			   }
+		   })
+		   new Vue({
+			   el:"#app"
+		   })
+		   
+		   
+		   const ButtonCounter = Vue.extend({
+			   template:"<button @click='handleClick'>click me {{count}} times</button>",
+			   data(){
+				   return{
+					   count:1
+				   }
+			   },
+			   methods:{
+				   handleClick(){
+					   this.count++;
+				   }
+			   }
+		   })
+		   let vm = new ButtonCounter({
+			   el:document.createElement("div"),
+			   mounted(){
+				   console.log(this,this.$el);
+			   }
+		   });
+		   document.body.appendChild(vm.$el);
+		   
+		   
+			Vue.component("counter",ButtonCounter);
+			new Vue({
+				el:document.getElementById("root")
+			})
+			
+			
+			// 通过props传递数据
+			Vue.component("blog-post",{
+				template:"<p>{{title}}</p>",
+				props:["title"]
+			})
+			new Vue({
+				el:document.getElementById("blog"),
+			})
+			
+			// 通过 v-for 传递title数据
+			Vue.component("blog-title",{
+				props:["title"],
+				template:"<h4>{{title}}</h4>"
+			})
+			new Vue({
+				el:document.getElementById("title"),
+				data:{
+					posts:[
+						{id:1,title:"My journey with Vue"},
+						{id:2,title:"Blogging with Vue"},
+						{id:3,title:"Why Vue is so fun"}
+					]
+				}
+			})
+			
+			// 当组件数据变得复杂的时候,直接传递一个复杂的对象,并且使用 $emit监听父组件的事件
+			Vue.component("phone-component",{
+				props:["phone"],
+				template:
+				`<div>
+					<h3 class="title">{{phone.brand}}</h3>
+					<button @click="handleEnlarge">Enlarge fontSize</button>
+					<p class="content">{{phone.info}}</p>
+				</div>`,
+				mounted(){
+					console.log(this.phone);
+				},
+				data(){
+					return{
+						msg:0.01
+					}
+				},
+				methods:{
+					handleEnlarge(){
+						this.$emit("enlarge-text",this.msg)
+					}
+				}
+			})
+			new Vue({
+				el:"#phone",
+				data:{
+					phones:[
+						{
+							brand:"Apple",
+							info:"苹果公司（Apple Inc. ）是美国一家高科技公司。由史蒂夫·乔布斯、斯蒂夫·沃兹尼亚克和罗·韦恩(Ron Wayne)等人于1976年4月1日创立，并命名为美国苹果电脑公司（Apple Computer Inc. ），2007年1月9日更名为苹果公司，总部位于加利福尼亚州的库比蒂诺。"
+						},
+						{
+							brand:"HUAWEI",
+							info:"华为技术有限公司是一家生产销售通信设备的民营通信科技公司，于1987年正式注册成立，总部位于中国广东省深圳市龙岗区坂田华为基地"
+						},
+						{
+							brand:"MI",
+							info:"北京小米科技有限责任公司成立 [1]  于2010年3月3日 [2]  ，是一家专注于智能硬件和电子产品研发的移动互联网公司，同时也是一家专注于高端智能手机、互联网电视以及智能家居生态链建设的创新型科技企业"
+						}
+					],
+					postFontSize:1
+				},
+				methods:{
+					handleClick(data){
+						this.postFontSize += data;
+						console.log(data);
+					}
+				}
+			});
+			
+			// 在组件上使用 v-model
+			Vue.component("custom-input",{
+				props:['value'],
+				template:"<div><input :value='value' @input='handleChangeText'></div>",
+				methods:{
+					handleChangeText(event){
+						this.$emit("input",event.target.value);
+					}
+				}
+			})
+
+			new Vue({
+				el:"#demo",
+				data:{
+					msg:"Hello World",
+					searchText:"Hello World",
+					text:"Hello"
+				},
+				methods:{
+					handleSearchText(event){
+						console.log(event);
+						this.searchText = event.target.value;
+					},
+					handleChangeText(data){
+						console.log(data);
+						this.text = data;
+					}
+				}
+			})
+			
+			// 动态组件
+			Vue.component("home",{
+				template:"<div>Home component</div>"
+			})
+			Vue.component("posts",{
+				template:"<div>Posts component</div>"
+			})
+			Vue.component("archive",{
+				template:"<div>Archive component</div>"
+			})
+			new Vue({
+				el:"#component-demo",
+				data:{
+					category:["Home","Posts","Archive"],
+					currentTabComponent:'home'
+				},
+				methods:{
+					handleChangeComponent(data){
+						console.log(data);
+						this.currentTabComponent = data.toLowerCase();
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

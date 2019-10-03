@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blob</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            background-color:#ddd;
+        }
+        .container{
+            margin:100px auto 0;
+            width: 750px;
+            min-height: 300px;
+            height:auto;
+            background-color:#ccc;
+            text-align:center;
+            color:#fff;
+            user-select:none;
+            border-radius:8px;
+            display:flex;
+            flex-flow:row wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+</div>
+<script>
+    let oContainer = document.querySelector(".container");
+    oContainer.addEventListener("dragover",drag,false);
+    oContainer.addEventListener("drop",drag,false);
+    function drag(event){
+        event = event || window.event;
+        event.preventDefault();
+        let type = event.type;
+        switch(type){
+            case "drop":
+                let files = event.dataTransfer.files;
+                for(let i = 0,item; item = files.item(i); i++){
+                    let blob = new Blob([item]);
+                    let url = window.URL.createObjectURL(blob);
+                    console.log(blob,url);
+                    let img = new Image(250,200);
+                    img.src = url;
+                    img.onload = function(){
+                        oContainer.appendChild(img);
+                        window.URL.revokeObjectURL(url);
+                    }
+                }
+            break;
+        }
+
+
+    }
+</script>
+</body>
+</html>

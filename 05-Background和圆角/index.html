@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Background</title>
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-image:url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534228381810&di=15034a47852a0681bb2b5e67b1cc9bc9&imgtype=0&src=http%3A%2F%2Fpic33.nipic.com%2F20131011%2F6963481_142640079000_2.jpg");
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            border:10px dashed #000;
+            background-color:#f00;
+            margin:20px;
+            padding:20px;
+            background-origin:content-box;
+        }
+        .img{
+            width: 500px;
+            height: 400px;
+            background-image:url('./imgs/girl.jpg');
+            background-size:100% 100%;
+            padding:20px;
+            /* background-repeat:no-repeat; */
+            border:20px solid rgba(255,255,0,0.3);
+            /* background-attachment:fixed; */
+            background-origin:border-box;
+            background-clip:content-box;
+        }
+        .item{
+            width: 300px;
+            height: 300px;
+            background:#000 url("./imgs/girl.jpg") no-repeat scroll 10px 10px/100%;
+        }
+        .son{
+            width: 200px;
+            height: 200px;
+            background-color:#f00;
+            margin:30px auto;
+            border-radius:10px 20px 30px 40px/20px 30px 40px 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="img"></div>
+    <div class="item"></div>
+    <div class="son"></div>
+</body>
+</html>

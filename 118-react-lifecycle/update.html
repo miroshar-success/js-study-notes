@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件更新</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="node_modules/babel-standalone/babel.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    class List extends React.Component{
+        constructor(){
+            super(...arguments);
+            console.log("02---构造函数--1");
+            // 当前组件维护当前组件的数据,将父组件传递过来的数据保存在state里
+            this.state = {
+                childText:this.props.parentText
+            }
+        }
+        // 在父组件更新时props触发子组件的内容
+        componentWillReceiveProps(nextProps){
+            console.log("02--组件更新后的数据--2",nextProps);
+            this.setState({
+                childText:nextProps.parentText
+            })
+        }
+        // nextProps 父组件数据  nextState 子组件数据
+        shouldComponentUpdate(nextProps,nextState){
+            console.log("父组件的数据",nextProps);
+            console.log("子组件的数据",nextState);
+            console.log("02---是否数据更新后渲染组件--3",this.state.childText);
+            setTimeout(()=>{
+                console.log("当前组件数据已经更新",this.state.childText);
+            },2000);
+            return false;
+            return true;
+        }
+        render(){
+            return(
+                <div>
+                    <p>我是子组件,我接收到父组件的props--{this.state.childText}</p>
+                </div>
+            )
+        }
+    }
+    class App extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                name:"Hello World!"
+            }
+            console.log("01---构造函数--1");
+        }
+        componentWillMount(){
+            console.log("01---组件即将挂载--2");
+        }
+        componentDidMount(){
+            console.log("01---组件已经挂载成功--4");
+        }
+        changeContent = ()=>{
+            this.setState({
+                name:"你好,世界!"
+            })
+        }
+        render(){
+            console.log("01---组件开始渲染--3");
+            return(
+                <div>
+                    <p>Hello App!</p>
+                    <p>{this.state.name}</p>
+                    <button onClick={this.changeContent}>点击</button>
+                    <List parentText={this.state.name}/>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

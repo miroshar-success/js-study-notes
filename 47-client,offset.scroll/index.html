@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>offset/client/scroll</title>
+    <style>
+        body,ul,ol,p{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            padding:3px 2px;
+            margin:4px;
+            border-width:10px 15px 20px 25px;
+            border-style:solid;
+            border-color:red;
+            background-color:pink;
+        }
+        .parent{
+            position:relative;
+            left:100px;
+            width: 300px;
+            height: 300px;
+            background-color:#000;
+        }
+        .child{
+            position:absolute;
+            left:50px;
+            top:30px;
+            width: 120px;
+            height: 120px;
+            background-color:#fff;
+            padding:20px;
+            margin:20px;
+            border:5px solid red;
+        }
+        .list>li{
+            width: 100px;
+            height: 100px;
+            float:left;
+            margin-left:10px;
+        }
+        .list>li:nth-child(1){
+            background-color:pink;
+        }
+        .list>li:nth-child(2){
+            background-color:skyblue;
+        }
+        .list>li:nth-child(3){
+            background-color:red;
+        }
+        .list>li:nth-of-type(1){
+            position:relative;
+            left:20px;
+        }
+        .big{
+            width: 300px;
+            height: 300px;
+            border:5px solid #000;
+            overflow:scroll;
+        }
+        .small{
+            width: 300px;
+            height: 500px;
+            border:1px solid pink;
+            background-color:skyblue;
+        }
+    </style>
+</head>
+<body>
+    <ul class='player'>
+        <li>kyrie</li>
+        <li>lebron</li>
+    </ul>
+    <div class="box"></div>
+    <div class="parent">
+        <div class="child"></div>
+    </div>
+    <ul class="list">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="big">
+        <div class="small"></div>
+    </div>
+    <script src='./index.js'></script>
+</body>
+</html>

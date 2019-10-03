@@ -1,0 +1,34 @@
+.action_box{
+  display:flex;
+  align-items:center;
+  position:fixed;
+  bottom:0.15rem;
+  left:0.26rem;
+  right:0.26rem;
+  height:0.87rem;
+  background-color:#fff;
+  border-radius:0.3rem;
+  border:0.03rem solid #e5e5e5;
+  .home a,.cart a{
+    margin-left:0.44rem;
+    text-align:center;
+    font-size:0.28rem;
+    color:#757575;
+    i.iconfont{
+      font-size:0.4rem;
+    }
+  }
+  .buy{
+    margin-left:2.2rem;
+    margin-right:0.27rem;
+    width:1.8rem;
+    height:0.54rem;
+    line-height:0.53rem;
+    background-color:#ff6700;
+    border-radius:0.27rem;
+    text-align:center;
+    a{
+      color:#fff;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this-Hard Binding</title>
+</head>
+<body>
+<script>
+/*    function foo(){
+        console.log(this.a);
+    }
+    var obj = {
+        a:2
+    }
+    var bar = function(){
+        foo.call(obj);
+    }
+    let a = 3;
+    bar();  // 2
+    setTimeout(bar,100); // 2
+
+    bar.call(window);*/
+
+/*    function foo(something){
+        console.log(this.a,something);
+        return this.a + something;
+    }
+    var obj = {
+        a:2
+    }
+    var bar = function(){
+        return foo.apply(obj,arguments);
+    }
+
+    var b = bar(3); // 2,3
+    console.log(b); // 5*/
+
+/*    function foo(something){
+        console.log(this.a,something);
+        return this.a + something;
+    }*/
+/*    function bind(fn,obj){
+        return function(){
+            return fn.apply(obj,arguments);
+        }
+    }*/
+/*    var obj = {
+        a:2
+    }
+    var bar = function(){
+        return foo.apply(obj,arguments)''
+    }
+    var b = bar(3); // 2,3
+    console.log(b); // 5*/
+
+    function foo(something){
+        console.log(this);
+        console.log(this.a,something);
+        return this.a + something;
+    }
+    var obj = {
+        a:2
+    }
+    var bar = foo.bind(obj);
+    console.log(bar);
+    var b = bar(3); // 2,3
+    console.log(b); // 5
+    console.log(bar.name);  // bound foo
+
+    function baz(el){
+        console.log(el,this.id);
+    }
+    var object = {
+        id:"awesome"
+    }
+
+    var array1 = ['a','b','c']
+    array1.forEach((el)=>{
+        console.log(el);
+    })
+
+    let arr = [1,2,3];
+    arr.forEach(baz,object);    // 1 "awesome"  2 "awesome"  3 "awesome"
+
+
+</script>
+</body>
+</html>

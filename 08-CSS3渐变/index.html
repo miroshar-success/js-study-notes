@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS3径向渐变</title>
+    <style>
+        p{
+            cursor:move;
+            cursor:text;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color:#faa;
+            opacity:0.5;
+        }
+        .smallbox{
+            width: 100px;
+            height: 100px;
+            background-color:skyblue;
+        }
+        .item{
+            width: 200px;
+            height: 200px;
+            background-image:linear-gradient(90deg,#faa 30%,skyblue 80%);
+        }
+        .img{
+            width: 300px;
+            height: 300px;
+            border:1px solid #f00;
+            background:url("http://imgup01.iefans.net/iefans/image/2018/0517/1526525277137017.jpeg") no-repeat left top/160px 160px,
+            url("http://www.people.com.cn/mediafile/pic/20160731/51/11311338996491082795.jpg") no-repeat right bottom/150px 150px;
+        }
+        .box1{
+            width: 300px;
+            height: 300px;
+            border:2px solid #faa;
+            background:linear-gradient(45deg,#003366 50%,#0066CC 50%) no-repeat center/200px,
+            linear-gradient(12deg, #FF6666 60%,#FF9900 60%) no-repeat center/300px;
+        }
+        .box2{
+            width: 300px;
+            height: 300px;
+            border:1px solid #f00;
+            background:radial-gradient(circle at 50% 50%,#f00 80%,#00f 80%);
+        }
+        .box3{
+            width: 300px;
+            height: 300px;
+            border:1px solid #000;
+            background:radial-gradient(ellipse 100px 50px at 50% 50%,#f00 100%,#ff0 100%);
+        }
+        .box4{
+            width: 200px;
+            height: 200px;
+            border:1px solid #000;
+            background:radial-gradient(circle at 50px 50px,#f00 50%,#ff0 50%),
+        }
+        .box5{
+            width: 200px;
+            height: 200px;
+            border:2px solid #000;
+            background:radial-gradient(circle at 100px 100px,#f00 20px,#000 20px);
+        }
+        .box6{
+            width: 200px;
+            height: 200px;
+            border:2px solid #000;
+            background:linear-gradient(45deg, #f00 30%,#00f 30%,#00f 60%, #f00 60%);
+        }
+    </style>
+</head>
+<body>
+    <p>123</p>
+    <div class="box">
+        <div class="smallbox"></div>
+    </div>
+    <div class="item"></div>
+    <div class="img"></div>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+    <div class="box5"></div>
+    <div class="box6"></div>
+</body>
+</html>

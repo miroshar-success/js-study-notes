@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定位</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        .container{
+            width: 400px;
+            height: 400px;
+            border:1px solid #000;
+            margin:20px auto;
+        }
+        .container .item{
+            width: 50px;
+            height: 50px;
+            float:left;
+            margin:10px;
+        }
+        .item1{
+            background-color:pink;
+            position:relative;
+            background-color:greenyellow;
+            left:10px;
+            top:20px;
+        }
+        .item2{
+            background-color:skyblue;
+            transform:translate(-15px,20px);
+        }
+        .item4{background-color:slateblue;}
+        .item5{background-color:aqua;}
+        .item6{
+            width: 100px;
+            height: 100px;
+            background-color:#f00;
+            display:inline-block;
+        }
+        .wrap{
+            width: 300px;
+            height: 300px;
+            border:1px solid #000;
+            margin:10px auto;
+        }
+        .box{
+            width: 50px;
+            height: 50px;
+            background-color:#f00;
+            color:#000;
+        }
+        .box1{
+            position:absolute;
+            left:20px;
+        }
+        .wrap img{
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">1</div>
+        <div class="item item2">2</div>
+        <div class="item item3">3</div>
+        <div class="item item4">4</div>
+        <div class="item item5">5</div>
+        <div class="item6">6</div>
+    </div>
+    <div class="wrap">
+        <div class="box1 box">1</div>
+        <div class="box2 box">2</div>
+        <div class="box3 box">3</div>
+        <img src="http://i0.qhimg.com/t01558af52a2d5e9ff0.jpg" width="200">
+    </div>
+</body>
+</html>

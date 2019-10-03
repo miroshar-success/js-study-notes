@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数据传递</title>
+	</head>
+	<body>
+		<div id="app">
+			<kyrie title="Hello World!"></kyrie>
+			<parent>
+			</parent>
+			<son title="你好,狗儿子"></son>
+		</div>
+		<div id="demo">
+			<p>{{msg}}</p>
+			<input type="text" v-model="car">
+			<helloworld name="HelloWorld" :car="car"></helloworld>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const kyrie = Vue.component('my-component',{
+				template:"<div>{{message}} <p>{{title}}</p></div>",
+				data(){
+					return{
+						message:"Hello"
+					}
+				},
+				props:["title"]
+			});
+
+			const son = Vue.component("son",{
+				data(){
+					return{
+						
+					}
+				},
+				template:"<div>我是儿子:<p>{{title}}--{{name}}</p></div>",
+				props:["title","name"],
+			});
+			
+			const parent = Vue.component("parent",{
+				template:"<div>我是父亲</div>",
+				data(){
+					return{
+						message:"我是活的数据",
+					}
+				},
+				components:{
+					son
+				},
+				methods:{
+
+				}
+			});
+			
+			new Vue({
+				el:"#app",
+				data:{
+					
+				},
+				components:{
+					kyrie,
+					parent,
+				}
+			});
+			
+			const helloworld = Vue.component('helloworld',{
+				template:"<div>{{name}} <p>{{message}}</p> <p>{{car}}</p> </div>",
+				props:['name',"car"],
+				data(){
+					return {
+						message:"Hello,我是自组件的数组"
+					}
+				}
+			});
+			new Vue({
+				el:document.getElementById("demo"),
+				data:{
+					msg:"Hello World!",
+					car:"我是动态数据",
+				},
+				components:{
+					helloworld
+				}
+			});
+		</script>
+	</body>
+</html>

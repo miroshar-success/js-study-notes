@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>前端路由</title>
+		<style>
+			body,p{
+				padding: 0;
+				margin: 0;
+			}
+			a{
+				text-decoration:none;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="#index">首页</a>
+		<a href="#login">登陆</a>
+		<button id="btn1">点击1</button>
+		<button id="btn2">点击2</button>
+		<script>
+			console.log(window.location.hash );
+// 			window.onhashchange = function(){
+// 				console.log(window.location.hash);
+// 				const hash = window.location.hash;
+// 				switch(hash){
+// 					case '#index':
+// 					document.body.innerHTML = `<p>首页</p><a href="#login">登陆</a>`;
+// 					break;
+// 					case '#login':
+// 					document.body.innerHTML = `<a href="#index">首页</a>
+// 					<p>你现在浏览的是登陆页面</p>`;
+// 					break;
+// 				}
+// 			}
+			
+/*			const oBtn = document.getElementById('btn');
+			oBtn.onclick = function(){
+				console.log('点击了');
+				// window.location.href = '#logon';
+				window.history.pushState('kyrie','irving','#login');
+			}
+			window.onpopstate = function(e){
+				console.log(e);
+			}
+*/
+		
+		const oBtn1 = document.getElementById('btn1');
+		const oBtn2 = document.getElementById('btn2');
+		
+		const startObj = {
+			name:'first',
+		}
+		const obj = {
+			name:'second',
+		}
+		
+		oBtn1.onclick = function(){
+			window.history.pushState(startObj,null,'#kyrie');
+			const currentState = window.history.state;
+			console.log(currentState);
+		}
+		oBtn2.onclick = function(){
+			window.history.replaceState(obj,null,'#irving');
+			const currentState = window.history.state;
+			console.log(currentState);
+		}
+		
+		window.onpopstate = function(event){
+			event = event || window.event;
+			console.log(event.state);
+			window.onhashchange = function(){
+				console.log('hash改变了吗?');
+			}
+		}
+		
+		</script>
+	</body>
+</html>

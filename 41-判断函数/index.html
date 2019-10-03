@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>判断函数</title>
+</head>
+<body>
+    <script>
+        // isNaN
+        console.log( isNaN('NaN') );    // true
+        console.log( isNaN(NaN) );  // true
+        console.log( isNaN( 0/0 ) );    // true
+        console.log( isNaN(123) );  // false
+        console.log( isNaN(undefined) );    // true
+        console.log( isNaN(null) ); // false
+        console.log( isNaN('123') );    // false
+        console.log( isNaN({}) );   // true
+        console.log( isNaN([1,2,3]) );  // true
+        console.log( isNaN(''));    // false
+        console.log( isNaN(true));   // false
+        console.log( isNaN(false));  // false
+        console.log( Object.is(NaN,NaN) );  // true
+        console.log( Object.is(+0,-0)); // false
+        console.log(Object.is({},{}));  // false
+        console.log(Object.is([],[]));// false
+        console.log(Object.is( NaN,0/0 ));  // true
+        console.log(Object.is(NaN,'NaN'));  // false
+
+        let a = {name:'kyrie'};
+        let b = {name:'kyrie'};
+        console.log(Object.is(a,a));    // true
+
+        /*
+        两个值都是undefined
+        两个值都是null
+        */
+        console.log(Object.is(undefined,undefined));    // true
+        console.log(Object.is(null,null));  // true
+        console.log(Object.is(true,true));  // true
+        console.log(Object.is(false,false));    // true
+        console.log(Object.is(NaN,NaN));    // true
+        console.log(Object.is('123','123'));    // true
+        console.log(Object.is('abc','abc'));    //true
+        console.log(Object.is(a,a));    // true
+        console.log(Object.is(a,b));    // false
+        console.log(Object.is(+0,-0));  // false
+        console.log(Object.is('123',123));//false
+        console.log('123'==123);    // true
+        console.log('123'===123);   // false
+        console.log(Object.is('false',false));//false
+        console.log(Object.is('true',true));    // false
+        console.log(Object.is('null',null));    // false
+        console.log(Object.is('',false));   // false
+
+        
+    </script>
+</body>
+</html>

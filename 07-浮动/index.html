@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浮动</title>
+    <style>
+        body,p{
+            margin: 0;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            border:1px solid red;
+            font-size:0;
+        }
+        p{
+            font-size:13px;
+            color:#333;
+            background-color:yellow;
+        }
+        img{
+            width: 150px;
+            z-index:100;
+        }
+        .item{
+            width: 100%;
+            height: 100px;
+            background-color:#faa;
+            display:inline-block;
+        }
+        .container{
+            width:300px;
+            height:300px;
+            background-color:skyblue;
+        }
+        .item1{
+            width: 50px;
+            height:60px;
+            float:left;
+            background-color:pink;
+        }
+        .item2{
+            width:100px;
+            height:60px;
+            display:inline-block;
+            background-color:greenyellow;
+        }
+        .item3{
+            width:70px;
+            height:70px;
+            background-color:burlywood;
+        }
+        .item4{
+            width:50px;
+            height:80px;
+            background-color:bisque;
+        }
+        .item5{
+            width: 50px;
+            height: 50px;
+            background-color:red;
+        }
+        .father{
+            width: 300px;
+            height: 300px;
+            border:1px solid #faa;
+        }
+        .father .abc{
+            width: 140px;
+            height: 50px;
+            background-color:pink;
+            float:left;
+        }
+        .father img{
+            float:left;
+        }
+        /* .father span{
+            float:left;
+        } */
+        .box1,.box2,.box3,.box4{
+            width: 300px;
+            height: 300px;
+            border:1px solid #000;
+        }
+        .box1 .kyrie,.box2 .kyrie,.box3 .kyrie,.box4 .kyrie{
+            width: 120px;
+            height: 120px;
+            background-color:#faa;
+        }
+        .box1 span{
+            float:left;
+        }
+        .box2 .kyrie{
+            float:left;
+        }
+        .box3 span{
+            float:left;
+        }
+        .box4 .kyrie{
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534867442983&di=8b5670d1d1f82b3e1d4aad25681765b1&imgtype=0&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Fface%2Fd586984d7847b17b9e8507ac548e10bb38fcf4c4.jpg" alt="">
+        <p>晋太元中，武陵人捕鱼为业，缘溪行，忘路之远近，忽逢桃花林，夹岸数百步，中无杂树，芳草鲜美。落英缤纷，渔人甚异之，复前行，欲穷其林。
+        林尽水源，便得一山，山有小口，仿佛若有光.便舍船,从口入。初极狭，才通人。复行数十步，豁然开朗。</p>
+    </div>
+    <!-- 层叠特性 -->
+    <div class="box">
+        <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3810849933,428891791&fm=27&gp=0.jpg" alt="">
+        <div class="item"></div>
+    </div>
+    <div class="container">
+        <div class="son item1">1</div>
+        <div class="son item2">2</div>
+        <div class="son item3">3</div>
+        <div class="son item4">4</div>
+        <div class="son item5">5</div>
+    </div>
+    <div class="father">
+        <div class="abc"></div>
+        <span>天降降大任于斯人也，必先苦其心志，劳其筋骨，饿其体肤。</span>
+        <!-- <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534867442983&di=8b5670d1d1f82b3e1d4aad25681765b1&imgtype=0&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Fface%2Fd586984d7847b17b9e8507ac548e10bb38fcf4c4.jpg" alt=""> -->
+    </div>
+    <h3>一个块元素,一个行内元素,行内元素浮动</h3>
+    <div class="box1">
+        <div class="kyrie"></div>
+        <span>环滁皆山也，其西南诸峰，林壑尤美，望之蔚然而深秀者，狼牙也</span>
+    </div>
+    <h3>一个块元素,一个行内元素,块元素浮动</h3>
+    <div class="box2">
+        <div class="kyrie"></div>
+        <span>环滁皆山也，其西南诸峰，林壑尤美，望之蔚然而深秀者，狼牙也</span>
+    </div>
+    <h3>一个行内元素,一个块元素,行业元素浮动</h3>
+    <div class="box3">
+        <span>环滁皆山也，其西南诸峰，林壑尤美，望之蔚然而深秀者，狼牙也</span>
+        <div class="kyrie"></div>
+    </div>
+    <h3>一个行内元素,一个块元素,块元素浮动</h3>
+    <div class="box4">
+        <span>环滁皆山也，其西南诸峰，林壑尤美，望之蔚然而深秀者，狼牙也，山行六七里，渐闻水深潺潺而泄出于两峰之间者，酿泉也。峰回路转，有亭翼然</span>
+        <div class="kyrie"></div>
+    </div>
+</body>
+</html>

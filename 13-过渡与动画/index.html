@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过渡与动画</title>
+    <style>
+        body,ul{
+            margin: 0;
+        }
+        ul{
+            padding: 0;
+            list-style:none;
+        }
+        /* .box{
+            width: 100px;
+            height: 100px;
+            background-color: #faa;
+            transition-property:width,height,background-color;
+            transition-duration:.5s;
+        }
+        .box:hover{
+            width: 300px;
+            height: 200px;
+            background-color:#f00;
+        }
+        .img{
+            width: 300px;
+            height: 300px;
+            border:1px solid #faa;
+            background:url("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3810849933,428891791&fm=27&gp=0.jpg") no-repeat center/cover;
+            transition-property:width,height,background-image;
+            transition-duration:.8s;
+            transition-timing-function:ease;
+        }
+        .img:hover{
+            width: 400px;
+            height: 400px;
+            background:url("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=191532598,3075512985&fm=27&gp=0.jpg") no-repeat center/cover;
+        }
+        .list{
+            width: 400px;
+            height:auto;
+            border:1px solid #000;
+        }
+        .list li{
+            margin:10px 0 0 0;
+            width: 100px;
+            height: 80px;
+            background-color:skyblue;
+            transition-duration:1s;
+            transition-property:width;
+            color:#f00;
+            text-align:center;
+            line-height:80px;
+        }
+        .list li:nth-of-type(1){
+            transition-timing-function:ease;
+        }
+        .list li:nth-of-type(2){
+            transition-timing-function:linear;
+        }
+        .list li:nth-of-type(3){
+            transition-timing-function:ease-in;
+        }
+        .list li:nth-of-type(4){
+            transition-timing-function:ease-out;
+        }
+        .list li:nth-of-type(5){
+            transition-timing-function:ease-in-out;
+        }
+        .list:hover li{
+            width: 400px;
+        } */
+        .item{
+            width: 100px;
+            height: 100px;
+            background-color:#f00;
+            position:relative;
+            /* animation:move 3s linear alternate both; */
+        }
+        /* @keyframes move{
+            0%{
+                top:0;
+                left:0;
+            }
+            50%{
+                top:0;
+                left:300px;
+            }
+            100%{
+                left:300px;
+                top:300px;
+            }
+        }
+        .box1{
+            width: 200px;
+            height: 200px;
+            background-color:skyblue;
+            position:relative;
+            left:20px;
+            top:20px;
+        }
+        .box1:before{
+            content:'';
+            position:absolute;
+            width: 220px;
+            height: 220px;
+            background-color:#f00;
+            z-index:10;
+            left:-10px;
+            top:-10px;
+            clip:rect(0 220px 220px 217px);
+        }
+        .box2{
+            width: 200px;
+            height: 200px;
+            border:1px solid #000;
+            position:relative;
+            margin:0 auto 10px;
+        }
+        .box2 img{
+            width: 220px;
+            height: 220px;
+            position:absolute;
+            left:-10px;
+            top:-10px;
+            z-index:-10;
+            clip:rect(0,60px,200px,0);
+        }
+        .kyrie{
+            width: 200px;
+            height: 200px;
+            background-color:pink;
+            border:1px solid #f00;
+            position:absolute;
+            left:400px;
+            clip:rect(0 190px 190px 0);
+        }
+        .change{
+            width: 100px;
+            height: 100px;
+            background-color:#f00;
+        } */
+        .box1{
+            width: 100px;
+            height:20px;
+            background-color:#f00;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background-color:#00f;
+            /* display:none; */
+        }
+        .box1:hover+.box2{
+            /* display:block; */
+            /* transition:all 1s; */
+            background-color:#ff0;
+            transition-delay:1s;
+        }
+		.item1{
+			position:absolute;
+			width: 100px;
+			height: 100px;
+			border-radius:50%;
+			background-color:pink;
+			text-align:center;
+			line-height:100px;
+			font-size:20px;
+			color:#fff;
+			animation:run 3s linear 0s infinite alternate;
+			animation-play-state:paused;
+		}
+		@keyframes run{
+			0%{
+				left:0;
+			}
+			100%{
+				left:300px;
+			}
+		}
+		input[type="checkbox"]:checked+.item1{
+			animation-play-state:running;
+			animation:run 3s linear 0s infinite alternate;
+		}
+		
+    </style>
+</head>
+<body>
+    <!-- <div class="box"></div>
+    <div class="img"></div>
+    <ul class="list">
+        <li>ease</li>
+        <li>linear</li>
+        <li>ease-in</li>
+        <li>ease-out</li>
+        <li>ease-in-out</li>
+    </ul>
+    <div class="item"></div>
+    <div class="box1"></div>
+    <div class="box2">
+        <img src="./1.jpg" alt="">
+    </div>
+    <div class="kyrie"></div> -->
+    <div class="box1"></div>
+    <div class="box2"></div>
+	
+	<input type="checkbox" name="play" value="play">
+	<div class="item1">1</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>encodeURL和decodeURL</title>
+</head>
+<body>
+    <script>
+        let str = "http://localhost:63342/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/105-classList-dataset/decodeURL%E5%92%8CencodeURL.html?_ijt=acnq5c3qmksr2fum1rk1gkr6lv";
+        let newStr = decodeURI(str);
+        console.log(newStr);
+
+        console.log(str);
+        console.log(encodeURI(newStr));
+
+        let s1 = "Hello World!";
+        let newS1 = window.btoa(s1);
+        console.log(newS1);
+        console.log(window.atob(newS1));
+
+        let encodedData = window.btoa( encodeURI("Hello,金") );
+        let decodeData = decodeURI(window.atob(encodedData));
+        console.log(encodedData);
+        console.log(decodeData);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>绘制直线</title>
+		<style>
+			canvas{
+				background-color:pink;
+			}
+			canvas:nth-of-type(2){
+				background-color:red;
+			}
+			canvas:nth-of-type(3){
+				background-color:skyblue;
+			}
+			canvas:nth-of-type(4){
+				background-color:#000;
+			}
+			#canvas{
+				background-color:#000;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas id='canvas' width='200' height='200'></canvas>
+		<script>
+			const canvas1 = document.querySelectorAll('canvas')[0];
+			const canvas2 = document.querySelectorAll('canvas')[1];
+			const ctx = canvas1.getContext('2d');
+			const context = canvas2.getContext('2d');
+			
+			// 绘制直线
+			ctx.moveTo(0,0);
+			ctx.strokeStyle = '#000';
+			ctx.lineTo(100,100);
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.lineWidth = '10';
+			ctx.lineCap = 'round';
+			ctx.moveTo(100,0);
+			ctx.lineTo(100,100);
+			ctx.stroke();
+			
+			// 定义一个函数,传入参数,表示分别表示线段的长度和间隙距离
+			function drawDashLine(arr){
+				context.beginPath();
+				context.setLineDash(arr);
+				context.moveTo(0,y);
+				context.lineTo(300,y);
+				context.stroke();
+				// y 表示每条线之间的间隔
+				y += 20;
+			}
+			var y = 15;
+			drawDashLine([]);
+			drawDashLine([1,1]);
+			drawDashLine([3,5]);
+			drawDashLine([5,3,5]);
+			
+			const canvas3 = document.querySelectorAll('canvas')[2];
+			const c = canvas3.getContext('2d');
+			console.log(canvas3);
+			console.log(c);
+			
+			
+			c.setLineDash([10,5]);
+			c.lineDashOffset = -3;
+			c.beginPath();
+			
+			c.moveTo(0,50);
+			c.lineTo(300,50);
+			c.stroke();
+			 
+			console.log(c.canvas);
+			
+			const canvas4 = document.querySelectorAll('canvas')[3];
+			const ctx1 = canvas4.getContext('2d');
+			
+			let offset = 0;
+			
+			function draw(){
+				ctx1.clearRect(0,0,canvas4.width,canvas4.height);
+				ctx1.strokeStyle = '#f00';
+				ctx1.setLineDash([4,2]);
+				ctx1.strokeRect(10,10,100,100);
+				offset++;
+				ctx1.lineDashOffset = offset;
+				window.requestAnimationFrame(draw);
+			}
+			draw();
+			
+			
+			const oCanvas = document.getElementById('canvas');
+			const ctx2 = oCanvas.getContext('2d');
+			
+			function drawLine(){
+				ctx2.clearRect(0,0,oCanvas.width,oCanvas.height);
+				ctx2.strokeStyle = '#fff';
+				ctx2.setLineDash([4,2]);
+				ctx2.lineDashOffset = y;
+				ctx2.strokeRect(10,10,100,100);
+			}
+			var y = 0;
+			function move(){
+				y++;
+				drawLine();
+				setTimeout(move,15);
+			}
+			move();
+			
+			
+// 			function f1(){
+// 				console.log('f1');
+// 				setTimeout(f1,3000);
+// 			}
+// 			f1();
+			
+			
+		</script>
+	</body>
+</html>

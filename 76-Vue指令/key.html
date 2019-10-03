@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue-v-for是否添加key值</title>
+	</head>
+	<body>
+		<h3>1. 没有添加key值,虽然DOM变了,但是输入框的内容没有变,说明DOM被复用了</h3>
+		<div id="root">
+			<template v-if="type==='name'">
+				<label>用户名:</label>
+				<input type="text" placeholder="请输入姓名">
+			</template>
+			<template v-else>
+				<label>邮箱:</label>
+				<input type="text" placeholder="请输入邮箱">
+			</template>
+			<button @click="handleCheckType">切换输入类型</button>
+		</div>
+		<h3>2. 添加了key值,input没有被复用</h3>
+		<div id="app">
+			<template v-if="msg==='name'">
+				<label>用户名:</label>
+				<input type="text" placeholder="请输入用户名" key="name-input">
+			</template>
+			<template v-else>
+				<label>邮箱:</label>
+				<input type="text" placeholder="请输入邮箱" key="email-input">
+			</template>
+			<button @click="handleChangeType">切换输入类型</button>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el:document.getElementById("root"),
+				data:{
+					type:"name"
+				},
+				methods:{
+					handleCheckType(){
+						this.type = this.type === 'name' ? 'email' : 'name';
+					}
+				}
+			});
+			new Vue({
+				el:document.getElementById("app"),
+				data:{
+					msg:'name'
+				},
+				methods:{
+					handleChangeType(){
+						this.msg = this.msg === 'name' ? 'email' : 'name';
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

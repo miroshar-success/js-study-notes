@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue-router之router-link</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			ul{
+				display:flex;
+				width:100%;
+				height:40px;
+				line-height:40px;
+			}
+			li{
+				display:inline-block;
+				flex:1;
+				background-color:pink;
+				text-align:center;
+			}
+			a{
+				text-decoration:none;
+			}
+			.content{
+				width:100%;
+				text-align:center;
+			}
+			li.router-link-active a{
+				color:red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<router-link tag="li" to="/news"><a>新闻</a></router-link>
+				<router-link tag="li" to="/imgs"><a>图片</a></router-link>
+				<router-link tag="li" to="/video"><a>视频</a></router-link>
+			</ul>
+			<router-view class="content"></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const News = Vue.component("news",{
+				template:"<div>我是新闻组件</div>"
+			});
+			const VideoComponent = Vue.component("video-component",{
+				template:"<div><video controls src='http://us.sinaimg.cn/0049cIg2jx073hmjAWJW05040100v6Hk0k01.mp4?KID=unistore,video&Expires=1563898015&ssig=ZFUGxyvHO5&KID=unistore,video'></video></div>"
+			});
+			const Imgs = Vue.component("imgs",{
+				template:"<div><img src='https://wx3.sinaimg.cn/mw690/007QzS75ly1g57shomofzj30k00qowl6.jpg'/></div>"
+			})
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/news",
+						component:News
+					},
+					{
+						path:"/video",
+						component:VideoComponent
+					},
+					{
+						path:"/imgs",
+						component:Imgs
+					}
+				]
+			})
+			const App = new Vue({
+				el:"#app",
+				router
+			})
+		</script>
+	</body>
+</html>

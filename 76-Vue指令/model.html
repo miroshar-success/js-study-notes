@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-model</title>
+		<style>
+			body,p,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="val" placeholder="edit me">
+			<p>{{val}}</p>
+			<p>textarea元素:</p>
+			<textarea cols="30" rows="10" v-model="message"></textarea>
+			<p>{{message}}</p>
+		</div>
+		<div id="root">
+			<input type="checkbox" id="checkbox" v-model="checked">
+			<label for="checkbox">{{checked}}</label>
+			
+			<input type="checkbox" id="Jack" v-model="checkNames" value="jack">
+			<label for="Jack">Jack</label>
+			<input type="checkbox" id="John" v-model="checkNames" value="john">
+			<label for="John">John</label>
+			<input type="checkbox" id="Mike" v-model="checkNames" value="mike">
+			<label for="Mike">Mike</label>
+			<p>checked names:{{checkNames}}</p>
+			
+			<input type="checkbox" v-model="msg" value="Hello" id="hello" name="vue">
+			<label for="hello">hello</label>
+			<input type="checkbox" v-model="msg" value="World" id="world" name="vue">
+			<label for="world">world</label>
+			<p>{{msg}}</p>
+			
+			<input type="radio" id="one" value="one" v-model="picked">
+			<label for="one">one</label>
+			<input type="radio" id="two" value="two" v-model="picked">
+			<label for="tow">two</label>
+			<p>picked:{{picked}}</p>
+		</div>
+		<div id="box">
+			<select v-model="selected">
+				<option value="" disabled>请选择</option>
+				<option value="">A</option>
+				<option value="">B</option>
+				<option value="">C</option>
+			</select>
+			<p>selected:{{selected}}</p>
+			
+			<select name="" id="" v-model="website" multiple>
+				<option value="" disabled>请选择</option>
+				<option value="https://wwww.baidu.com">百度</option>
+				<option value="https://www.tencent.com">腾讯</option>
+				<option value="https://www.alibaba.com">阿里</option>
+			</select>
+			<p>选择的网站是:{{website}}</p>
+		</div>
+		<div id="example">
+			<select v-model="message">
+				<option v-for="item in items" :value="item.options">{{item.text}}</option>
+			</select>
+			<p>{{message}}</p>
+		</div>
+		
+		<div id="box1">
+			<input type="text" v-model="msg1">
+			<p>{{msg1}}</p>
+			<input type="text" v-model.lazy="msg2">
+			<p>{{msg2}}</p>
+			<input type="text" v-model.number="msg3">
+			<p>{{msg3}}</p>
+			<input type="text" v-model="msg4">
+			{{msg4}}
+			<button @click="fun">点击</button>
+			<input type="text" v-model.trim="message">
+			<p>{{message}}</p>
+		</div>
+		
+		<div id="box2">
+			<input type="text" ref="input">
+			<div ref="div"></div>
+			<button @click="getDom">点我</button>
+		</div>
+
+		<div id="box3">
+			<input type="text" v-model="search">
+			<p>{{search}}</p>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			// input:text
+			const vm = new Vue({
+				el:document.getElementById('app'),
+				data:{
+					val:"",
+					message:"Hello Vue.js"
+				}
+			});
+			
+			// 复选框
+			new Vue({
+				el:"#root",
+				data:{
+					checked:true,
+					checkNames:[],
+					msg:[],
+					picked:""
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("box"),
+				data:{
+					selected:"",
+					website:[]
+				}
+			});
+			
+			new Vue({
+				el:document.getElementById("example"),
+				data:{
+					message:"",
+					items:[
+						{options:"A",text:"One"},
+						{options:"B",text:"Two"},
+						{options:"C",text:"Three"}
+					]
+				}
+			});
+			
+			const vm1 = new Vue({
+				el:document.getElementById("box1"),
+				data:{
+					msg1:"Hello",
+					msg2:"World",
+					msg3:"",
+					msg4:"",
+					message:""
+				},
+				methods:{
+					fun(){
+						console.log(this.msg3 + 1);
+						console.log(this.msg4 + 1);
+					}
+				}
+				
+			});
+			new Vue({
+				el:document.getElementById("box2"),
+				methods:{
+					getDom(){
+						console.log(this.$refs);
+					}
+				}
+			})
+			new Vue({
+				el:document.getElementById("box3"),
+				data:{
+				    search:"Hello"
+				}
+			})
+		</script>
+	</body>
+</html>

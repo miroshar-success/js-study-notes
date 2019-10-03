@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>兼容火狐浏览器</title>
+    <style>
+        ul{
+            list-style:none;
+        }
+        ul>li{
+            width: 80px;
+            height: 30px;
+            background-color:green;
+            margin:20px 0;
+            color:#fff;
+            text-align:center;
+            user-select:none;
+        }
+        .container{
+            margin:20px auto 0;
+            width: 200px;
+            height: 200px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+<ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<div class="container">将元素拖入此处</div>
+<script>
+    const oContainer = document.querySelector(".container");
+    const oUl = document.querySelector(".list");
+    const aLi = document.querySelectorAll(".list>li");
+    aLi.forEach((item,index)=>{
+        item.setAttribute("draggable",'true');
+        // 兼容火狐的操作,拖动开始时在拖动开始时设置 dataTransfer操作
+        item.ondragstart = function(e){
+            e.dataTransfer.setData("item",index);
+        }
+    });
+    oContainer.ondragenter = function(){
+        this.innerText = "请释放鼠标";
+    }
+    oContainer.ondragover = function(e){
+        e.preventDefault();
+    }
+    oContainer.ondragleave = function(){
+        this.innerText = "将元素拖入此处";
+    }
+    oContainer.ondrop = function(e){
+        console.log(e.dataTransfer.getData("item"));
+        oUl.removeChild(aLi[e.dataTransfer.getData("item")]);
+    }
+</script>
+</body>
+</html>

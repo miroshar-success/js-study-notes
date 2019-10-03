@@ -1,0 +1,38 @@
+body{
+    color:#4d555d;
+    font-size:12px;
+}
+body,p,h1,h2,h3,h4,h5,h6,dd,dl,dt,ul,ol,input,textarea{
+    padding: 0;
+    margin: 0;
+}
+input{
+    outline:none;
+    border:0;
+}
+h1,h2,h3,h4,h5,h6{
+    font-size:100%;
+    font-weight:normal;
+}
+table th,table td{
+    border-collapse:collapse;
+    padding: 0;
+}
+b,strong{
+    font-weight:normal;
+}
+i,em{
+    font-style:normal;
+}
+ul,ol{
+    list-style:none;
+}
+a{
+    color:#4d555d;
+    text-decoration:none;
+}
+.clear-fx:after{
+    content:'';
+    display:block;
+    clear:both;
+}

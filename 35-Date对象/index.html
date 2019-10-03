@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>日期对象</title>
+</head>
+<body>
+    
+    <script>
+        console.log(Date());    
+        console.log(typeof Date());
+        console.dir(Date);
+
+        var date = new Date();
+
+        console.log(date.__proto__ == Date.prototype);  // true;
+        console.log(date.__proto__);
+        console.dir(date.constructor);
+        console.log(date.constructor == Date);
+        console.log( typeof date ); // object
+
+        console.log( date.getDate() );  // getDate()    返回一个月的某一天
+        console.log( date.getDay() );   // getDay()     返回一周的某一天(0-6)
+        console.log( date.getMonth());  // getMonth()   返回月份(0-11);
+        console.log( date.getFullYear());   // getFullYear()    返回年份
+        console.log( date.getHours() ); // getHours()   获取小时 (0-23 24小时制)
+        console.log( date.getMinutes() );   // getMinutes() 获取分数
+        console.log( date.getSeconds() );   // getSeconds() 获取秒数 
+        console.log( date.getMilliseconds() );   //    (0-59)
+        console.log( date.getTime() );  
+        console.log( Date.parse('March 21,2018'));     
+        // console.log( date.setDate(20) );
+
+        console.log( date.toDateString() ); // Wed Dec 05 2018
+        console.log( date.toString());  // Wed Dec 05 2018 21:22:44 GMT+0800 (中国标准时间)
+
+    </script>
+</body>
+</html>

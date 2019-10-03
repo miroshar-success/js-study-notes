@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>重定向和别名</title>
+	</head>
+	<body>
+		<div id="app">
+			<p>
+				<router-link :to="{name:'hello'}">A</router-link>
+			</p>
+			<p>
+				<router-link :to="{name:'world'}">B</router-link>
+			</p>
+			<router-view></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const Hello = Vue.component('Hello',{
+				template:"<div><p>Hello</p></div>"
+			});
+			const World = Vue.component('World',{
+				template:"<div><p>World</p></div>"
+			});
+			const router = new VueRouter({
+				routes:[
+					{
+						path:"/a",
+						name:'hello',
+						component:Hello,
+						// 点击 /a 路径时会跳转到 /b
+						// redirect:'/b',
+						alias:'/b'
+					},
+					{
+						path:"/b",
+						name:'world',
+						component:World
+					},
+				]
+			});
+			new Vue({
+				router
+			}).$mount("#app");
+		</script>
+	</body>
+</html>

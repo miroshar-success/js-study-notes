@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>File和Bold</title>
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			.box{
+				margin:10px auto 0;
+				width: 150px;
+				height: 150px;
+				border:1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="file" class='sel' multiple>
+		<div class="box"></div>
+		
+		<input type="file" id='fileElem' multiple>
+		<div id="fileList">
+			<p>No files selected!</p>
+		</div>
+		<script>
+			const oSel = document.querySelector('.sel');
+			oSel.addEventListener('change',function(e){
+				e = e || window.e;
+				console.log(this.files);	
+				console.log(typeof this.files);	// object
+				console.log(this.files.constructor);	// FileList
+				console.log(this.files.item(0).constructor);	// File
+				console.log(this.files.__proto__);
+				console.log(this.files.__proto__.__proto__);	//
+				console.log(this.files.__proto__.__proto__.__proto__);
+			},false);
+			
+			const oBox = document.querySelector('.box');
+			
+			oBox.addEventListener('dragover',drag,false);
+			oBox.addEventListener('drop',drag,false);
+			function drag(e){
+				e = e || window.e;
+				e.preventDefault();
+				e.returnValue = false;
+				let type = e.type;
+				switch(type){
+					case 'dragover':
+					break;
+					case 'drop':
+					let files = e.dataTransfer.files;
+					Array.prototype.forEach.call(files,function(item){
+						console.log(item);
+						console.log(item.__proto__ == File.prototype);	// true
+						console.log(item.__proto__.__proto__ == Blob.prototype);	// true
+						console.log(File.prototype.__proto__ == Blob.prototype);	// true File.prototype = new Blob
+						
+					})
+					break;
+				}
+			}
+			
+			const a = ['hello','world'];
+			const b = new Blob(a,{'type':'text/xml'});
+			console.log(b);
+			
+			const arr = ['kyrie','lebron','durant'];
+			let newArr = new Blob(arr,{'type':'text/xml'});
+			let newBlob = newArr.slice(0,5);
+			console.log(newBlob);
+			
+			
+			const oFileElem = document.getElementById('fileElem');
+			const oFileList = document.getElementById('fileList');
+			
+			oFileElem.addEventListener('change',function(e){
+					e = e || window.e;
+					e.preventDefault();
+					e.stopPropagation();
+					let files = this.files;
+					if(!files.length){
+						oFileList.innerHTML = 'No files seleted';
+					}else{
+						oFileList.innerHTML = '';
+						let oList = document.createElement('ul');
+						// 否则就是有文件,遍历文件,将图片显示出来
+						for(let i = 0,file;file = this.files[i]; i++){
+							let oImg = document.createElement('img');
+							// file为什么要加 [] ？
+							const blob = new Blob([file],{'type':'image/gif'});
+							// Window.URL.createObjectURL() 参数可以选择blob 或者 file
+							oImg.src = window.URL.createObjectURL(blob);
+							console.log(blob);
+							oImg.width = 300;	// oImg.width = '300px' 图片显示为0?
+							let oLi = document.createElement('li');
+							oLi.appendChild(oImg);
+							oImg.onload = function(){
+								window.URL.revokeObjectURL(this.src);
+							}
+							oList.appendChild(oLi);
+						}
+						oFileList.appendChild(oList);
+						
+						// 这种方法选择多张图片的时候只能显示1张图片
+// 						let fragment = document.createDocumentFragment();
+// 						let oList = document.createElement('ul');
+// 						Array.prototype.forEach.call(files,function(item){
+// 							oList.innerHTML = `<li>
+// 								<img src='${window.URL.createObjectURL(item)}'>
+// 							</li>`;
+// 							fragment.appendChild(oList);
+// 						});
+// 						oFileList.appendChild(fragment);
+					}
+			},false);
+			
+		</script>
+	</body>
+</html>

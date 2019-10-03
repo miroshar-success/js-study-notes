@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>formidable文件上传</title>
+</head>
+<body>
+<!--<form action="/upload" method="POST" enctype="multipart/form-data">
+    <p><input type="file" name="img" multiple></p>
+    <p><input type="submit"></p>
+</form>-->
+    <p>
+        <input type="file" name="file" multiple>
+    </p>
+<script>
+    let oInput = document.querySelector("input");
+    oInput.onchange = function(){
+        console.log(this.files);
+        if(oInput.value){
+            let xhr = new XMLHttpRequest();
+            // 上传进度
+            console.log(xhr.upload);
+            xhr.upload.onprogress = function(e){
+                console.log(e.loaded,e.total,e.loaded/e.total);
+            }
+            xhr.open("POST","http://localhost:4000/upload",true);
+            let formData = new FormData();
+            for(let i = 0; i < this.files.length; i++) {
+                formData.append("file"+(i+1), this.files[i]);
+            }
+            xhr.send(formData);
+            oInput.value = "";
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    console.log(xhr.responseText);
+                }
+            }
+        }
+
+    }
+
+</script>
+</body>
+</html>

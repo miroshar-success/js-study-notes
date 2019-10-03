@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组排序方法</title>
+</head>
+<body>
+    <script>
+        // 生成一个乱序数组
+        var array = new Array(1000).fill(0).map((item,index)=>index).sort((a,b)=>Math.random()-0.5);
+        console.log(array);
+        
+        // 冒泡排序
+        function bubbleSort(){
+            let arr = this;
+            for(let i = 0,len = arr.length; i < len; i++){
+                for(let j = 0; j < len-i-1; j++){
+                    if(arr[j] > arr[j+1]){
+                        [arr[j],arr[j+1]] = [arr[j+1],arr[j]];
+                    }
+                }
+            }
+            return arr;
+        }
+        Array.prototype.bubbleSort = bubbleSort;
+        // array.bubbleSort();
+        // array.sort((a,b)=>a-b);
+
+
+        // 选择排序,选择数组中最大的元素放在数组的最后位置,或者选择数组的最小位置放在最前面
+        function selectSort(arr,bool){
+            let newArray = [],
+            len = arr.length;
+            if(bool){
+                while(arr.length>0){
+                    for(let i = 0; i < len; i++){
+                        let min = Math.min.apply(null,arr);
+                        newArray.push(min);
+                        let index = arr.indexOf(min);
+                        arr.splice(index,1);
+                    }
+                    return newArray;
+                }
+            }else{
+                while(arr.length>0){
+                    for(let i = 0; i < len; i++){
+                        let max = Math.max.apply(null,arr);
+                        newArray.push(max);
+                        let index = arr.indexOf(max);
+                        arr.splice(index,1);
+                    }
+                }
+                return newArray;
+            }
+        }
+        // 如果为true,则从小到大排序,否则从大到小排序
+        // selectSort(array,false);
+
+
+
+    </script>
+</body>
+</html>

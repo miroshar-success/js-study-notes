@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React-Refs</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="focus"></div>
+<div id="parent"></div>
+<script src="node_modules/babel-standalone/babel.min.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    /*
+        Refs提供了一种方式,允许我们访问DOM节点或在render方法中创建的React元素
+        Refs是使用React.createRef()创建的,并通过ref属性附加到React元素。
+    *
+    *
+    *
+    * */
+    class MyComponent extends React.Component{
+        constructor(props){
+            super(props);
+            this.myRef = React.createRef();
+            this.getRef = this.getRef.bind(this);
+        }
+        getRef(){
+            // 当ref被传递给render中的元素时,对该节点的引用可以在ref的current属性中访问
+            // console.log(this.myRef.current);
+            // ref返回的是真实的DOM
+            const node = this.myRef.current;
+            node.style.color = "red";
+            console.log(this);
+            this.refs.btn.style.color = "skyblue";
+        }
+        render(){
+            return(
+                <div>
+                    <p ref={this.myRef}>Hello World!</p>
+                    {
+                        // 挂载到当前的组件实例上
+                    }
+                    <p ref={"btn"}>Hello React!</p>
+                    <button onClick={this.getRef}>点击</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <MyComponent></MyComponent>,
+        document.querySelector("#app")
+    )
+    /*
+    * 1. 当ref属性用于HTML元素的时候,构造函数中使用React.createRef()创建的ref接收底层的DOM元素作为其current属性
+    * 2. 当ref属性用于自定义class组件时,ref对象接收组件的挂载实例作为其current属性。
+    * tips:
+    * 1. 不能在函数组件上使用ref属性,因为它们没有实例。
+    *
+    * */
+    // DEMO 使input框获取焦点
+    class CustomTextInput extends React.Component{
+        constructor(props){
+            super(props);
+            this.handleGetFocus = this.handleGetFocus.bind(this);
+            this.textInput = React.createRef();
+        }
+        handleGetFocus(){
+            console.log(this.textInput);
+            this.textInput.current.focus();
+        }
+        render(){
+            return(
+                <div>
+                    <input
+                        type="text"
+                        ref={this.textInput}
+                    />
+                    <input
+                        type="button"
+                        onClick={this.handleGetFocus}
+                        value="Focus the text input"
+                    />
+                </div>
+            )
+        }
+    }
+    // 为class组件添加ref
+    class AutoFocusTextInput extends React.Component{
+        constructor(props){
+            super(props);
+            this.textInput = React.createRef();
+        }
+        componentDidMount(){
+            console.log(this.textInput);
+            this.textInput.current.handleGetFocus();
+        }
+        render(){
+            return(
+                <CustomTextInput ref={this.textInput}/>
+            )
+        }
+    }
+    ReactDOM.render(
+        <AutoFocusTextInput/>,
+        document.querySelector("#focus")
+    )
+    // 函数组件  函数组件上使用 ref会报错
+/*    function MyFunctionComponent(){
+        return (
+            <input type="text"/>
+        )
+    }
+    class Parent extends React.Component{
+        constructor(props){
+            super(props);
+            this.textInput = React.createRef();
+        }
+        render(){
+            return(
+                <MyFunctionComponent ref={this.textInput}/>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Parent/>,
+        document.querySelector("#parent")
+    )*/
+    // 可以在函数组件内部使用 ref属性
+    function CustomTextInput(props){
+        let textInput = React.createRef();
+        function handleClick(){
+            console.log(textInput.current);
+            textInput.current.focus();
+        }
+        return (
+            <div>
+                <input type="text" ref={textInput}/>
+                <input
+                    type="button"
+                    value="Focus the next input"
+                    onClick={handleClick}/>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <CustomTextInput/>,
+        document.getElementById("parent")
+    )
+
+    // 回调refs,它能帮助你更精细地控制何时refs被设置和解除。
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery使用</title>
+    <style>
+        html,body,ul,ol,p,h1,h2,h3,h4,h5,h6{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        h1,h2,h3,h4,h5,h6{
+            font-size:100%;
+            font-weight:normal;
+        }
+        ul.box>li{
+            margin-top:10px;
+            width: 400px;
+            height: 30px;
+        }
+        .phones>li:nth-of-type(1){
+            width: 100px;
+            height: 100px;
+            display:none;
+        }
+        .phones>li:nth-of-type(2){
+            width: 0;
+            height: 0;
+        }
+        .phones>li:nth-of-type(3){
+            visibility:hidden;
+        }
+        .phones>li:nth-of-type(4){
+            opacity:0;
+        }
+        .list1>li:nth-child(1){
+            font-size:40px;
+            color:skyblue;
+        }
+        .list2>li:nth-child(1){
+            color:skyblue;
+        }
+        .list2>li:nth-child(2){
+            color:skyblue;
+        }
+        .list2>li:nth-of-type(1){
+            font-size:20px;
+            font-weight:bold;
+            font-style:italic;
+        }
+        img{
+            width: 400px;
+        }
+        dl>dt{
+            color:red;
+            font-size:18px;
+        }
+        .milk{
+            position:absolute;
+            left: 100px;
+            margin-top:10px;
+            margin-right:20px;
+            padding:10px;
+            top: 200px;
+            width: 100px;
+            height: 100px;
+            background-color:skyblue;
+            border:10px solid #000;
+        }
+        .father{
+            position:relative;
+            width: 400px;
+            height: 400px;
+            border:1px solid #000;
+        }
+        .father>.son{
+            position:absolute;
+            left:35px;
+            top:55px;
+            margin-top:10px;
+            margin-left:5px;
+            width: 50px;
+            height: 50px;
+            background-color:pink;
+            padding:5px 3px 1px 1px;
+        }
+        .phone{
+            width: 100px;
+            height: 100px;
+            border:2px solid #000;
+            padding:1px 2px;
+            margin:2px 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="foo:bar"></div>
+    <div>DIV1</div>
+    <div>DIV2</div>
+    <div>DIV3</div>
+    <div class="myClass">1</div>
+    <div class="myClass">2</div>
+    <ul class="list">
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+    </ul>
+    <form action="">
+        <fieldset>
+            <label for="name">Hello</label>
+            <input type="checkbox" id='name' value='a'>
+            <input type="text" value='2'>    
+        </fieldset>
+    </form>
+    <div id="foo"></div>
+    <ul class='player'>
+        <li>kyrie</li>
+        <li>lebron</li>
+        <li>durant</li>
+        <li>wade</li>
+        <li>curry</li>
+        <li>kobe</li>
+    </ul>
+    <table class='tab'>
+        <tr>
+            <td>name</td>
+            <td>sex</td>
+            <td>age</td>
+        </tr>
+        <tr>
+            <td>jack</td>
+            <td>16</td>
+            <td>boy</td>
+        </tr>
+        <tr>
+            <td>william</td>
+            <td>20</td>
+            <td>girl</td>
+        </tr>
+    </table>
+    <h1>我是标签一</h1>
+    <h2>我是标题二</h2>
+    <h3>我是标题三</h3>
+    <h4>我是标题四</h4>
+    <h5>我是标题五</h5>
+    <h6>我是标题六</h6>
+    <button>点击</button>
+    <ul class="box">
+        <li></li>
+        <li></li>
+    </ul>
+    <div>John Resig</div>
+    <div>George Martin</div>
+    <div>Malcom John Sinclair</div>
+    <div>J. Ohn</div>
+    <ul class="cars">
+        <li>奔驰</li>
+        <li>奥第</li>
+        <li class='car3'>abc</li>
+    </ul>
+    <div class='parent'>
+        <p class='text'>Hello</p>
+    </div>
+    <div>Hello again!</div>
+
+    <ol class="phones">
+        <li class='phone1'>苹果</li>
+        <li class='phone2'>魅族</li>
+        <li class='phone3'>三星</li>
+        <li class='phone4'>华为</li>
+        <li class='phone5'>小米</li>
+    </ol>
+    <form action="">
+        <input type="text" type='hidden' value='我是hidden'>
+        <input type="text" value='abc'>
+    </form>
+    <p>这是一个段落</p>
+    <p>这是另一个段落</p>
+    <p style='display:none;color:red;'>这是一个隐藏的段落</p>
+    <p style='display:none;color:pink;'>这是隐藏的p元素</p>
+    <p style='opacity:0;color:skyblue'>这是透明度为0的p元素</p>
+    <p style='visibility:hidden;color:seagreen'>这是不可见的p元素</p>
+
+    <form action="">
+        <input type="checkbox" name='newsletter' value='Hot Fuzz'>
+        <input type="checkbox" name='news' value='Cold Fusion'>
+        <input type="text" name='newsletter'>
+        <input type="text" name='milkman'>
+        <input type="text" name='newsboy'>
+    </form>
+
+    <ul class="list1">
+        <li>John</li>
+        <p>我是p元素</p>
+        <li>Karl</li>
+        <li>Brandon</li>
+    </ul>
+    <ul class="list2">
+        <p>我也是p元素</p>
+        <li>abc</li>
+        <li>Glen</li>
+        <li>Tane</li>
+        <li>Ralph</li>
+    </ul>
+    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547635820251&di=380dea45623cc883c3c2eeb0c9453db3&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn10101%2F455%2Fw940h1115%2F20181205%2Fe348-hphsupy0982918.jpg" alt="">
+    <div class="item1"></div>
+    <div class="item2"></div>
+    <input type="text" value='kyrie' id='player'>
+    <input type="text" id='car' value=''>
+    <dl>
+        <dt>香车宝马</dt>
+        <dd>意思是华丽的车子，珍贵的宝马。指考究的车骑。</dd>
+    </dl>
+
+    <div class="milk"></div>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <div class="phone"></div>
+    <script src='./js/jquery.js'></script>
+    <script src='./js/demo1.js'></script>
+</body>
+</html>

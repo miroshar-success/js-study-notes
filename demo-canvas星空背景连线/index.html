@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas-星空背景连线</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        canvas{
+            display:block;
+            background-color:#000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        let [w,h] = [window.innerWidth,window.innerHeight];  // w h 为浏览器宽度和高度
+        const count = 400;  // count表示绘制小圆点的数量
+        let circleData = [];  // 保存小原点的位置
+        let mouseData = {};
+        //让画布宽高和浏览器等宽高
+        canvas.width = w;
+        canvas.height = h;
+        window.onresize = function(){
+            [w,h] = [window.innerWidth,window.innerHeight];
+            canvas.width = w;
+            canvas.height = h;
+            circleData = [];
+            mouseData = {};
+            init();
+        }
+        // 初始化一个函数,
+        init();
+        function init(){
+            for(let i = 0; i < count; i++){
+                circleData.push({
+                    x:Math.random() * w,
+                    y:Math.random() * h,
+                    speedX:Math.random() * .6 - .3,
+                    speedY:Math.random() * .6 - .3
+                });
+                draw(circleData[i].x,circleData[i].y);
+            }
+        }
+        // 绘制小圆点,传入两个参数分别表示 小圆点的x,y坐标
+        function draw(x,y){
+            ctx.beginPath();
+            ctx.fillStyle = "#fff";
+            ctx.arc(x,y,.6,0,Math.PI*2,false);
+            ctx.fill();
+        }
+        //  让小圆点运动起来
+        function move(){
+            ctx.clearRect(0,0,w,h);
+            for(let i = 0; i < count; i++){
+                circleData[i].x += circleData[i].speedX;
+                circleData[i].y += circleData[i].speedY;
+                if(circleData[i].x < 0 || circleData[i].y > w) circleData[i].speedX = -circleData[i].speedX;
+                if(circleData[i].y < 0 || circleData[i].y > h) circleData[i].speedY = -circleData[i].speedY;
+                draw(circleData[i].x,circleData[i].y);
+                // 再次循环遍历,找到另外一个小圆点绘制成线条, tips:注意遍历的条件,另一个小圆点不等于自身。
+                for(let j = i+1; j < count; j++) {
+                    if (Math.pow((circleData[i].x - circleData[j].x), 2) +
+                        Math.pow((circleData[i].y - circleData[j].y), 2) <= Math.pow(60, 2)) {
+                        line(circleData[i].x, circleData[i].y, circleData[j].x, circleData[j].y,true);
+                    }
+                }
+                if(mouseData.x){
+                    if(Math.pow((mouseData.x-circleData[i].x),2)+ Math.pow((mouseData.y-circleData[i].y),2)
+                        <= Math.pow(60,2)
+                    ){
+                        line(mouseData.x,mouseData.y,circleData[i].x,circleData[i].y,false);
+                    }
+                }
+            }
+            window.requestAnimationFrame(move);
+        }
+        move();
+        // 判断小圆点的位置然后连线
+        function line(x1,y1,x2,y2,flag){
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            if(flag){
+                /*let color = ctx.createLinearGradient(x1,y1,x2,y2);
+                color.addColorStop(0,"#0a3076");
+                color.addColorStop(.5,"pink");
+                color.addColorStop(1,"#000");
+                ctx.strokeStyle = color;*/
+                ctx.strokeStyle = "purple";
+            }else{
+                ctx.strokeStyle = "pink";
+            }
+            ctx.moveTo(x1,y1);
+            ctx.lineTo(x2,y2);
+            ctx.stroke();
+        }
+        // 当鼠标移入的时候,让鼠标的位置和小圆点连线,鼠标移出的时候 清空鼠标位置对象
+        document.addEventListener("mousemove",function(event){
+            event = event || window.event;
+            mouseData.x = event.clientX;
+            mouseData.y = event.clientY;
+        },false);
+        document.addEventListener('mouseout',function(){
+            mouseData = {};
+        },false);
+    </script>
+</body>
+</html>

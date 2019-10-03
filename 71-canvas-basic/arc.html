@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>圆弧</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			canvas{
+				border:1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas1"></canvas>
+		<canvas id="canvas2"></canvas>
+		<script>
+			const canvas1 = document.getElementById('canvas1');
+			const ctx1 = canvas1.getContext('2d');
+			
+			ctx1.moveTo(0,0);
+			ctx1.arcTo(150,0,0,150,75);
+			ctx1.stroke();
+			
+			ctx1.beginPath();
+			ctx1.moveTo(0,0);
+			ctx1.lineTo(150,0);
+			ctx1.lineTo(0,150);
+			ctx1.stroke();
+			
+			const canvas2 = document.getElementById('canvas2');
+			const ctx2 = canvas2.getContext('2d');
+			ctx2.setLineDash([]);
+			ctx2.beginPath();
+			ctx2.moveTo(150,20);
+			ctx2.arcTo(150,100,50,20,30);
+			ctx2.stroke();
+			
+			ctx2.fillStyle = 'blue';
+			ctx2.fillRect(150,20,10,10);
+			
+			ctx2.fillStyle = 'red';
+			ctx2.fillRect(150,100,10,10);
+			
+			ctx2.fillRect(50,20,10,10);
+			
+			ctx2.setLineDash([3,3]);
+			ctx2.moveTo(150,20);
+			ctx2.lineTo(150,100);
+			ctx2.lineTo(50,20);
+			ctx2.stroke();
+			
+			
+		</script>
+	</body>
+</html>

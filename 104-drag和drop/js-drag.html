@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H5拖拽</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color:pink;
+            position:absolute;
+            left:30px;
+            top:10px;
+            text-align:center;
+            line-height:100px;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+<div class="box">JS拖拽</div>
+<script>
+    // 原生JS的拖拽事件
+    let oBox = document.querySelector(".box");
+    oBox.onmousedown = function(event){
+        event = event || window.event;
+        let x = event.clientX - oBox.offsetLeft;
+        let y = event.clientY - oBox.offsetTop;
+        document.onmousemove = function(e){
+            oBox.style.left = e.clientX - x + 'px';
+            oBox.style.top = e.clientY - y + 'px';
+        }
+        document.onmouseup = function(){
+            document.onmousemove = null;
+        }
+    }
+
+</script>
+</body>
+</html>

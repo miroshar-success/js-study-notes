@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组快速排序可视化</title>
+    <style>
+        body,ul,ol,p{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .list{
+            position:relative;
+            margin:30px auto 0;
+            width: 750px;
+            height:650px;
+            border:1px solid #000;
+        }
+        .list li{
+            position:absolute;
+            bottom:0;
+            width:15px;
+            font-size:12px;
+            text-align:center;
+            transition:left .3s;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list"></ul>
+    <script>
+        let oList = document.querySelector('.list'),
+        array = new Array(50).fill(0).map((item,index)=>index).sort((a,b)=>Math.random()-.5);
+        console.log(array);
+        function randomColor(){
+            let r = Math.floor(Math.random()*256),
+            g = Math.floor(Math.random()*256),
+            b = Math.floor(Math.random()*256);
+            let color = 'rgb('+r+','+g+','+b+')';
+            return color;
+        }
+        function render(){
+            for(let i = 0; i < 50; i++){
+                var oLi = document.createElement('li');
+                oLi.innerText = `${i+1}`;
+                oLi.style.height = `${i+1}`*13 + 'px';
+                oLi.style.backgroundColor = `${randomColor()}`;
+                oList.appendChild(oLi);
+            }
+        } 
+        render();
+        var aLi = document.querySelectorAll('li');
+        function changePosition(array){
+            aLi.forEach(function(item,index){
+                aLi[index].style.left = array[index]*15 + 'px';
+            });
+        }
+        changePosition(array);
+
+        function quickSort(arr,i,j){
+            if(i > j) return;
+            function middleIndex(arr,i,j){
+                while(i < j){
+                    while(i<j && arr[i]<=arr[j]){
+                        j--;
+                    };
+                    swap(i,j)
+                    while(i<j && arr[i]<=arr[j]){
+                        i++;
+                    };
+                    swap(i,j)
+                };
+                return i;
+            };
+            let middle = middleIndex(arr,i,j);
+            quickSort(arr,i,middle - 1);
+            quickSort(arr,middle + 1,j);
+        }
+        var arr = [...array];
+        var count = 1;
+        function swap(i,j){
+            [arr[i],arr[j]] = [arr[j],arr[i]];        
+            setTimeout(function(){
+                [array[i],array[j]] = [array[j],array[i]];
+                changePosition(array);
+            },100*count++);
+        }
+        quickSort(arr,0,arr.length-1);
+        console.log(array);
+
+    </script>
+</body>
+</html>

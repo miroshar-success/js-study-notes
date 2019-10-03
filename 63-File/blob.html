@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Blob的基本用法--a标签下载文件</title>
+		<style>
+			body,ul,ol,p{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="" class='text'></a>
+		<button class='btn'>下载</button>
+		<script>
+			const oBtn = document.querySelector('.btn');
+			const oText = document.querySelector('.text');
+			
+			oBtn.addEventListener('click',function(e){
+				e = e || window.e;
+				const blob = new Blob(['秋风清,秋月明'],{type:'application/msword'});
+				console.log(blob);
+				const url = window.URL.createObjectURL(blob);
+				console.log(url);
+				oText.href = url;
+				// 必须要触发a标签才可以
+				oText.click();
+			},false);
+			
+			const blob = new Blob(['Hello World'],{type:'application/msword'});
+			const a = document.createElement('a');
+			a.href = window.URL.createObjectURL(blob);
+			a.innerText = 'Download';
+			document.body.appendChild(a);
+			
+		</script>
+	</body>
+</html>

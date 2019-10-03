@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iframe_iconfont_swiper作业——二</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_840444_dagwohrimsj.css">
+    <link rel="stylesheet" href="./swiper.min.css">
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,dl,dd,dt,input,ul,ol{
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+            padding: 0;
+        }
+        a{
+            text-decoration:none;
+        }
+        #banner{
+            margin:50px auto 0;
+            width: 1226px;
+            height: 460px;
+            border:1px solid #000;
+            position:relative;
+        }
+        .left-nav{
+            box-sizing:border-box;
+            padding:20px 0;
+            width: 234px;
+            height:460px;
+            background-color:#5a5862;
+        }
+        .left-nav>li{
+            padding:0 22px 0 28px;
+            line-height:42px;
+            height:42px;
+            font-size:14px;
+            cursor:pointer;
+        }
+        .left-nav>li a{
+            color:#fff;
+            font-size:14px;
+        }
+        .left-nav>li>a .iconfont{
+            float:right;
+            font-size:12px;
+        }
+        .left-nav>li:hover{
+            background-color:#ff6700;
+        }
+        .left-nav .info{
+            box-sizing:border-box;
+            padding-left:20px;
+            position:absolute;
+            height: 460px;
+            top:0;
+            left:224px;
+            background-color:#fff;
+            box-shadow:2px 3px 2px #ccc;
+            display:none;
+        }
+        .left-nav .info li{
+            float:left;
+            width: 265px;
+            height:76px;
+            line-height:76px;
+        }
+        .left-nav .info .iconfont{
+            font-size:40px;
+        }
+        .left-nav .info span{
+            vertical-align:10px;
+        }
+        .left-nav>li:nth-of-type(1) .info{
+            width:815px;
+        }
+        .left-nav>li:nth-of-type(2) .info{
+            width:992px;
+            background-color:pink;
+        }
+        .left-nav>li:nth-of-type(3) .info{
+            width:992px;
+            background-color:skyblue;
+        }
+        .left-nav>li:nth-of-type(4) .info{
+            width:795px;
+            background-color:aquamarine;
+        }
+        .left-nav>li:nth-of-type(5) .info{
+            width:530px;
+            background-color:blueviolet;
+        }
+        .left-nav>li:nth-of-type(6) .info{
+            width:265px;
+            background-color:chocolate;
+        }
+        .left-nav>li:nth-of-type(7) .info{
+            width:796px;
+            background-color:gold;
+        }
+        .left-nav>li:nth-of-type(8) .info{
+            width:530px;
+            background-color:firebrick;
+        }
+        .left-nav>li:nth-of-type(9) .info{
+            width:265px;
+            background-color:hotpink;
+        }
+        .left-nav>li:nth-of-type(10) .info{
+            width:992px;
+            background-color:greenyellow;
+        }
+        .left-nav .info a{
+            color:#333;
+        }
+        .left-nav .info li:hover span{
+            color:#ff791e;
+        }
+        .left-nav>li:hover .info{
+            display:block;
+            z-index:10;
+        }
+        #banner .swiper-container{
+            position:absolute;
+            left:0;
+            top:0;
+            width:1226px;
+            height:460px;
+            z-index:-1;
+        }
+        .carousel li img{
+            display:block;
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <ul class="left-nav">
+            <li>
+                <a href="#">
+                    手机 电话卡
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info">
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji9"></i>
+                            <span>小米8</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji8"></i>
+                            <span>小米MIX2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji41"></i>
+                            <span>红米S2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji7"></i>
+                            <span>小米8 SE</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji6"></i>
+                            <span>小米Max 2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji5"></i>
+                            <span>红米5 Plus</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji5"></i>
+                            <span>小米MIX 2S</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-xiaomishouji"></i>
+                            <span>红米6 Pro</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-userPhone"></i>
+                            <span>移动4G+专区</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji4"></i>
+                            <span>小米Max 3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji3"></i>
+                            <span>红米6</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji3"></i>
+                            <span>对比手机</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-changshi-"></i>
+                            <span>小米6X</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-changshi-"></i>
+                            <span>红米6A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-changshi-"></i>
+                            <span>米粉卡</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-tubiaozhizuomoban"></i>
+                            <span>游戏手机</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji2"></i>
+                            <span>红米Note 5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="iconfont icon-shouji2"></i>
+                            <span>小米移动</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    电视 盒子
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    笔记本 平板
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    家电 插线板
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    出行 穿戴
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    智能 路由器
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    电源 配件
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    个护 儿童
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+            <li>
+                <a href="#">
+                    耳机 音箱
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>                
+            </li>
+            <li>
+                <a href="#">
+                    生活 箱包
+                    <i class="iconfont icon-xiangyou"></i>
+                </a>
+                <ul class="info"></ul>
+            </li>
+        </ul>
+        <div class="container swiper-container">
+            <ul class="carousel swiper-wrapper">
+                <li class="swiper-slide">
+                    <a href=""><img src="./imgs/1.jpg" alt="" width="1226" height="460"></a>
+                </li>
+                <li class="swiper-slide">
+                    <a href=""><img src="./imgs/2.jpg" alt="" width="1226" height="460"></a>
+                </li class="swiper-slide">
+                <li>
+                    <a href=""><img src="./imgs/3.jpg" alt="" width="1226" height="460"></a>
+                </li>
+                <li class="swiper-slide">
+                    <a href=""><img src="./imgs/4.jpg" alt="" width="1226" height="460"></a>
+                </li>
+                <li class="swiper-slide">
+                    <a href=""><img src="./imgs/5.jpg" alt="" width="1226" height="460"></a>
+                </li>
+            </ul>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <script src="./swiper.min.js"></script>
+    <script>
+        var mySwiper = new Swiper ('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            autoplay:true,
+            pagination: {
+                el: '.swiper-pagination',
+            }
+        });
+    </script>
+</body>
+</html>

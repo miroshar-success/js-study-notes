@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生管理系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h3>学生成绩管理系统</h3>
+    <a href="/add">增加学生信息</a>
+    <a href="/remove">删除学生信息</a>
+    <a href="/update">编辑学生信息</a>
+    <a href="/check">查看学生信息</a>
+    <table>
+        <thead>
+        <tr>
+            <td>学生</td>
+            <td>性别</td>
+            <td>语文</td>
+            <td>数学</td>
+            <td>英语</td>
+        </tr>
+        </thead>
+        <tbody>
+            <%for(let i = 0; i < results.length; i++){%>
+                <tr >
+                    <td><%=results[i].name%></td>
+                    <td><%=results[i].sex%></td>
+                    <td><%=results[i].Chinese%></td>
+                    <td><%=results[i].Math%></td>
+                    <td><%=results[i].English%></td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

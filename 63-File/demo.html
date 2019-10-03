@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>将file转换成base64</title>
+		<style>
+			body,ul,ol,p{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+			}
+				list-style:none;
+		</style>
+	</head>
+	<body>
+		<input type="file" id='select' multiple>
+		<script>
+			
+			let oSelect = document.querySelector('#select');
+			oSelect.onchange = function(e){
+				e = e || window.e;
+				let files = this.files;
+				for(let i = 0,file;file = files[i]; i++){
+					// 利用FileReader读取图片
+					let fileRead = new FileReader();
+					fileRead.readAsDataURL(file);
+					let oImg = document.createElement('img');
+					fileRead.onload = function(){
+						oImg.src = this.result;
+						console.log(this.result);
+					}
+					document.body.insertBefore(oImg,oSelect);
+				}
+			}
+			
+			oSelect.onchange = function(e){
+				e = e || window.e;
+				let files = this.files;
+				Array.prototype.forEach.call(files,function(item){
+					// Blob的第一个参数必须时数组,第二个参数表示文件的mime类型
+					const blob = new Blob([item],{type:'application/x-jpg'});
+					console.log(blob);
+					let oImg = document.createElement('img');
+					let url = window.URL.createObjectURL(blob);
+					console.log(url);
+					oImg.src = url;
+					oImg.onload = function(){
+						window.URL.revokeObjectURL(this.src);
+					};
+					document.body.insertBefore(oImg,oSelect);
+				})
+			}
+			
+			var blob = new Blob(['Hello World!']);
+			var a = document.createElement('a');
+			a.download = 'hello-world.txt';
+			a.href = window.URL.createObjectURL(blob);
+			a.textContent = 'Download Hello World';
+			document.body.appendChild(a);
+			
+		</script>
+	</body>
+</html>

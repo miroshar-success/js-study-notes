@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab选项卡</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .container{
+            margin:50px auto 0;
+            width: 480px;
+            height: 320px;
+            border:1px solid #000;
+        }
+        .container .tab-box{
+            height: 40px;
+            width:100%;
+            background-color:#ccc;
+            font-size:0;
+        }
+        .container .tab-box .tab{
+            display:inline-block;
+            width: 100px;
+            text-align:center;
+            line-height:40px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        .container .tab.active{
+            background-color:violet;
+        }
+        .container .content{
+            position:relative;
+            width: 480px;
+            height: 280px;
+            overflow:hidden;
+        }
+        .container .content .info{
+            position:absolute;
+            left:0;
+            top:0;
+            width:1440px;
+            height:280px;
+            transition:.3s;
+        }
+        .container .info li{
+            float:left;
+            width: 480px;
+            height: 280px;
+        }
+        .container .info li:nth-of-type(1){background-color:pink;}
+        .container .info li:nth-of-type(2){background-color:skyblue;}
+        .container .info li:nth-of-type(3){background-color:seagreen;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tab-box">
+            <span class='tab active'>HTML</span>
+            <span class='tab'>CSS</span>
+            <span class='tab'>JavaScript</span>
+        </div>
+        <div class="content">
+            <ul class="info">
+                <li>HTML:超文本标记语言</li>
+                <li>CSS:层叠样式表</li>
+                <li>JavaScript:基于原型的动态解释型的脚本语言</li>
+            </ul>
+        </div>
+    </div>
+    <script src='./main.js'></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOM</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        html{
+            height:1000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <button class='btn'>点击</button>
+    <button class='back'>后退</button>
+    <button class='for'>前进</button>
+    <div class="demo"></div>
+    <button class='scroll'>滚动</button>
+    <button class='by'>ScrollBy</button>
+
+    <button class='replace'>replace</button>
+    <button class='href'>href</button>
+
+    <script>
+        window.onresize = function(){
+            // console.log(window.innerWidth,window.innerHeight);
+            // console.log(document.documentElement.offsetHeight);
+            // console.log(document.documentElement.offsetWidth);
+        }    
+        let oBox1 = document.querySelector('#box');
+        let oBox2 = window.document.querySelector('#box');
+        console.log(oBox1);
+        console.log(oBox2);
+
+        console.log(window.innerWidth,window.innerHeight);
+        console.log(document.documentElement.clientWidth,document.documentElement.clientHeight);
+        // console.log(document.body.clientWidth,document.body.clientHeight);
+
+        console.log(document.defaultView);
+
+        console.log( '可用宽度' + window.screen.availWidth );
+        console.log( '可用高度' + window.screen.availHeight );
+
+        console.log( window.location.hostname );
+        console.log( window.location.pathname );
+        console.log( window.location.port);
+        console.log( window.location.protocol);
+
+        console.log( window.location.href);
+
+        function newDoc(){
+            window.location.assign('http://www.baidu.com');
+        }
+        // newDoc();
+
+        let oBtn = document.querySelector('.btn');
+        oBtn.onclick = function(){
+            window.location.href = 'https://www.baidu.com';
+        }
+
+        let oBtn1 = document.querySelector('.back');
+        let oBtn2 = document.querySelector('.for');
+
+        oBtn1.onclick = function(){
+            window.history.back();
+        }
+        oBtn2.onclick = function(){
+            window.history.forward();
+        }
+
+        console.log(window.navigator);
+        console.log(window.navigator.userAgent);
+        
+        // window.alert('123');
+
+        // window.confirm('123');
+
+        // let r = window.confirm('123');
+        
+        // if(r == true){
+        //     console.log('你按下了 "确定" 按钮');
+        // }else{
+        //     console.log('你按下了 "取消" 按钮');
+        // }
+
+        window.setInterval(function(){
+            console.log('Hello World');
+        },500);
+
+        let oTime = document.querySelector('.demo');
+        let time = new Date();
+        time = time.toLocaleTimeString();
+        oTime.innerHTML = time;
+        
+        window.setInterval(function(){
+            let t = new Date();
+            t = t.toLocaleTimeString();
+            oTime.innerHTML = t;
+        },1000/60);
+
+        document.cookie.username = 'Kyrie-Irving';
+        let x = document.cookie;
+        console.log(x);
+
+        document.cookie.player = 'lebron james';
+        
+        let c = document.cookie;
+        console.log(c);
+
+        console.log(1);
+        // window.alert('Hello World');
+        setTimeout(function(){
+            console.log('settime');
+        },2000);
+        
+        console.log(2);
+
+        // let order = window.confirm('确定提交订单吗?');
+        // console.log(order);
+
+        // if(order === true){
+        //     console.log('订单已经提交');
+        // }else{
+        //     console.log('订单已取消');
+        // }
+
+        // let msg = window.prompt('请输入密码');
+        // console.log(msg);
+        // console.log(typeof msg);    // string
+
+        // let msg = window.confirm('你确定离开当前页面吗?');
+        // if(msg == true){
+        //     window.close();
+        // }
+        function scroll(){
+            window.scrollTo(0,200);
+        }
+        let oScroll = document.querySelector('.scroll');
+        oScroll.onclick = scroll;
+
+
+        let oBy = document.querySelector('.by');
+        oBy.onclick = function(){
+            window.scrollBy(0,200);
+        }
+
+        setInterval(function(){
+            // window.scrollBy(0,1);
+            // window.scrollTo(0,1);
+        },1000/60);
+
+        let href= document.querySelector('.href');
+        let replace = document.querySelector('.replace');
+        console.log(href);
+        console.log(replace);
+
+        href.addEventListener('click',function(e){
+            window.location.href = 'https://www.bilibili.com';
+        },false);
+
+        replace.addEventListener('click',function(e){
+            window.location.replace('https://www.bilibili.com');
+        },false);
+
+        // setTimeout(function(){
+        //     window.location.reload();
+        // },2000);
+
+        // setInterval(function(){
+        //     window.location.reload();
+        // },2000);
+
+        setTimeout(function(){
+            console.log('Hello');
+        },2000);
+
+        window.console.clear();
+        console.time('代码运行的时间');
+        window.console.warn('请补全信息');
+        console.timeEnd('代码运行的时间');
+        window.console.info('info');
+        window.console.error('报错了');
+
+    </script>
+</body>
+</html>

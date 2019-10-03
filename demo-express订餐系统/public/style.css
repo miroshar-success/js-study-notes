@@ -1,0 +1,15 @@
+body,ul,ol{
+    padding: 0;
+    margin: 0;
+}
+ul,ol{
+    list-style:none;
+}
+.container{
+    margin:40px auto 0;
+    padding-left:30px;
+    width: 370px;
+    height: 280px;
+    border:5px solid #f00;
+    background-color:skyblue;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>多文件拖拽上传</title>
+		<style>
+			body,ul,ol,p{
+				padding: 0;
+				margin: 0;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			.container{
+				margin:20px auto 0;
+				width: 500px;
+				height: 300px;
+				background-color:#eee;
+				border:1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container"></div>
+		<script>
+			const oContainer = document.querySelector('.container');
+			oContainer.addEventListener('dragenter',drag,false);
+			oContainer.addEventListener('dragover',drag,false);
+			oContainer.addEventListener('drop',drag,false);
+			
+			function drag(event){
+				event = event || window.event;
+				event.preventDefault();
+				event.stopPropagation();
+				const type = event.type;
+				switch(type){
+					case 'dragover':
+					break;
+					case 'drop':
+					const files = event.dataTransfer.files;
+					Array.prototype.forEach.call(files,function(item){
+						// 利用FormData上传
+/*						const form = new FormData();
+						console.log(item);
+						form.append('file',item);
+						// form.append('file',file);
+						fetch('http://localhost:3000/upload',{
+							method:'post',
+							body:form,
+						})
+						.then(function(response){
+							return response.blob();
+						})
+						.then(function(data){
+							console.log(data);
+						});
+*/						const form = new FormData();
+						const blob = new Blob([item],{'type':'image/gif'});
+						console.log(blob);
+						form.append('file',blob);
+						fetch('http://localhost:3000/upload',{
+							methods:'post',
+							body:form
+						})
+					})
+					break;
+				}
+			}
+			fetch("http://localhost:3000/banner").then(response=>response.json())
+			.then(data=>{
+				console.log(data.banners);
+			})
+		</script>
+	</body>
+</html>

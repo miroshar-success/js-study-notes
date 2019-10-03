@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>伪类和文字相关属性作业 —— 一</title>
+    <style>
+        body,h3,p,ul{
+            margin: 0;
+        }
+        ul{
+            padding: 0;
+            list-style:none;
+        }
+        body{
+            font-size:12px;
+            color:#666;
+        }
+        .container{
+            width: 272px;
+            height:auto;
+            margin:10px auto;
+        }
+        .motion{
+            width: 270px;
+            height: 339px;
+            border:1px solid #ddd;
+            padding:10px 10px 0;
+            box-sizing:border-box;
+            margin-bottom:10px;
+        }
+        .motion img{
+            width: 250px;
+            height: 188px;
+            display:block;
+        }
+        .motion img,.list .share{
+            cursor:pointer;
+        }
+        .motion h3{
+            font-size:14px;
+            height:18px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            margin:14px 0 10px 0;
+        }
+        .motion span{
+            display:inline-block;
+        }
+        .motion .original{
+            color:#ff0084;
+            font-weight:bold;
+        }
+        .list li{
+            display:inline-block;
+            margin-right:14px;
+        }
+        .list .number{
+            color:#ff3352;
+        }
+        .motion .time,.motion .list{
+            margin-top:10px;
+        }
+        .motion .play{
+            display:block;
+            width: 12px;
+            height: 12px;
+            background:url("./imgs/play.png") center/cover;
+            margin-top:5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="motion">
+            <img src="./imgs/pic1.jpg" alt="" width="250" height="188">
+            <h3>动画便利店X果壳网《西门子洗碗机》西门子洗碗机西门子洗碗机</h3>
+            <span class="original">原创作品 - </span>
+            <span>影视 - </span>
+            <span>Motion Graphic</span>
+            <p class="time">三小时前上传</p>
+            <ul class="list">
+                <li class="number">1284</li>
+                <li>
+                    <span>人气 /</span>
+                    <span class="number">11</span>
+                </li>
+                <li>
+                    <span>评论 /</span>
+                    <span class="number">47</span>
+                </li>
+                <li class="share">推荐</li>
+            </ul>
+            <a href="#" class="play"></a>
+        </div>
+        <div class="motion">
+            <img src="./imgs/pic2.jpg" alt="" width="250" height="188">
+            <h3>动画便利店X果壳网《西门子洗碗机》西门子洗碗机西门子洗碗机</h3>
+            <span class="original">原创作品 - </span>
+            <span>影视 - </span>
+            <span>Motion Graphic</span>
+            <p class="time">三小时前上传</p>
+            <ul class="list">
+                <li class="number">1284</li>
+                <li>
+                    <span>人气 /</span>
+                    <span class="number">11</span>
+                </li>
+                <li>
+                    <span>评论 /</span>
+                    <span>47</span>
+                </li>
+                <li class="share">推荐</li>
+            </ul>
+            <a href="#" class="play"></a>
+        </div>
+    </div>
+</body>
+</html>

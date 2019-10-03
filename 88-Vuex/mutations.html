@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vuex-Mutations</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			#app{
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vuex@2.0.0"></script>
+		<script>
+			const myComponent = Vue.component("my-component",{
+				template:`<div>
+					<p>Mutations和Actions</p>
+					<p>1. 提交负荷的方式,传入一个数字 --- store.commit('increment', 10)</p>
+					<button @click="handleIncrement">+10</button>
+					<p>2. 提交负荷的方式,大多数情况下传入一个对象---- store.commit('reduce', {amount: 10})</p>
+					<button @click="handleReduce">-3</button>
+					<p>3. 对象风格的提交 ---- store.commit({type: 'increment',amount: 10})</p>
+					<button @click="handleMultiply">*2</button>
+					<p>{{this.$store.state.count}}</p>
+				</div>`,
+				methods:{
+					handleIncrement(){
+						this.$store.commit("increment",10);
+					},
+					handleReduce(){
+						this.$store.commit("reduce",{
+							amount:3
+						})
+					},
+					handleMultiply(){
+						this.$store.commit({
+							type:"multiply",
+							amount:2
+						})
+					}
+				}
+			});
+			const store = new Vuex.Store({
+				state :{
+					count:0
+				},
+				mutations:{
+					increment(state,n){
+						state.count += n;
+					},
+					reduce(state,playload){
+						state.count -= playload.amount;
+					},
+					multiply(state,playload){
+						state.count *= playload.amount;
+					}
+				}
+			})
+			new Vue({
+				el:document.getElementById("app"),
+				store,
+				components:{
+					"my-component":myComponent
+				}
+			})
+		</script>
+	</body>
+</html>

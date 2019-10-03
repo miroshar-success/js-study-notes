@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高级选择器作业——三</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,dl,dd,ul,ol{
+            margin: 0;
+        }
+        ol,ul{
+            padding: 0;
+            list-style:none;
+        }
+        body{
+            background-color:#5c349d;
+
+        }
+        .list{
+            width: 1058px;
+            height: 264px;
+            border:1px solid #11091c;
+            margin:80px auto;
+        }
+        .list li{
+            float:left;
+            width: 240px;
+            height: 240px;
+            margin:12px 12px;
+            position:relative;
+            cursor:pointer;
+        }
+        .list li img{
+            display:block;
+            width:100%;
+            height:100%;
+        }
+        .list li:after,.list li:before{
+            content:'';
+            width: 0;
+            height: 0;
+            display:block;
+            position:absolute;
+            border-style:solid;
+            border-color:#00f;
+            transition:.3s;
+            opacity:0;
+        }
+        .list li:before{
+            top:30px;
+            right:30px;
+            border-width:13px 13px 0 0;
+        }
+        .list li:after{
+            border-width:0 0 13px 13px;
+            left:30px;
+            bottom:30px;
+        }
+        .list li:hover:before,.list li:hover:after{
+            width: 198px;
+            height: 198px;
+            opacity:1;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li><img src="./imgs/camera.png" alt=""></li>
+        <li><img src="./imgs/music.png" alt=""></li>
+        <li><img src="./imgs/phone.png" alt=""></li>
+        <li><img src="./imgs/setting.png" alt=""></li>
+    </ul>
+</body>
+</html>

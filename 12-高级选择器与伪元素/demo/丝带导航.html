@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>丝带导航</title>
+    <style>
+        body,p,ul,ol{
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+            padding: 0;
+        }
+        body{
+            background-color:#444;
+        }
+        .nav{
+            position:relative;
+            width: 450px;
+            height: 50px;
+            background-color:#fff;
+            margin:50px auto 0;
+        }
+        /* 伪元素用来表现效果 */
+        .nav:before,.nav:after{
+            content:'';
+            position:absolute;
+            width: 36px;
+            height: 36px;
+            background-color:#444;
+            transform:rotate(45deg);
+            top:7px;
+        }
+        .nav:before{
+            left:-18px;
+        }
+        .nav:after{
+            right:-18px;
+        }
+        .nav .list{
+            position:relative;
+            top:-10px;
+            margin:0 auto;
+            width: 350px;
+            height: 60px;
+            overflow:hidden;
+        }
+        .nav .list li{
+            position:relative;
+            top:10px;
+            width: 70px;
+            text-align:center;
+            line-height:50px;
+            float:left;
+            transition:.3s;
+            background-color:#fff;
+            cursor:pointer;
+        }
+        .nav li:before{
+            content:'';
+            display:block;
+            position:absolute;
+            width: 70px;
+            height: 10px;
+            background:linear-gradient(45deg,#fff 50%,#ccc 50%) no-repeat left top/10px 10px,
+            linear-gradient(-45deg,#fff 50%,#ccc 50%) no-repeat right top/10px 10px,
+            linear-gradient(#444,#444);
+            top:50px;
+        }
+        .nav .list li:hover{
+            top:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <ul class="list">
+            <li>Hello</li>
+            <li>Nice</li>
+            <li>To</li>
+            <li>Meet</li>
+            <li>You</li>
+        </ul>
+    </div>
+</body>
+</html>

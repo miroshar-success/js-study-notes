@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React-component</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="demo"></div>
+<div id="root"></div>
+<script src="node_modules/babel-standalone/babel.min.js"></script>
+<script src="node_modules/react/umd/react.development.js"></script>
+<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    // 函数组件
+    function Welcome(props){
+        return (
+            <div>
+                <p>Hello,{props.name}</p>
+                <p>你好,{props.data}</p>
+            </div>
+
+        );
+    }
+    let obj = {
+        name:"kyrie"
+    };
+/*    let element1 = (
+        <div>
+            {Welcome(obj)}
+        </div>
+    )
+    ReactDOM.render(
+        element1,
+        document.querySelector("#app")
+    )*/
+    // let element1 = <Welcome name="kyrie"></Welcome>
+    // 组件名必须以大写字母开头。React会将以小写字母开头的组件视为原生DOM标签。
+    let element1 = <Welcome name="Sara" data="player"/>
+    ReactDOM.render(
+        element1,
+        document.querySelector("#app")
+    )
+
+    function SayName(props){
+        return (<p>Hello,{props.name}</p>)
+    }
+
+/*    let element2 = (
+        <div>
+            <SayName name="Kyrie"></SayName>
+            <SayName name="Lebron"/>
+            <SayName name="Durant"></SayName>
+        </div>
+    )*/
+    function App(){
+        return (
+            <div>
+                <SayName name="Kyrie"></SayName>
+                <SayName name="Lebron"/>
+                <SayName name="Durant"></SayName>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("demo")
+    )
+
+/*    function Comment(props){
+        return(
+            <div className="comment">
+                <div className="UserInfo">
+                    <img
+                        className="avator"
+                        src={props.author.url}
+                        alt={props.author.name}
+                        style={{width:"300px"}}
+                    />
+                </div>
+                <div className="UserInfo-name">
+                    {props.author.name}
+                </div>
+                <div className="Conment-text">
+                    <p>text:{props.text}</p>
+                </div>
+                <div className="date">
+                    <p>时间:{props.date}</p>
+                </div>
+            </div>
+        )
+    }*/
+    let comment = {
+        author:{
+            name:'Dragon',
+            url:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559284014337&di=5f56694b6b44ce9d2628333fa51d1074&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201602%2F10%2F20160210204117_hR4tW.jpeg"
+        },
+        text:'Hello,GD',
+        date:new Date().toLocaleTimeString()
+    }
+    let element2 = Comment(comment);
+    ReactDOM.render(
+        element2,
+        document.getElementById("root")
+    )
+
+    function Avatar(props){
+        return (
+            <img className="Avatar"
+                 src={props.user.url}
+                 alt={props.user.name}
+                 style={{width:"300px"}}
+            />
+        )
+    }
+    function Comment(props){
+        return(
+            <div className="Comment">
+                <div className="UserInfo">
+                    <Avatar user={props.author}></Avatar>
+                    <div className="UserInfo-name">
+                        <p>{props.author.name}</p>
+                    </div>
+                </div>
+                <div className="Comment-text">
+                    {props.text}
+                </div>
+                <div className="Comment-date">
+                    {(props.date)}
+                </div>
+            </div>
+        )
+    }
+
+    let element3 = Comment(comment);
+    ReactDOM.render(
+        element3,
+        document.getElementById("root")
+    )
+</script>
+</body>
+</html>

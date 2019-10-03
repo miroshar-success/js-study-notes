@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>绘制圆形</title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			canvas{
+				background-color:pink;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id='canvas'></canvas>
+		<script>
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+			ctx.arc(50,50,50,0,Math.PI,true);	// true 逆时针
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.strokeStyle = 'red';
+			ctx.arc(50,50,50,0,Math.PI,false);
+			ctx.stroke();
+			
+		</script>
+	</body>
+</html>

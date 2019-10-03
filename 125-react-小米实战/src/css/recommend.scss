@@ -1,0 +1,33 @@
+.recommend-container{
+  padding-top:0.18rem;
+  background-color:#f5f5f5;
+  .conference{
+    padding:0.16rem 0 0.18rem;
+    height:2.9rem;
+    background-color:#f5f5f5;
+  }
+}
+.recommend{
+  position:relative;
+  height:5.28rem;
+  background-color:#fff;
+  .left,.top,.bottom{
+    position:absolute;
+    width:3.72rem;
+  }
+  .left{
+    height:5.28rem;
+    left:0;
+    top:0;
+  }
+  .top,.bottom{
+    height:2.62rem;
+    right:0;
+  }
+  .top{
+    top:0;
+  }
+  .bottom{
+    bottom:0;
+  }
+}

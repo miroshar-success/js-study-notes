@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object.prototype</title>
+    <style>
+        body,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li class="item1">1</li>
+        <li class="item2">2</li>
+        <li class="item3">3</li>
+    </ul>
+
+    <script>
+        let o = new Object();
+        o.prop = 'exists';
+
+        function changeO() {
+            o.newprop = o.prop;
+            delete o.prop;
+        }
+
+        console.log(o.hasOwnProperty('prop'));    // true
+        changeO();
+        console.log(o.hasOwnProperty('prop'));    // false
+
+        console.log(o.hasOwnProperty('prop'));    // false
+        console.log(o.hasOwnProperty('toString')); // false
+        console.log(o.hasOwnProperty('hasOwnProperty'));   // false
+
+
+        const obj = {foo:'bar',baz:42};
+        console.log(Object.entries(obj));   // [ ['foo', 'bar'], ['baz', 42] ]
+        console.log(typeof Object.entries(obj)[1][1]);  // number
+
+        // 类数组
+        let aLi = document.querySelectorAll('.list>li');
+
+        for(let [key,value] of Object.entries(aLi)){
+            console.log(key,value);
+        }
+
+        let arrayLike = {
+            0:'a',
+            1:'b',
+            2:'c',
+        }
+        for(let [key,value] of Object.entries(arrayLike)){
+            console.log(key,value);
+        }
+
+        const ranObj = {
+            '100':'a',
+            '2':'b',
+            '7':'c'
+        }
+        for(let [key,value] of Object.entries(ranObj)){
+            console.log(key,value); // [2,b] [7,c] [100,a]
+        }
+        console.log(Object.entries(ranObj));    // [ ["2", "b"],["7", "c"],["100", "a"] ]
+
+        for(let key in ranObj){
+            console.log(key,ranObj[key]);
+        }
+
+        let ranObj1 = {
+            z:26,
+            d:4,
+            a:1
+        }
+        for(let [key,value] of Object.entries(ranObj1)){
+            console.log(key,value);
+        }
+
+        const myObj = Object.create( {},{getFoo:{
+            value(){ return this.foo;}
+        }} );
+        myObj.foo = 'bar';
+        console.log(myObj);
+        console.log(Object.entries(myObj)); // ['foo','bar']
+
+        console.log(Object.entries('foo')); 
+
+        let object1 = {
+            a:5,
+            b:7,
+            c:9
+        }
+        for(const [key,value] of Object.entries(object1)){
+            console.log( `${key},${value}` );
+        }
+        Object.entries(object1).forEach(function([k,v]){
+            console.log(k,v);
+        });
+
+        function Car(name,color){
+            this.name = name;
+            this.color = color;
+        }
+        Car.prototype.say = function(){
+            console.log('颜色是' + this.color);
+        }
+        let car = new Car('宝马','red');
+        console.log(car);
+        console.log( Object.entries(car));  
+
+        for(let key in car){
+            console.log(key);
+        }
+        
+        
+    </script>
+</body>
+</html>

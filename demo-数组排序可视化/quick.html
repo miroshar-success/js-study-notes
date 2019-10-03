@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>快速排序算法</title>
+    <style>
+        body,ul,ol,p,input,h3{
+            margin: 0;
+            padding: 0;
+        }
+        input {
+            border: 0;
+            outline: none;
+        }
+        ul,ol {list-style: none;}
+        body{
+            background-color:#333;
+        }
+        ul.container{
+            position: relative;
+            margin: 20px auto;
+            height: 450px;
+            width: 600px;
+            text-align:center;
+            border:1px solid #000;
+        }
+        .container li{
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            font-size:12px;
+            transition:left .2s;
+        }
+        .title{
+            margin:20px auto;
+            width: 100px;
+            height:30px;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">快速排序法</div>
+    <ul class="container"></ul>
+    <script>
+        var oContainer = document.querySelector('.container');
+        var arr = new Array(30).fill(0).map((item,index)=>index).sort((a,b)=>Math.random()-.5);
+        console.log(order);
+        var middle = 0;
+        var i = 0;
+        var j = 29;
+        var count = 0;
+        function randomColor() {
+            var r = Math.floor(Math.random() * 256),
+            g = Math.floor(Math.random() * 256),
+            b = Math.floor(Math.random() * 256),
+            color = 'rgb(' + r + ',' + g + ',' + b + ')';
+            return color;
+        }
+        function draw(){
+            for(let i = 0,len = arr.length; i < len; i++) {
+                var oLi = document.createElement('li');
+                oLi.innerText = `${i + 1}`;
+                oLi.style.backgroundColor = `${randomColor()}`;
+                oLi.style.height = 15 * (i + 1) + 'px';
+                oContainer.appendChild(oLi);
+            }
+        };
+        draw();
+        var aLi = document.querySelectorAll('.container li');
+        function change(arr){
+            for(let i = 0,l = arr.length; i < l; i++){
+                aLi[i].style.left = arr[i]*20 + 'px';
+            }
+        }
+        change(arr);
+
+        // 快速排序
+        var order = [...arr];
+        function swap(arr,i,j){
+            [arr[i],arr[j]] = [arr[j],arr[i]];
+            setTimeout(()=>{
+                change(order);
+                [order[i],order[j]]=[order[j],order[i]];
+            },80*(count++));
+        }
+        function mIndex(i, j) {
+            while(i<j) {
+                while(i<j && arr[i]<=arr[j]){   // 当前面的项小于后面的时,执行后面的下标-1的操作
+                    j--
+                };
+                swap(arr,i,j);
+                while(i<j && arr[i]<=arr[j]){
+                    i++
+                };
+                swap(arr,i,j);
+            }
+            return i
+        }
+        function quickSort(i=0,j=29) {
+            if (i > j) return;
+            middle = mIndex(i, j);
+            quickSort(i,middle-1);
+            quickSort(middle+1,j);
+        }
+        quickSort();
+    </script>
+</body>
+</html>

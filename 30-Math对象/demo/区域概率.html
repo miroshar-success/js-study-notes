@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>区域概率</title>
+    <style>
+        body,ul,ol,p{
+            margin: 0;
+            padding: 0;
+        }
+        .area{
+            margin:20px auto 0;
+            position:relative;
+            width: 400px;
+            height: 300px;
+            background-color:rgb(230,230,230);
+            border:1px solid #000;
+        }
+        .area .box{
+            position:absolute;
+            width: 5px;
+            height: 5px;
+            border-radius:50%;
+            background-color:#000;
+        }
+    </style>
+</head>
+<body>
+    <div class="area"></div>
+    <script>
+        var oArea = document.querySelector('.area');
+        var tmp = '';
+        // 创建一个小原点,设置为绝对定位,left和top值为生产的随机值,分别用x和y表示
+        function createDot(){
+            var x = ( Math.random()*(oArea.clientWidth) ).toFixed(2);
+            var y = ( Math.random()*(oArea.clientHeight) ).toFixed(2);
+            var oDot = document.createElement('div');
+            tmp += `<div class='box' style='left:${x}px;top:${y}px;'></div>`;
+            var tan = (oArea.clientHeight - y) / x;
+            if(tan > Math.tan(Math.PI/6) && tan < Math.tan(Math.PI/3)){
+                // console.log('命中目标');
+                return 0;
+            }else{
+                // console.log('没有命中目标');
+                return 1;
+            }
+        }
+        var arr = [0,0];
+        for(let i = 0; i < 500; i++){
+            createDot();
+            arr[createDot()]++;
+        }
+        oArea.innerHTML = tmp;
+        var rate = arr[0]/500;
+        console.log(rate);
+
+        /* bug:
+            注意页面的渲染效率,先用一个空变量保存起来创建的div,然后再一起赋值给oArea.innerHTMLl,可以减少内存消耗.
+        */ 
+    </script>
+</body>
+</html>

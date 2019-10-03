@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sort方法</title>
+	</head>
+	<body>
+		<script>
+			// sort方法用于对数组的元素进行排序,并返回数组.
+			let arr1 = ["tom","ani","love","sai","fei"]
+			console.log(arr1.sort());	// ["ani", "fei", "love", "sai", "tom"]
+			// console.log( arr1.sort( (a,b) => a - b ) );
+			
+			// 排序数字字符串
+			let arr2 = ['12','323','1000','50'];
+			// console.log( arr2.sort() ); 
+			console.log( arr2.sort( (a,b) => a-b ) );	// ["12", "50", "323", "1000"]
+			
+			// 根据对象的某个属性排序
+			let player = [
+				{name:'kyrie',age:26},
+				{name:'lebron',age:34},
+				{name:'durant',age:30},
+				{name:'rose',age:28}
+			]
+			function compare(props){
+				return function(a,b){
+					let value1 = a[props];
+					let value2 = b[props];
+					return value1 - value2;
+				}
+			}
+			console.log( player.sort( compare('age') ) );
+			
+			// player.sort( (a,b) =>  a.age - b.age );
+			player.sort( function(a,b){
+				console.log(a,b);
+				// return a.age - b.age;
+				return b.age - a.age;
+			} )
+			console.log(player);
+			
+			let numbers = [10,3,7,5,22];
+			numbers.sort( function(a,b){
+				console.log(a,b);
+				return a - b;
+			} );
+			console.log(numbers);	//  [3, 5, 7, 10, 22]
+			
+			let players = [
+				{name:'K',age:26},
+				{name:'L',age:34},
+				{name:'D',age:30},
+				{name:'R',age:28}
+			]
+// 			players.sort( function(a,b){
+// 				if(a.name > b.name){
+// 					return 1;
+// 				}else{
+// 					return -1;
+// 				}
+// 			} )
+			players.sort((a,b)=>a.age - b.age);
+			console.log(players);
+			/*
+			0: {name: "K", age: 26}
+			1: {name: "R", age: 28}
+			2: {name: "D", age: 30}
+			3: {name: "L", age: 34} */
+
+
+		// 对象按照某个属性排序:
+		var items = [
+			{name:"Edward",value:21},
+			{name:"Sharpe",value:37},
+			{name:"And",value:45},
+			{name:"The",value:-12},
+			{name:"Magnetic",value:18},
+			{name:"Zeros",value:37}
+		]
+		// sort by value
+		// items.sort((a,b)=> (a.value - b.value) );
+		// console.log(items);
+		
+		
+		// sort by name
+		items.sort(function(a,b){
+			if(a.name > b.name ) return 1;
+			if(a.name < b.name ) return -1;
+			return 0;
+		})
+		console.log(items);
+		
+		
+		// 创建 显示 及 排序数组
+		var stringArray = ["Blue","Humpback","Beluga"];
+		var numericStringArray = ["80","9","700"];
+		var numberArray = [40,1,5,200];
+		var mixedNumericArray = ["80","9","700",40,1,5,200];
+		
+		function compareNumbers(a,b){
+			return a - b;
+		}
+		console.log("stringArray:" + stringArray.join());
+		console.log("Sorted:" + stringArray.sort());	// Beluga,Blue,Humpback
+		
+		console.log("numberArray:" + numberArray.join());
+		console.log("Sorted without a compare function:" + numberArray.sort() );	// 1,200,40,5
+		console.log("Sorted with compareNumbers:" + numberArray.sort(compareNumbers) ); // 1,5,40,200
+		
+		console.log("numericStringArray:" + numericStringArray.join());
+		console.log("Sorted without a compare function:" + numericStringArray.sort());	// 700,80,9
+		console.log("Sorted with compareNumbers:" + numericStringArray.sort(compareNumbers));	// 9,80,700
+		
+		console.log("mixedNumberArray:" + mixedNumericArray.join()); // 80,9,700,40,1,5,200
+		console.log("Sorted without a compare function:" + mixedNumericArray.sort());	// 1,200,40,5,700,80,9
+		console.log("Sorted with compareNumbers:" + mixedNumericArray.sort(compareNumbers)); // 1,5,9,40,80,200,700
+		
+		// 使用映射改善排序 , 基本思想是首先将数组中的每个元素比较的实际值取出来,排序后再将数组恢复
+		const list = ["Delta","alpha","CHARLIE","bravo"];
+		
+		// 先将数组 转化为一个 每项元素是一个对象的集合, index为下标, value值为 数组的元素
+		const mapped = list.map((el,index) => {
+			return {index,value:el.toLowerCase()}
+		})
+		
+		// 然后将数组元素进行排序, 
+		mapped.sort((a,b) => {
+			if(a.value < b.value) return -1;
+			if(a.value > b.value) return 1;
+			return 0;
+		})
+		// 遍历 排序后的数组, 通过下标分别获取 数组的每个元素
+		const result = mapped.map(el=>{
+			return list[el.index]
+		})
+		console.log(result)
+		
+		
+		</script>
+	</body>
+</html>

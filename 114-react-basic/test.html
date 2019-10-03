@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React插值法</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="demo"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    const arr = ['kyrie','durant','lebron','curry','kobe']
+    const player = {
+        firstName:'kyrie',
+        lastName:'irving',
+        position:"guard",
+        age:27,
+        sex:1
+    }
+    let a = 0;
+    const styleObj = {
+        title:{
+            color:"skyblue",
+            fontSize:"30px",
+            listStyle:"none"
+        }
+    }
+    const ele = (
+        <div>
+            <p style={{color:"red"}}>firstName:{player.firstName}</p>
+            <p style={{fontSize:"20px",padding:"0 10px"}}>lastName:{player.lastName}</p>
+            <p>position:{player.position}</p>
+            <p>age:{player.age}</p>
+            <p>sex:{
+            // 括号里面只能写表达式,不能写if判断
+                // 可以写自执行函数
+            player.sex ? "男" : "女"
+            }</p>
+            <ul>
+                {
+                    arr.length > 0 && arr.map((item,index)=>{
+                        return <li key={index} style={styleObj.title}>{item}</li>
+                    })
+                }
+            </ul>
+            <span>
+                {
+                    (function(){
+                        a++;
+                        if(a > 5){
+                            return;
+                        }else{
+                            console.log(a);
+                        }
+                        return "这是一段自执行函数";
+                    })()
+                }
+            </span>
+            <h4>
+                {JSON.stringify(player)}
+            </h4>
+            <p>
+                {Object.keys(player)}
+            </p>
+            <p>
+                {Object.values(player)}
+            </p>
+            <p>
+                {Object.entries(player)}
+            </p>
+        </div>
+
+    )
+    ReactDOM.render(
+        ele,
+        document.querySelector("#app")
+    )
+    const imgUrl = [
+        {
+            title:'GD',
+            url:"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1559221585&di=21693ab7a444834be85608def6188c1d&src=http://b-ssl.duitang.com/uploads/item/201508/14/20150814210854_RZQUa.thumb.700_0.jpeg"
+        },
+        {
+            title:"GCJ",
+            url:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=802493941,3970098876&fm=26&gp=0.jpg"
+        },
+        {
+            title:"Jay",
+            url:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559826461&di=e359f0193bc2d6fad813b5e34805020c&imgtype=jpg&er=1&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2F480bd44a426fbc3a3e98b3ef37f34a73b905eba7.jpg"
+        }
+    ]
+    const ulStyle = {
+        padding:0,
+        margin:0
+    }
+    const element2 = (
+        <div>
+            <ul style={ulStyle}>
+                {
+                    imgUrl.map((item,index)=>{
+                        return <li style={{listStyle:"none",width:"300px",height:"300px"}}>
+                            <img src={item.url} title={item.title} key={index} style={{width:"100%",height:"100%"}} />
+                        </li>
+                    })
+                }
+            </ul>
+        </div>
+    )
+    ReactDOM.render(
+        element2,
+        document.querySelector("#demo")
+    )
+
+    /*    tips 1. 如果一个标签里没有内容, 可以使用 /> 来闭合标签
+            2. JSX标签里面能够包含很多子元素
+    *
+    *
+    * */
+
+</script>
+</body>
+</html>

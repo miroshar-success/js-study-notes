@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+textarea{
+  resize:none;
+  padding:0;
+  outline:none;
+}
+
+

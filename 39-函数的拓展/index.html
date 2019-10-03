@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数的拓展</title>
+    <style>
+        body,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color:pink;
+        }
+        body{
+            height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <img src="http://p3.music.126.net/VmYIz-0YzHBGFbebiqoB6g==/109951163723756839.jpg" alt="">
+    <div class="box"></div>
+    <script>
+        // 斐波拉契数列,又称黄金分割数里,兔子数列
+        // 1,1,2,3,5,8,13,21,34......
+        
+        /*下面是斐波拉契数列,但是代码执行慢,需要开辟的空间多*/
+        function fn(n){
+            if(n==1 || n==2) return 1;
+            return fn(n-1)+fn(n-2);
+        }
+        var a = fn(20);
+        console.log(a);  // 13
+        
+        // 如果只返回一个函数的话,浏览器会对代码进行优化,先return,然后再执行函数后面的代码
+        /*
+        用for循环实现斐波拉契数列,
+            1. 设置3个初始值, a1 = 1,a2 = 1,a3 = 0;第三个数为前两个数的和。
+            2. 传入一个参数n,表示要求第n个位置的值。
+            3. 每次将n-1(a2) 和 n-2(a1)的值求和赋值给 a3,  
+            4. 赋值完之后,将 n-1(a2)的值赋值给a1, a3的值赋值给a2,然后再求和 。
+        */
+        function series(n){
+            let a1 = 1;
+            let a2 = 1;
+            let a3 = 0;
+            if(n == 1 || n == 2) return 1;
+            for(let i = 3; i <=n; i++){
+                a3 = a1 + a2;
+                a1 = a2;
+                a2 = a3;
+            }
+            return a3;
+        }
+        var d = series(20);
+        console.log(d);
+
+        var aLi = document.querySelectorAll('.list>li');
+        console.log(aLi);
+        for(let i in aLi){
+            console.log(aLi[i]);
+        }
+        
+        function fun(n,a1=1,a2=1){
+            if(n==1 || n==2) return a2;
+            return fun(n-1,a2,a1+a2);
+        }
+        var m = fun(5);
+        console.log(m);
+        
+        // 偏函数
+        function m1(x){
+            return function m2(y){
+                return x+y;
+            }
+        }
+        var c = m1(3)(5);
+        console.log(c); // 8
+
+        let add = (x) => (y) => console.log(x+y);
+        add(10)(3); // 13
+
+        // 函数柯里化
+        /*将多个参数拆分,分别接受一个参数,一直接受，直到能够计算出结果为止*/
+        function acc(a,b){
+            console.log(a+b);
+        }
+        acc(1,2);
+        
+        //  ==>  柯里化之后,
+        function calc(a){
+            var a;
+            return function f1(b){
+                console.log(a + b);
+            }
+        }
+        calc(1)(2); // 3
+
+        let initialValue = 0;
+        function f1(x){
+            initialValue = x;
+            return function f2(y){
+                initialValue += y;
+                return f2;
+            }
+        }
+        var result1 = f1(2);
+        console.log(result1);   // 函数f2
+        console.log(initialValue);  // 2   
+        var result2 = result1(2);
+        console.log(result2);   // 函数f2
+        console.log(initialValue);  // 4
+        var result3 = result2(3);
+        console.log(result3);   // 函数f2
+        console.log(initialValue);  // 7
+
+
+        function fun1(){
+            let a = 0;
+            function fun2(){
+                a++;
+                console.log(a);
+            }
+            return fun2;
+        }
+        var result = fun1();
+        result();
+        result();
+        result();
+        result();
+        
+        // 链式调用
+        function getValue(a){
+            let obj = {
+                value:a,
+                add:function(t){
+                    this.value += t;
+                    return this;
+                },
+                minus:function(t){
+                    this.value -= t;
+                    return this;
+                },
+                getV:function(){
+                    console.log(this.value);
+                }
+            }
+            return obj;
+        }
+        getValue(2).add(2).add(3).add(5).getV();    // 12
+
+        // jQuery简单封装
+        function $(str){
+            let jqueryObj = {
+                el:document.querySelector(str),
+                // css 
+                css:function(attr,value){
+                    this.el.style[attr] = value;
+                    return this;
+                },
+                on:function(event,cb){
+                    this.el['on'+event] = cb;
+                    return this;
+                }
+            }
+            return jqueryObj;
+        }
+        $('.box').css('background','#f00').on('click',function(){console.log('发生了点击事件')});
+
+        // demo封装jQuery
+
+        Function.prototype.uncurrying = function(){
+            let self = this;
+            return function(){
+                let arg = Array.prototype.shift.call(arguments);
+                return self.apply(arg,arguments);
+            }
+        }
+        let newPush = Array.prototype.push.uncurrying();
+        let obj = {};
+        // newPush(obj,'kyrie','lebron','durant','curry');
+
+        function getFirst(...items){
+            // let val = Array.prototype.shift.call(arguments);
+            // console.log(val);
+            // console.log([...arguments]);
+            let val = items.shift();
+            console.log(val,items);
+        }
+        getFirst(1,2,3,4,5);
+
+        for(var i = 0; i < 5; i++){
+            setTimeout(function(){
+                console.log(i);   // 每隔1s 输出5个5
+            },i*1000);
+        };
+        for(let i = 0; i < 5; i++){
+            setTimeout(function(){
+                console.log(i); // 间隔1s分别输出 0 1 2 3 4
+            },i*1000);
+        }   
+        let count = 1;
+        setTimeout(function(){
+            for(let i = 0; i < 5; i++){
+                console.log(i); // 一次性输出0 1 2 3 4
+            }
+        },1000*count++);
+
+        setTimeout(function(){
+            for(var i = 0; i < 5; i++){
+                console.log(i); // 一次性输出 0 1 2 3 4
+            }
+        },1000*count++);
+
+        // 函数节流,触发次数不会累积,防止上次运动还未完成再次触发事件
+        // 屏幕滚动事件
+        /*设置全局变量flag, true表示可以滚动,false表示上次滚动事件还未结束
+        1. 如果为false,直接跳出函数 
+        2. 发生滚动了事件时,将flag修改为false,以使再次滚动时不会累计
+        3. 当滚动事件结束了,修改flag的值为true,表示可以再次滚动*/
+        // let flag = true;
+        // window.onscroll = function(e){
+        //     if(!flag) return;
+        //     flag = false;
+        //     setTimeout(function(){
+        //         console.log('屏幕滚动了');
+        //         flag = true;
+        //     },500);
+        // }
+
+        function arg(...items){
+            console.log([...arguments] == items);   // false
+            console.log([...arguments]);    // [1,2,3]
+            console.log(items);     // [1,2,3]
+        }
+        arg(1,2,3);
+        
+        let Timer = null;
+        window.onscroll = function(e){
+            clearInterval(Timer);
+            Timer = setTimeout(function(){
+                console.log('滚动结束');
+            },500);
+        }
+    </script>
+</body>
+</html>

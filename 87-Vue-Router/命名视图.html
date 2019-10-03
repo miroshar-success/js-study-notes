@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="example">
+			<router-view class="view one" name="default"></router-view>
+			<router-view class="view two" name="a"></router-view>
+			<router-view class="view three" name="b"></router-view>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script>
+			const Foo = Vue.component("foo",{
+				template:"<div>Foo</div>"
+			});
+			const Bar = Vue.component("bar",{
+				template:"<div>Bar</div>"
+			});
+			const Baz = Vue.component("baz",{
+				template:"<div>baz</div>"
+			});
+			const router = new VueRouter({
+				routes:[
+					{
+						"path":'/',
+						components:{
+							default:Foo,
+							a:Bar,
+							b:Baz
+						}
+					}
+				]
+			});
+			new Vue({
+				el:document.getElementById("example"),
+				router
+			})
+		</script>
+	</body>
+</html>

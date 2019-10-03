@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数和自定义属性</title>
+    <style>
+        .democlass{
+            color:#f00;
+            text-transform:uppercase;
+        }
+        .box{
+            font-size:20px;
+            transition:.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" smile='haha' id='Box'></div>
+    <!-- HTML5规定可以添加自定义属性,但要以data-开头 -->
+    <div class="item" data-smile='hehe'></div>
+    <p>Hello World</p>
+    <button class='btn'>点我</button>
+    <button class='btn'>点我</button>
+    <script src='./main.js'></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绘制图片</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        canvas{
+            margin:20px auto;
+            display:block;
+            background-color:skyblue;
+        }
+    </style>
+</head>
+<body>
+<video src="./lebron.mp4" width="500" controls></video>
+<canvas id="canvas" height="300" width="500"></canvas>
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    /*let img = new Image(200,200);
+    img.src = "./1.jpg";
+    img.onload = function(){
+        // 距离canvas画布 100 100的点开始绘制,绘制图片的大小为150*150
+        ctx.drawImage(img,100,100,150,150);
+    } */
+    const video = document.querySelector("video");
+    function player(){
+        ctx.drawImage(video,0,0,500,300);
+        window.requestAnimationFrame(player);
+    }
+    player();
+
+</script>
+</body>
+</html>

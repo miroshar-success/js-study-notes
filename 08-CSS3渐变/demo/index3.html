@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS3渐变作业 —— 三</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .wrap{
+            width: 938px;
+            height: 290px;
+            background-color:#000;
+            margin:50px auto;
+            border:1px solid #000;
+        }
+        .wrap .right-eye{
+            width: 255px;
+            height: 100px;
+            background: #fff;
+            overflow: hidden;
+            float:left;
+            margin:100px 0 0 100px;
+            box-shadow: 7px 5px 20px #b7b7b7, -3px -6px 20px #b7b7b7;
+            border-radius: 150px 110px 185px 80px/73px 33px 72px 30px;
+            border-right: 3px solid #000;
+        }
+        .right-eye .eye{
+            width: 100px;
+            height: 100px;
+            border-radius:50%;
+            border:5px solid #1b1d1a;
+            margin:6px 0 0 10px;
+            background:radial-gradient(circle at 50% 50%,#fff 7px,#000 7px) no-repeat center/14px 14px,
+            linear-gradient(110deg, #f00 15%,#1b1d1a 15%,#1b1d1a 85%,#f00 85%) no-repeat 45px 0/30px 20px,
+            linear-gradient(30deg,#f00 28%,#1b1d1a 30%,#1b1d1a 79%,#f00 79%) no-repeat 69px 60px/35px 35px,
+            linear-gradient(160deg,#f00 20%,#1b1d1a 20%,#1b1d1a 84%,#f00 84%) no-repeat -3px 45px/23px 27px, 
+            radial-gradient(circle at 50% 50%,#1b1d1a 35px,#f00 35px) no-repeat center/100px 100px;
+        }
+        .wrap .left-eye{
+            width: 255px;
+            height: 100px;
+            background: #fff;
+            overflow: hidden;
+            margin:100px 50px 0 150px;
+            float:left;
+            box-shadow: 7px 5px 20px #b7b7b7, -3px -6px 20px #b7b7b7;
+            border-left: 3px solid #000;
+            border-radius:87px 183px 87px 199px/40px 80px 31px 70px;
+        }
+        .left-eye .eye{
+            width: 100px;
+            height: 100px;
+            border-radius:50%;
+            margin-left:135px;
+            border:5px solid #1b1d1a;
+            background:
+            radial-gradient(circle at 50% 50%,#fff 7px,#1b1d1a 7px) no-repeat center/14px 14px,
+            linear-gradient(30deg,#f00 15%,#1b1d1a 15%,#1b1d1a 84%,#f00 84%) no-repeat 3px 10px/31px 30px,
+            linear-gradient(-13deg,#f00 18%,#1b1d1a 18%,#1b1d1a 80%,#f00 80%) no-repeat 81px 26px/30px 30px,
+            linear-gradient(100deg,#f00 18%,#1b1d1a 18%,#1b1d1a 80%,#f00 80%) no-repeat 31px 83px/34px 30px,
+            radial-gradient(circle at 50% 50%,#1b1d1a 35px,#f00 35px) no-repeat center/100px 100px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- 左眼 -->
+        <div class="left-eye">
+            <div class="eye"></div>
+        </div>
+        <!-- 右眼 -->
+        <div class="right-eye">
+            <div class="eye"></div>
+        </div>
+    </div>
+</body>
+</html>

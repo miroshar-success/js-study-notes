@@ -1,0 +1,14 @@
+.category{
+  height:3.16rem;
+  width:100%;
+  .category_container{
+    height:50%;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    li{
+      width:1.5rem;
+      heigth:1.5rem;
+    }
+  }
+}

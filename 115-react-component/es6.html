@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6-Class-review</title>
+</head>
+<body>
+<script>
+    function Point(x,y){
+        this.x = x;
+        this.y = y;
+        this.sayName = function(){
+            console.log("Hello");
+        }
+    }
+    Point.prototype.toString = function(){
+        console.log(this.x + this.y);
+    }
+    let p1 = new Point(1,2);
+    p1.toString();
+    p1.sayName();
+    console.log(p1);
+
+    console.log(Object.entries(p1));
+
+    class Sum{
+        constructor(x,y){
+            this.x = x;
+            this.y = y;
+        }
+        toString(){
+            console.log(this.x,this.y);
+        }
+    }
+    let sum = new Sum(2,3);
+    sum.toString();
+
+    console.log(sum.constructor == Sum.prototype.constructor);  // true
+    console.log(sum.__proto__ == Sum.prototype);    // true
+
+    // 类的所有方法,都定义在prototype属性上
+    class Player{
+        constructor(name,age,position){
+            this.name = name;
+            this.age = age;
+            this.position = position;
+        }
+        sayName(){
+            console.log(this);
+            console.log("My Name is :" + this.name);
+        }
+        sayAge(){
+            console.log(this);
+            console.log("I am" + this.age + "years old");
+        }
+        sayPosition(){
+            console.log(this);
+            console.log("I play" + this.position);
+        }
+    }
+    let kyrie = new Player("kyrie",26,"guard");
+    kyrie.sayName();
+    kyrie.sayAge();
+    kyrie.sayPosition();
+    console.log(kyrie);
+    // tips: 1. ES6类上的方式是不可枚举的
+    console.log(Object.keys(kyrie));
+
+    class Points{
+        constructor(x,y){
+            this.x = x;
+            this.y = y;
+        }
+        add(){
+            console.log(this.x + this.y);
+            console.log(this);  // this 指向当前的实例 Points
+        }
+    }
+    let p2 = new Points(2,3);
+    p2.add();
+    console.log(p2.hasOwnProperty("x"));    // true
+    console.log(p2.hasOwnProperty("y"));    // true
+    console.log(p2.hasOwnProperty("add"));  // false
+    console.log(p2.__proto__.hasOwnProperty("add"));    // true
+
+    let p3 = new Points(3,2);
+    console.log(p2.__proto__ === p3.__proto__); // true
+    // 类的所有实例都指向同一个原型对象
+
+    p2.__proto__.printName = function(){
+        console.log("I hava a Dream");
+    }
+    p2.printName();
+    p3.printName();
+
+    function getThis(){
+        "use strict";
+        console.log(this);  // undeifned
+    }
+    getThis();
+
+    /*
+    * 静态方法  1.方法前加上关键字static,表示该方法不会被实例继承,而是直接通过类来调用。
+    *          2.静态方法的this指向的是类，而不是实例。
+               3. 父类的静态方法可以被子类继承
+    * */
+    class Foo{
+        static classMethod(){
+            console.log("Hello");
+        }
+    }
+    Foo.classMethod();
+    let foo = new Foo();
+    // foo.classMethod();
+
+    class Ball{
+        static getName(){
+            this.sayName();
+        }
+        static sayName(){
+            console.log("My name is Kyrie");
+        }
+        sayName(){
+            console.log("My name is Irving");
+        }
+    }
+    Ball.getName();
+    Ball.age = 30;
+    console.log(Ball);
+
+</script>
+</body>
+</html>

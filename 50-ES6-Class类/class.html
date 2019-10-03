@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Class继承</title>
+</head>
+<body>
+    <script>
+        // ES5的写法
+        function Point(x,y){
+            this.x = x;
+            this.y = y;
+        }
+        Point.prototype.toString = function(){
+            console.log(this.x + this.y);
+        }
+        let p = new Point(2,3);
+        p.toString();   // 5
+
+        // ES6写法
+        class Add{
+            constructor(x,y){
+                this.x = x;
+                this.y = y;
+            }
+            toString(){
+                console.log(this.x + this.y);
+            }
+        }
+        let add = new Add(3,2);
+        add.toString(); // 5
+
+        console.log(p.__proto__ === Point.prototype);   // true
+        console.log(Point.prototype.constructor === Point); // true
+
+        console.log( Add.prototype.constructor === Add );   // true
+        console.log(add.constructor === Add.prototype.constructor); // true
+
+
+        class Player{
+            constructor(){
+                this.name = 'kyrie';
+            }
+        }
+        Object.assign(Player.prototype,{
+            skill(){
+                console.log('crossover');
+            },
+            say(){
+                console.log('kyrie irving');
+            },
+            team(){
+                console.log('凯尔特人');
+            }
+        });
+
+        let kyrie = new Player();
+        kyrie.skill();  // crossover
+        kyrie.say();    // kyrie irving
+        kyrie.team();   // 凯尔特人
+
+
+        for(let key of Object.keys(Player.prototype)){
+            console.log(key);
+        }
+
+        for(let key of Object.keys(Point.prototype)){
+            console.log(key);
+        }
+
+        for(let item of Object.keys(Add.prototype)){
+            console.log(item);  // toString
+        }
+
+        console.log( p.hasOwnProperty('x') );   // true
+        console.log( p.hasOwnProperty('y'));    // true
+        console.log( p.hasOwnProperty('toString')); // false
+
+        let p1 = new Point(3,5);
+        let p2 = new Point(3,3);
+        console.log(p1.__proto__ == p2.__proto__);  // true
+
+        console.log(p1.__proto__ == Point.prototype);   // true
+
+        p1.__proto__.printName = function(){
+            console.log('haha');
+        }
+        p1.printName(); // haha
+        p2.printName(); // haha
+        
+        let p3 = new Point(3,5);
+        p3.printName(); // haha
+
+        class Foo{
+            static classMethod(){
+                console.log('Hello');
+            }
+        }
+        Foo.classMethod();  // Hello
+
+        // let foo = new Foo();
+        // foo.classMethod();      // 报错
+
+
+        class bar{
+            static bar(){
+                this.baz();
+            }
+            static baz(){
+                console.log('Hello');
+            }
+            baz(){
+                console.log('World');
+            }
+        }
+        bar.baz();  // Hello 
+
+
+        // 静态方法可以被子类继承
+        class Baz{
+            static classMethod(){
+                console.log('Hello World');
+            } 
+        } 
+        class For extends Baz{};
+        For.classMethod();  // Hello World
+
+
+    </script>
+</body>
+</html>
