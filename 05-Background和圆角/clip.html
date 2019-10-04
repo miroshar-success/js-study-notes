@@ -18,8 +18,61 @@
 			/* background-clip:padding-box; */
 			/* background-clip: content-box; */
 		}
+		p{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style:none;
+		}
+		li{
+			width:300px;
+			height:50px;
+			border:3px solid #f6f6f6;
+			margin-bottom:10px;
+			text-align:center;
+			line-height:50px;
+			cursor:pointer;
+		}
+		li:not(.active):hover{
+			border-color:#333;
+		}
+		li.active{
+			border-color:skyblue;
+		}
+		.content{
+			width:300px;
+			height:200px;
+			border:10px dashed rgba(0,0,0,.7);
+			background-image:url('./img.jpeg');
+			transform:translate(380px,-250px);
+		}
+		.text{
+			font-size:20px;
+			font-weight:bold;
+			color:white;
+			text-align:center;
+			line-height:200px;
+		}
 	</style>
 	<body>
 		<div class="box"></div>
+		<ul class="list">
+			<li class="item" data-clip='border'>background-clip:border-box</li>
+			<li class="item" data-clip='padding'>background-clip:padding-box</li>
+			<li class="item" data-clip='content'>background-clip:content-box</li>
+			<li class="item" data-clip='text'>background-clip:text</li>
+		</ul>
+		
+		<div class="content">
+			<p class='text'>This is the Content Element</p>
+		</div>
+		
+		<script>
+			const aLi = document.querySelectorAll('li');
+			const oContent = document.querySelector('.content');
+			console.log(aLi[0].getAttribute('data-clip'))
+			console.log(aLi[0].dataset.clip);
+		</script>
 	</body>
 </html>
