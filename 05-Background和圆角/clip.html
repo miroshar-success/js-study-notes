@@ -43,14 +43,16 @@
 		.content{
 			width:300px;
 			height:200px;
+			padding:10px;
 			border:10px dashed rgba(0,0,0,.7);
 			background-image:url('./img.jpeg');
+			background-clip:border-box;
 			transform:translate(380px,-250px);
+			color:white;
 		}
 		.text{
 			font-size:20px;
 			font-weight:bold;
-			color:white;
 			text-align:center;
 			line-height:200px;
 		}
@@ -58,7 +60,7 @@
 	<body>
 		<div class="box"></div>
 		<ul class="list">
-			<li class="item" data-clip='border'>background-clip:border-box</li>
+			<li class="item active" data-clip='border'>background-clip:border-box</li>
 			<li class="item" data-clip='padding'>background-clip:padding-box</li>
 			<li class="item" data-clip='content'>background-clip:content-box</li>
 			<li class="item" data-clip='text'>background-clip:text</li>
@@ -73,6 +75,24 @@
 			const oContent = document.querySelector('.content');
 			console.log(aLi[0].getAttribute('data-clip'))
 			console.log(aLi[0].dataset.clip);
+			let lastIndex = 0;	// lastIndex为上次点击的序号,
+			// 每个li标签点击的时候,先获取它的data-属性,然后修改content背景图片的clip值
+			
+			for(let i = 0; i < aLi.length; i++){
+				aLi[i].addEventListener('click',function(e){
+					let attr = this.dataset.clip;
+					aLi[lastIndex].classList.remove('active');	// 先将上次点击的类名清除,然后将此次点击的添加类名active,修改边框颜色
+					aLi[i].classList.add('active');	// 将此次点击的序号赋值给lastIndex,
+					lastIndex = i;
+					oContent.style.backgroundClip = attr + '-box';
+					if(attr === 'text'){
+						oContent.style.backgroundClip = attr;
+						oContent.style.webkitBackgroundClip = attr;
+						oContent.style.color = 'transparent';
+					}
+				},false);
+			}
+			
 		</script>
 	</body>
 </html>

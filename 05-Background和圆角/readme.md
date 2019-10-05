@@ -18,6 +18,7 @@
 		border-box	默认值。背景绘制在边框方框内（剪切成边框方框）
 		padding-box	背景绘制在衬距方框内（剪切成衬距方框）
 		content-box	背景绘制在内容方框内（剪切成内容方框）
+		text: 背景被裁剪成文字的前景色
 		
 ## background-origin
 
