@@ -52,6 +52,7 @@
 <button class="btn1">getComputedStyle</button>
 <button class="btn2">style</button>
 <div class="box"></div>
+<div class="box1" style='width:300px;height:300px;background-color:red;'></div>
 <h3 class="title"></h3>
 <script>
     const oContainer = document.getElementById("container");
@@ -92,7 +93,9 @@
     let boxStyle = _$(".box").getBoundingClientRect();
 
     console.log(boxStyle);
-
+	console.log(_$('.box').style);
+	console.log(_$('.box').style.width);
+	console.log(_$('.box1').style);
 </script>
 </body>
 </html>

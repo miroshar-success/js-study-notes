@@ -36,9 +36,31 @@
     console.log(({}).toString());
     console.log(f1.toString());
     // Array Function Date虽然都是基于Object进行创建的,但是它们继承的是Object.toString()方法
-
-
-
+	
+	function Dog(name){
+		this.name = name;
+	}
+	Dog.prototype.toString = function dogToString(){
+		return '' + this.name
+	}
+	var dog1 = new Dog('Gabby');
+	console.log(dog1.toString());	// Gabby
+	
+	console.log(dog1.hasOwnProperty('name'));
+	console.log(dog1.hasOwnProperty('toString'))	// false
+	
+	let o = {
+		firstName:'lebron',
+		lastName:'irving'
+	}
+	console.log(o.toString())
+	
+	let str = 'lebron james';
+	console.log(str.toString())
+	console.log(o.__proto__.hasOwnProperty('toString'))	; // true
+	console.log(str.hasOwnProperty('toString'))	// false
+	console.log(str.__proto__);
+	
 </script>
 </body>
 </html>

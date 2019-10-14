@@ -19,7 +19,13 @@
     设置样式。
     
      HTMLElement.style属性返回一个CSSStyleDeclaration对象,表示元素的内联style属性
-    但忽略任何样式表应用的属性。
+    但忽略任何样式表应用的属性。  
+	
+	tips:
+	1. 不能通过直接给style属性设置字符串来设置style,因为style应被当成是只读的，通过style属性返回的CSSStyleDeclaration对象是只读的，
+	但是style属性本身的属性能够用来设置样式。
+	ele.style.color = '' / ele.style.cssText = ''  /  ele.setAttribute('style','')
+	
 ```js
 // 在单个语句中设置多个样式
 elt.style.cssText = "color: blue; border: 1px solid black"; 

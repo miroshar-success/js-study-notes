@@ -1,8 +1,235 @@
+# 对象初始化
+	
+	可以通过new Object() Object.create()方法，或者使用字面量标记初始化对象。
+```js
+const a = 'foo',b = 42, c = {};
+const o = {a,b,c};
 
-# 1. Object.prototype
+// o   {a: "foo", b: 42, c: {…}}
 
-    创建不具有典型原型链继承的对象
-    Object.create(null);
+let obj = {
+  foo: "bar",
+  age: 42,
+  baz: { myProp: 12 },
+}
+```
+	Object构造函数为给定值创建一个对象包装其。如果给定值是null或undefined,将会创建并返回
+	一个空对象,否则,返回一个与给定值对应类型的对象。
+	
+	Object(undefined);  // 返回一个空对象
+	Object(null);       // 返回一个空对象
+
+## 属性访问
+	
+	创建对象后，可以读取或者修改它，属性访问器提供了两种方式用于访问一个对象的属性，他们分别是点号和方括号。
+	
+```js
+var person = {}
+person['firstname'] = 'mario';
+person['lastname'] = 'rossi';
+console.log(person.firstname);	// mario
+
+person = {'firstname':'john','lastname':'doe'};
+console.log(person['lastname'])	// doe
+
+
+const obj = {
+	foo:'bar',
+	age:42,
+	baz:{
+		myprop:12
+	}
+}
+console.log(obj.foo);	// bar
+console.log(obj['age'])	// 42
+obj.foo = 'baz'
+console.log(obj.foo);	// baz
+```
+
+	tips:
+	1. 属性名必须是字符串或符号Symbol。非字符串作为对象属性的键，都会通过toString方法，转换为一个字符串。
+```js
+// Example
+var object = {}
+object['1'] = 'value';
+console.log(object[1]);	// value
+
+
+var foo = {unique_prop:1},
+	bar = {unique_prop:2},
+	object = {};
+object[foo] = 'value';
+console.log(object[bar]);	// value
+
+// 上述代码的输出也是'value',因为对象foo和bar都会被转成相同的字符串。 这个字符串是'[object Object]'
+```
+
+## 计算属性名
+	
+	从ECMAScript 2015开始，对象初始化语法开始支持计算属性名。其允许在[]中放入表达式，计算结果可以当作属性。
+```js
+// example1
+var i = 0;
+var a = {
+	['foo'+ ++i]:i,
+	['foo'+ ++i]:i,
+	['foo'+ ++i]:i
+}
+
+console.log(a.foo1); // 1
+console.log(a.foo2); // 2
+console.log(a.foo3); // 3
+
+// example2
+var param = 'size';
+const config = {
+	[param]:12,
+	['mobile' + param.charAt(0).toUpperCase() + param.slice(1)]:4
+}
+console.log(config);	// {size: 12, mobileSize: 4}
+```
+
+## 剩余属性
+
+	可以使用剩余/扩展属性将扩展属性添加到对象文字。它将自己提供的对象的枚举属性复制到一个新的对象上。使用比Object.assign()
+	更短的语法，可以轻松克隆(不包括原型)或合并对象
+```js
+const obj1 = {foo:'bar',x:42};
+const obj2 = {foo:'baz',y:43};
+const cloneObj = {...obj1};
+const mergeObj = {...obj1,...obj2};
+console.log(cloneObj,mergeObj);	// {foo:'bar',x:42}	{foo:'baz',x:42,y:43}
+cloneObj.foo = 'foo';
+console.log(obj1,cloneObj);	// {foo:'bar',x:42}	{foo:'foo',x:42}
+```
+	tips:
+	1. Object.assign()会出发setter,而展开操作符则不会。
+	2. 原型上的属性不会被合并
+```js
+function Player(name,age){
+	this.name = name;
+	this.age = age;
+}
+Player.prototype.say = function(){
+	console.log(`${this.name},${this.age}`)
+}
+const kyrie = new Player('kyrie',26);
+console.log(kyrie);	// Player {name: "kyrie", age: 26}
+
+const player = {
+	firstname:'kyrie',
+	lastname:'irving'
+}
+const mergePlayer = {...kyrie,...player};
+console.log(mergePlayer);	// {name: "kyrie", age: 26, firstname: "kyrie", lastname: "irving"}
+mergePlayer.say();	// is not a function
+```
+
+# Object.assign()
+	
+	用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+```js
+const target = {a:1,b:2}
+const source = {b:4,c:5}
+
+const returnedTarget = Object.assign(target,source);
+console.log(returnedTarget);	// {a:1,b:4,c:5}
+console.log(target);			// {a: 1, b: 4, c: 5}
+```
+	description:
+	1. 如果目标对象中的属性具有相同的键，则属性将被源对象中的属性覆盖。后面的愿对象的属性将类似地覆盖前面的源对象的属性，
+	2. Object.assign方法只会拷贝源对象自身的并且可枚举的属性到目标对象。
+```js
+function Player(name,age){
+	this.name = name;
+	this.age = age;
+}
+Player.prototype.sayName = function(){
+	console.log(`${this.name},${this.age}`);
+}
+const player = new Player('kyrie',27);
+const obj = {
+	firstname:'kyrie',
+	lastname:'irving'
+}
+const targetObj = Object.assign(obj,player);
+console.log(targetObj);	
+targetObj.sayName();	// targetObj.sayName is not a function
+```
+
+## 复制一个对象
+	
+	
+```js
+const object = {a : 1};
+const copy = Object.assign({},object);
+console.log(copy);	// {a:1}
+copy['a'] = 2;
+console.log(object);	// {a : 1}
+```
+
+## 深拷贝
+
+	Object.assign()拷贝的是属性值，假如源对象的属性值是一个对象的引用，那么它只能指向那个引用。
+```js
+let obj1 = {a : 0, b : {c : 0}};
+let obj2 = Object.assign({},obj1);
+console.log(obj1,obj2);	// {a : 0, b: {c : 0}}
+
+// 返回的obj2目标对象里属性b的值还是一个对象的引用,在下面修改目标对象b属性值时，对应的源对象也修改了
+obj2['b']['c'] = 1;
+console.log(obj1); // {a: 0,b: {c: 1}}
+```
+
+```js
+// example from mdn
+const obj1 = {a : 0,b:{c:1}}
+const obj2 = Object.assign({},obj1);
+console.log(JSON.stringify(obj2));	// {"a":0,"b":{"c":1}}
+
+obj1.a = 1;
+console.log(JSON.stringify(obj1))  // {"a":1,"b":{"c":1}}
+console.log(JSON.stringify(obj2)); // {"a":0,"b":{"c":1}} 
+
+obj2.a = 2;
+console.log(JSON.stringify(obj1));	// {"a":1,"b":{"c":1}}
+console.log(JSON.stringify(obj2));	// {"a":2,"b":{"c":1}}
+
+obj2.b.c = 3;
+console.log(JSON.stringify(obj1));	// {"a":1,"b":{"c":3}}
+console.log(JSON.stringify(obj2));	// {"a":2,"b":{"c":3}}
+
+
+// Deep clone
+obj1 = {a : 0, b: {c : 1}};
+let obj3 = JSON.parse( JSON.stringify(obj1) );
+obj1.a = 4;
+obj1.b.c = 4;
+console.log(JSON.stringify(obj3));	// {"a":0,"b":{"c":1}}
+```
+
+## 拷贝symbol类型的属性
+
+```js
+const o1 = {
+	a : 1
+}
+const o2 = {
+	[Symbol('foo')]:2
+}
+const newObj = Object.assign({},o1,o2);
+console.log(newObj)	// {a: 1, Symbol(foo): 2}
+console.log(Object.getOwnPropertySymbols(newObj));	// [Symbol(foo)]
+
+
+const targetObject = {...o1,...o2};
+console.log(targetObject);	// {a: 1, Symbol(foo): 2}
+console.log(Object.getOwnPropertySymbols(targetObject));	// [Symbol(foo)]
+```
+	tips: 
+	1. 继承属性和不可枚举属性是不能拷贝的
+	2. 原始类型会被包装为对象
+
 
 # 2. Object.hasOwnProperty()
 
@@ -108,6 +335,9 @@ console.log( Object.keys(ranObj));  // [2,7,100]
     2. propertiesObject
         可选,如果没有指定为undefined,则是要添加到新创建对象的可枚举属性,对象的属性描述符以及响应的属性名称。
 
+	以字面量方式创建的空对象就相当于：o = {}
+	o = Object.create(Object.prototype);
+	
 ```js
 function Player(name){
     this.name = name;
@@ -130,6 +360,100 @@ kyrie.name  // kyrie
 kyrie.say();    // my name is kyrie
 ```
 
+```js
+// example
+
+const person = {
+	isHuman:false,
+	printIntroduction:function(){
+		console.log(`my name is ${this.name}. Am I human? ${this.isHuman}`)
+	}
+}
+const me = Object.create(person);
+console.log(me);	// {}
+console.log(me.__proto__);	// {isHuman:false,printIntroduction:f}
+
+me.name = 'jack';
+me.printIntroduction();	// my name is jack. Am I human? false
+me.isHuman = true;
+me.printIntroduction();	// my name is jack. Am I human? true
+```
+```js
+// demo from mdn
+
+// Shape - 父类(superclass)
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+// 父类的方法
+Shape.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  console.info('Shape moved.');
+};
+
+// Rectangle - 子类(subclass)
+function Rectangle() {
+  Shape.call(this); // call super constructor.
+}
+
+// 子类续承父类
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle;
+
+var rect = new Rectangle();
+
+console.log('Is rect an instance of Rectangle?',
+  rect instanceof Rectangle); // true
+console.log('Is rect an instance of Shape?',
+  rect instanceof Shape); // true
+rect.move(1, 1); // Outputs, 'Shape moved.'
+```
+
+## 使用Oobject.create的propertyObject参数
+
+```js
+const e = Object.create(Object.prototype,{
+	foo:{
+		writable:true,
+		configurable:true,
+		value:'hello'
+	}
+})
+console.log(e);	// {foo: "hello"}
+
+
+const c = Object.create(Object.prototype,{
+	p:{
+		value:42
+	}
+});
+c.p = 24;
+console.log(c.p)	// 42 
+
+// 省略了的属性特性默认为false,所以属性p是不可写，不可枚举，不可配置的
+
+c.q = '我是可枚举的';
+for(let key in c){
+	console.log(key);	// q
+}
+delete c.p
+console.log(c)	// {q: "我是可枚举的", p: 42}
+
+// 创建一个可以写,可以枚举,可以配置的属性p 
+const o2 = Object.create(Object.prototype,{
+	p:{
+		value:42,
+		writable:true,
+		enumerable:true,
+		configurable:true
+	}
+});
+console.log(o2)
+```
+
 # 7. Object.is()
 
     判断两个值是否相同。
@@ -145,15 +469,27 @@ kyrie.say();    // my name is kyrie
         都是除0和NaN外的其他同一数字
     6. 指向同一个对象
 
-# 8. Object
+    
+# Object.prototype.toString()
 
-    Object构造函数为给定值创建一个对象包装其。如果给定值是null或undefined,将会创建并返回
-    一个空对象,否则,返回一个与给定值对应类型的对象。
-    
-    Object(undefined);  // 返回一个空对象
-    Object(null);       // 返回一个空对象
-    
-# 使用toString()检测对象类型
+	Object.toString()方法返回一个表示该对象的字符串。
+```js
+function Dog(name) {
+  this.name = name;
+}
+
+var dog1 = new Dog('Gabby');
+
+Dog.prototype.toString = function dogToString() {
+  return '' + this.name;
+}
+
+console.log(dog1.toString());
+```
+	
+	默认情况下，toString()方法被每个object对象继承。如果此方法在自定义对象中未被覆盖，toString()返回'[object type]'，
+	其中type是对象的类型
+	
 
     可以通过toString()来获取每个对象的类型。为了每个对象都能通过Object.prototype.toString()
     来检测,需要以Function.prototype.call()或Function.prototype.apply()的形式来调用,传递
@@ -170,6 +506,34 @@ kyrie.say();    // my name is kyrie
  toString.call(undefined); // [object Undefined]
  toString.call(null); // [object Null]
  ```
+ 
+ ## 覆盖默认的tosString方法
+ 
+	可以自定义一个方法，来取代默认的tosString()方法，该tosString()方法不能传入参数，并且必须返回一个字符串。
+	自定义的tosString方法可以是任何我们需要的值。
+```js
+function Dog(name,breed,color,sex) {
+  this.name = name;
+  this.breed = breed;
+  this.color = color;
+  this.sex = sex;
+}
+
+var theDog = new Dog("Gabby", "Lab", "chocolate", "female");		
+// 当前的对象调用了toString()方法，它将会返回从object继承而来的toString()方法返回默认值  
+theDog.toString()	// [object Object]
+```
+	
+	下面的代码定义一个叫做dogToString()方法覆盖默认的toString()方法。
+```js
+Dog.prototype.toString = function dogToString(){
+	return `Dog ${this.name} is a ${this.sex} ${this.color} ${this.breed}`;
+}
+调用toString()方法时会自动调用dogToString()方法，并且返回以下字符串：
+theDog.toString() 	// 'Dog Gabby is a female chocolate Lab'
+```
+
+
 
 # 基本包装类型
 

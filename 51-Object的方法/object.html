@@ -19,7 +19,26 @@
         console.log(undefined == null); // true
         console.log(NaN === NaN);   // false
         console.log( +0 === -0);    // true
-  
+		
+		
+		function Dog(name,breed,color,sex){
+			this.name = name;
+			this.breed = breed;
+			this.color = color;
+			this.sex = sex;
+		}
+		
+		var theDog = new Dog('Gabby','lab','chocolate','female');
+		const dog = new Dog('Luby','lab','white','male');
+		console.log(theDog,dog);	
+		console.log(theDog.toString(),dog.toString());	// [object Object]
+		
+		Dog.prototype.toString = function dogToString(){
+			return `Dog ${this.name} is a ${this.sex} ${this.color} ${this.breed}`;
+		}
+		const dog1 = new Dog('Gabby','lab','chocolate','female');
+		console.log(dog1.toString());
+		
     </script>
 </body>
 </html>

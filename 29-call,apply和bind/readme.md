@@ -34,6 +34,7 @@ var a = "hello world!";
 let baz = obj.foo;
 baz();      // hello world
 ```
+
 # 偏函数
 
     bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。只要将这些参数作为bind()的参数写在
