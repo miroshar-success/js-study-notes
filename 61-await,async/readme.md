@@ -4,6 +4,51 @@
 	
 	1. async表示函数里有异步操作,await表示紧跟在后面的表达式需要等待结果。
 	2. async函数的返回值是promise对象,可以用then方法指定下一步的操作。
+```js
+// 下面两个案例分别使用generator函数 和 async 读取文件
+const fs = require('fs');
+
+const readFile = function(fileName){
+	return new Promise(function(resolve,reject){
+		fs.readFile(fileName,(err,data)=>{
+			if(err) {
+				reject(err)
+			}else{
+				resolve(data);
+			}
+		})
+	})
+}
+
+function* gen(){
+	yield readFile('./poem1.txt');
+	yield readFile('./poem2.txt');
+}
+
+let file = gen();
+file.next().value.then(data=>{
+	console.log(data.toString());
+})
+file.next().value.then(data=>{
+	console.log(data.toString())
+})
+
+// 将上面的函数修改成使用async
+
+async function generator(){
+	const f1 = await readFile('./poem1.txt');
+	const f2 = await readFile('./poem2.txt');
+	console.log(f1.toString());
+	console.log(f2.toString());
+}
+
+generator();
+```
+
+	1. Generator函数的执行必须依靠执行器，而async函数自带执行器。
+	2. async/await有更好的语义。
+	3. async函数的await命令后面，可以是Promise对象和原始类型的值(数值，字符串和布尔值，但这时会自动转成resolved的Promise对象)
+	4. 返回值是promise，比generator函数的返回值是Iterator对象方便。
 
 ## 基本用法
 
@@ -21,7 +66,6 @@ async function asyncPrint(value, ms) {
   console.log(value);
 }
 asyncPrint('hello world', 50);
-
 
 
 // demo2   async函数返回的是promise对象,可以作为await命令的参数。
@@ -153,3 +197,50 @@ async function f() {
 	1. 如果有多个 await 命令,可以统一放在 try ... catch 结构中。
 	2. 多个await命令后面的异步操作,如果不存在继发关系,最好让它们同时触发。
 	3. await命令只能用在async函数之中,如果用在普通函数,就会报错。
+```js
+// 2. 如果多个await命令后面的异步操作不存在继发关系,最好让它们同时出发.
+function p1(){
+   return new Promise((resolve,reject) => {
+	   setTimeout(resolve,2000,'你好');
+   })
+}
+function p2(){
+   return new Promise((resolve,reject)=>{
+	   setTimeout(resolve,2000,'世界');
+   })
+}
+
+async function print(){
+   let start = new Date();
+   let a = await p1();
+   let b = await p2();
+   console.log(new Date() - start);
+   console.log(a,b);
+}
+print();	// 4000ms后再输出 你好 世界
+
+
+// 1. 下面的函数执行输出大约2000ms 后再输出 你好世界
+async function print(){
+   let start = new Date();
+   let [a,b] = await Promise.all([p1(),p2()]);
+   console.log(new Date() - start);
+   console.log(a,b);
+}
+print()
+```
+
+## 按顺序完成异步操作
+
+```js
+async function logInOrder(urls){
+	const textPromises = urls.map(async url => {
+		const response = await fetch(url);
+		return response.text();
+	})
+	for(const textPromise of textPromises){
+		console.log(await textPromise)
+	}
+}
+```
+	tips: 只有async函数内部是继发执行的，外部不受影响。 for...of循环内部使用了await,因此实现了按顺序输出。
