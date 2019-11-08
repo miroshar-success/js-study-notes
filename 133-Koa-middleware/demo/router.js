@@ -21,6 +21,15 @@ router.get('/api',async ctx => {
 })
 
 router.get('/api/login',async ctx => {
+	/*
+	从上下文中直接获取:
+	ctx.query  			返回{a:1,b:2} 
+	ctx.querystring		返回a=1&b=2
+	
+	从上下文的request对象中获取
+	ctx.request.query
+	ctx.request.querystring
+	*/
 	console.log(ctx.request.query,ctx.request.querystring);
 	console.log(ctx.query,ctx.querystring);
 	ctx.body = '注册成功';

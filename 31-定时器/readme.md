@@ -37,11 +37,9 @@ for(var i = 0; i < 5; i++){
 
 // (2)   使用ES6的let关键字
 for(let i = 0; i < 5; i++){
-   (function(i){
-	   setTimeout(function() {
-		   console.log(i);
-	   },i*1000);
-   })(i);
+   setTimeout(function() {
+	   console.log(i);
+   },i*1000);
 }
 
 // (3)  使用bind强制绑定  
@@ -71,6 +69,19 @@ for (var i = 0;i < 5; i++) {
 ![彻底理解setTimeout](https://www.jianshu.com/p/3e482748369d?from=groupmessage)	
 ![Event Loop](https://github.com/aooy/blog/issues/5)
 	
+	
+	tips
+```js
+function fn(a){
+   console.log(a)
+}
+setTimeout(fn(10),2000)	// 这种写法立马输出10， fn(10) 是函数立即执行，和setTimeout没有关系
+
+
+setTimeout(function fn(){
+   console.log(10);
+},2000)					// 2s后再输出10
+```
 		
 # setInterval()
 
