@@ -5,6 +5,11 @@
 		<title>闭包-mdn</title>
 	</head>
 	<body>
+		<!-- 在循环中创建闭包 -->
+		<p id="help">Helpful notes will appear here</p>
+		<p>E-mail:<input type="text" id='email' name='email'></p>
+		<p>Name:<input type="text" id='name' name='name'></p>
+		<p>Age:<input type="text" id='age' name='age'></p>
 		<script>
 			// 词法作用域
 			function init(){
@@ -100,6 +105,37 @@
 			console.log(Counter2.value()); /* logs 0 */
 			
 			
+			function showHelp(help){
+				document.getElementById('help').innerHTML = help;
+			}
+			
+			function makeHelpCallback(help){
+				return function(){
+					showHelp(help);
+				}
+			}
+			
+			function setupHelp(){
+				var helpText = [
+					{'id':'email','help':'your e-mail address'},
+					{'id':'name','help':'your full name'},
+					{'id':'age','help':'your age(you must be over 16)'},
+				]
+				/*
+				for(var i = 0; i < helpText.length; i++){
+					var item = helpText[i];
+					document.getElementById(item.id).onfocus = function(){
+						// showHelp(item.help);
+						document.getElementById('help').innerHTML = item.help;
+					}
+				} */
+				
+				for(var i = 0; i < helpText.length; i++){
+					var item = helpText[i];
+					document.getElementById(item.id).onfocus = makeHelpCallback(item.help);
+				}
+			}
+			setupHelp()
 		</script>
 	</body>
 </html>

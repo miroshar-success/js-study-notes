@@ -100,7 +100,7 @@ result();	// 1000
 	
 ## 闭包的应用
 
-	1. for循环之中
+	1. 在循环中创建闭包
 ```js
 for(var i = 0; i < ali.length; i++){
    (function(i){
@@ -118,6 +118,50 @@ for(var i = 0; i < 5; i++){
    })(i)
 }
 ```
+	
+	Demo from MDN
+```html
+<p id="help">Helpful notes will appear here</p>
+<p>E-mail: <input type="text" id="email" name="email"></p>
+<p>Name: <input type="text" id="name" name="name"></p>
+<p>Age: <input type="text" id="age" name="age"></p>
+
+<script>
+	function showHelp(help){
+		document.getElementById('help').innerHTML = help
+	}
+	function setupHelp(){
+		var helpText = [
+			{'id':'emial','help':'Your e-mail address'},
+			{'id':'name','help':'Your full name'},
+			{'id':'age','help':'Your age(you must be over 16)'},
+		]
+		for(var i = 0; i < helpText.length; i++){
+			var item = helpText[i];
+			/*这三个闭包在循环中被创建,但他们共享了同一个词法作用域*/
+			document.getElementById(item.id).onfocus = function(){
+				showHelp(item.help)
+			}
+		}
+	}
+	setupHelp()
+	
+	
+	/* 解决上面问题的一种方案是使用更多的闭包:*/
+	function makeHelpCallback(help){
+		return function(){
+			showHelp(help);
+		}
+	}
+	...
+    for (var i = 0; i < helpText.length; i++) {
+		var item = helpText[i];
+		document.getElementById(item.id).onfocus = makeHelpCallback(item.help);
+    }
+	...
+</script>
+````
+	避免使用更多的闭包,可以使用let关键词，闭包在处理速度和内存消耗方面对脚本性能具有负面影响。
 	
 	2. 通常只使用一个方法的对象的地方，都可以使用闭包
 ```html
