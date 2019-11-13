@@ -127,6 +127,7 @@ for(var i = 0; i < 5; i++){
 <p>Age: <input type="text" id="age" name="age"></p>
 
 <script>
+	// 1
 	function showHelp(help){
 		document.getElementById('help').innerHTML = help
 	}
@@ -145,6 +146,9 @@ for(var i = 0; i < 5; i++){
 		}
 	}
 	setupHelp()
+	
+	// 2  另一种解决方法是使用匿名闭包
+	
 	
 	
 	/* 解决上面问题的一种方案是使用更多的闭包:*/
@@ -247,4 +251,70 @@ console.log(Counter2.value()); /* logs 0 */
 	Counter1 和 Counter2 每个闭包都是引用自己词法作用域内的变量privateCounter。
 	每次调用其中一个计数器时，通过改变这个变量的值，会改变这个闭包的词法环境。然而在一个闭包内对变量的修改，不会影响到另外一个闭包中的变量。
 	
+## 函数作为返回值
+	
+	高阶函数除了可以接受函数作为参数外,还可以把函数作为结果值返回。
+```js
+function lazy_sum(array){
+	var sum = function(){
+		return array.reduce((x,y) => {
+			return x + y;
+		})
+	}
+	return sum;
+}
+var f1 = lazy_sum([1,2,3,4,5]);
+var f2 = lazy_sum([1,2,3,4,5]);
+f1 === f2	// false
+```
+	在函数lazy_sum中定义了函数sum,内部函数sum可以引用外部函数lazy_sum的参数和局部变量,当lazy_sum返回函数sum时,
+	相关参数和变量都保存在返回的函数中。每次调用lazy_sum()，每次调用都会返回一个新的函数。
+	
+## 闭包中的this
+
+```js
+// 1.
+var name = 'The Window';
+var obj = {
+	name:'My Object',
+	getName:function(){
+		return function(){
+			return this.name
+		}
+	}
+}
+obj.getName();	// The Window		实际是在全局作用域中调用了匿名函数,this指向了window, 匿名函数的执行环境具有全局性。
+
+// 2 
+var name = 'The Window';
+var obj = {
+	name:'My Object',
+	getName:function(){
+		var that = this;
+		return function(){
+			return that.name;
+		}
+	}
+}
+obj.getName();	// My Object
+```
+
+## 匿名函数与闭包
+	
+	匿名函数最大的用途是创建闭包,并且还可以构建命名空间,以减少全局变量的使用。减少全局变量的污染。
+```js
+var objEvent = objEvent || {};
+(function(){
+	var addEvent = function(){
+		//
+	}
+	var removeEvent = function(){
+		// 
+	}
+	objEvent.addEvent = addEvent;
+	objEvent.removeEvent = removeEvent;
+})();
+```
+
 ![闭包-MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
+![闭包-seg](https://segmentfault.com/a/1190000006875662)

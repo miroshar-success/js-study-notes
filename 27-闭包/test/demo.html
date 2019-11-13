@@ -130,12 +130,37 @@
 					}
 				} */
 				
+				/*
 				for(var i = 0; i < helpText.length; i++){
 					var item = helpText[i];
 					document.getElementById(item.id).onfocus = makeHelpCallback(item.help);
 				}
+				*/
+			   
+			   /*
+			   for(var i = 0; i < helpText.length; i++){
+				   (function(i) {
+					   var item = helpText[i];
+					   document.getElementById(item.id).onfocus = function(){
+						   showHelp(item.help);
+					   }
+				   })(i)
+			   }
+			   */
+			  
+			  // 避免使用过多的闭包,可以使用关键字let
+			  for(var i = 0; i < helpText.length; i++){
+				  let item = helpText[i];
+				  document.getElementById(item.id).onfocus = function(){
+					  showHelp(item.help);
+				  }
+			  }
 			}
 			setupHelp()
+			
+			
+			
+			
 		</script>
 	</body>
 </html>
