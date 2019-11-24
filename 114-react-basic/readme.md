@@ -88,8 +88,21 @@ ReactDOM.render(element,document.getElementById('root'));
 
     React元素是不可变对象。一旦被创建就无法更改它的自元素或者属性。更新ui唯一的方式就是创建一个全新的元素,并
     将其传入ReactDOM.render()。
-    
-    
+```js
+function tick(){
+    const element = (
+        <div>
+            <h1>Hello,World</h1>
+            <p>It is {new Date().toLocalTimeString()}</p>
+        </div>
+    )
+    ReactDOM.render(
+        element,
+        document.getElementById('root')
+    )
+}
+setInterval(tick,1000);
+```
     
     
     
