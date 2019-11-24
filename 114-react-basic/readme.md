@@ -88,24 +88,109 @@ ReactDOM.render(element,document.getElementById('root'));
 
     React元素是不可变对象。一旦被创建就无法更改它的自元素或者属性。更新ui唯一的方式就是创建一个全新的元素,并
     将其传入ReactDOM.render()。
+    
 ```js
-function tick(){
-    const element = (
-        <div>
-            <h1>Hello,World</h1>
-            <p>It is {new Date().toLocalTimeString()}</p>
-        </div>
-    )
-    ReactDOM.render(
-        element,
-        document.getElementById('root')
-    )
+function tick() {
+  const element = (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {new Date().toLocaleTimeString()}.</h2>
+    </div>
+  );
+  ReactDOM.render(element, document.getElementById('root'));
 }
-setInterval(tick,1000);
+
+setInterval(tick, 1000);
+```    
+
+# 组件 & props
+
+    函数组件
+```js
+function Welcome(props){
+    console.log(props); // {name:'sara'}
+    return <h1>Hello,{props.name}</h1>
+}
+ReactDOM.render(
+    <Welcome name="sara"/>,
+    document.getElementById('root')
+)
 ```
+    当react组件为用户自定义组件时,它会将jsx所接受的属性转换为单个对象传递给组件，这个对象被称之为'props'
     
+    tips:
+    组件名必须以大写字母开头。React会将以小写字母开头的组件视为原生DOM标签。
     
-    
+## 组合组件
+
+    可以创建一个可以多次渲染Welcome组件的App组件：
+```js
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+function App() {
+  return (
+    <div>
+      <Welcome name="Sara" />
+      <Welcome name="Cahal" />
+      <Welcome name="Edite" />
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+```
+
+## props的只读性
+
+    所有React组件都必须像纯函数一样保护它们的props不被更改。
+```js
+function formatDate(date) {
+  return date.toLocaleDateString();
+}
+
+function Comment(props) {
+  return (
+    <div className="Comment">
+      <div className="UserInfo">
+        <img
+          className="Avatar"
+          src={props.author.avatarUrl}
+          alt={props.author.name}
+        />
+        <div className="UserInfo-name">
+          {props.author.name}
+        </div>
+      </div>
+      <div className="Comment-text">{props.text}</div>
+      <div className="Comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
+}
+
+const comment = {
+  date: new Date(),
+  text: 'I hope you enjoy learning React!',
+  author: {
+    name: 'Hello Kitty',
+    avatarUrl: 'https://placekitten.com/g/64/64',
+  },
+};
+ReactDOM.render(
+  <Comment
+    date={comment.date}
+    text={comment.text}
+    author={comment.author}
+  />,
+  document.getElementById('root')
+);
+```
     
     
     
