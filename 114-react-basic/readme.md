@@ -191,6 +191,64 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+# state
+
+    state与props类似，但是state是私有的，并且完全受控于当前组件。
+    
+    class组件
+```js
+class Clock extends React.Component{
+    construtor(props){
+        super(props)
+        this.state = {
+            date:new Date()
+        }
+    }
+    componentDidMount(){
+        this.timerID = setInterval(() => {
+            this.tick()
+        })  
+    }   
+    tick(){
+        this.setState({
+            date:new Date()
+        })
+    }
+    componentWillUnmount(){
+        this.clearInterval(this.timerID);
+    }
+    render(){
+        return(
+            <div>
+                <h1>Hello,What are you waiting for?</h1>
+                <p>{this.state.date.toLocaleTimeString()}</p>
+            </div>
+        )
+    }
+}
+```
+    tips:
+    1. 构造函数是唯一可以为state赋值的地方
+    2. state的更新可能是异步的。所以不要依赖它们的值来更新下一个状态。
+    3. 修改state值:
+      3.1 this.setState({
+               comment:'Hello'
+        }) 
+      
+      3.2 setState() 也可以接受一个函数而不是对象
+         this.setState((state.props) => ({
+            counter:state.counter + props.increment
+         }))
+    
+    也可以使用普通函数
+        this.setState( function(state,props){
+            return {
+                counter:state.counter + props.increment
+            }
+        } )
+
+
     
     
     
