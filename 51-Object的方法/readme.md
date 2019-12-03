@@ -103,7 +103,7 @@ cloneObj.foo = 'foo';
 console.log(obj1,cloneObj);	// {foo:'bar',x:42}	{foo:'foo',x:42}
 ```
 	tips:
-	1. Object.assign()会出发setter,而展开操作符则不会。
+	1. Object.assign()会触发setter,而展开操作符则不会。
 	2. 原型上的属性不会被合并
 ```js
 function Player(name,age){
@@ -230,7 +230,99 @@ console.log(Object.getOwnPropertySymbols(targetObject));	// [Symbol(foo)]
 	1. 继承属性和不可枚举属性是不能拷贝的
 	2. 原始类型会被包装为对象
 
+# Object.defineProperty()
 
+    Object.defineProperty()方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。
+    
+    Object.defineProperty(obj,prop,descriptor)
+    
+    tips:
+       1. 该方法允许精确添加或修改对象的属性。通过赋值操作添加的普通属性是可枚举的，能够在属性枚举期间呈现出来
+       (通过for...in 或 Object.keys()方法 )，这些属性的值可以被改变，也可以被删除。
+       2. 通过Object.defineProperty()添加的属性值是不可修改的
+       
+    1. configurable: 默认false, 为true时属性值才能被改变，同时该属性也能从对象上被删除
+    2. enumerale: 默认false, 为true时，才能够枚举 定义对象属性是否可以在for...in 和 Object.keys()中被枚举
+    3. value: 属性对应的值,默认undefined
+    4. writable: 默认false, 为true时value才能被赋值运算符改变。
+```js
+// 没有配置 configurable writable 和 enumerable选项时
+let player = {}
+Object.defineProperty(player,'name',{
+    value:'kyrie'
+});
+player.name = 'lebron';
+console.log(player);    // {name: "kyrie"}
+
+delete player.name;
+console.log(player);    // {name: "kyrie"}
+
+for(key in player){
+    console.log(key);
+}
+```
+```js
+// 配置了configurable, enumerable 和 writable 时
+let player = {}
+Object.defineProperty(player,'name',{
+    value:'kyrie',
+    enumerable:true,
+    configurable:true,
+    writable:true
+});
+player.name = 'lebron';
+console.log(player);    // {name: "lebron"}
+
+delete player.name;
+console.log(player);    // {}
+
+for(key in player){
+    console.log(key);   // name
+}
+```
+
+## 属性描述符
+
+    对象里目前存在的属性描述符有两种主要形式：数据描述符和存取描述符。
+    1. 数据描述复是一个具有值的属性,可能是可写的，也可能是不可写的
+    2. 存取描述符是由getter-setter函数对描述的属性
+    
+    数据描述符和存取描述符均具有以下可选键值：enumerable和configurable
+    数据描描述符的可选键值：value writable
+    存取描描述符的可选键值：set get 默认undefined
+        set:
+            一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。当属性值修改时，
+            触发执行该方法。该方法将接受唯一参数，即该属性新的参数值。
+        get:
+            一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。当访问该属性时，该方法会被执行，方法执行时没有参数传入，
+            但是会传入this对象（由于继承关系，这里的this并不一定是定义该属性的对象）
+```js
+// 在对象中添加一个 属性与数据描述符的示例
+let o = {};
+Object.defineProperty(o,'a',{
+    value:37,
+    enumerable:true,
+    configurable:true,
+    writable:true
+})
+console.log(o)  // {o:37}
+
+// 在对象中添加一个属性与存取描述符的示例
+var bValue;
+Object.defineProperty(o,'b',{
+    get:function(){
+        return bValue;
+    },
+    set:function(newValue){
+        bValue = newValue;
+    },
+    configurable:true,
+    enumerable:true
+})
+console.log(o)
+o.b = 38;
+```    
+![Object.defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
 # 2. Object.hasOwnProperty()
 
     返回一个布尔值,指示对象自身属性中是否具有指定的属性。
@@ -532,8 +624,6 @@ Dog.prototype.toString = function dogToString(){
 调用toString()方法时会自动调用dogToString()方法，并且返回以下字符串：
 theDog.toString() 	// 'Dog Gabby is a female chocolate Lab'
 ```
-
-
 
 # 基本包装类型
 
