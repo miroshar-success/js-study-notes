@@ -13,7 +13,7 @@
 	beforeDestroy
 	destroyed
 	
-![声明周期]('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554225707415&di=709598ce9796add42eb1630d21d7a7b4&imgtype=0&src=http%3A%2F%2Fblog.hinablue.me%2Fcontent%2Fimages%2F2018%2F01%2Flifecycle.png')
+![生命周期]('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554225707415&di=709598ce9796add42eb1630d21d7a7b4&imgtype=0&src=http%3A%2F%2Fblog.hinablue.me%2Fcontent%2Fimages%2F2018%2F01%2Flifecycle.png')
 
 # axios
 

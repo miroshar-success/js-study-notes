@@ -18,8 +18,7 @@
 	offsetParent为最近的table table cell 或根元素。当元素的display设置为none,offsetParent返回Null。
 	
 	1. 在weibkit中,如果元素为隐藏的 或者该元素的style.position被设置为fixed,则该属性返回null
-	2. 在IE9中,如果该元素的stype.position被设置为fixed,则该属性返回Null,(display:none)无影响。
-
+	2. 在IE9中,如果该元素的style.position被设置为fixed,则该属性返回Null,(display:none)无影响。
 
 # 2. HTMLElement.offset
 	

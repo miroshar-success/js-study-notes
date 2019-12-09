@@ -8,7 +8,23 @@
 	tips：
 	1. Vue只支持单个表达式，不支持语句和流控制。
 	2. 数据驱动DOM是Vue.js的核心理念。
+```js
+let data = {a : 1}
 
+let vm2 = new Vue({
+    el:'#example',
+    data,
+})
+console.log(vm2.a === data.a);	// true
+vm2.a = 2;
+console.log(data.a);	// 2
+
+data.a = 3;
+console.log(vm2.a);		// 3
+```
+    tips:
+       1. 只有当实例被创建时就已经存在于data中的属性才是响应式的。
+       2. Vue无法检测到对象属性的添加或删除
 # 指令
 	
 	插值

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set</title>
+</head>
+<body>
+<div id="app">
+    <p class="firstName">{{player.firstName}}</p>
+    <p class="lastName">{{player.lastName}}</p>
+    <p class="age">{{player.age}}</p>
+    <ol>
+        <li>{{message[0]}}</li>
+        <li>{{message[1]}}</li>
+        <li>{{message[2]}}</li>
+    </ol>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            player:{
+                firstName:'kyrie',
+                lastName:'irving'
+            },
+            message:{
+                0:'hello'
+            }
+        }
+    })
+    vm.$set(vm.player,'age',27);
+    console.log(vm);
+
+    vm.player.age = 28;
+
+    vm.message = Object.assign({},vm.message,{
+        1:'world',
+        2:'vue.js',
+    });
+
+    vm.message[2] = 'china';
+
+</script>
+</body>
+</html>

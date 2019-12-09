@@ -9,5 +9,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="React-Demo" />
+    <orderEntry type="module" module-name="vue-eleme" />
+    <orderEntry type="module" module-name="js-animations and css-layout" />
+    <orderEntry type="module" module-name="Vue-饿了么" />
+    <orderEntry type="module" module-name="Vue-MusicPlayer" />
   </component>
 </module>

@@ -4,7 +4,7 @@
 	
 	官方文档的例子.
 ```js
-var Profile = Vue.extend({
+let Profile = Vue.extend({
 	template:"<p>{{firstName}} {{lastName}}</p>",
 	data(){
 		return{
@@ -135,3 +135,38 @@ Vue.filter("capitalize",function(value){
 	
 	<!-- 组件会在 `currentTabComponent` 改变时改变 -->
 	<component v-bind:is="currentTabComponent"></component>
+	
+# Vue.set
+    
+    向响应式对象中添加一个属性,并确保这个新属性同样是响应式的且触发视图更新！
+    
+    Vue.set(object,propertyName,value);
+    
+    也可以使用 this.$set(this.someObject,propertyName,value);
+    
+    
+    有时可能需要为已有对象赋值多个新属性,比如使用Object.assign()。但是这样添加到对象上的新属性不会触发更新。
+    这种情况下应该用原对象与要混合进去的对象的属性一起创建一个新的对象。
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
