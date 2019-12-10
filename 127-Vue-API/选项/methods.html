@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>methods</title>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="add">点我</button>
+    <p>{{count}}</p>
+
+    <h2>事件修饰符:</h2>
+    <p>1   .once: 只能点击一次</p>
+    <button @click.once="handleAdd">点击 拼接 "hello"</button>
+    <p>{{message}}</p>
+
+    <p>2. stop 阻止事件冒泡</p>
+    <div @click.self="parent">
+        parent
+        <div @click.self="son">
+            son
+            <div @click.self="grandson">
+                grandson
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            count:0,
+            message:'hello'
+        },
+        methods:{
+            /*add:() => {
+                console.log(this);  // window
+            }
+             */
+            add(){
+                this.count ++ ;
+            },
+            handleAdd(){
+                this.message += 'hello'
+            },
+            parent(e){
+                console.log(e.target);
+                console.log('parent');
+            },
+            son(e){
+                console.log(e.target);
+                console.log('son');
+            },
+            grandson(e){
+                console.log(e.target);
+                console.log('grandson');
+            }
+        }
+    })
+</script>
+</body>
+</html>
