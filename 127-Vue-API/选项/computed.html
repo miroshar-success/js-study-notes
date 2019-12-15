@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>computed</title>
+</head>
+<body>
+<div id="app">
+    <p>{{msg}}</p>
+    <p>计算属性的 reverseMsg: {{reverseMsg}}</p>
+    <p>通过方法的 reverseMsg: {{reversedMsg()}}</p>
+    <button @click="add">Add</button>
+    <p>{{a}}</p>
+
+    <button @click="fn">修改msg</button>
+    <h2>请输入您的姓名:</h2>
+    <p>firstName: <input type="text" v-model="firstName"></p>
+    <p>lastName: <input type="text" v-model="lastName"></p>
+    <p>{{fullName}}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'hello world',
+            a:1,
+            firstName:'kyrie',
+            lastName:'irving'
+        },
+        computed:{
+            reverseMsg(){
+                console.log('computed重新计算了')
+                return this.msg.split('').reverse().join("");
+            },
+            fullName:{
+                get:function(){
+                    return this.firstName + '-' + this.lastName;
+                },
+                set:function(value){
+                    console.log('触发了computed的setter');
+                    let names = value.split('-');
+                    this.firstName = names[0];
+                    this.lastName = names[names.length - 1];
+                }
+            }
+        },
+        methods:{
+            reversedMsg(){
+                console.log("methods重新计算了");
+                return this.msg.split('').reverse().join("");
+            },
+            add(){
+                this.a+=1;
+            },
+            fn(){
+                this.msg = "dlrow olleh";
+            }
+        }
+    })
+</script>
+</body>
+</html>

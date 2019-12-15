@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Watch</title>
+</head>
+<body>
+<div id="app">
+    <p>{{msg}}</p>
+    <button @click="fn">修改msg</button>
+    <ol>
+        <li v-for="(item,index) in player" :key="index">
+            <span>name -- {{item.name}},</span>
+            <span>age -- {{item.age}}</span>
+        </li>
+    </ol>
+    <p><button @click="changeArr">浅层修改</button></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'hello world',
+            player:[
+                {name:'kyrie',age:26},
+                {name:'durant',age:30},
+                {name:'lebron',age:35}
+            ]
+        },
+        watch:{
+            msg(newValue,oldValue){
+                console.log(newValue,oldValue)
+            },
+            // player(){
+            //     console.log("数组被修改了")
+            // }
+            player:{
+                handler:function(newValue,oldValue){
+                    console.log(newValue,oldValue);
+                    console.log("数组被修改了");
+                },
+                deep:true
+            }
+        },
+        methods:{
+            fn(){
+                this.msg = '我是修改后的值！'
+            },
+            changeArr(){
+                this.player[2].age = 36
+            }
+        }
+    })
+</script>
+</body>
+</html>

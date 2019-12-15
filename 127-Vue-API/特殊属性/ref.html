@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ref</title>
+</head>
+<body>
+<div id="app">
+    <p ref="msg">{{msg}}</p>
+    <base-input ref="input"></base-input>
+    <ol>
+        <li
+            v-for="(player,index) in players"
+            :key="index"
+            ref="player"
+        >{{player}}</li>
+    </ol>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const baseInput = {
+        template:`<div><input type="text" ref="input"></div>`,
+        methods:{
+            focus(){
+                this.$refs.input.focus();
+            }
+        }
+    }
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'Hello World',
+            players:['kyrie','lebron','james','durant']
+        },
+        components:{baseInput},
+        computed:{
+            bar:function(){
+                return this.msg.split('').reverse().join("");
+            }
+        },
+        created(){
+            console.log('created:',this.$refs.msg);
+        },
+        mounted(){
+            console.log('mounted:',this.$refs.msg);    // <p>hello world</p>
+            console.log(this.$refs.input);  // 返回的是子组件
+            this.$refs.input.focus();   // 调用子组件的方法
+            // ref 和 v-for 一起使用
+            console.log(this.$refs.player); // 返回一个数组
+        }
+    });
+    // 访问根实例的属性
+    console.log(vm.$root.msg);
+    console.log(vm.$root.bar);
+</script>
+</body>
+</html>

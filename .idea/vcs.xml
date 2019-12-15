@@ -6,5 +6,6 @@
     <mapping directory="$PROJECT_DIR$/../Vue-MusicPlayer" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../Vue-饿了么" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../js-animations and css-layout" vcs="Git" />
   </component>
 </project>

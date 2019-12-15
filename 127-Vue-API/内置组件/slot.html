@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-slot</title>
+</head>
+<body>
+<div id="app">
+    <son>
+        <h1>我是标题1</h1>
+        <h2>我是标题2</h2>
+        <p>{{msg}}</p>
+    </son>
+</div>
+<div id="demo">
+    <submit-button>Save</submit-button>
+</div>
+<div id="example">
+    <example>
+        <template  v-slot:header>
+            <div class="header"> 我是头部</div>
+        </template>
+        <template  v-slot:main>
+            <div class="header"> 我是身体</div>
+        </template>
+        <template  v-slot:footer>
+            <div class="header"> 我是底部</div>
+        </template>
+    </example>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const son = {
+        template:`<div>
+            <slot>我是后备内容</slot>
+        </div>`
+    }
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'hello world'
+        },
+        components:{son}
+    })
+    const submitButton = {
+        template:`<button type="submit">
+                <slot>Submit</slot>
+            </button>`
+    }
+    const button = new Vue({
+        el:'#demo',
+        components:{'submit-button':submitButton}
+    })
+
+//    具名插槽
+    const example = {
+        template:`<div class="container">
+            <slot name="header"></slot>
+            <slot name="main"></slot>
+            <slot name="footer"></slot>
+        </div>`
+    }
+    const vm1 = new Vue({
+        el:'#example',
+        components:{
+            example
+        }
+    })
+
+</script>
+</body>
+</html>
