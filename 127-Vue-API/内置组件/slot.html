@@ -28,6 +28,16 @@
         </template>
     </example>
 </div>
+<div id="phone">
+    <phone>
+        <template v-slot:apple>
+            <p>苹果</p>
+        </template>
+        <template v-slot:huawei>
+            <p>华为</p>
+        </template>
+    </phone>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     const son = {
@@ -64,6 +74,21 @@
         el:'#example',
         components:{
             example
+        }
+    })
+
+    // 具名插槽 demo2
+    const phone = {
+        template:`<div>手机品牌:
+            <slot name="apple"></slot>
+            <slot name="huawei"></slot>
+        </div>`
+    }
+
+    new Vue({
+        el:'#phone',
+        components:{
+            phone
         }
     })
 

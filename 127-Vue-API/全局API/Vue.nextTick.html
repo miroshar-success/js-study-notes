@@ -45,6 +45,7 @@
 					updateMsg(){
 						this.message = "已更新",
 						console.log(this.$el.innerText);	// 未更新
+						// 只是修改了 this.message，但不会马上更新到视图中,Vue在更新DOM时是异步更新的
 						this.$nextTick(()=>{
 							console.log(this.$el.innerText);
 						})

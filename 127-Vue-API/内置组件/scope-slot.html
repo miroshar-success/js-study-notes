@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot-scope</title>
+</head>
+<body>
+<div id="app">
+<!--    使用插槽访问子组件的数据 -->
+    <user>
+        <template v-slot:first>
+            <p>firstName:kyrie</p>
+        </template>
+        <template v-slot:a="slotProps">
+            <p>通过作用域插槽获取的数据: {{slotProps.user.firstName}}</p>
+        </template>
+    </user>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const user = {
+        template:`<div>
+            <slot name="first"></slot>
+            <slot>{{user.firstName}}</slot>
+            <slot v-bind:user="user" name="a"></slot>
+        </div>`,
+        data(){
+            return{
+                user:{
+                    firstName:'kyrie',
+                    lastName:'irving'
+                }
+            }
+        }
+    }
+
+    const vm = new Vue({
+        el:'#app',
+        components:{user}
+    })
+</script>
+</body>
+</html>
