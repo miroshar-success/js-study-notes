@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-axios</title>
+    <style>
+        body,ul,ol,p{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        #app{
+            padding-left:50px;
+        }
+        .new-item{
+            cursor:pointer;
+            color:#333;
+            font-size:14px;
+            line-height:30px;
+        }
+        .new-item:hover{
+            color:#ff0000;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    Vue.prototype.$axios = axios;
+    // 添加响应拦截器
+    axios.interceptors.response.use(function(response){
+        return response.data.result;
+    })
+
+    axios.defaults.baseURL = 'http://www.phonegap100.com/appapi.php'
+    const newList = {
+        template:`<div>
+            <h4>新闻</h4>
+            <ul class="new-list">
+                <li
+                    class="new-item"
+                    v-for="(item,index) in newsList"
+                    :key="index"
+                >
+                    <router-link v-bind:to="{name:'article',params:{id:item.aid}}">{{item.title}}</router-link>
+                </li>
+            </ul>
+        </div>`,
+        data(){
+            return {
+                newsList:[]
+            }
+        },
+        beforeCreate(){
+            console.log('newsList beforeCreate');
+        },
+        beforeRouteEnter(to,from,next) {
+            console.log('newsList beforeRouteEnter');
+            next();
+            document.title = to.meta.title;
+        },
+        /*
+        created(){
+            this.$axios.get('https://m.zhibo8.cc/json/hot/24hours.htm').then(response => {
+                console.log(response);
+                this.newsList = response;
+            })
+        }
+         */
+        created(){
+            this.getNews();
+        },
+        methods:{
+            async getNews(){
+                this.newsList = await this.$axios.get('?a=getPortalList&catid=20');
+                console.log(this.newsList);
+            }
+        }
+    }
+    const articlePage = {
+        template:`<div>
+            <a href="javascript:window.history.go(-1)">&lt;&lt;返回新闻列表</a>
+            <h5 class="title">{{title}}</h5>
+            <p>作者: {{username}}</p>
+            <div class="content" v-html="content"></div>
+        </div>`,
+        data(){
+            return {
+                title:'',
+                content:'',
+                username:''
+            }
+        },
+        created(){
+            this.getArticle();
+        },
+        props:['id'],
+        methods:{
+            getArticle(){
+                this.$axios.get(`?a=getPortalArticle&aid=${this.id}`).then(response => {
+                    console.log(response);
+                    let [{title,content,username}] = response;
+                    this.title = title;
+                    this.content = content;
+                    this.username = username;
+                })
+            }
+        }
+    }
+
+    const router = new VueRouter({
+        routes:[
+            {
+                path:'/news',
+                component:newList,
+                name:'newList',
+                beforeEnter(to,from,next){
+                    console.log('newsList beforeEnter');
+                    next();
+                },
+                meta:{
+                    title:'今日新闻'
+                }
+            },
+            {
+                path:'/article/:id',
+                component:articlePage,
+                name:'article',
+                props:true
+            },
+            {
+                path:'/*',
+                redirect:'/news'
+            }
+        ]
+    })
+
+    router.beforeEach((to,from,next) => {
+        console.log('newsList beforeEach');
+        next();
+    });
+
+    router.beforeResolve((to,from,next) => {
+        console.log('newsList beforeResolve');
+        next();
+    })
+
+    router.afterEach((to,from) => {
+        console.log('newsList afterEach');
+    })
+
+    const vm = new Vue({
+        el:'#app',
+        router,
+    })
+</script>
+</body>
+</html>

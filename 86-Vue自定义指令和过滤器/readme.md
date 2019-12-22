@@ -51,7 +51,6 @@ new Vue({
 		vnode:Vue编译生成的虚拟节点。
 		oldVnode:上一个虚拟节点,仅在update和componentUpdated钩子中可用。
 		
-		
 # 过滤器
 
 	Vue允许自定义过滤器，可用于一些常见的文本格式化。过滤器可以用在两个地方:双花括号插值和v-bind表达式

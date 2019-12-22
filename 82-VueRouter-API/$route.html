@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$route</title>
+</head>
+<body>
+<div id="app">
+    <router-link :to="{name:'article',params:{page:1}}">文章一</router-link>
+    <router-link :to="{name:'article',params:{page:2}}">文章二</router-link>
+    <router-link :to="{name:'article',params:{page:3}}">文章三</router-link>
+    <router-view></router-view>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    const article = {
+        template:`<div>
+            <p>第{{this.$route.params.page}}篇文章</p>
+        </div>`,
+        created(){
+            console.log(this.$route.params);
+        },
+        watch:{
+            $route(to,from){
+                console.log(to,from);
+            }
+        }
+    }
+    const router = new VueRouter({
+        routes:[
+            {
+                path:'/article/:page',
+                component:article,
+                name:'article'
+            }
+        ]
+    })
+    const vm = new Vue({
+        el:'#app',
+        router,
+    })
+</script>
+</body>
+</html>
