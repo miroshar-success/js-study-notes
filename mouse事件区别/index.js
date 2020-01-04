@@ -42,8 +42,7 @@ getDom('item3').addEventListener('mouseleave',function(event){
 },false);
 /*
 mouseover,mouseout 会发生事件冒泡,而mouseenter和mouseleave不会发生事件冒泡
-
-*/ 
+*/
 
 // $('.parent').on('mouseover',function(){
 //     console.log('进入了父级DIV');

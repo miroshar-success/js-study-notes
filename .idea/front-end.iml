@@ -14,5 +14,6 @@
     <orderEntry type="module" module-name="Vue-饿了么" />
     <orderEntry type="module" module-name="Vue-MusicPlayer" />
     <orderEntry type="module" module-name="js-animations and css-layout" />
+    <orderEntry type="module" module-name="demo" />
   </component>
 </module>
