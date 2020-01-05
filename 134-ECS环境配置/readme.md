@@ -80,3 +80,10 @@
         端口范围：3000/9999
         其余选项和上面相同
      
+# pm2
+
+    npm install pm2 -g
+    和node一样配置软链
+      ln -s /usr/local/nodejs/bin/pm2  /usr/local/bin
+      
+    pm2 start app.js

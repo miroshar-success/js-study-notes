@@ -11,10 +11,11 @@
             list-style:none;
         }
         ul>li{
+            float:left;
             width: 80px;
             height: 30px;
             background-color:green;
-            margin:20px 0;
+            margin:20px 0 0 10px;
             color:#fff;
             text-align:center;
             user-select:none;
@@ -34,6 +35,7 @@
     <li>3</li>
 </ul>
 <div class="container">将元素拖入此处</div>
+<img src="./drag.png" alt="drag" width="20" height="20" id="oImg">
 <script>
     const oContainer = document.querySelector(".container");
     const oUl = document.querySelector(".list");
@@ -42,7 +44,9 @@
         item.setAttribute("draggable",'true');
         // 兼容火狐的操作,拖动开始时在拖动开始时设置 dataTransfer操作
         item.ondragstart = function(e){
+            console.log(e.dataTransfer);
             e.dataTransfer.setData("item",index);
+            e.dataTransfer.setDragImage(oImg,-20,-20);
         }
     });
     oContainer.ondragenter = function(){

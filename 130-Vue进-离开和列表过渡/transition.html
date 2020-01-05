@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transition过渡</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <style>
+        body{
+            overflow:hidden;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition:all .3s;
+        }
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .slide-enter-active{
+            transition:all .3s ease;
+        }
+        .slide-leave-active{
+            transition:all .8s cubic-bezier(1.0,.5,.8,1);
+        }
+        .slide-enter,.slide-leave-to{
+            transform:translateX(10px);
+            opacity:0;
+        }
+        @keyframes bounce-in{
+            0%{
+                transform:scale(0);
+            }
+            50%{
+                transform:scale(1.5);
+            }
+            100%{
+                transform:scale(1);
+            }
+        }
+        .bounce-enter-active{
+            animation:bounce-in .5s;
+        }
+        .bounce-leave-active{
+            animation:bounce-in .5s reverse;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h3>单元素组件的过渡</h3>
+    <button @click="toggleShow">toggle</button>
+    <transition name="fade">
+        <p v-if="show">Hello</p>
+    </transition>
+    <h3>常用的过渡都是CSS过渡</h3>
+    <button @click="change">切换</button>
+    <transition name="slide">
+        <p v-if="flag">Hello Vue.js</p>
+    </transition>
+    <h3>CSS动画</h3>
+    <p>tips: 在动画中 v-enter类名在节点插入DOM后不会立即删除,而是在animationend事件触发时删除</p>
+    <button @click="toggleAnimation">toggle-animation</button>
+    <transition name="bounce">
+        <p v-if="msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p>
+    </transition>
+    <h4>自定义过渡类名</h4>
+    <button @click="visible = !visible">click</button>
+    <transition
+        enter-active-class="animated tada"
+        leave-active-class="animated bounceOutRight"
+    >
+        <p v-if="visible">Hello World!</p>
+    </transition>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            show:true,
+            flag:true,
+            msg:true,
+            visible:true
+        },
+        methods:{
+            toggleShow(){
+                this.show = !this.show;
+            },
+            change(){
+                this.flag = !this.flag;
+            },
+            toggleAnimation(){
+                this.msg = !this.msg;
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -15,9 +15,8 @@
         .container{
             margin:100px auto 0;
             width: 750px;
-            min-height: 300px;
-            height:auto;
-            background-color:#ccc;
+            min-height: 200px;
+            background-color:#f1f1f1;
             text-align:center;
             color:#fff;
             user-select:none;
@@ -31,47 +30,36 @@
     <div class="container">
     </div>
     <script>
-        let oContainer = document.querySelector(".container");
-        let oSpan = oContainer.querySelector("span");
-        oContainer.addEventListener("dragenter",drag,false);
-        oContainer.addEventListener("dragover",drag,false);
-        oContainer.addEventListener("dragleave",drag,false);
-        oContainer.addEventListener("drop",drag,false);
-        function drag(event){
-            event = event || window.event;
-            event.preventDefault();
-            event.stopPropagation();
-            let type = event.type;
-            switch(type){
-/*                case "dragenter":
-                    this.innerText = "请释放鼠标";
-                    break;
-                case "dragleave":
-                    this.innerText = "将文件拖入此处";
-                    break;*/
-                case "drop":
-                    /* console.log(event.dataTransfer.files);
-                    let file = event.dataTransfer.files.item(0);
-                    console.log(file);
-                    console.log("name:",file.name);
-                    console.log("size:",file.size);
-                    console.log("type:",file.type);
-                    console.log("lastModified:",file.lastModified);*/
-                    // 在此处读取图片数据
-                    let files = event.dataTransfer.files;
-                    for(let i = 0,item; item = files.item(i); i++){
-                        let fs = new FileReader();  // 创建文件读取对象
-                        fs.readAsDataURL(item);
-                        fs.onload = function(){
-                            let img = new Image(250,200);
-                            img.style.borderRadius = '5px';
-                            img.src = this.result;
-                            img.onload = function(){
-                                oContainer.appendChild(img);
-                            }
-                        }
+        let oContainer = document.querySelector('.container');
+        oContainer.ondragover = function(e){
+            e = e || window.event;
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        oContainer.ondrop = function(e){
+            e = e || window.event;
+            e.preventDefault();
+            console.log('files[0]',e.dataTransfer.files[0]);
+            console.log('name:',e.dataTransfer.files[0].name);
+            console.log('size:',Math.round(e.dataTransfer.files[0].size/1024) + 'KB');
+            console.log('type:',e.dataTransfer.files[0].type);
+            console.log('lastModifiedDate:',e.dataTransfer.files[0].lastModifiedDate);
+            console.log('toLocalString:',e.dataTransfer.files[0].lastModifiedDate.toLocaleString());
+            console.log('toLocaleDateString:',e.dataTransfer.files[0].lastModifiedDate.toLocaleDateString());
+            console.log('toLocaleTimeString:',e.dataTransfer.files[0].lastModifiedDate.toLocaleTimeString());
+
+            let files = e.dataTransfer.files;
+            for(let i = 0,file; file = files[i]; i++){
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                // 在文件读取结束之后可以获取读取结果
+                reader.onload = function(event){
+                    let img = new Image(100,100);
+                    img.src = event.target.result;
+                    img.onload = function(){
+                        oContainer.appendChild(img);
                     }
-                    break;
+                }
             }
         }
     </script>

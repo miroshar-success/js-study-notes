@@ -18,10 +18,46 @@
 	6. v-leave-to: 定义离开过渡的结束状态。
 
 
-## 同时使用过渡和动画
+## CSS动画
 
-	Vue为了知道过渡的完成,必须设置相应的事件监听器。可以是transitionend 或 animationend.如果使用其中任何一种,
-	Vue能自动识别类型并设置监听。
-	
-	tips:
-	1. 如果给同一个元素同时设置两种过渡效果,需要使用type特性并设置 animation 或transition 来明确你需要Vue监听的类型。
+    CSS动画用法同CSS过渡,区别是在动画中 v-enter类名在节点插入DOM后不会立刻删除,而是在animationend事件触发时删除。
+```css
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+```
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

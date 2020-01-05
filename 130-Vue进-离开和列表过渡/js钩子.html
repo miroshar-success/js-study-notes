@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS钩子动画</title>
+</head>
+<body>
+<div id="app">
+    <button @click="toggle">toggle</button>
+    <transitio
+        v-on:before-enter="beforeEnter"
+        v-on:enter="enter"
+        v-on:after-enter="afterEnter"
+        v-on:enter-cancelled="enterCancelled"
+        v-on:before-leave="beforeLeave"
+        v-on:leave="leave"
+        v-on:after-leave="afterLeave"
+        v-on:leave-cancelled="leaveCancelled"
+    >
+        <p v-if="flag">Hello Vue.js</p>
+    </transitio>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            flag:false
+        },
+        methods:{
+            toggle(){
+                this.flag = !this.flag;
+            },
+            enter:function(el,done){
+                console.log(el);
+                done()
+            },
+            beforeEnter(el){
+                console.log(el);
+            }
+        }
+    })
+</script>
+</body>
+</html>

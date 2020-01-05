@@ -2,10 +2,16 @@
 	
 	当用户通过Input的file控件选取文件后,这个控件的files属性就是FileList对象。结构上类似于数组，
 	包含用户选取的多个文件,每个文件是一个File对象。
+    
+    通常情况下,File对象是来自用户在一个<input>元素上选择文件后返回的FileList对象,也可以是来自由拖放操作生成的dataTransfer对象
+    或者来自HTMLCanvasElement上的mozGetAsFile()API。
+    	
 	
 	tips:
 	1. 给input标签设置multiple属性时可选择多个文件。
-	2. 通常FileList发生在表单选择文件或拖拽文件中。
+    2. File对象是特殊类型的Blob,且可以用在任意的Blob类型的context中。FileReader() URL.createObjectURL() 及
+    XMLHttpRequest.send()都能处理Blob和File
+    
 ```js
 1. 当Input控件的内容改变时触发
 
@@ -104,7 +110,8 @@ document.body.appendChild(a);
 		2	已完成全部的读取请求
 		
 	FileReader.result
-	文件的内容。该属性仅在读取操作完成后才有效，数据的格式取决于使用哪个方法来启动读取数据操作。
+	    tips:文件的内容。该属性仅在读取操作完成后才有效，数据的格式取决于使用哪个方法来启动读取数据操作。
+	    FileReader.onload 处理load事件,该事件在读取操作完成时触发。
 		
 ## 事件处理
 	
