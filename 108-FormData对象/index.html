@@ -58,7 +58,7 @@
         console.log(key);
     }
     formData1.set("firstName","james");
-    console.log(formData1.get('firstName'));
+    console.log(formData1.get('firstName'));    // james
     console.log(formData1.getAll("firstName")); // 返回一个数组
 
     console.log(formData1.has("firstName"));    // true
@@ -82,9 +82,6 @@
         xhr.open("POST","http://localhost:7000",true);
         xhr.send(fd);
     }
-
-
-
 </script>
 </body>
 </html>

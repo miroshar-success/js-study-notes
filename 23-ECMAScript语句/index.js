@@ -34,3 +34,16 @@ for(var i = 0; i < aLi.length; i++){
     console.log(aLi[i]);
 }
 console.log(aLi[i]);
+
+
+function sum(num){
+    for(var i = 0; i < 10; i++){
+        if(i === num){
+            console.log(i);
+            return;
+        }
+        console.log(i);
+    }
+}
+sum(4);
+

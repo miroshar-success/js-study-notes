@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript</title>
+    <style>
+        .ball{
+            width:50px;
+            height:50px;
+            background-color:pink;
+            border-radius:50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="pallet"></div>
+    <div class="ball"></div>
+    <button type="submit">click</button>
+    <script src='./index.js' type='text/javascript'></script>
+    <script>
+        let oBall = document.querySelector('.ball');
+        let oSubmit = document.querySelectorAll('button')[0];
+        oSubmit.onclick = function(){
+            oBall.style.display = "";
+        }
+    </script>
+</body>
+</html>

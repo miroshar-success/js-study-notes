@@ -5,7 +5,6 @@
 
     通过在后台与服务器进行少量数据交换,AJAX可以使网页实现异步更新.
 
-
     请求方式:
         GET
         POST
@@ -82,22 +81,34 @@
     multipart/form-date: 数据被编码为一条消息
     text/plain:数据以纯文本形式(text/json/xml/html)进行编码,其中不含任何控件或格式字符。
 
-
-
     serialize() 
-
-
     处理跨域问题:
     header({'Access-Control-Allow-Origin':'*'})
 
-# 3. cssText
-
-    element.style.cssText   返回元素的行内样式(只能返回行内样式)
-
-    element.style.cssText = style 
-    设置元素的行内样式, 如果元素设置了行内样式,原有的所有样式都会被覆盖,只生效设置过的样式,外部样式除外。
-
 
 # 4. XHR 二级事件
-
+    
+    2级 XMLHttpRequest引入了大量的新功能(例如跨域请求,上传进度事件以及对上传/下载二进制数据的支持等)，这使得AJAX可以与很多
+    尖端的HTML5 API结合使用,例如File System API,Web Audio API和 WebGL。
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     

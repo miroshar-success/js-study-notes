@@ -22,7 +22,6 @@ let obj = {
 ## 属性访问
 	
 	创建对象后，可以读取或者修改它，属性访问器提供了两种方式用于访问一个对象的属性，他们分别是点号和方括号。
-	
 ```js
 var person = {}
 person['firstname'] = 'mario';
@@ -125,6 +124,49 @@ console.log(mergePlayer);	// {name: "kyrie", age: 26, firstname: "kyrie", lastna
 mergePlayer.say();	// is not a function
 ```
 
+## Object.getOwnPropertyNames()
+
+    Object.getOwnPropertyNames()方法返回一个由指定对象的所有自身属性的属性名(包括不可枚举属性但不包括Symbol值作为名称的属性)
+    组成的数组。
+    
+    数组中的枚举属性的顺序与通过for...in 循环（或Object.keys()）迭代的对象属性一一致。    
+    
+```js
+let arr = ['a','b','c'];
+console.log(Object.keys(arr));  // ['0','1','2']
+console.log(Object.getOwnPropertyNames(arr));   // ['0','1','2','length']
+
+// 类数组
+let obj = {
+    0:"a",
+    1:"b",
+    2:"c"
+}
+console.log(Object.getOwnPropertyNames(obj));   // ['0','1','2']
+```    
+
+# Object.getPrototypeOf()
+    
+    返回指定对象的原型
+```js
+const prototype1 = {};
+const object1 = Object.create(prototype1);
+console.log(Object.getPrototypeOf(object1) === prototype1); // true
+console.log( object1.__proto__ === prototype1 );    // true
+```
+    Object.getPrototypeOf(Object)不是Object.prototype
+    
+    在JavaScript中的Object是构造函数,一般用法是 ：
+    var obj = new Object();
+    
+    Object.getPrototypeOf(Object)是把Object这一构造函数看做对象。返回的是函数对象的原型
+    
+    console.log(Object.getPrototypeOf(Object) === Function.prototype )  // true
+    console.log(Object.__proto__ === Function.prototype);   // true
+    
+    Object是Function的实例对象。
+    Function.prototype是Object的实例对象
+    
 # Object.assign()
 	
 	用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
