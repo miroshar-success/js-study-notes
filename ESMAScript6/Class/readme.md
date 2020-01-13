@@ -344,12 +344,31 @@ let child = new Child();
 child.myMethod(1);  // instance 1
 ```
 
-## prototype 和 __proto__
+## 类的prototype 和 __proto__
     
     1. 子类的__proto__属性,表示构造函数的继承,总是指向父类。
     2. 子类prototype属性的__proto__属性,表示方法的继承，总是指向父类的prototype属性
     
-    
+```js
+class Big {
+    constructor(){
+        this.name = 'lebron';
+    }
+    say(){
+        console.log(this.name);
+    }
+}
+class Small extends Big{
+    constructor(){
+        super()
+    }
+}
+let small = new Small();
+console.log(small.name);    // lebron
+console.log(small.__proto__.constructor);   // Big
+console.log(Small.prototype.__proto__ === Big.prototype);   // true
+console.log(Small.prototype.constructor);   // Big
+```
     
     
     

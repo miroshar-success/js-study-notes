@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>
+        (function(){
+            let fixWidth = 750;
+            let scale = window.screen.width/fixWidth;
+            const meta = document.createElement("meta");
+            meta.setAttribute("name","viewport");
+            meta.setAttribute("content","width="+fixWidth+",initial-scale="+scale+",user-scalable=no");
+            document.head.appendChild(meta);
+        })()
+    </script>
+    <link rel="stylesheet" href="css/index.css">
+    <title>优酷首页</title>
+</head>
+<body>
+    <header>
+        <section class="header-container">
+            <div class="logo"></div>
+            <div class="search">
+                <div class="search-logo"></div>
+            </div>
+            <div class="login"></div>
+        </section>
+        <nav class="nav">
+            <section class="header-nav">
+                <ul class="nav-list">
+                    <li class="nav-active"><a href="#">首页</a></li>
+                    <li><a href="#">剧集</a></li>
+                    <li><a href="#">电影</a></li>
+                    <li><a href="#">会员</a></li>
+                    <li><a href="#">综艺</a></li>
+                    <li><a href="#">音乐</a></li>
+                    <li><a href="#">动漫</a></li>
+                    <li><a href="#">少儿</a></li>
+                    <li><a href="#">资讯</a></li>
+                    <li><a href="#">纪实</a></li>
+                    <li><a href="#">财经</a></li>
+                    <li><a href="#">体育</a></li>
+                    <li><a href="#">教育</a></li>
+                    <li><a href="#">娱乐</a></li>
+                    <li><a href="#">游戏</a></li>
+                    <li><a href="#">科技</a></li>
+                    <li><a href="#">搞笑</a></li>
+                    <li><a href="#">生活</a></li>
+                    <li><a href="#">旅游</a></li>
+                    <li><a href="#">汽车</a></li>
+                    <li><a href="#">时尚</a></li>
+                    <li><a href="#">直播</a></li>
+                </ul>
+            </section>
+            <section class="check-nav">
+                <i class="arrow-down"></i>
+            </section>
+        </nav>
+    </header>
+    <main class="app">
+        <section class="banner">
+            <ul class="banner-container">
+                <li><a href="#"><img src="imgs/banner_1.png" alt=""></a></li>
+                <li><a href="#"><img src="imgs/banner_2.png" alt=""></a></li>
+                <li><a href="#"><img src="imgs/banner_3.png" alt=""></a></li>
+                <li><a href="#"><img src="imgs/banner_4.png" alt=""></a></li>
+                <li><a href="#"><img src="imgs/banner_5.png" alt=""></a></li>
+                <li><a href="#"><img src="imgs/banner_6.png" alt=""></a></li>
+            </ul>
+        </section>
+        <section class="hot-tv">
+            <ul class="tv-list">
+                <li>
+                    <a href="#">
+                        <div class="tv-img">
+                            <img src="imgs/hot_1.png" alt="">
+                            <span class="first">首播</span>
+                            <span class="update">更新至43集</span>
+                        </div>
+                        <div class="tv-info">
+                            <p class="title">好好的 好汉失踪</p>
+                            <p class="desc">刘涛上位金晨辞职送祝福</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="tv-img">
+                            <img src="imgs/hot_2.png" alt="">
+                            <span class="only">独播</span>
+                            <span class="update">更新至23集</span>
+                        </div>
+                        <div class="tv-info">
+                            <p class="title">机动部队 以身犯险</p>
+                            <p class="desc">PTU队员巡逻被黑帮带走折磨</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="tv-img">
+                            <img src="imgs/hot_3.png" alt="">
+                            <span class="only">独播</span>
+                            <span class="update">05-28期</span>
+                        </div>
+                        <div class="tv-info">
+                            <p class="title">街舞加长版·火药味</p>
+                            <p class="desc">选秀红人晋级遭群嘲</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="tv-img">
+                            <img src="imgs/hot_4.png" alt="">
+                            <span class="first">首播</span>
+                            <span class="update">更新至51集</span>
+                        </div>
+                        <div class="tv-info">
+                            <p class="title">封神演义·宠溺</p>
+                            <p class="desc">子虚:天大地大妲己最大</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section class="drama">
+            <div class="dramaTitle">剧集</div>
+            <div class="hot-drama">
+                <a href="#">
+                    <div class="drama-poster">
+                        <img src="imgs/big-drama.png" alt="<青囊传>恋爱初体验">
+                        <span class="only">全网独播</span>
+                        <span class="update">更新至9集</span>
+                    </div>
+                    <div class="drama-info">
+                        <p class="title"><青囊传>恋爱初体验</p>
+                        <p class="desc">李宏毅赵露思互怼掐架 竟然有种另类甜</p>
+                    </div>
+                </a>
+            </div>
+            <div class="drama-container">
+                <a href="#">
+                    <div class="drama-item">
+                        <div class="poster">
+                            <img src="imgs/drama_1.png" alt="封神演义 TV版">
+                            <span class="first">首播</span>
+                            <span class="update">更新至53集</span>
+                        </div>
+                        <div class="drama-info">
+                            <p class="title">封神演义 TV版</p>
+                            <p class="desc">王丽坤罗晋重现经典</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="drama-item">
+                        <div class="poster">
+                            <img src="imgs/drama_2.png" alt="封神演义 TV版">
+                            <span class="first">独播</span>
+                            <span class="update">44集全</span>
+                        </div>
+                        <div class="drama-info">
+                            <p class="title">欢喜密探</p>
+                            <p class="desc">包贝尔贾玲爆笑闹江湖</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="drama-item">
+                        <div class="poster">
+                            <img src="imgs/drama_3.png" alt="封神演义 TV版">
+                            <span class="first">独播</span>
+                            <span class="update">36集全</span>
+                        </div>
+                        <div class="drama-info">
+                            <p class="title">原来你还在这里</p>
+                            <p class="desc">韩东君杨子姗深情初恋</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="drama-item">
+                        <div class="poster">
+                            <img src="imgs/drama_4.png" alt="封神演义 TV版">
+                            <span class="first">独播</span>
+                            <span class="update">28集全</span>
+                        </div>
+                        <div class="drama-info">
+                            <p class="title">七日生</p>
+                            <p class="desc">生死时速的跨国营救</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="drama-item">
+                        <div class="poster">
+                            <img src="imgs/drama_5.png" alt="封神演义 TV版">
+                            <span class="first">独播</span>
+                            <span class="update">更新至23集</span>
+                        </div>
+                        <div class="drama-info">
+                            <p class="title">机动部队</p>
+                            <p class="desc">林峯蔡卓妍激战悍匪</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="drama-item">
+                        <div class="poster">
+                            <img src="imgs/drama_6.png" alt="封神演义 TV版">
+                            <span class="first">首播</span>
+                            <span class="update">35集全</span>
+                        </div>
+                        <div class="drama-info">
+                            <p class="title">我只喜欢你</p>
+                            <p class="desc">吴倩演绎从校服到婚纱</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="bottomContainer">
+                <div class="enter">
+                    进入剧集频道
+                    <img src="imgs/arrow-right.png" alt="">
+                </div>
+                <div class="refresh">
+                    换一换
+                    <img src="imgs/refresh.png" alt="">
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

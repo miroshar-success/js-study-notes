@@ -83,7 +83,7 @@ Player.prototype.handle = function(){
     console.log('dunk');
 }
 
-// 这种方法会覆盖,上门的方法不会。
+// 这种方法会覆盖,上面的方法不会。
 Player.prototype = {
     skill(){
         console.log('crossover');

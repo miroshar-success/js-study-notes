@@ -41,7 +41,6 @@ function drag(e){
 	}
 }
 
-
 const dropZone = document.getElementById('drop_zone');
 dropZone.addEventListener('drop',handleFileSelect,false);
 

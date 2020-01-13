@@ -174,78 +174,52 @@
     child.myMethod(1);  // instance 1
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    class Big {
+        constructor(){
+            this.name = 'lebron';
+        }
+        say(){
+            console.log(this.name);
+        }
+    }
+    class Small extends Big{
+        constructor(){
+            super()
+        }
+    }
+    let small = new Small();
+    console.log(small.name);    // lebron
+    console.log(small.__proto__.constructor);   // Big
+    console.log(Small.prototype.__proto__ === Big.prototype);   // true
+    console.log(Small.prototype.constructor);   // Big
+
+
+
+    function Baz(){
+        this.name = 'baz';
+    }
+
+    Baz.prototype.say = function(){
+        console.log(this.name);
+    }
+    function Ball(){
+        this.name = 'ball'
+    }
+    /*
+    可以获取Baz构造函数的 原型上的方法,无法获取构造函数Baz上的属性
+    Ball.prototype = Baz.prototype;
+
+    let ball = new Ball();
+    ball.say(); // undefined
+    console.log(ball.name); // undefined
+    */
+
+    Ball.prototype = new Baz();
+
+    let ball = new Ball();
+    console.log(ball.name); // undefined
+    ball.say()
+    console.log(ball);
 </script>
 </body>
 </html>
