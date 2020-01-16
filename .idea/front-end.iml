@@ -15,5 +15,7 @@
     <orderEntry type="module" module-name="Vue-MusicPlayer" />
     <orderEntry type="module" module-name="js-animations and css-layout" />
     <orderEntry type="module" module-name="demo" />
+    <orderEntry type="module" module-name="js-animations and css-layout" />
+    <orderEntry type="module" module-name="Vue-CloudMusic" />
   </component>
 </module>
