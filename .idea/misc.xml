@@ -4,6 +4,7 @@
     <option name="languageLevel" value="ES6" />
   </component>
   <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/../js-animations and css-layout/vue-指令demo/index.html" />
+    <file url="file://$PROJECT_DIR$/../ui-component/src/views/About.vue" />
+    <file url="file://$PROJECT_DIR$/../ui-component/src/views/Home.vue" />
   </component>
 </project>

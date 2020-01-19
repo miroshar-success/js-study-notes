@@ -17,15 +17,15 @@
     XHLHttpRequest()是AJAX的基础,用于在后台与服务器交换数据。
 
         1. let xhr = new XMLHttpRequest()  
-
     tips:   var xhr = new ActiveObject('Microsoft.XMLHTTP');
 
 
     2.  向服务器发送请求
         xhr.open('GET','ajax_info.txt',true);
         xhr.send();
-
-
+    
+    send()方法接收一个参数,即要作为请求主体发送的数据,如果不需要通过请求主体发送数据,则必须传入null。
+    
 ## 2.1. open()方法
 
     xhr.open(method,url,async)  
@@ -51,6 +51,8 @@
 
     responseText        获得字符串形式的响应数据
     responseXML         获得XML形式的响应数据
+    status              响应的HTTP状态
+    statusText          HTTP状态的说明
     
 
     JSON.stringify()   将一个javascript值转换为一个JSON字符串

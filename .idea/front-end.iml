@@ -17,5 +17,8 @@
     <orderEntry type="module" module-name="demo" />
     <orderEntry type="module" module-name="js-animations and css-layout" />
     <orderEntry type="module" module-name="Vue-CloudMusic" />
+    <orderEntry type="module" module-name="Vant" />
+    <orderEntry type="module" module-name="Cube-ui" />
+    <orderEntry type="module" module-name="ui-component" />
   </component>
 </module>
