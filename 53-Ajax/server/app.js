@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const app = new Koa();
 const router = require('koa-router')();
+const staticPublic = require('koa-static');
+const path = require("path");
 
 const data = [
     {
@@ -38,17 +40,23 @@ const data = [
 ]
 /*
 *  可以使用cors库
-
 * */
+/*
 app.use(async (ctx,next) => {
     ctx.set('Access-Control-Allow-Origin',"*");
     ctx.set("Access-Control-Allow-Credentials",'true');
     ctx.set("Access-Control-Allow-Methods","GET,PUT,POST");
     next();
 })
+*/
+
+app.use( staticPublic(path.join(__dirname,"public")) );
 
 router.get('/goods',async ctx => {
-    ctx.body = data;
+    let query = ctx.request.query.callback;
+    let s = JSON.stringify(data);
+    let str = `${query}(${s})`;
+    ctx.body = str;
 })
 
 app.use(router.routes()).use(router.allowedMethods());

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax同源请求</title>
+    <style>
+        body,ul,ol,p,h1,h2,h3,h4{
+            padding: 0;
+            margin: 0;
+        }
+        h1,h2,h3,h4,h5,h6{
+            font-size:100%;
+            font-weight:normal;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .item{
+            position:relative;
+            width:248px;
+            height:300px;
+            float:left;
+        }
+        .img{
+            width:248px;
+            height:300px;
+        }
+        .img>img{
+            display:block;
+            width:100%;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+<h1>苹果</h1>
+<div class="container">
+    <ul class="list"></ul>
+</div>
+<script>
+    const oList = document.querySelector('.list');
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET',"http://localhost:3000/goods",true);
+    xhr.send(null);
+    /*
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4 && xhr.status === 200){
+            console.log(JSON.parse(xhr.responseText));
+        }
+    }
+     */
+
+    let str = "";
+    xhr.onload = function() {
+        if(xhr.readyState === 4 && xhr.status === 200){
+            let data = JSON.parse(xhr.responseText);
+            for(let i = 0; i < data.length; i++){
+                let item = data[i];
+                let oLi = document.createElement('li');
+                oLi.classList.add('item');
+                oLi.innerHTML = `
+                    <div class="img"><img src=${item.url} alt=${item.title}></div>
+                    <h1 class="title">${item.title}</h1>
+                    <p>
+                        <span>${item.size}</span>
+                        <span>${item.color}</span>
+                    </p>
+                    <p class="desc">${item.desc}</p>
+                    <h2 class="price">${item.price}</h2>
+                `
+                oList.appendChild(oLi);
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

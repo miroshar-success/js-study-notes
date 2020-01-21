@@ -85,11 +85,19 @@
 
     serialize() 
     处理跨域问题:
-    header({'Access-Control-Allow-Origin':'*'})
+        header({'Access-Control-Allow-Origin':'*'})
 
 
 # 4. XHR 二级事件
     
+    XMLHttpRequestEventTarget是一个描述事件处理程序的接口,可以在一个用于处理XMLHttpRequest事件的对象中使用到
+    该事件处理程序。
+        onload  请求正确加载出内容后调用
+        onloadstart 开始请求加载数据时调用
+        onprogress  请求过程中的信息
+        ontimeout   时间超时时调用,只有通过设置XMLHttpRequest对象的timeout属性来发生超时时,这种情况才会发生。
+        onloadend   当内容加载完成,不管失败与否，都会调用该方法。
+        
     2级 XMLHttpRequest引入了大量的新功能(例如跨域请求,上传进度事件以及对上传/下载二进制数据的支持等)，这使得AJAX可以与很多
     尖端的HTML5 API结合使用,例如File System API,Web Audio API和 WebGL。
     
