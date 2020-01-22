@@ -26,7 +26,7 @@
     
     send()方法接收一个参数,即要作为请求主体发送的数据,如果不需要通过请求主体发送数据,则必须传入null。
     
-## 2.1. open()方法
+## 2.1. xhr方法
 
     xhr.open(method,url,async)  
         method: 请求的类型：GET 或 post
@@ -45,10 +45,18 @@
         xhr.open('GET','https://www.baidu.com?name=kyrie&age=26',true);
         xhr.send();
 
+    
+    setRequestHeader()
+        XMLHttpRequest.setRequestHeader()是设置HTTP 请求头部的方法。此方法必须在open()方法和send()方法之间调用。
+        如果多次对同一个请求头赋值,只会生成一个合并了多个值的请求头。
+
 ## 2.2. 服务器响应
 
     获取来自服务器的响应,使用XMLHttpRequest对象的 responseText 或 responseXML
-
+    
+    response            一个对象，其对象取决于responseType的值,可以尝试设置responseType的值。
+    responseType要在调用open()初始化请求之后调用,并要在调用send()发送请求之到服务器之前调用。
+    
     responseText        获得字符串形式的响应数据
     responseXML         获得XML形式的响应数据
     status              响应的HTTP状态
@@ -101,6 +109,35 @@
     2级 XMLHttpRequest引入了大量的新功能(例如跨域请求,上传进度事件以及对上传/下载二进制数据的支持等)，这使得AJAX可以与很多
     尖端的HTML5 API结合使用,例如File System API,Web Audio API和 WebGL。
     
+    
+    XMLHttpRequest.upload属性返回一个XMLHttpRequest对象,用来表示上传的进度。这个对象是不透明的,但是作为一个
+    XMLHttpRequestEventTarget，可以通过对其绑定事件来追踪它的进度。
+    
+    事件	                相应属性的信息类型
+    onloadstart	                获取开始
+    onprogress	                数据传输进行中
+    onabort	                    获取操作终止
+    onerror	                    获取失败
+    onload	                    获取成功
+    ontimeout	                获取操作在用户规定的时间内未完成
+    onloadend	                获取完成（不论成功与否）
+    
+    
+## XMLHttpRequest.responseType
+
+    XMLHttpRequest.responseType属性是一个枚举类型的属性,返回响应数据的类型。它允许我们手动的设置返回数据的类型。
+    如果设置为一个空字符串,它将使用默认的"text"类型。
+    
+    tips:
+    给一个同步请求设置responseType会抛出一个InvalidAccessError的异常
+    
+        type            描述
+        ""              将responseType设置为空字符串与设置为"text"相同,是默认类型(实际上是DOMString)
+        "arraybuffer"   response是一个包含二进制数据的JavaScript ArrayBuffer
+        "blob"          response是一个包含二进制数据的Blob对象
+        "document"      response是一个HTML Document或XML XMLDocument，这取决于接收到的数据的mime类型。
+        "json"          response是一个JavaScript对象
+        "text"          response是一个包含在DOMString对象中的文本
     
     
     

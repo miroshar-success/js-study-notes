@@ -82,7 +82,7 @@ const ws = fs.createWriteStream("./output.txt");
 ws.write(data,"UTF8");
 */
 
-let readStream = fs.createReadStream("./demo.txt");
+let readStream = fs.createReadStream("./ajax封装.txt");
 let writeStream = fs.createWriteStream("./demo1.txt");
 
 readStream.pipe(writeStream);

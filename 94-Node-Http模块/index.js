@@ -1,13 +1,13 @@
 /* const http = require("http");
 const url = require("url");
 
-let server = http.createServer((req,res) => {
+let ajax-server = http.createServer((req,res) => {
     console.log(req.url);
     res.setHeader("content-type","text/html;charset=utf-8");
     res.write("<h1>Hello World</h1>");
     res.end();
 });
-server.listen(3000);
+ajax-server.listen(3000);
 
 let str = "https:80//www.baidu.com/a/b/c?name=kyrie#age=26";
 console.log( url.parse(str,true) );

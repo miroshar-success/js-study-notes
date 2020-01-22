@@ -50,7 +50,7 @@ const server = http.createServer((req,res) => {
             res.end()
         }
     })
- /*   if( pathname === "/demo.html" ){
+ /*   if( pathname === "/ajax封装.html" ){
         fs.readFile("." + pathname,(err,data) => {
             if(err){
                 console.log(err);

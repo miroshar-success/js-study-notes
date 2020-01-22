@@ -71,7 +71,7 @@ https.createServer(app.callback()).listen(3001);
 
 	
 ```js
-// 一个小Koa demo
+// 一个小Koa ajax封装
 const Koa = require('koa');
 const app = new Koa();
 
@@ -162,7 +162,7 @@ http.createServer(function(req,res){
 	}
 }).listen(5000);
 
-console.log('server on the port 5000');
+console.log('ajax-server on the port 5000');
 ```
 
 ## Koa插件 

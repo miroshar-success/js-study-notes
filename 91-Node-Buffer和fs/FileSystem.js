@@ -28,14 +28,14 @@ fs.readFile("./input.txt",(err,data) => {
     }
 })
 
-fs.writeFile("./demo.txt","我是demo",{flag:"a"},(err) => {
+fs.writeFile("./ajax封装.txt","我是demo",{flag:"a"},(err) => {
     if(err){
         console.log(err);
     }else{
         console.log("文件写入成功");
     }
     console.log("--------我是分割线------------");
-    fs.readFile("./demo.txt",(err,data)=>{
+    fs.readFile("./ajax封装.txt",(err,data)=>{
         if(err){
             console.log(err);
         }else{
@@ -119,7 +119,7 @@ fs.readdir("../91-Node",(err,file) => {
 });
 
 // fs.access() 检查当前目录是否有该文件
-fs.access("./demo.txt",(err) => {
+fs.access("./ajax封装.txt",(err) => {
     console.log(!err? "文件存在" : "不存在");
 })
 

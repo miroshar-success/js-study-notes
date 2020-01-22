@@ -12,7 +12,7 @@
 		返回一个ID(数字),可以将这个ID传递给clearTimeout()来取消执行。
 		
 ```js
-// demo   output
+// ajax封装   output
 
 for(var i = 0; i < 5; i++){
 	setTimeout(function(){

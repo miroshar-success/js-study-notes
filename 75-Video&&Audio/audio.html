@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>audio</title>
+		<link rel="stylesheet" href="https://at.alicdn.com/t/font_720661_jv23tml4bqq.css">
+		<style>
+			body,ul,ol{
+				padding: 0;
+				margin: 0;
+			}
+			button{
+				outline:none;
+				border:none;
+			}
+			ul,ol{
+				list-style:none;
+			}
+			.container{
+				margin:10px auto 0;
+				width: 1300px;
+				height:auto;
+				border:1px solid #ededed;
+			}
+			.list>li{
+				height:75px;
+				line-height:75px;
+				cursor:pointer;
+			}
+			.list>li:nth-of-type(2n+1){
+				background-color:#f5f5f7;
+			}
+			.list>li>.index{
+				padding:0 28px 13px;
+				color:#a499a4;
+			}
+			.list>li .img{
+				width: 50px;
+				height: 50px;
+				vertical-align:middle;
+				border-radius:2px;
+			}
+			.bottom{
+				text-align:center;
+				min-width:1300px;
+				height:50px;
+				background-color:#f6f6f8;
+				line-height:50px;
+			}
+			.progress{
+				display:inline-block;
+				vertical-align:middle;
+				min-width:550px;
+				width:60%;
+				background-color:#e6e6e8;
+			}
+			.currentTime,.progress{
+				height:3px;
+				cursor:pointer;
+			}
+			.currentTime{
+				width: 0;
+				background-color:#e83c3c;
+			}
+			.btn{
+				width:20px;
+				height:20px;
+				background-image:url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554018137624&di=0bf8b88c4040a434a273c56566fa00a5&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F14%2F64%2F28%2F05T58PICd5S_1024.jpg');
+				 background-position:center;
+				 background-size:20px 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<audio src="./WorldCup.mp3" controls></audio>
+		<button>播放/暂停</button>
+		<span class="time"></span>
+		<div class="container">
+			<ul class="list"></ul>
+		</div>
+		<div class="bottom">
+			<button class="btn"></button>
+			<span class="current">00:00</span>
+			<div class="progress">
+				<div class="currentTime"></div>
+			</div>
+			<span class="total"></span>
+		</div>
+		
+		<script>
+			const audio = document.querySelector('audio');
+			const button = document.querySelector('button');
+			const time = document.querySelector('.time');
+			const current = document.querySelector('.current');
+			const total = document.querySelector('.total');
+			const currentTime = document.querySelector('.currentTime');
+			const progress = document.querySelector('.progress');
+			const btn = document.querySelector('.btn');
+			
+/*			let flag = true;
+			// flag = true的时候使其播放,false暂停
+			button.onclick = function(){
+				if(flag){
+					audio.play();
+					flag = false;
+					console.log(audio.paused);
+				}else{
+					audio.pause();
+					flag = true;
+					console.log(audio.paused);
+				}
+			}
+*/
+			button.onclick = function(){
+				const flag = audio.paused;
+				// true表示暂停(当前的状态) 
+				console.log(flag);
+				console.log(audio.duration);
+				switch(flag){
+					case true:
+					audio.play();
+					break;
+					case false:
+					audio.pause();
+					break;
+				}
+			}
+			function getStyle(el,attr){
+				if(window.getComputedStyle){
+					return getComputedStyle(el)[attr];
+				}else{
+					return el.currentStyle[attr];
+				}
+			}
+			
+			const w = getStyle(currentTime,'width');
+			console.log(w);
+			
+			
+			audio.ontimeupdate = function(){
+				let current = audio.currentTime;
+				let total = audio.duration;
+				let min1 = (current%60).toFixed(1);
+				min1 = min1 < 10 ? '0' + min1 : min1;
+				let min2 = Number.parseInt(current/60);
+				time.innerText = '当前时间为:' + min2 + ':' + min1;
+				// 当前时间 除 总时间, 当前播放的百分比,再乘以当前总进度条的宽度;
+			}
+			
+			const xhr = new XMLHttpRequest();
+			const url = 'https://api.wulv5.com/music/top/artists?offset=0&limit=30';
+			xhr.open('GET',url,true);
+			xhr.send();
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					const data = JSON.parse(xhr.responseText);
+					const artists = data.artists;
+					console.log(artists);
+				}
+			}
+			const oList = document.querySelector('.list');
+			fetch('https://api.wulv5.com/music/personalized/newsong')
+			.then(response => response.json())
+			.then(data => {
+				const song = data.result;
+				let str = '';
+				const audio = document.createElement('audio');
+				audio.addEventListener('timeupdate',function(){
+					// 分钟
+					let cur = this.currentTime;
+					let tot = this.duration;
+					let min = Math.floor(this.currentTime/60);
+					let sec = Math.floor(this.currentTime%60);
+					min = min < 10 ? '0' + min : min;
+					sec = sec < 10 ? '0' + sec : sec;
+					current.innerText = `${min}:${sec}`;
+					let w = (this.currentTime/this.duration) * parseInt(getStyle(progress,'width'));
+					currentTime.style.width = w + 'px';
+				},false);
+				song.forEach(function(item,index){
+					const aLi = document.createElement('li');
+					index = index < 10 ? '0' + index : index;
+					str = 
+					`<span class='index'>${index}</span>
+					<img class='img' src='${item.song.album.picUrl}'>
+					<span class='name'>${item.name}</span>`; 
+					aLi.innerHTML = str;
+					oList.appendChild(aLi);
+					aLi.addEventListener('click',function(event){
+						event = event || window.event;
+						event.preventDefault();
+						event.stopPropagation();
+						fetch(`https://api.wulv5.com/music/song/url?id=${item.id}`)
+						.then(response => response.json())
+						.then(json=>{
+							audio.src = `${json.data[0].url}`;
+							audio.play();
+							/*
+							表示当前的状态，true表示暂停,false表示播放
+							当暂停(true)的时候，显示播放的图标按钮，当播放(false)的时候，显示暂停的图标按钮，
+							默认是播放状态(暂停)；
+							*/
+						   const status = audio.paused;
+							switch(status){
+								case true:
+								btn.style.backgroundImage = 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554018137624&di=0bf8b88c4040a434a273c56566fa00a5&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F14%2F64%2F28%2F05T58PICd5S_1024.jpg)';
+								break;
+								case false:
+								btn.style.backgroundImage = 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554018344460&di=607f30bbd2207f1f1fa94247230de83c&imgtype=0&src=http%3A%2F%2Fimg3.16pic.com%2F00%2F20%2F92%2F16pic_2092589_s.jpg)';
+								break;
+							}
+						});
+					},false);
+					let flag = true;	// true表示播放，false表示暂停;
+					btn.addEventListener('click',function(){
+						if(flag){
+							btn.style.backgroundImage = 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554018137624&di=0bf8b88c4040a434a273c56566fa00a5&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F14%2F64%2F28%2F05T58PICd5S_1024.jpg)';
+							audio.pause();
+							flag = false;
+						}else{
+							audio.play();
+							btn.style.backgroundImage = 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554018344460&di=607f30bbd2207f1f1fa94247230de83c&imgtype=0&src=http%3A%2F%2Fimg3.16pic.com%2F00%2F20%2F92%2F16pic_2092589_s.jpg)';
+							flag = true;
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

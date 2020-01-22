@@ -3,9 +3,9 @@ const http = require("http");
 const path = require("path");
 
 http.createServer((req,res)=>{
-	const fileName = path.join(__dirname,"demo.txt");
+	const fileName = path.join(__dirname,"ajax封装.txt");
 	console.log(fileName)
-	console.log(path.resolve(__dirname,"demo.txt"));
+	console.log(path.resolve(__dirname,"ajax封装.txt"));
 	fs.readFile(fileName,(err,data)=>{
 		if(err){
 			console.log(err);
@@ -21,7 +21,7 @@ console.log("浏览器已经监听在3000端口");
 
 // 使用stream 可以一边读取,一边返回数据,数据通过管道流动到客户端，
  http.createServer(function(req,res){
-	const fileName = path.resolve(__dirname,"demo.txt");
+	const fileName = path.resolve(__dirname,"ajax封装.txt");
 	let readStream = fs.createReadStream(fileName);
 	res.setHeader("Content-Type","text/plain;charset:utf-8");
 	readStream.pipe(res);

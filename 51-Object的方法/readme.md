@@ -513,7 +513,7 @@ me.isHuman = true;
 me.printIntroduction();	// my name is jack. Am I human? true
 ```
 ```js
-// demo from mdn
+// ajax封装 from mdn
 
 // Shape - 父类(superclass)
 function Shape() {
