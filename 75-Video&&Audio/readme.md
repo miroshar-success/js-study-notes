@@ -48,9 +48,11 @@
         创建一个AudioBufferSourceNode对象，他可以通过AudioBuffer对象来播放和处理包含在内的音频数据。AudioBuffer
         可以通过AudioContext.createBuffer方法创建或者使用AudioContext.decodeAudioData方法解码音轨来创建。
     
-    
-    
-    
+        AudioContext.decodeAudioData()
+        从ArrayBuffer对象中异步解码音频文件。在此情况下,这个ArrayBuffer对象通常是通过使用responseType为arraybuffer
+        类型的XMLHttpRequest方法来获取的，该方法只能作用于完整的音频文件。
+        
+        
     
     
     

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax-上传文件</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        #file{
+            display:none;
+        }
+        label{
+            display:block;
+            width:100px;
+            height:28px;
+            line-height:28px;
+            text-align:center;
+            background-color:skyblue;
+            font-size:14px;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+<label for="file">选择文件</label>
+<input type="file" id="file" multiple>
+<script>
+    const oIpt = document.querySelector("#file");
+    oIpt.addEventListener('change',function(){
+        if(oIpt.value){
+            for(let i = 0; i < this.files.length; i++){
+                let xhr = new XMLHttpRequest();
+                xhr.open("post","http://localhost:4000/files",true);
+                let formData = new FormData();
+                formData.append("files",oIpt.files[i]);
+                xhr.send(formData);
+            }
+            this.value = "";
+        }
+    },false);
+</script>
+</body>
+</html>

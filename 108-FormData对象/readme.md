@@ -12,10 +12,13 @@
     
     append()
         添加一个新值到FormData对象中,如果键不存在则会添加该键
+        
     set()
         如果指定的键已经存在,FormData.set会使用新值覆盖已有的值。
+        
     delete()
         从FormData对象中删除指定键
+        
     entries()
         FormData.entries()方法返回一个iterator对象,此对象可以遍历访问FormData中的键值对。
         
