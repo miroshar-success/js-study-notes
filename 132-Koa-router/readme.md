@@ -98,6 +98,6 @@ const server = http.createServer(function(req,res){
 })
 
 server.listen(3030,() => {
-	console.log('ajax-server start at port 3030');
+	console.log('ajax-koa-server start at port 3030');
 })
 ```

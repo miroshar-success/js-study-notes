@@ -1,5 +1,7 @@
 # Koa
-
+    
+    app.env 默认是 NODE_ENV 或 "development"
+    
 	app.callback()
 	
 	返回使用于 http.createServer()方法的回调函数来处理请求。
@@ -37,11 +39,18 @@ https.createServer(app.callback()).listen(3001);
 	ctx.response
 		Koa的 Response对象
 		
-		
 	ctx.state
 		推荐的命名空间,用于通过中间件传递信息和你的前端视图。用于保存中间件的数据状态
 		ctx.state配置的全局变量不仅可以在其他的路由页面使用,还可以在全局模板使用。
 		
+		
+	绕过Koa的response处理是不被支持的，应避免使用以下node属性:
+	    res.statusCode
+	    res.writeHead
+	    res.write
+	    res.end
+	
+	
 ## Request别名
 
 	ctx.header / ctx.headers	获取所有的请求头信息 ctx.header === ctx.headers 等同于 ctx.request.header。  
@@ -162,7 +171,7 @@ http.createServer(function(req,res){
 	}
 }).listen(5000);
 
-console.log('ajax-server on the port 5000');
+console.log('ajax-koa-server on the port 5000');
 ```
 
 ## Koa插件 
