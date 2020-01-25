@@ -2,13 +2,24 @@ const Koa = require("koa");
 const router = require("koa-router")();
 const app = new Koa();
 const formidable = require('formidable');
-
-app.use(async (ctx,next) => {
+const fs = require('fs');
+/*app.use(async (ctx,next) => {
     ctx.set("Access-Control-Allow-Origin",ctx.headers.origin);
     ctx.set("Access-Control-Allow-Methods","GET,POST,HEAD,DELETE");
     ctx.set("Access-Control-Allow-Credentials",true);
     next();
+})*/
+app.use(async ctx => {
+    console.log(ctx.url);
+    if(ctx.url === "/" && ctx.method === "GET"){
+        fs.readFile("../index.html",(err,data) => {
+            if(err) return;
+            ctx.body = data.toString();
+            console.log(data.toString())
+        })
+    }
 })
+
 
 router.post("/files",async ctx => {
     let form = new formidable.IncomingForm();
@@ -26,8 +37,8 @@ router.post("/files",async ctx => {
     });
 })
 
-app.use(router.routes());
+app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(4000,() => {
-    console.log("app start at port 4000");
+app.listen(63342,() => {
+    console.log("app start at port 63342");
 })

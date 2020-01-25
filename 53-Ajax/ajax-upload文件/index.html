@@ -32,7 +32,11 @@
         if(oIpt.value){
             for(let i = 0; i < this.files.length; i++){
                 let xhr = new XMLHttpRequest();
-                xhr.open("post","http://localhost:4000/files",true);
+                xhr.open("post","http://localhost:63342/files",true);
+                xhr.upload.onprogress = function(event) {
+                    event = event || window.event;
+                    console.log(event);
+                }
                 let formData = new FormData();
                 formData.append("files",oIpt.files[i]);
                 xhr.send(formData);

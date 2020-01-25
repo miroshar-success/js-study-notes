@@ -1,0 +1,64 @@
+
+# input
+
+    HTML <input>元素用于为基于Web的表单创建交互式控件，以便接受来自用户的数据。可以使用各种类型的输入数据和控件
+    小部件。
+    
+    type:
+        file:可以让用户选择文件。使用accept属性可以定义控件可以选择的文件类型
+        image:图片提交按钮，必须使用src属性定义图片的来源及使用alt定义代替文本,还可以使用height和width属性以
+        像素为单位定义图片的大小。
+        reset: 用于将表单所有内容设置为缺省值的按钮
+        submit: 用于提交表单的按钮
+        button 无缺省行为按钮
+        checkbox 复选框
+        hidden 不显示在页面上的控件，但它的值会被提交到服务器
+        password: 一个值被遮盖的单行文本
+        
+        HTML5
+            color
+            date
+            datetime-local
+            email:合适的时候可以使用:valid和:invalid CSS伪类
+            month: 用于输入年月的控件
+            number: 用于输入浮点数的控件
+            range: 用于输入不精确值的控件
+            search: 用于输入搜索字符串的单行文本字段。
+            tel:    用于输入电话号码的控件
+            time: 用于输入不含时区的时间控件
+            week: 用于输入一个由星期-年组成的日期
+    
+    attribute:
+        tabindex：一个数字，相当于序号，当用户按键盘tab键时，焦点会按序号从小到大落在对应的元素上（当此值为-1时，
+        表示焦点永远不会通过tab键落在此元素上）
+        list: 指向一个id为list属性值的 <datalist>元素, <datalist>为这个<input>元素提供建议值。
+        autofocus: 自动聚焦 HTML5
+        checked
+        disabled
+        formaction: HTML5
+        formenctype:HTML5
+        formmethod:HTML5
+        readonly:HTML5 知名用户无法修改控件的值
+        placeholder:HTML5 提示用户输入框的作用
+        required:HTML5 用户在提交表单之前必须为该元素填充值。
+        pattern: 检查控件值的正则表达式
+        
+```html
+datalist使用:
+<label>Choose a browser from this list:
+<input list="browsers" name="myBrowser" /></label>
+<datalist id="browsers">
+  <option value="Chrome">
+  <option value="Firefox">
+  <option value="Internet Explorer">
+  <option value="Opera">
+  <option value="Safari">
+</datalist>
+```
+    accept
+        如果该元素的type属性的值是file,则该属性表明了服务器可接受的文件类型：
+        audio/*     表示音频文件  HTML5
+        vidoe/*     表示视频文件  HTML5
+        image/*     表示图片文件  HTML5
+        
+![input](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input)
