@@ -139,10 +139,10 @@
 # config
     
     nginx.conf 文件是Nginx总配置文件
-![conf]()
+![conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/nginx.conf.png)
 
     default.conf
-![default.conf]()    
+![default.conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/default.conf.png)    
     
     
     
