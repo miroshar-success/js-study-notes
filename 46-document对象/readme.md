@@ -113,8 +113,7 @@ let fragment = document.createDocumentFragment();
 
     DOMRect对象包含了一组用于描述边框的只读属性 --left top right和bottom,单位为像素。除了width和
     height外的属性都是相对于视口的左上角位置而言的。
-
-    
+ 
 # 7. document.forms
 
     forms返回当前文档中的<form>元素的一个集合(一个HTMLCollection)
@@ -130,3 +129,5 @@ let selectFormElement = document.forms[index].elements[index];
 	该属性设置或返回指定节点的文本内容以及它的所有后代的文本内容。
 	如果设置了textContent属性,会删除所有的子节点,并被替换为包含指定字符串的一个单独的文本节点。
 	
+    contenteditable 可以编辑
+    oncontextmunu   可以阻止右键点击事件

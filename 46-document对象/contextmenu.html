@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>document.oncontextmenu</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            border:1px solid pink;
+        }
+    </style>
+</head>
+<body>
+<div id="box" contenteditable="true" autocapitalize="words"></div>
+<input type="button" value="click" class="btn">
+<script>
+    document.oncontextmenu = function(event){
+        event = event || window.event;
+        event.preventDefault();
+        return false
+    }
+    const oBtn = document.querySelector(".btn");
+    oBtn.onclick = function(){
+        console.log(box.innerText);
+    }
+</script>
+</body>
+</html>

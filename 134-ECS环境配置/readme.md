@@ -87,3 +87,83 @@
       ln -s /usr/local/nodejs/bin/pm2  /usr/local/bin
       
     pm2 start app.js
+
+
+# Nginx配置
+
+    Ping是一个十分好用的TCP/IP工具。它主要的功能是用来检测网络的连通情况和分析网络速度。
+        ping ip地址（或绑定的域名）
+        
+    1. yum -y install gcc gcc-c++ autoconf pcre-devel make automake
+    2. yum -y install wget httpd-tools vim
+    
+    Install the prerequisites:
+        sudo yum install yum-utils
+        
+    To set up the yum repository, create the file named /etc/yum.repos.d/nginx.repo
+    
+        vim /etc/yum.repos.d/nginx.repo
+        
+        [nginx-stable]
+        name=nginx stable repo
+        baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+        gpgcheck=1
+        enabled=1
+        gpgkey=https://nginx.org/keys/nginx_signing.key
+        module_hotfixes=true
+        
+        [nginx-mainline]
+        name=nginx mainline repo
+        baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+        gpgcheck=1
+        enabled=0
+        gpgkey=https://nginx.org/keys/nginx_signing.key
+        module_hotfixes=true
+        
+    esc 键 :wq保存
+    
+    To install nginx, run the following command:
+        sudo yum install nginx  
+        
+    nginx -v 测试nginx安装的版本
+    
+    查看nginx安装的目录
+        rpm -ql nginx
+    tips:
+        rpm 是linux的rpm包管理工具
+        -q 代表询问模式
+        -l 代表返回列表
+    
+    进入 /usr/share/nginx/html 文件 启动nginx 可以通过ip地址访问
+
+# config
+    
+    nginx.conf 文件是Nginx总配置文件
+![conf]()
+
+    default.conf
+![default.conf]()    
+    
+    
+    
+# start | stop | restart
+
+    start:
+        第一种方法：nginx
+        第二种方法：systemctl start nginx.service
+        
+    stop:
+        1. nginx -s quit    
+        2. systemctl stop nginx.service
+        
+    restart:
+        systemctl restart nginx.service
+        
+        
+    重载配置文件：
+        nginx -s reload
+    
+    查看端口号开启了：
+        netstat -tlnp
+    
+![nginx](http://nginx.org/en/linux_packages.html#RHEL-CentOS);

@@ -159,6 +159,40 @@
     &lt;    <
     &gt;    >
 
-# 7. href与src的区别
+# Global attributes
 
+    1. contenteditable 是一个枚举属性,表示元素是否可以被用户编辑。如果可以,浏览器会修改元素的部件以允许编辑。
+        tips:
+        1. 必须显示设置其值为 true false 或空字符串中的一个
+        2. 可以使用 CSS caret-color属性设置用于绘制文本插入caret的颜色(光标的颜色)
+    
+    2. autocapitalize全局属性是一个枚举属性，它控制用户输入/编辑文本输入时文本输入是否自动大写,以及如何
+    自动大写。
+        off 或 none  没有应用自动大写
+        on or sentences 每个句子的第一个字母默认为大写字母
+        words 每个单词的第一个字母默认为大写字母
+        characters 所有的字母都默认为大写
+    
+    3. contextmenu
+        上下文菜单是指在用户交互(例如右键点击)时出现的菜单.HTML5允许我们自定义此菜单。
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
