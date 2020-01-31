@@ -155,15 +155,57 @@
     stop:
         1. nginx -s quit    
         2. systemctl stop nginx.service
+        3. killall nginx   杀死所有进程
+        4. nginx -s stop
         
     restart:
         systemctl restart nginx.service
         
         
     重载配置文件：
+        在重新编写或者修改Nginx的配置文件后,操作一下重新载入！
         nginx -s reload
     
     查看端口号开启了：
         netstat -tlnp
+  
+# 错误页面设置和访问权限配置  
     
-![nginx](http://nginx.org/en/linux_packages.html#RHEL-CentOS);
+    配置一个404页面：
+    进入 etc/nginx/conf.d文件夹  编辑default.conf文件 
+
+    error_page   404    404_error.html
+    :wq 保存退出    
+    
+    
+    禁止某个ip地址访问：
+```js
+ location / {
+    deny   123.9.51.42; // 禁止访问
+    allow  45.76.202.231;   
+}
+
+location =/img{
+    allow all;
+}
+// 禁止访问后台
+location =/admin{
+    deny all;
+}
+```
+# 反向代理
+    
+    访问http://nginx2.jspang.com然后反向代理到jspang.com这个网站。我们直接到etc/nginx/con.d/8001.conf进行修改。
+```js
+server{
+        listen 80;
+        server_name nginx2.jspang.com;
+        location / {
+               proxy_pass http://jspang.com;
+        }
+}
+```
+    proxy_set_header:       更改来自客户端的请求头信息
+    proxy_connect_timeout:  与后台代理服务器尝试建立连接的超时时间
+    
+[Nginx](http://nginx.org/en/linux_packages.html#RHEL-CentOS);

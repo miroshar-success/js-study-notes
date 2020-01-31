@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-事件</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    /* 1.  React事件的命名采用小驼峰式
+       2.  传入一个函数作为事件处理函数,而不是字符串
+    * */
+    class Toggle extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                isToggle:false
+            }
+            this.handleToggle = this.handleToggle.bind(this);
+        }
+        handleToggle() {
+            console.log(this);
+            let toggle = this.isToggle;
+            this.setState({
+                isToggle:!toggle
+            })
+        }
+        render(){
+            return (
+                <button onClick={this.handleToggle}>
+                    {this.state.isToggle ? "on" : "off"}
+                </button>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Toggle/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

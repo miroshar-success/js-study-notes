@@ -248,7 +248,37 @@ class Clock extends React.Component{
             }
         } )
 
+# 列表 && key
 
+```js
+function ListItem(props) {
+  // 正确！这里不需要指定 key：
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    // 正确！key 应该在数组的上下文中被指定
+    <ListItem key={number.toString()}
+              value={number} />
+
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+    tips:
+    1. 如果列表项目的顺序可能会变化,不建议使用索引来作key值，因为这样作会导致性能变差,还可能引起组件状态的问题。
     
     
     

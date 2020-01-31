@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-列表 && key</title>
+</head>
+<body>
+<div id="root"></div>
+<div id="app"></div>
+<div id="demo"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    const numbers = [1, 2, 3, 4, 5];
+    const listItems = numbers.map((number) =>
+        <li key={number}>{number}</li>
+    )
+    ReactDOM.render(
+        <ul>{listItems}</ul>,
+        document.getElementById('root')
+    );
+
+
+    function NumberList(props){
+        const numbers = props.numbers;
+        const listItems = numbers.map((number) =>
+            <li key={number.toString()}>{number}</li>
+        );
+        return (
+            <ul>{listItems}</ul>
+        )
+    }
+    ReactDOM.render(
+        <NumberList numbers={numbers}/>,
+        document.getElementById("root")
+    )
+
+    // 绑定key值
+    function ListItem(props){
+        return <li>{props.value}</li>
+    }
+    function NumberList(props){
+        const numbers = props.numbers;
+        const listItems = numbers.map((number) => {
+            return <ListItem key={number.toString()} value={number}/>
+        })
+        return (
+            <ul>
+                {listItems}
+            </ul>
+        )
+    }
+    ReactDOM.render(
+        <NumberList numbers={numbers}/>,
+        document.getElementById("app")
+    )
+
+    // key不需要是全局唯一的，在其兄弟节点之间是独一无二的就可以
+    function Blog(props){
+        const sidebar = (
+            <ul>
+                {props.posts.map((post) => {
+                        return (
+                            <li key={post.id}>{post.title}</li>
+                        )
+                    })
+                }
+            </ul>
+        )
+        const content = props.posts.map((post) => {
+            return (
+                <div key={post.id}>
+                    <h3 className="title">{post.title}</h3>
+                    <p className="content">{post.content}</p>
+                </div>
+            )
+        })
+        return (
+            <div>
+                {sidebar}
+                <hr/>
+                {content}
+            </div>
+        )
+    }
+    const posts = [
+        {id:1,title:"Hello World",content:"Welcome to learning react!"},
+        {id:2,title:"Installation",content:"You can install React from npm."}
+    ]
+    ReactDOM.render(
+        <Blog posts={posts}/>,
+        document.getElementById("demo")
+    )
+</script>
+</body>
+</html>

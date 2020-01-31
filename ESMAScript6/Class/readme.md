@@ -214,7 +214,7 @@ class B extends A {
 ```
     子类B的构造函数之中的super()，代表调用父类的构造函数.这是必须的，否则JavaScript引擎会报错！
         tips:
-        1. super虽然代表了父类Ade构造函数,但是返回的是子类B的实例,即super内部的this指的是B的实例。
+        1. super虽然代表了父类A的构造函数,但是返回的是子类B的实例,即super内部的this指的是B的实例。
         2. 作为函数时，super只能用在子类的构造函数之中，用在其他地方就会报错！
     
     
