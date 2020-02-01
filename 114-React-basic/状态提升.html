@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-状态提升</title>
+</head>
+<body>
+<h4>输入一个温度,计算当前的水温是否会沸腾</h4>
+<div id="app"></div>
+<h4></h4>
+<div id="root"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    function BoilingVerdict(props){
+        if(props.celsius >= 100){
+            return (<p>The water would boil!</p>);
+        }
+        return <p>The water would not boil!</p>
+    }
+    class Calculator extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                temperature:""
+            }
+        }
+        handleChange = (event) => {
+            this.setState({
+                temperature:event.target.value
+            })
+        }
+        render(){
+            const temperature = this.state.temperature;
+            return (
+                <fieldset>
+                    <legend>Enter temperature in Celsius;</legend>
+                    <input
+                        value={temperature}
+                        onChange={this.handleChange}
+                    />
+                    <BoilingVerdict
+                        celsius={parseFloat(temperature)}
+                    />
+                </fieldset>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Calculator/>,
+        document.getElementById("app")
+    )
+
+    const scaleNames = {
+        c:"Celsius",
+        f:"Fahrenheit"
+    }
+
+    class TemperatureInput extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {temperature:""};
+        }
+        handleChange = (event) => {
+            this.setState({
+                temperature:event.target.value
+            })
+        }
+        render(){
+            const temperature = this.state.temperature;
+            const scale = this.props.scale;
+            return(
+                <fieldset>
+                    <legend>Enter temperature in {scaleNames[scale]}:</legend>
+                    <input
+                        value={temperature}
+                        onChange={this.handleChange}
+                    />
+                </fieldset>
+            )
+        }
+    }
+    class NewCalculator extends React.Component {
+        render(){
+            return (
+                <div>
+                    <TemperatureInput scale="c"/>
+                    <TemperatureInput scale="f"/>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <NewCalculator/>,
+        document.getElementById("root")
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

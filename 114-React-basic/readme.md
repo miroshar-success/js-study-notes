@@ -1,5 +1,5 @@
-
-# jsx语法
+<!-- TOC -->autoauto- [1. jsx语法](#1-jsx语法)auto    - [1.1. jsx特定属性](#11-jsx特定属性)auto    - [1.2. jsx表示对象](#12-jsx表示对象)auto- [2. 元素渲染](#2-元素渲染)auto    - [2.1. 更新已渲染的元素](#21-更新已渲染的元素)auto- [3. 组件 & props](#3-组件--props)auto    - [3.1. 组合组件](#31-组合组件)auto    - [3.2. props的只读性](#32-props的只读性)auto- [4. state](#4-state)auto- [5. 列表 && key](#5-列表--key)auto- [6. 受控组件](#6-受控组件)auto- [7. 组合vs继承](#7-组合vs继承)autoauto<!-- /TOC -->
+# 1. jsx语法
 
     可以在jsx大括号内放置任何有效的JavaScript表达式。
 ```js
@@ -36,7 +36,7 @@ const element = (
   </div>
 );
 ```
-## jsx特定属性
+## 1.1. jsx特定属性
 
     1. 可以通过使用引号,来将属性值指定为字符串字面量
     const element = <div tabIndex='0'></div>;
@@ -47,7 +47,7 @@ const element = (
     tips:
     1. 在属性中嵌入javascript表达式时，不要在大括号外面加上引号,应该仅使用引号 或大括号中的一个。
     
-## jsx表示对象
+## 1.2. jsx表示对象
 
     babel会把jsx转译成一个名为React.createElement()函数调用。
 ```js
@@ -75,7 +75,7 @@ const element = {
 ```
     这些对象被成为react元素！ 但对象不能直接作为react的元素，直接使用第三种写法会报错
     
-# 元素渲染
+# 2. 元素渲染
 
     React元素是创建开销极小的普通对象。React DOM 会负责更新DOM来与React元素保持一致。
     想要将一个 React 元素渲染到根 DOM 节点中，只需把它们一起传入 ReactDOM.render()
@@ -84,7 +84,7 @@ const element = <h1>Hello,World!</h1>;
 ReactDOM.render(element,document.getElementById('root'));
 ```
 
-## 更新已渲染的元素
+## 2.1. 更新已渲染的元素
 
     React元素是不可变对象。一旦被创建就无法更改它的自元素或者属性。更新ui唯一的方式就是创建一个全新的元素,并
     将其传入ReactDOM.render()。
@@ -103,7 +103,7 @@ function tick() {
 setInterval(tick, 1000);
 ```    
 
-# 组件 & props
+# 3. 组件 & props
 
     函数组件
 ```js
@@ -121,7 +121,7 @@ ReactDOM.render(
     tips:
     组件名必须以大写字母开头。React会将以小写字母开头的组件视为原生DOM标签。
     
-## 组合组件
+## 3.1. 组合组件
 
     可以创建一个可以多次渲染Welcome组件的App组件：
 ```js
@@ -145,7 +145,7 @@ ReactDOM.render(
 );
 ```
 
-## props的只读性
+## 3.2. props的只读性
 
     所有React组件都必须像纯函数一样保护它们的props不被更改。
 ```js
@@ -192,7 +192,7 @@ ReactDOM.render(
 );
 ```
 
-# state
+# 4. state
 
     state与props类似，但是state是私有的，并且完全受控于当前组件。
     
@@ -248,7 +248,7 @@ class Clock extends React.Component{
             }
         } )
 
-# 列表 && key
+# 5. 列表 && key
 
 ```js
 function ListItem(props) {
@@ -279,9 +279,72 @@ ReactDOM.render(
 ```
     tips:
     1. 如果列表项目的顺序可能会变化,不建议使用索引来作key值，因为这样作会导致性能变差,还可能引起组件状态的问题。
+
+# 6. 受控组件
+
+    在 HTML 中，表单元素（如<input>、 <textarea> 和 <select>）之类的表单元素通常自己维护 state，并根据用户输入进行更新。
+    而在 React 中，可变状态（mutable state）
+    通常保存在组件的 state 属性中，并且只能通过使用 setState()来更新。
     
+    我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作
+    被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。    
+```jsx 
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('提交的名字: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          名字:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="提交" />
+      </form>
+    );
+  }
+}
+```
+# 7. 组合vs继承
     
-    
+    children.props
+```jsx
+function FancyBorder(props){
+    return (
+        <div className={'FancyBorder FancyBorder-' + props.color}>
+            {props.children}
+        </div>
+    )
+}
+
+function WelcomeDialog(){
+    return (
+        <FancyBorder color="blue">
+            <h1 className="Dialog-title">
+                Welcome
+            </h1>
+            <p className="Dialog-message">
+                Thank you for visiting our spacecraft!
+            </p>
+        </FancyBorder>
+    )
+}
+```
     
     
     
