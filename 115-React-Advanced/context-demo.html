@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-Context 案例</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+//  有两种主题,第一种是 light ,第二个是dark,创建一个 ThemeContext,默认值是 themes.dark
+    const themes = {
+        light:{
+            foreground:"#000000",
+            background:"#eeeeee"
+        },
+        dark:{
+            foreground:"#ffffff",
+            background:"#222222"
+        }
+    }
+    const ThemeContext = React.createContext(themes.dark);
+
+    // 修改主题的按钮.获取修改的主题颜色，并将颜色设置为当前按钮的背景颜色
+    class ThemedButton extends React.Component {
+        static contextType = ThemeContext;
+        render(){
+            let props = this.props;
+            let theme = this.context;
+            return (
+                <button
+                    {...props}
+                    style={{backgroundColor:theme.background,color:"pink"}}
+                />
+            )
+        }
+    }
+// 一个工具按钮,接受到传递的修改主题颜色的参数,并再次传递到ThemeButton
+    function Toolbar(props){
+        return(
+            <ThemedButton
+                onClick={props.changeTheme}
+            >changeTheme</ThemedButton>
+        )
+    }
+
+    class App extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                theme:themes.light
+            };
+            // 在constructor定义一个函数,并将函数通过props传递出去,修改当前的主题
+            this.toggleTheme = () => {
+                this.setState(state => ({
+                    theme:state.theme === themes.dark
+                        ? themes.light
+                        : themes.dark
+                }))
+            }
+        }
+        render() {
+            return (
+                <div>
+                    <ThemeContext.Provider value={this.state.theme}>
+                        <Toolbar changeTheme={this.toggleTheme}/>
+                    </ThemeContext.Provider>
+                    <div>
+                        <ThemedButton>defaultValue</ThemedButton>
+                    </div>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
