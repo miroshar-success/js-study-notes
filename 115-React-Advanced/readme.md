@@ -85,7 +85,188 @@ MyContext.displayName = 'MyDisplayName';
 <MyContext.Provider> // "MyDisplayName.Provider" 在 DevTools 中
 <MyContext.Consumer> // "MyDisplayName.Consumer" 在 DevTools 中
 ```    
+
+# 错误边界
+
+    错误边界是一种React组件,这种组件可以捕获并打印发生在其子组件树任何位置的JavaScript错误,并且它会渲染出备用UI.
+    而不是崩溃了的子组件树。错误边界在渲染期间,生命周期方法和整个组件树的构造函数中捕获错误
     
+    tips:但错误边界无法捕获以下场景中产生但错误:
+        1. 事件处理
+        2. 异步代码
+        3. 服务端渲染
+        4. 它自身抛出来的错误(并非它的子组件),仅可以捕获其子组件的错误，无法捕获自身的错误！
+        
+    如果一个class组件中定义了 static getDerivedStateFromError() 或 componentDidCatch() 两个生命周期方法中的任意
+    一个,那么它就变成一个错误边界。
+    static getDerivedStateFromError() 渲染备用UI, componentDidCatch() 打印错误信息
+    
+# Fragments
+
+    React中的一个常见模式是一个组件返回多个元素。Fragments允许你将子列表分组,而无需向DOM添加额外节点。
+    
+    tips:
+        1. key是唯一可以传递给Fragment的属性。
+```jsx harmony
+// Table组件
+class Table extends React.Component {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+
+// Columns组件
+class Columns extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <td>Hello</td>
+        <td>World</td>
+      </React.Fragment>
+    );
+  }
+}
+```
+
+# JSX
+
+    1. JSX 是 React.createElement(component,props,children)函数的语法糖。
+```jsx harmony
+<MyButton color="blue" shadowSize={2}>Click Me</MyButton>
+
+// 会被编译为:
+React.createElement(
+    MyButton,
+    {color:blue},
+    "Click Me"
+)
+
+    // 如果没有子节点,可以使用自闭合的标签形式:
+<div className="sidebar"/>
+
+// 会被编译为:
+React.createElement(
+    "div",
+    {className:"sidebar"},
+    null
+)
+```
+    2. JSX中可以使用 点语法，当在一个模块中导出许多React组件时
+```jsx harmony
+const MyComponent = {
+    DatePicker: function DatePicker(props){
+        return <div style={{background:props.color}}>我是DatePicker组件</div>
+    }
+}
+function BlueDatePicker(){
+    return <MyComponent.DatePicker color="blue"></MyComponent.DatePicker>
+}
+ReactDOM.render(
+    <BlueDatePicker/>,
+    document.getElementById("demo")
+)
+```
+    3. 用户定义的组件必须以大写字母开头
+        以小写字母开头的元素代表一个 HTML 内置组件，比如 <div> 或者 <span> 会生成相应的字符串 'div' 或者 'span' 
+        传递给 React.createElement（作为参数）
+    
+## JSX中的Props
+
+    1. JavaScript表达式作为Props
+```jsx harmony
+{1 + 2 + 3 +4}
+```
+    tips: if语句以及for循环不是JavaScript表达式,所以不能在JSX中直接使用。
+    
+    2. 字符串字面量
+```jsx harmony
+<MyComponent message="hello world" />
+
+<MyComponent message={'hello world'} />
+```    
+    3. Props默认值是true
+```jsx harmony
+<MyTextBox autocomplete></MyTextBox>
+和上面是等价的
+<MyTextBox autocomplete={true}></MyTextBox>
+```
+    通常不建议这样使用,因为它可能与ES6对象简写混淆。 {foo} 是 {foo:foo}的简写 而不是{foo:true}
+    
+    
+    3. 属性展开  {...props}
+    
+    以下两个组件是等价的：
+```jsx harmony
+function App1() {
+  return <Greeting firstName="Ben" lastName="Hector" />;
+}
+
+function App2() {
+  const props = {firstName: 'Ben', lastName: 'Hector'};
+  return <Greeting {...props} />;
+}
+```
+## JSX中的子元素
+
+    包含在开始和结束标签之间的 JSX 表达式内容将作为特定属性 props.children 传递给外层组件。
+    
+    1. 字面量字符串 
+    此时 props.children 就只是该字符串
+```jsx harmony
+<MyComponent>Hello world!</MyComponent>
+```
+    2. JSX子元素
+    3. JavaScript表达式作为子元素
+```jsx harmony
+function TodoList(){
+    const todos = ["finish doc","submit pr","nag dan to review"];
+    return (
+        <ul>
+            {todos.length && todos.map((item) => (<Item key={item} message={item} />))}
+        </ul>
+    )
+}
+ReactDOM.render(
+    <TodoList/>,
+    document.getElementById("list")
+)
+```
+    4. 函数作为子元素
+```jsx harmony
+// 调用子元素回调 numTimes 次，来重复生成组件
+function Repeat(props) {
+  let items = [];
+  for (let i = 0; i < props.numTimes; i++) {
+    items.push(props.children(i));
+  }
+  return <div>{items}</div>;
+}
+
+function ListOfTenThings() {
+  return (
+    <Repeat numTimes={10}>
+      {(index) => <div key={index}>This is item {index} in the list</div>}
+    </Repeat>
+  );
+}
+```
+    tips: 这种用法不常见,但可以用来扩展JSX。
+    
+    5. 布尔类型、Null 以及 Undefined 将会忽略。
+```jsx harmony
+<div></div>
+<div>{false}</div>
+<div>{null}</div>
+<div>{undefined}</div>
+<div>{true}</div>
+``` 
+    上面但渲染结果都是一样的，但是{0} 会渲染
     
     
     

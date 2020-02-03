@@ -6,6 +6,8 @@
 </head>
 <body>
 <div id="app"></div>
+<!--将父组件的时间传递给子组件-->
+<div id="root"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
 <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
@@ -40,6 +42,58 @@
         <Toggle/>,
         document.getElementById("app")
     )
+
+    /*
+    *   修改背景颜色的数据在父组件,将函数传递到子组件,然后子组件的点击事件 执行父组件修改主题的函数
+    *   将修改的颜色传递到子组件, 子组件
+    * */
+    const themes = {
+        light:{backgroundColor:"pink"},
+        dark:{backgroundColor:"#333"}
+    }
+    class ChildComponent extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            let props = this.props;
+            console.log(props);
+            return (
+                <button
+                    onClick={props.changeTheme}
+                    style={{backgroundColor:props.theme.backgroundColor}}
+                >changeTheme</button>
+            )
+        }
+    }
+    class ParentComponent extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                theme:themes.light
+            }
+            this.toggleTheme = () => {
+                this.setState(state => ({
+                    theme: state.theme === themes.light
+                        ? themes.dark
+                        : themes.light
+                }))
+            }
+        }
+        render(){
+            return (
+                <ChildComponent
+                    changeTheme={this.toggleTheme}
+                    theme={this.state.theme}
+                />
+            )
+        }
+    }
+    ReactDOM.render(
+        <ParentComponent/>,
+        document.getElementById("root")
+    )
+
 </script>
 </body>
 </html>
