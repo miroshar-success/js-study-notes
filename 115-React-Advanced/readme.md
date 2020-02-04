@@ -268,18 +268,158 @@ function ListOfTenThings() {
 ``` 
     上面但渲染结果都是一样的，但是{0} 会渲染
     
+# shouldComponentUpdate
+
+    该方法会在重新渲染前被触发，其默认实现总是返回true，让React执行更新
+    
+```jsx harmony
+shouldComponentUpdate(nextProps, nextState) {
+  return true;
+}
+
+
+// demo
+class CounterButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {count: 1};
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.color !== nextProps.color) {
+      return true;
+    }
+    if (this.state.count !== nextState.count) {
+      return true;
+    }
+    return false;
+  }
+
+  render() {
+    return (
+      <button
+        color={this.props.color}
+        onClick={() => this.setState(state => ({count: state.count + 1}))}>
+        Count: {this.state.count}
+      </button>
+    );
+  }
+}
+``` 
+    大部分情况下,可以使用React.PureComponent来代替手写的shouldComponentUpdate。
+    
+# Portals
+
+    Portal提供了一种将子节点渲染到存在于父组件以外的DOM节点的优秀的方案。
+    
+```jsx harmony
+ReactDOM.createPortal(child,container)
+```
+    child是任何可渲染的React子元素.container是一个DOM元素。
+    
+    一个portal的典型用例是当父组件有overflow:hidden 或z-index样式时,但你需要子组件能够再视觉上'跳出'其容器。
+    
+    1. 一个从portal内部触发的事件会一直冒泡至包含React树的祖先，尽管这些元素并不是DOM树中的祖先。    
     
     
+# Refs
+
+    适合使用refs的情况:
+    1. 管理焦点,文本选择或媒体播放
+    2. 触发强制动画
+    3. 集成第三方DOM库
     
+    1. 创建Refs
     
+```jsx harmony
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+  render() {
+    return <div ref={this.myRef} />;
+  }
+}
+```
+    2. 访问refs
+    对该节点的引用可以在ref的current属性中被访问
+        const node = this.myRef.current;
     
+    2.1 当ref属性用于HTML元素时,构造函数中使用React.createRef创建的ref接受底层DOM元素作为其current属性
+    2.2 当ref属性用于自定义class组件时,ref对象接收组件的挂载实例作为其current属性。
     
+    tips:
+        不能在函数组件上使用ref属性,因为它们没有实例,但是可以在函数组件内部使用ref属性。
+
+# 非受控组件
+
+    你可以 使用 ref 来从 DOM 节点中获取表单数据。
+```jsx harmony
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.input = React.createRef();
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.input.current.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" ref={this.input} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+``` 
+    在非受控组件赋予组件一个初始值,可以指定一个defaultValue属性,而不是value。
     
-    
-    
-    
-    
-    
+    tips:
+        1. <input type="checkbox"/> 和 <input type="radio"/> 支持defaultChecked。
+        2. <select>和<textarea> 支持defaultValue
+
+## input[type="file"]
+
+    在 React中, <input type='file'/>  始终是一个非受控组件,因为它的值只能由用户设置,而不能通过代码设置。   
+```jsx harmony
+class FileInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fileInput = React.createRef();
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    alert(
+      `Selected file - ${
+        this.fileInput.current.files[0].name
+      }`
+    );
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Upload file:
+          <input type="file" ref={this.fileInput} />
+        </label>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+}
+```
     
     
     

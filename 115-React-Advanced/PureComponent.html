@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React - PureComponent</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="./node_modules/react/umd/react.production.min.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.production.min.js"></script>
+<script type="text/babel">
+/*    class ListOfWords extends React.PureComponent{
+        render(){
+            return (
+                <div>{this.props.words.join(",")}</div>
+            )
+        }
+    }*/
+    class ListOfWords extends React.Component{
+        // 改变的还是同一个数组,即使 nextProps 传递过来的数组不断增加数据了
+        shouldComponentUpdate(nextProps,nextState){
+            console.log("nextProps:",nextProps);
+            console.log("thisProps",this.props);
+            console.log(this.props.words === nextProps.words);
+            return true;
+        }
+        render(){
+            const words = this.props.words;
+            console.log(words);
+            return (
+                <ul>
+                    {words.length > 0 && words.map((word,index) => {
+                        return (
+                            <li key={index}>{word}</li>
+                        )
+                    })}
+                </ul>
+            )
+        }
+    }
+    class WordAdder extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                words:['marklar']
+            }
+        }
+        handleClick = () => {
+            this.setState(state => ({
+                words:state.words.concat("marklar")
+            }))
+/*            this.setState(state => ({
+                words:[...state.words,"marklar"]
+            }))*/
+        }
+        render(){
+            return (
+                <div>
+                    <button onClick={this.handleClick}>click</button>
+                    <ListOfWords words={this.state.words}></ListOfWords>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <WordAdder/>,
+        document.getElementById("app")
+    )
+
+
+    class PlayerList extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                player:['kyrie']
+            }
+        }
+        handleClick = () => {
+            // const player = this.state.player;
+            // player.push("lebron");
+            const player = this.state.player.concat("irving");
+            this.setState({
+                player
+            })
+        }
+        render(){
+            return (
+                <div>
+                    <button onClick={this.handleClick}>click</button>
+                    <ul>
+                        {this.state.player.length > 0 && this.state.player.map((player,index) => {
+                            return (
+                                <li key={index}>{player}</li>
+                            )
+                        })}
+                    </ul>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <PlayerList/>,
+        document.getElementById("root")
+    )
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

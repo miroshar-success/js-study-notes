@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>使用非受控组件接受一个表单的值</h3>
+<div id="app"></div>
+<h3>使用受控组件接受一个表单的值</h3>
+<div id="root"></div>
+<h3>type为file的非受控组件</h3>
+<div id="file"></div>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="./node_modules/react/umd/react.production.min.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.production.min.js"></script>
+<script type="text/babel">
+    //非受控组件提交一个表单的值
+    class NameForm extends React.Component {
+        constructor(props){
+            super(props);
+            this.input = React.createRef();
+        }
+        handleSubmit = (event) => {
+            console.log("A name was submitted:",this.input.current.value);
+            event.preventDefault();
+        }
+        render(){
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Name:
+                        <input type="text" ref={this.input} defaultValue="kyrie"/>
+                    </label>
+                    <p>
+                        <input type="submit" value="Submit"/>
+                    </p>
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(
+        <NameForm/>,
+        document.getElementById("app")
+    )
+    // 受控组件提交一个表单的值
+    class NameInput extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                value:"kyrie"
+            }
+        }
+        handleChange = (event) => {
+            this.setState({
+                value:event.target.value
+            })
+        }
+        handleSubmit = (event) => {
+            console.log("a name was submitted:",this.state.value);
+            event.preventDefault();
+        }
+        render(){
+            return (
+                <form action="/" onSubmit={this.handleSubmit}>
+                    <label>
+                        Name:
+                        <input
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.value}
+                        />
+                    </label>
+                    <p>
+                        <input type="submit" value="submit"/>
+                    </p>
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(
+        <NameInput/>,
+        document.getElementById('root')
+    )
+    class FileInput extends React.Component {
+        constructor(props){
+            super(props);
+            this.fileInputRef = null;
+            this.setFileRef = (element) => {
+                this.fileInputRef = element;
+            }
+        }
+        handleSubmit = (event) => {
+            event.preventDefault();
+            console.log(this.fileInputRef.files[0]);
+        }
+        render(){
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Select Files:
+                        <input type="file" ref={this.setFileRef}/>
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(
+        <FileInput/>,
+        document.getElementById("file")
+    )
+</script>
+</body>
+</html>
