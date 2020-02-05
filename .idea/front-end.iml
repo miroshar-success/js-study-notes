@@ -20,5 +20,6 @@
     <orderEntry type="module" module-name="Vant" />
     <orderEntry type="module" module-name="Cube-ui" />
     <orderEntry type="module" module-name="ui-component" />
+    <orderEntry type="module" module-name="react-app" />
   </component>
 </module>

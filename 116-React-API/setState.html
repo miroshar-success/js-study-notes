@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React - setState</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.production.min.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.production.min.js"></script>
+<script type="text/babel">
+    class Container extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                a:false,
+                b:false
+            }
+        }
+        handleClick = () => {
+            this.setState({a:true});
+            this.setState({b:true});
+        }
+        render() {
+            return (
+                <button onClick={this.handleClick}>click</button>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Container/>,
+        document.getElementById("app")
+    )
+
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count: 0
+            };
+        }
+        componentDidMount() {
+            this.refBtn.addEventListener("click", this.onClick);
+        }
+        componentWillUnmount() {
+            this.refBtn.removeEventListener("click", this.onClick);
+        }
+        onClick = () => {
+            console.log("before setState", this.state.count);
+            this.setState(state => ({ count: state.count + 1 }));
+            console.log("after setState", this.state.count);
+        };
+        render() {
+            return (
+                <div>
+                    <button onClick={this.onClick}>React Event</button>
+                    <button ref={ref => (this.refBtn = ref)}>Direct DOM event</button>
+                </div>
+            );
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("root")
+    )
+</script>
+</body>
+</html>

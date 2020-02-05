@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React - 错误边界</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.production.min.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.production.min.js"></script>
+<script type="text/babel">
+    class ErrorBoundary extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                error:null,
+                info:null
+            }
+        }
+/*        componentDidCatch(error,info){
+            this.setState({
+                error,
+                info
+            })
+        }*/
+        static getDerivedStateFromError(error){
+            return {error}
+        }
+        render(){
+            if(this.state.error){
+                return (
+                    <div>
+                        <h1>Something went wrong!</h1>
+                        <details>
+                            <p>{this.state.error && this.state.error.toString()}</p>
+                        </details>
+                    </div>
+                )
+            }
+            return this.props.children
+        }
+    }
+    class CounterButton extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                count:0
+            }
+        }
+        handleClick = () => {
+            this.setState(state => ({
+                count:state.count + 1
+            }))
+        }
+        render() {
+            if(this.state.count > 5){
+                throw new Error("count > 5");
+            }
+            return (
+                <button onClick={this.handleClick}>{this.state.count}</button>
+            )
+        }
+    }
+    const element = (
+        <div>
+            <p>This is an example of error boundaries in React 16.</p>
+            <ErrorBoundary>
+                <CounterButton/>
+            </ErrorBoundary>
+        </div>
+    )
+    ReactDOM.render(
+        element,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
