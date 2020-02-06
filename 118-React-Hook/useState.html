@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-Hook useState </title>
+</head>
+<body>
+<h3>使用 useState hook</h3>
+<div id="app"></div>
+<h3>使用 setState 实现</h3>
+<div id="root"></div>
+<div id="demo"></div>
+<h3>useState()的初始值 可以是多个类型的值 </h3>
+<div id="react"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    const useState = window.React.useState;
+    const useEffect = window.React.useEffect;
+    function Example(){
+        // 声明一个叫 'count' 的state变量。
+        const [count,setCount] = useState(0);
+        useEffect(() => {
+            document.title = `You Click ${count} times`;
+        })
+        return (
+            <div>
+                <p>You clicked {count} times</p>
+                <button
+                    onClick={() => setCount(count + 1)}
+                >Click me</button>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <Example/>,
+        document.getElementById("app")
+    )
+
+    class Counter extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {count : 0}
+        }
+        handleClick = () => {
+            this.setState(state => (
+                {count:state.count + 1}
+            ))
+            // document.title = `You Click ${this.state.count} times`;
+        }
+        render(){
+            return (
+                <div>
+                    <p>You clicked {this.state.count} times</p>
+                    <button onClick={this.handleClick}>Click me</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Counter/>,
+        document.getElementById("root")
+    )
+
+
+    function CounterButton(){
+        const [count,setCount] = useState(0);
+        function handleClick(){
+            setCount(count + 1);
+        }
+        return (
+            <div>
+                <p>You Click {count} times;</p>
+                <button onClick={handleClick}>Click</button>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <CounterButton/>,
+        document.getElementById("demo")
+    )
+
+
+    function ExampleWithManyStates(){
+        const [age,setAge] = useState(20);
+        const [fruit,setFruit] = useState("banana");
+        const [todos,setTodos] = useState({text:"learning react"});
+        return (
+            <div>
+                <p>修改age: {age}</p>
+                <button onClick={() => setAge(age + 1)}>setAge</button>
+                <p>修改fruit: {fruit}</p>
+                <button onClick={() => setFruit("apple")}>setFruit</button>
+                <p>修改todos:{todos.text}</p>
+                <button onClick={() => setTodos({text:"learning vue"})}>setTodos</button>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <ExampleWithManyStates/>,
+        document.getElementById("react")
+    )
+</script>
+</body>
+</html>

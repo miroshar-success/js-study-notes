@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React - 不使用React-Router</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    function About(){
+        return <div>About</div>
+    }
+    function Page(){
+        return <div>Page</div>
+    }
+    function Home(){
+        return <div>Home</div>
+    }
+
+    class App extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                route:window.location.hash.substring(1)
+            }
+        }
+        componentDidMount(){
+            window.addEventListener('hashchange',() => {
+                this.setState({
+                    route:window.location.hash.substring(1)
+                })
+            })
+        }
+        render(){
+            let Child,
+            hash = window.location.hash.substring(1);
+            switch(hash){
+                case "about": Child = About; break;
+                case "page" : Child = Page; break;
+                default : Child = Home;
+            }
+            return (
+                <div>
+                    <h2>App</h2>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#page">Page</a></li>
+                    </ul>
+                    <Child/>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
