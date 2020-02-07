@@ -1,4 +1,4 @@
-# React-Router
+# React-Router-Dom
     
     使用:
     npm install --save react-router-dom
@@ -64,11 +64,72 @@ function HomeButton() {
     message:
         type: String | Function
         The message to promot the user with when they try to navigate away.
-        
+```jsx harmony
+// 使用useLocation 判断提示当前要去的地址
+<Prompt
+  message={location =>
+    location.pathname.startsWith("/app")
+      ? true
+      : `Are you sure you want to go to ${location.pathname}?`
+  }
+/>
+
+// 或者直接使用字符串 提示信息
+<Prompt
+  when={formIsHalfFilledOut}
+  message="Are you sure you want to leave?"
+/>
+```
     when: 
         type: Boolean
-        
-        
+
+## Url Params
+
+```jsx harmony
+// demo
+// 函数组件可以使用 Hook useParams() 获取 动态路由的参数
+function Child(){
+    let {id} = useParams();
+    return (
+        <div>
+            <h3>account:{id}</h3>
+        </div>
+    )
+}
+
+// class组件可以在 this.props 里 获取 params 参数
+class Children extends React.Component {
+    render(){
+        let {match} = this.props;
+        let account = match.params.id;
+        return (
+            <div>
+                <h3>account : {account}</h3>
+            </div>
+        )
+    }
+}
+class ParamsExample extends React.Component {
+    render() {
+        return (
+            <Router>
+                <div>
+                    <h2>Accounts</h2>
+                    <ul>
+                        <li><Link to="/netflix">NetFlix</Link></li>
+                        <li><Link to="/zillow-group">Zillow Group</Link></li>
+                        <li><Link to="/yahoo">Yahoo</Link></li>
+                        <li><Link to="/modus-create">Modus Create</Link></li>
+                    </ul>
+                    <Switch>
+                        <Route path="/:id" component={Children} name={'kyrie'}/>
+                    </Switch>
+                </div>
+            </Router>
+        )
+    }
+}
+```       
     
     
     

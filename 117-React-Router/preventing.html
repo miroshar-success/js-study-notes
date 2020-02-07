@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preventing</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Route = window.ReactRouterDOM.Route;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useParams = window.ReactRouterDOM.useParams;
+    const useRouteMatch = window.ReactRouterDOM.useRouteMatch;
+    const useState = window.React.useState;
+    const Prompt = window.ReactRouterDOM.Prompt;
+    const useLocation = window.ReactRouterDOM.uselocation;
+    function One(){
+        return <h3>One</h3>
+    }
+    function Two(){
+        return <h3>Two</h3>
+    }
+    function Form(){
+        const location = useLocation;
+        let [isBlocking,setIsBlocking] = useState(false);
+        let [value,setValue] = useState("");
+        function handleSubmit(event){
+            console.log(value);
+            event.preventDefault();
+            event.target.reset();
+            setIsBlocking(false);
+        }
+        return(
+            <div>
+                <p>Blocking ? {" "}
+                    {isBlocking ? "Yes,click a link or the back button": "Nope"}
+                </p>
+                <form onSubmit={handleSubmit}>
+                    <Prompt
+                        when={isBlocking}
+                        message = {location => {
+                            if(location.pathname !== '/form'){
+                                return  `Are you sure you want to go to ${location.pathname}`
+                            }
+                        }}
+                    />
+                    <input
+                        style={{width:"300px"}}
+                        type="text"
+                        placeholder="type something to block transitions"
+                        onChange = { event => {
+                            setIsBlocking(event.target.value.length > 0)
+                            setValue(event.target.value);
+                        }}
+                    />
+                    <p>
+                        <input
+                            type="submit"
+                            value="Submit to stop blocking"
+                        />
+                    </p>
+                </form>
+            </div>
+        )
+    }
+    class PreventingTransitionsExample extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return (
+                <Router>
+                    <ul>
+                        <li><Link to="/form">Form</Link></li>
+                        <li><Link to="/one">One</Link></li>
+                        <li><Link to="/two">Two</Link></li>
+                    </ul>
+                    <Switch>
+                        <Route path="/form" component={Form}/>
+                        <Route path="/one" component={One}/>
+                        <Route path="/two" component={Two}/>
+                    </Switch>
+                </Router>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <PreventingTransitionsExample/>,
+        document.getElementById("app")
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

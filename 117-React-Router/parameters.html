@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Url Parameters</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Route = window.ReactRouterDOM.Route;
+    const useHistory = window.ReactRouterDOM.useHistory;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useLocation = window.ReactRouterDOM.useLocation;
+    const useParams = window.ReactRouterDOM.useParams;
+
+    function Child(){
+        let {id} = useParams();
+        return (
+            <div>
+                <h3>account:{id}</h3>
+            </div>
+        )
+    }
+    class Children extends React.Component {
+        render(){
+            let {match} = this.props;
+            let account = match.params.id;
+            console.log(match);
+            return (
+                <div>
+                    <h3>account : {account}</h3>
+                </div>
+            )
+        }
+    }
+    class ParamsExample extends React.Component {
+        render() {
+            return (
+                <Router>
+                    <div>
+                        <h2>Accounts</h2>
+                        <ul>
+                            <li><Link to="/netflix">NetFlix</Link></li>
+                            <li><Link to="/zillow-group">Zillow Group</Link></li>
+                            <li><Link to="/yahoo">Yahoo</Link></li>
+                            <li><Link to="/modus-create">Modus Create</Link></li>
+                        </ul>
+                        <Switch>
+                            <Route path="/:id" component={Children} name={'kyrie'}/>
+                        </Switch>
+                    </div>
+                </Router>
+            )
+        }
+    }
+    ReactDOM.render(
+        <ParamsExample/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-Router Nesting</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Route = window.ReactRouterDOM.Route;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useParams = window.ReactRouterDOM.useParams;
+    const useRouteMatch = window.ReactRouterDOM.useRouteMatch;
+
+    function Topic(){
+        const {topicId} = useParams();
+        return (
+            <div>
+                <h3>TopicId: {topicId}</h3>
+            </div>
+        )
+    }
+
+    class NestingExample extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return (
+                <Router>
+                    <div>
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/topics">Topics</Link></li>
+                        </ul>
+                        <Switch>
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/topics" component={Topics}/>
+                        </Switch>
+                    </div>
+                </Router>
+            )
+        }
+    }
+    function Home(){
+        return <div>Home</div>
+    }
+    function Topics(){
+        const {path,url} = useRouteMatch();
+        return (
+            <Router>
+                <ul>
+                    <li><Link to={`${url}/rendering`}>Rendering with React</Link></li>
+                    <li><Link to={`${url}/components`}>Components</Link></li>
+                    <li><Link to={`${url}/props-vs-state`}>Props v. State</Link></li>
+                </ul>
+                <Switch>
+                    <Route exact path={`${path}`}>
+                        <h3>Please select a topic.</h3>
+                    </Route>
+                    <Route path={`${path}/:topicId`} component={Topic}/>
+                </Switch>
+            </Router>
+        )
+    }
+    ReactDOM.render(
+        <NestingExample/>,
+        document.getElementById("app")
+    )
+
+</script>
+</body>
+</html>
