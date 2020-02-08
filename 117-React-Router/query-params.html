@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React - Router query params</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Route = window.ReactRouterDOM.Route;
+    const useHistory = window.ReactRouterDOM.useHistory;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useLocation = window.ReactRouterDOM.useLocation;
+    const useParams = window.ReactRouterDOM.useParams;
+    const NavLink = window.ReactRouterDOM.NavLink;
+
+    class Account extends React.Component {
+        render(){
+            console.log(this.props);
+            return (
+                <div>
+                    <h3>
+                        The <code>name</code> in the query string is {query}
+                    </h3>
+                </div>
+            )
+        }
+    }
+
+    class QueryExample extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return (
+                <Router>
+                    <div>
+                        <ul>
+                            <li><NavLink to="/account?name=netfix&age=26">Netfix</NavLink></li>
+                            <li><NavLink to="/account?name=zillow&age=27">Zillow Group</NavLink></li>
+                            <li><NavLink activeClassName="current" to="/account?name=yahoo&age=28">Yahoo</NavLink></li>
+                            <li>
+                                <Link
+                                    to="/account?name=modus&age=29"
+                                >
+                                    Modus Create
+                                </Link>
+                            </li>
+                        </ul>
+                        <hr/>
+                        <Switch>
+                            <Route
+                                path="/account"
+                                component={Child}
+                            />
+                        </Switch>
+                    </div>
+                </Router>
+            )
+        }
+    }
+    function Child(){
+        let {search} = useLocation();
+        let temp = search.substring(1).split("&");
+        let obj = {}
+        for(let value of Object.values(temp)){
+            let arr = value.split("=");
+            obj[arr[0]] = arr[1];
+        }
+        console.log(obj);
+        return (
+            <div>
+                Account的相关信息: name -- {obj['name']}, age -- {obj['age']}
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <QueryExample/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

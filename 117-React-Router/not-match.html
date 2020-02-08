@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Router -NotMatch</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Route = window.ReactRouterDOM.Route;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useParams = window.ReactRouterDOM.useParams;
+    const useRouteMatch = window.ReactRouterDOM.useRouteMatch;
+    const useLocation = window.ReactRouterDOM.useLocation;
+    function Home(){
+        return <h3>Home</h3>
+    }
+    function Matched(){
+        return <h3>Matched</h3>
+    }
+    function NotMatch(){
+        const location = useLocation();
+        const match = useRouteMatch();
+        console.log("match",match);
+        return <h3>NotMatched : {location.pathname}</h3>
+    }
+    class MatchedExample extends React.Component {
+        render(){
+            return (
+                <Router>
+                    <div>
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/old-match">Old Match,to be redirected</Link></li>
+                            <li><Link to="/will-match">Will Match</Link></li>
+                            <li><Link to="/will-not-match">Will Not Match</Link></li>
+                            <li><Link to="/also-will-not-match">Also Will Not Match</Link></li>
+                        </ul>
+                    </div>
+                    <hr/>
+                    <Switch>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/old-match" component={Matched}/>
+                        <Route path="/will-match" component={Matched}/>
+                        <Route path="/*" component={NotMatch}/>
+                    </Switch>
+                </Router>
+            )
+        }
+    }
+    ReactDOM.render(
+        <MatchedExample/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

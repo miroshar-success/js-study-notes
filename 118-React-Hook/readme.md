@@ -1,7 +1,8 @@
 
 # React Hook API
 
-    Hook 可以让你在不编写class的情况下使用state以及其他的React特性。
+    Hook 可以让你在不编写class的情况下"勾入"React的特性。例如 useState 是允许你在React函数组件中添加
+    state的Hook。
     
     Hook就是JavaScript函数,但是使用它们会有两个额外的规则:
     1. 只能在函数最外层调用Hook.不要在循环,条件判断或者子函数中调用。
@@ -11,7 +12,10 @@
 
     通过在函数组件里调用它来给组件添加一些内部state. useState会返回一对值:当前状态和一个让你更新它的函数。
     可以在事件处理函数中 或 其他一些地方调用这个函数。
-    
+    const [count,setCount] = useState(0);
+        1. 唯一的参数是初始state
+        2. 需要成对 获取count 和 setCount
+        
     tips:
     1. useState的唯一参数就是初始state，初始state只有在第一次渲染时会被用到。
     2. state不一定要是一个对象。
@@ -56,8 +60,10 @@ function Example() {
   );
 }
 ```
-
-
+    tips:
+    1. 由于副作用是在组件内声明的,所以它们可以访问到组件的props和state。默认情况下,React会在每次渲染后调用副作用
+    --- 包括第一次渲染的时候！
+    2. 可以在组件中多次使用useEffect.
 
 
 

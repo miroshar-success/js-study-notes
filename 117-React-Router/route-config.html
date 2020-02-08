@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Route-Config</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Route = window.ReactRouterDOM.Route;
+    const useHistory = window.ReactRouterDOM.useHistory;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useLocation = window.ReactRouterDOM.useLocation;
+    const useParams = window.ReactRouterDOM.useParams;
+    const routes = [
+        {
+            path:"/sandwiches",
+            component:Sandwiches,
+        },
+        {
+            path:"/tacos",
+            component:Tacos,
+            routes:[
+                {
+                    path:"/tacos/bus",
+                    component:Bus
+                },
+                {
+                    path:"/tacos/cart",
+                    component:Cart
+                }
+            ]
+        }
+    ]
+    function Sandwiches(){
+        return <h3>Sandwiches</h3>
+    }
+    function Bus(){
+        return <h3>Bus</h3>
+    }
+    function Cart(){
+        return <h3>Cart</h3>
+    }
+    function Tacos({routes}) {
+        console.log(routes);
+        return (
+            <Router>
+                <ul>
+                    <li><Link to="/tacos/bus">Bus</Link></li>
+                    <li><Link to="/tacos/cart">Cart</Link></li>
+                </ul>
+                <div>
+                    <h2>Tacos</h2>
+                    <Switch>
+                        {routes.map((route,index) => (
+                            <Route key={index} component={route.component} path={route.path}/>
+                        ))}
+                    </Switch>
+                </div>
+            </Router>
+        )
+    }
+    class RouteConfigExample extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return (
+                <Router>
+                    <div>
+                        <ul>
+                            <li><Link to="/sandwiches">Sandwiches</Link></li>
+                            <li><Link to="/tacos">Tacos</Link></li>
+                        </ul>
+                        <Switch>
+                            {routes.map((route,index) => (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    children={route.component}
+                                    {...route}
+                                />
+                            ))}
+                        </Switch>
+                    </div>
+                </Router>
+            )
+        }
+    }
+    ReactDOM.render(
+        <RouteConfigExample/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

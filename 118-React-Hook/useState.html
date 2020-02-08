@@ -44,9 +44,9 @@
             this.state = {count : 0}
         }
         handleClick = () => {
-            this.setState(state => (
-                {count:state.count + 1}
-            ))
+            this.setState({
+                count:this.state.count + 1
+            })
             // document.title = `You Click ${this.state.count} times`;
         }
         render(){

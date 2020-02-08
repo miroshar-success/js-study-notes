@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BrowserRouter</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+<script type="text/babel">
+    const Link = window.ReactRouterDOM.Link;
+    const Router = window.ReactRouterDOM.BrowserRouter;
+    const Route = window.ReactRouterDOM.Route;
+    const useHistory = window.ReactRouterDOM.useHistory;
+    const Switch = window.ReactRouterDOM.Switch;
+    const useLocation = window.ReactRouterDOM.useLocation;
+    const useParams = window.ReactRouterDOM.useParams;
+    const NavLink = window.ReactRouterDOM.NavLink;
+    const useRouteMatch = window.ReactRouterDOM.useRouteMatch;
+    function Home(){return <h3>Home</h3>}
+    function User(){return <h3>User</h3>}
+    function News(props){
+        const params = useParams();
+        const location = useLocation();
+        console.log(params,location);
+        return <h3>News</h3>
+    }
+    class App extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return (
+                <Router
+                    basename="/api"
+                    keyLength="8"
+                >
+                    <div>
+                        <ul>
+                            <li><Link to="/user">User</Link></li>
+                            <li><NavLink
+                                to="/home"
+                                activeClassName="current"
+                                activeStyle={{
+                                    fontSize:'20px',
+                                    color:"red"
+                                }}
+                            >Home</NavLink></li>
+                            <li><Link to={{
+                                pathname:'/news',
+                                search:"?page=1&",
+                                hash:'#the-hash',
+                                state:{price:100}
+                            }}>News</Link></li>
+                        </ul>
+                    </div>
+                    <hr/>
+                    <Switch>
+                        <Route path="/user" children={User}/>
+                        <Route path="/home" component={Home}/>
+                        <Route path="/news" render={News}/>
+                    </Switch>
+                </Router>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
