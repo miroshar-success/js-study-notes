@@ -12,10 +12,11 @@
 <script type="text/babel">
     const useEffect = window.React.useEffect;
     const useState = window.React.useState;
+
     function Example(){
         const [count,setCount] = useState(0);
         function handleClick(){
-            setCount(count + 1);
+            setCount(count+1)
         }
         useEffect(() => {
             document.title = `You clicked ${count} times`;
@@ -23,7 +24,7 @@
         return(
             <div>
                 <p>You clicked {count} times</p>
-                <button onClick={handleClick}>Click</button>
+                <button onClick={handleClick}>click</button>
             </div>
         )
     }

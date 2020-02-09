@@ -420,6 +420,24 @@ class FileInput extends React.Component {
   }
 }
 ```
+
+# Render Props  
+        
+    render props是指一种在React组件之中使用一个值为函数的prop共享代码的技术
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

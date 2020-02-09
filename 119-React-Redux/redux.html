@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-Redux</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="./node_modules/react-redux/dist/react-redux.js"></script>
+<script type="text/babel">
+    const Provider = window.ReactRedux.Provider;
+    const createStore = window.ReactRedux.createStoreHook;
+    const getState = createStore.getState;
+    const dispatch = createStore.dispatch;
+    const subscribe = createStore.subscribe;
+    function counter(state = 0,action){
+        switch(action.type){
+            case "INCREMENT":
+                return state + 1;
+            case "DECREMENT":
+                return state - 1;
+            default :
+                return state;
+        }
+    }
+
+    let store = createStore(counter);
+    class ReduxExample extends React.Component {
+        handleIncrement = () => {
+            store.dispatch({type:"INCREMENT"})
+            store.subscribe(() => {
+                console.log(srore.getState())
+            })
+        }
+        handleDecrement = () => {
+            store.dispatch({type:"DECREMENT"})
+        }
+        render(){
+            return (
+                <div>
+                    <button onClick={this.handleIncrement}>increment</button>
+                    <button onClick={this.handleDecrement}>decrement</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Provider>
+
+        </Provider>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
