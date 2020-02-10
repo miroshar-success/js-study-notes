@@ -9,50 +9,54 @@
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
 <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
-<script src="./node_modules/react-redux/dist/react-redux.js"></script>
+<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 <script type="text/babel">
-    const Provider = window.ReactRedux.Provider;
-    const createStore = window.ReactRedux.createStoreHook;
-    const getState = createStore.getState;
-    const dispatch = createStore.dispatch;
-    const subscribe = createStore.subscribe;
+    const {createStore} = Redux;
     function counter(state = 0,action){
+        if (typeof state === 'undefined') {
+            return 0
+        }
         switch(action.type){
             case "INCREMENT":
                 return state + 1;
             case "DECREMENT":
                 return state - 1;
             default :
-                return state;
+                return 0;
         }
+    }
+    const Counter = ({value,Increment,Decrement}) => {
+        return(
+            <div>
+                <h2>{value}</h2>
+                <button onClick={Increment}>+</button>
+                <button onClick={Decrement}>-</button>
+            </div>
+        )
     }
 
     let store = createStore(counter);
-    class ReduxExample extends React.Component {
-        handleIncrement = () => {
-            store.dispatch({type:"INCREMENT"})
-            store.subscribe(() => {
-                console.log(srore.getState())
-            })
-        }
-        handleDecrement = () => {
-            store.dispatch({type:"DECREMENT"})
-        }
-        render(){
-            return (
-                <div>
-                    <button onClick={this.handleIncrement}>increment</button>
-                    <button onClick={this.handleDecrement}>decrement</button>
-                </div>
-            )
-        }
+    const render = () => {
+        ReactDOM.render(
+            <Counter
+                value={store.getState()}
+                Increment={ () => {
+                    store.dispatch({type:"INCREMENT"})
+                }}
+                Decrement={ () => {
+                    store.dispatch({type:"DECREMENT"})
+                }}
+            />,
+            document.getElementById("app")
+        )
     }
-    ReactDOM.render(
-        <Provider>
+    render()
+    store.subscribe(render);
 
-        </Provider>,
-        document.getElementById("app")
-    )
+
+
+
+
 </script>
 </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,p{
+            padding: 0;
+            margin: 0;
+        }
+        .box1{
+            width:50px;
+            height:50px;
+            background-color:pink;
+            border:10px;
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+<button class="btn"></button>
+<script>
+    const oBtn = document.querySelector(".btn");
+    const oBox1 = document.querySelector(".box1");
+    oBtn.onclick = function(){
+        oBox1.style.borderColor = "black";
+    }
+
+    function Foo(){
+        let i = 0;
+        return function(){
+            console.log(i++);
+        }
+    }
+    var f1 = Foo(),
+        f2 = Foo();
+    f1();   // 0
+    f1();   // 1
+    f2();   // 0
+
+
+    function findOne(arr, item) {
+        if (Array.prototype.indexOf){
+            return arr.indexOf(item);
+        } else {
+            for (var i = 0; i < arr.length; i++){
+                if (arr[i] === item){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    let arr = [1,2,3,4]
+    let index = findOne(arr,3);
+    console.log(index);
+
+
+</script>
+</body>
+</html>
