@@ -179,7 +179,7 @@ console.log(returnedTarget);	// {a:1,b:4,c:5}
 console.log(target);			// {a: 1, b: 4, c: 5}
 ```
 	description:
-	1. 如果目标对象中的属性具有相同的键，则属性将被源对象中的属性覆盖。后面的愿对象的属性将类似地覆盖前面的源对象的属性，
+	1. 如果目标对象中的属性具有相同的键，则属性将被源对象中的属性覆盖。后面的对象的属性将类似地覆盖前面的源对象的属性，
 	2. Object.assign方法只会拷贝源对象自身的并且可枚举的属性到目标对象。
 ```js
 function Player(name,age){

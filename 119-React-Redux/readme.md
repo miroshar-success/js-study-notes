@@ -62,11 +62,56 @@ function addTodo(text){
     }  
 }
 ```
+    reducer是一个纯函数,接受旧的state和 action.返回新的state.永远不要在reducer里做这些操作:
+        1. 修改传入参数
+        2. 执行有副作用的操作,例如API请求和路由跳转
+        3. 调用非纯函数,如Date.now() 或 Math.random()
         
+# API
+
+*createStore(reducer,action)*
+
+        创建一个Redux store来以存放应用中所有的state。应用中有且仅有一个store。
+        1. reducer接受两个参数,分别是当前的state树和要处理的action。返回新的state树
         
+    返回值:
+        1. Store保存了应用所有的state的对象。改变state的唯一方法是dispatch action.也可以subscribe监听state的变化。
+```js
+const {createStore} from 'redux';
 
+function todos(state = [],action){
+    switch(action.type){
+        case "ADD_TODO":
+            return state.concat([action.text])
+        default:
+            return state;
+    }
+}
+let store = createStore(todos,['Use Redux'])
+store.dispatch({
+    type:"ADD_TODO",
+    text:"Read the docs"
+})
+// [ 'Use Redux', 'Read the docs' ]
+```
+    tips:
+    1. 应用中不要创建多个store!  使用combineReducers 来把多个reducer创建成一个根reducer
+    2. 如果 state 是普通对象，永远不要修改它！比如，reducer 里不要使用 Object.assign(state, newData)，
+    应该使用 Object.assign({}, state, newData)。这样才不会覆盖旧的 state。
+    如果可以的话，也可以使用 对象拓展操作符（object spread spread operator 特性中的 return { ...state, ...newData }。        
 
+*Store*
 
+    Store就是用来维持所有应用的state树的一个对象。改变store内的state的唯一途径就是对它dispatch一个action。
+    
+    Store的方法:
+        1. getState()
+            返回应用当前的state树。它与store的最后一个reducer返回值相同。
+        2. dispatch(action)
+            分发action.这给触发state变化的唯一途径。按照约定,action具有type字段来表示它的类型。
+        3. subscribe(listener)
+            添加一个变化监听器.每当dispatch action的时候就会执行,state树中的一部分可能已经变化。可以在回调函数里调用
+            getState()来拿到当前state.
 
 
 

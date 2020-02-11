@@ -9,7 +9,22 @@
 			const arr1 = [1,4,9,16]
 			console.log( arr1.map(x => Math.sqrt(x)) );
 			console.log(arr1);
-			
+
+			const todos = [
+				{text:"vue",completed:false},
+				{text:"react",completed:true},
+				{text:"redux",completed:false}
+			]
+
+			let newTodo = todos.map((todo,index) => {
+				if(todo.completed === false){
+					todo.completed = true;
+				}
+				return todo;
+			})
+			console.log(newTodo);
+
+
 			// 重新创建一个格式化后的数组
 			const kvArray = [
 				{key:1,value:10},
