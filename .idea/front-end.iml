@@ -21,5 +21,6 @@
     <orderEntry type="module" module-name="Cube-ui" />
     <orderEntry type="module" module-name="ui-component" />
     <orderEntry type="module" module-name="react-app" />
+    <orderEntry type="module" module-name="todolist" />
   </component>
 </module>

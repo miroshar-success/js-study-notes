@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/front-end.iml" filepath="$PROJECT_DIR$/.idea/front-end.iml" />
       <module fileurl="file://$PROJECT_DIR$/../js-animations and css-layout/.idea/js-animations and css-layout.iml" filepath="$PROJECT_DIR$/../js-animations and css-layout/.idea/js-animations and css-layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/../react-app/.idea/react-app.iml" filepath="$PROJECT_DIR$/../react-app/.idea/react-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../todolist/.idea/todolist.iml" filepath="$PROJECT_DIR$/../todolist/.idea/todolist.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ui-component/.idea/ui-component.iml" filepath="$PROJECT_DIR$/../ui-component/.idea/ui-component.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" filepath="$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" />
     </modules>

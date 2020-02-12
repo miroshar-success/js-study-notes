@@ -113,8 +113,70 @@ store.dispatch({
             添加一个变化监听器.每当dispatch action的时候就会执行,state树中的一部分可能已经变化。可以在回调函数里调用
             getState()来拿到当前state.
 
+*CombineReducers*
 
+    combineReducers 辅助函数可以把一个 由多个不同reducer函数作为value的object,合并成一个最终的reducer函数
+    然后就可以对这个reducer调用createStore方法。
+    
+    由combineReducers()返回的state对象。会将传入的每个reducer返回的state按其传递给combineReducers()时对应的key
+    进行命名。
+```js
+// todo.js
+export default function todos(state = [], action) {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return state.concat([action.text])
+    default:
+      return state
+  }
+}
 
+// counter.js
+export default function counter(state = 0, action) {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + 1
+    case 'DECREMENT':
+      return state - 1
+    default:
+      return state
+  }
+}
+
+// index.js
+import { combineReducers } from 'redux'
+import todos from './todos'
+import counter from './counter'
+
+export default combineReducers({
+  todos,
+  counter
+})
+
+// App.js
+import { createStore } from 'redux'
+import reducer from './reducers/index'
+
+let store = createStore(reducer)
+console.log(store.getState())
+// {
+//   counter: 0,
+//   todos: []
+// }
+
+store.dispatch({
+  type: 'ADD_TODO',
+  text: 'Use Redux'
+})
+console.log(store.getState())
+// {
+//   counter: 0,
+//   todos: [ 'Use Redux' ]
+// }
+```
+# 异步Action
+
+    
 
 
 

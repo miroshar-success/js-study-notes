@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>React-Redux todoList</title>
+    <style>
+        a{
+            text-decoration:none;
+        }
+    </style>
 </head>
 <body>
 <div id="app"></div>
@@ -33,7 +38,8 @@
             return state;
         }
     }
-    function visibilityFilter (state = "SHOW_ALL",action){
+
+    function setVisibilityFilter(state="SHOW_ALL",action){
         switch(action.type){
             case "SET_VISIBILITY_FILTER":
                 return action.filter
@@ -41,13 +47,41 @@
                 return state;
         }
     }
-
     const reducer = combineReducers({
         todos,
-        visibilityFilter
+        setVisibilityFilter
     })
-
     const store = createStore(reducer);
+
+    function FooterLink({children,filter,currentFilter}){
+        if(currentFilter === filter){
+            return (
+                <span>{children}</span>
+            )
+        }
+        return (
+            <a href="#"
+                onClick={(event) => {
+                    event.preventDefault();
+                    store.dispatch({
+                        type:"SET_VISIBILITY_FILTER",
+                        filter
+                    })
+                }}
+            >{children}</a>
+        )
+    }
+
+    function VisibleTodoList(todos,filter){
+        switch(filter){
+            case "SHOW_ALL":
+                return todos;
+            case "SHOW_ACTIVE":
+                return todos.filter((todo) => !todo.completed);
+            case "SHOW_COMPLETED":
+                return todos.filter((todo) => todo.completed);
+        }
+    }
     class App extends React.Component {
         constructor(props){
             super(props);
@@ -61,7 +95,22 @@
                 value:event.target.value
             })
         }
+        VisibleTodoList = (todos,filter) =>{
+            switch(filter){
+                case "SHOW_ALL":
+                    return todos;
+                case "SHOW_ACTIVE":
+                    return todos.filter((todo) => !todo.completed);
+                case "SHOW_COMPLETED":
+                    return todos.filter((todo) => todo.completed);
+            }
+        }
         render(){
+            const {todos,visibilityFilter} = this.props;
+            const getVisibleTodos = this.VisibleTodoList(
+                todos,
+                visibilityFilter
+            )
             return (
                 <div>
                     <h3>React-Redux  TodoList</h3>
@@ -69,22 +118,29 @@
                         type="text"
                         ref={this.inputRef}
                         onChange={this.handleInput}
+                        value={this.state.value}
                     />
                     {" "}
                     <input
                         type="button"
                         defaultValue="Add Todo"
                         onClick={() => {
+                            if(this.state.value === ""){
+                                window.alert("todo 不能为空");
+                                return;
+                            }
                             store.dispatch({
                                 type:"ADD_TODO",
                                 id:nextTodoId++,
                                 text:this.state.value
                             })
-                            this.state.value = "";
+                            this.setState({
+                                value:""
+                            })
                         }}
                     />
                     <ul>
-                        {this.props.todos.map((todo) =>
+                        {getVisibleTodos.map((todo) =>
                             <li
                                 key={todo.id}
                                 onClick={() => {
@@ -103,9 +159,18 @@
                     </ul>
                     <p>
                         <span>Show: </span>
-                        <a href="#">All </a>
-                        <a href="#">Active </a>
-                        <a href="#">Completed </a>
+                        <FooterLink
+                            filter="SHOW_ALL"
+                            currentFilter={visibilityFilter}
+                        >All </FooterLink>{" "}
+                        <FooterLink
+                            filter="SHOW_ACTIVE"
+                            currentFilter={visibilityFilter}
+                        >Active </FooterLink>{" "}
+                        <FooterLink
+                            filter="SHOW_COMPLETED"
+                            currentFilter={visibilityFilter}
+                        >Completed </FooterLink>{" "}
                     </p>
                 </div>
             )
@@ -115,6 +180,7 @@
         ReactDOM.render(
             <App
                 todos={store.getState().todos}
+                visibilityFilter={store.getState().setVisibilityFilter}
             />,
             document.getElementById("app")
         )
