@@ -174,9 +174,99 @@ console.log(store.getState())
 //   todos: [ 'Use Redux' ]
 // }
 ```
-# 异步Action
 
+## Provider
     
+    
+```jsx harmony
+const rootElement = document.getElementById('root')
+ReactDOM.render(
+  <Provider store={store}>
+    <TodoApp />
+  </Provider>,
+  rootElement
+)
+```    
+## connect
+    
+    React Redux provides a connect function for you to read values from the Redux store(and re-read the
+    values when the store updates)。
+    
+### arguments:
+
+    The connect function takes two arguments,both optional:
+        1. mapStateToProps: called every time the store state changes.It receives the entire state,and should
+        return an object of data this component needs.
+        2. mapDispatchToProps: this parameter can either be a function,or an object;
+            Note: we recommended using this 'object shorthand' form.
+            
+    As the first argument passed in to connect,mapStateToProps is used for selecting the part of the data from
+    the store that the connected component needs,it is frequently referred to as just mapState for short.
+        1. It is called every time the store state changes
+        2. It reveives the entire store state and should return an object of data this component needs.
+        
+        1. if you call connect without providing any arguments,your component will: 
+                1.1 not re-render when store changes
+                1.2 recive props.dispatch that you may use to manually dispatch action
+                
+        2. if you call connect with only mapStateToProps,your component will:
+                2.1 subscribe to the values that mapStateToProps extracts from the store,and re-render only 
+                when those values have changed.
+                2.2 receive props.dispatch that you may use to manually dispatch action
+                
+        3.  if you call connectwith only mapDispatchToProps,your component will:
+                3.1 not re-render when the store changes
+                3.2 receive each of the action creators you inject with mapDispatchToProps as props and automatically
+                dispatch the actions upon being called
+        
+        4.  if you call connect with both mapStateToProps and mapDispatchToProps,your component will:
+                4.1 subscribe to the values that mapStateToProps extracts from the store,and re-render only when
+                those values have changed.
+                4.2 receive all of the action creators you inject with mapDispatchToProps as props and automatically 
+                dispatch the actions upon being called
+
+### mapStateToProps
+
+    Usage:
+        function mapStateToProps(state,ownProps?)
+        
+        If you do not wish to subscribe to the store,pass null or undefined to connect in place of mapStateToProps.
+    
+    Tips:
+        1. Use Selector Functions to Extract and Transform Data.
+            We highly encourage the use of 'selector' functions to help encapsulate the process of extracting values
+            from specific locations in the state tree.
+        2. mapStateToProps Funcitions Should Be Pure and Synchronous
+    
+    
+    mapStateToProps and Performance
+        React Redux internally implements the shouldComponentUpdate method such that the wrapper component
+        re-renders precisely when the data your component needs has changed. By default, React Redux decides
+        whether the contents of the object returned from mapStateToProps are deifferent using === comparison
+        on each fields of the returned object.If any of the fields have changed,then your component will be
+        re-rendered so it can receive the updated values as props.
+    
+```jsx harmony
+const mapStateToProps = (state) => (
+{   })
+
+const mapDispatchToProps = {}
+// connect returna s new function that accepts the component to wrap;
+connect(mapStateToProps,mapDispatchToProps)();
+
+
+import { connect } from 'react-redux'
+import { addTodo } from '../redux/actions'
+
+class AddTodo extends React.Component {
+  // ... component implementation
+}
+
+export default connect(
+  null, // 第一个参数 mapStateToProps 如果不用可以传递为null
+  { addTodo }
+)(AddTodo)
+``` 
 
 
 
