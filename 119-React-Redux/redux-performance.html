@@ -58,15 +58,22 @@
     class Counter extends React.Component{
         handleIncrement = () => {
             this.props.increment();
+/*            this.props.dispatch({
+                type:INCREMENT
+            })*/
         }
         handleDecrement = () => {
             this.props.decrement();
+/*            this.props.dispatch({
+                type:DECREMENT
+            })*/
         }
         render(){
+            console.log("counter更新了");
             console.log(this.props);
             return(
                 <div>
-                    <p>Clicked  { }times</p>
+                    <p>Clicked  <em style={{color:"red",fontSize:"18px"}}>{ this.props.counter }</em> times</p>
                     <input
                         type="button"
                         defaultValue="Increment"
@@ -82,56 +89,88 @@
         }
     }
     const mapStateToProps = state => {
-        return {counter:state}
+        return {counter:state.counter}
     }
-    const mapDispatchToProps = {increment,decrement};
+    // const mapDispatchToProps = {increment,decrement};
+    const mapDispatchToProps = (dispatch) => {
+        return {
+            increment:() => dispatch({type:INCREMENT}),
+            decrement:() => dispatch({type:DECREMENT})
+        }
+    }
+
 
     Counter = connect(mapStateToProps,mapDispatchToProps)(Counter);
 
     class AddTodo extends React.Component{
         constructor(props){
             super(props);
-            this.state = {value:""}
+            this.inputRef = React.createRef();
         }
         handleAdd = () => {
-            this.props.add(this.state.value);
-        }
-        handleInput = event => {
-            this.setState({
-                value:event.target.value
-            })
+            if(!this.inputRef.current.value.trim()){
+                window.alert("不能为空");
+                return;
+            }
+            this.props.add(this.inputRef.current.value);
+            this.inputRef.current.value = "";
         }
         render(){
             console.log(this.props);
             return (
                 <div>
-                    <input type="text" value={this.state.value} onChange={this.handleInput}/>
+                    <input
+                        type="text"
+                        ref={this.inputRef}
+                    />
                     <input type="button" defaultValue="Add Todo" onClick={this.handleAdd}/>
+                    <ol>
+                        {this.props.todos && this.props.todos.length ?
+                            this.props.todos.map((todo,index) =>
+                                <li key={index}>{todo.text}</li>
+                            )
+                            : "no todos yah!"
+                        }
+                    </ol>
                 </div>
             )
         }
     }
     const mapState = state => {
-        return {todos:state}
+        return {todos:state.addTodo}
     }
-    const mapDispatch = {add}
+    // const mapDispatch = {add}
+
+    const mapDispatch = (dispatch) => {
+        return {
+            add:(text) => dispatch({type:ADD_TODO,text})
+        }
+    }
+
+
     AddTodo = connect(mapState,mapDispatch)(AddTodo);
 
-
-/*    function App(){
-        return(
+    function App(){
+        return (
             <div>
                 <Counter/>
                 <AddTodo/>
             </div>
         )
-    }*/
-    let reducer = combineReducers(counter,addTodo);
-    const store = createStore(reducer);
+    }
 
+    let reducer = combineReducers({
+        counter,
+        addTodo
+    });
+
+    const store = createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
     ReactDOM.render(
         <Provider store={store}>
-            <Counter/>
+            <App/>
         </Provider>,
         document.getElementById("root")
     )

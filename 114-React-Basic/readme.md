@@ -2,7 +2,7 @@
 # 1. jsx语法
 
     可以在jsx大括号内放置任何有效的JavaScript表达式。
-```js
+```jsx harmony
 function formatName(user) {
   return user.firstName + ' ' + user.lastName;
 }
@@ -28,7 +28,7 @@ ReactDOM.render(
     
     2. 如果一个标签里没有内容,可以使用/>来闭合标签
     3. jsx标签里可以包含很多元素
-```js
+```jsx harmony
 const element = (
   <div>
     <h1>Hello!</h1>
@@ -50,7 +50,7 @@ const element = (
 ## 1.2. jsx表示对象
 
     babel会把jsx转译成一个名为React.createElement()函数调用。
-```js
+```jsx harmony
 const element = (
     <h1 className='greeting'>
         Hello,world!
@@ -64,7 +64,7 @@ const element = React.createElement(
 );
 ```
     以上两种代码完全等效！ React.createElement()会预先执行一些检查,以帮助编写无错误代码,但实际上创建了一个这样的对象:
-```js
+```jsx harmony
 const element = {
     type:'h1',
     props:{
@@ -79,7 +79,7 @@ const element = {
 
     React元素是创建开销极小的普通对象。React DOM 会负责更新DOM来与React元素保持一致。
     想要将一个 React 元素渲染到根 DOM 节点中，只需把它们一起传入 ReactDOM.render()
-```js
+```jsx harmony
 const element = <h1>Hello,World!</h1>;
 ReactDOM.render(element,document.getElementById('root'));
 ```
@@ -89,7 +89,7 @@ ReactDOM.render(element,document.getElementById('root'));
     React元素是不可变对象。一旦被创建就无法更改它的自元素或者属性。更新ui唯一的方式就是创建一个全新的元素,并
     将其传入ReactDOM.render()。
     
-```js
+```jsx harmony
 function tick() {
   const element = (
     <div>
@@ -106,7 +106,7 @@ setInterval(tick, 1000);
 # 3. 组件 & props
 
     函数组件
-```js
+```jsx harmony
 function Welcome(props){
     console.log(props); // {name:'sara'}
     return <h1>Hello,{props.name}</h1>
@@ -124,7 +124,7 @@ ReactDOM.render(
 ## 3.1. 组合组件
 
     可以创建一个可以多次渲染Welcome组件的App组件：
-```js
+```jsx harmony
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
@@ -148,7 +148,7 @@ ReactDOM.render(
 ## 3.2. props的只读性
 
     所有React组件都必须像纯函数一样保护它们的props不被更改。
-```js
+```jsx harmony
 function formatDate(date) {
   return date.toLocaleDateString();
 }
@@ -197,7 +197,7 @@ ReactDOM.render(
     state与props类似，但是state是私有的，并且完全受控于当前组件。
     
     class组件
-```js
+```jsx harmony
 class Clock extends React.Component{
     construtor(props){
         super(props)
@@ -250,7 +250,7 @@ class Clock extends React.Component{
 
 # 5. 列表 && key
 
-```js
+```jsx harmony
 function ListItem(props) {
   // 正确！这里不需要指定 key：
   return <li>{props.value}</li>;
@@ -288,7 +288,7 @@ ReactDOM.render(
     
     我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作
     被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。    
-```jsx 
+```jsx harmony
 class NameForm extends React.Component {
   constructor(props) {
     super(props);

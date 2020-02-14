@@ -177,7 +177,6 @@ console.log(store.getState())
 
 ## Provider
     
-    
 ```jsx harmony
 const rootElement = document.getElementById('root')
 ReactDOM.render(
@@ -192,7 +191,29 @@ ReactDOM.render(
     React Redux provides a connect function for you to read values from the Redux store(and re-read the
     values when the store updates)。
     
-### arguments:
+```jsx harmony
+const mapStateToProps = (state) => (
+{   })
+
+const mapDispatchToProps = {}
+// connect returna s new function that accepts the component to wrap;
+connect(mapStateToProps,mapDispatchToProps)();
+
+
+import { connect } from 'react-redux'
+import { addTodo } from '../redux/actions'
+
+class AddTodo extends React.Component {
+  // ... component implementation
+}
+
+export default connect(
+  null, // 第一个参数 mapStateToProps 如果不用可以传递为null
+  { addTodo }
+)(AddTodo)
+``` 
+
+### connect arguments:
 
     The connect function takes two arguments,both optional:
         1. mapStateToProps: called every time the store state changes.It receives the entire state,and should
@@ -239,46 +260,126 @@ ReactDOM.render(
         2. mapStateToProps Funcitions Should Be Pure and Synchronous
     
     
-    mapStateToProps and Performance
+*mapStateToProps and Performance*
+
         React Redux internally implements the shouldComponentUpdate method such that the wrapper component
         re-renders precisely when the data your component needs has changed. By default, React Redux decides
         whether the contents of the object returned from mapStateToProps are deifferent using === comparison
         on each fields of the returned object.If any of the fields have changed,then your component will be
         re-rendered so it can receive the updated values as props.
     
-```jsx harmony
-const mapStateToProps = (state) => (
-{   })
+    
+*The Number of Declared Arguments Affects behavior*
 
-const mapDispatchToProps = {}
-// connect returna s new function that accepts the component to wrap;
-connect(mapStateToProps,mapDispatchToProps)();
-
-
-import { connect } from 'react-redux'
-import { addTodo } from '../redux/actions'
-
-class AddTodo extends React.Component {
-  // ... component implementation
+        With just(state),the function runs whenever the root store state object is different. With(state,ownProps)
+        ,it rns any time the store state is different and ALSO whenever the wrapper props have changed.
+        Tisp:
+        1. You should not add the ownProps argument unless you actually need to use it.
+```js
+function mapStateToProps(state){
+    console.log(state); // state
+    console.log(arguments[1]);  // undefined
 }
 
-export default connect(
-  null, // 第一个参数 mapStateToProps 如果不用可以传递为null
-  { addTodo }
-)(AddTodo)
-``` 
+function mapStateToProps (state, ownProps={}){
+    console.log(state); // state;
+    console.log(ownProps);  // undefined
+}
+```
+    It will receive ownProps when the formal definition of the function contains zero or two mandatory parameters;
+```js
+function mapStateToProps(state,ownProps){
+    console.log(state); // state;
+    console.log(ownProps);  // ownProps;
+}
+
+function mapStateToProps(){
+    console.log(arguments[0]);  // state
+    console.log(arguments[1]);  // ownProps
+}
+
+function mapStateToProps(...args) {
+  console.log(args[0]) // state
+  console.log(args[1]) // ownProps
+}
+```    
+*Only Perform Expensive Operations When Data Changes*
+
+    Transforming data can often be expensive(and ususlly results in new object references being created).
+    In order for your mapStateToProps function to be as fast as possible,you should only re-run these complex
+    transformations when the relevant data has changed.
+    
+    These are a few ways to approach this:
+        1. Some transformations could be calculated in an action creator or reducer,and the transformed data could be
+        keep in the store
+        2. Transformations can also be done in a components's render() method.
+
+### mapDispatchToProps
+
+    As the second argument passed in to connect,mapDispatchToProps is used from dispatching actions to the store.
+    
+    React Redux gives you two ways to let components dispatch actions:
+        1. By default,a connected component receives props.dispatch and can dispatch actions itself.
+        2. connect can accept an argument called mapDispatchToProps,which lets you create functions that
+        dispatch when called, and pass those functions as props to your component.
+
+ *Approaches for Dispatching*   
+
+    Default:dispatch as a Prop
+        if you do not specify the second arguments to connect(),your component will receive dispatch by default.
+        For example:
+```js
+connect(null,null)(MyComponent)
+
+connect(mapStateToProps)(MyComponent)
+```
+    Once you have connected your component in this way,your component receives props.dispatch.You may use it to
+    dispatch actions to the store
+```jsx harmony
+function Counter({count,dispatch}){
+    return(
+        <div>
+              <button onClick={() => dispatch({ type: 'DECREMENT' })}>-</button>
+              <span>{count}</span>
+              <button onClick={() => dispatch({ type: 'INCREMENT' })}>+</button>
+              <button onClick={() => dispatch({ type: 'RESET' })}>reset</button>
+        </div>
+    )
+}
+```
+*Two Forms of mapDispatchToProps*
+
+    The mapDispatchToProps parameter can be of two forms.While the function form allows more customization
+    the object form is easy to use.
+    1. Function form: Allows more customization,gains access to dispatch and optionally ownProps.
+    2. Object shorthand form: More declarative and easier to use.
+```jsx harmony
+// Function Form
+const increment = () => ({ type: 'INCREMENT' })
+const decrement = () => ({ type: 'DECREMENT' })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching actions returned by action creators
+    increment: () => dispatch(increment()),
+    decrement: () => dispatch(decrement()),
+  }
+}
 
 
+// Object Form
+const mapStateToProps = {increment,decrement}
+```
+    We recommend always using the 'object shorthand' form of mapDispatchToPros,unless you have a specific
+    reason to customize the dispatching behavior.
+    
+    dispatch is injected to your component only when:
+        1. You do not provide mapDispatchToProps.
+        2. Your customized mapDispatchToProps function return specifically contains dispatch.
 
-
-
-
-
-
-
-
-
-
+    Note:
+        You can skip the first the parameter by passing undefined or null.Your component will not subscribe to
+        the store, and will still receive the dispatch props defined by mapDispatchToProps.
 
 
 
