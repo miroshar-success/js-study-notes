@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>异步action</title>
+    <style>
+        body,ul,ol,p{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .banner-wrapper{
+            margin:10px auto;
+            position:relative;
+            width:400px;
+            height:150px;
+            overflow:hidden;
+            border-radius:5px;
+        }
+        .banner-list{
+            width:3600px;
+            height:100%;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        .banner-list .banner-item{
+            float:left;
+            width:400px;
+            height:150px;
+        }
+        .title{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<div id="app"></div>
+<div id="banner"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.1.3/react-redux.js"></script>
+<script src="https://unpkg.com/redux-thunk@2.3.0/dist/redux-thunk.min.js"></script>
+<script type="text/babel">
+    class App extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                banners:[]
+            }
+        }
+        componentDidMount(){
+            fetch("http://jayk23.com/api/music/banner?type=0")
+            .then(response => response.json())
+            .then(result => {
+                console.log(result.banners);
+                let banners = result.banners;
+                setTimeout(() => {
+                    this.setState({banners})
+                },1500)
+            })
+        }
+        render(){
+            const banners = this.state.banners;
+            return (
+                <div>
+                    <h3 className="title">组件内获取的banner数据</h3>
+                    <div className="banner-wrapper">
+                        <ul className="banner-list">
+                            {banners && banners.length > 0
+                                ? banners.map((banner,index) =>
+                                    <li key={index} className="banner-item">
+                                        <img
+                                            src={banner.imageUrl} alt={banner.typeTitle}
+                                            style={{width:"100%"}}
+                                        />
+                                    </li>)
+                                : <p style={
+                                    {
+                                        width:"400px",
+                                        textAlign:"center",
+                                        lineHeight:"150px",
+                                        color:"red"
+                                    }
+                                }>Loading...</p>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("root")
+    )
+
+    const {Provider,connect} = ReactRedux;
+    const {createStore,applyMiddleware} = Redux;
+    const ReduxThunk = window.ReduxThunk.default;
+
+
+    class Counter extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        handleClick = () => {
+            this.props.increment();
+        }
+        render(){
+            return (
+                <div className="counter">
+                    <p>1500ms 后更新: Clicked {this.props.counter} times</p>
+                    <button onClick={this.handleClick}>Click</button>
+                </div>
+            )
+        }
+    }
+    function reducer(state= 0,action){
+        switch(action.type){
+            case "INCREMENT":
+                return state+1;
+            default:
+                return 0;
+        }
+    }
+    function increment(){
+        return {
+            type:"INCREMENT"
+        }
+    }
+
+    function incrementAsync(){
+        return dispatch => {
+            setTimeout(() => {
+                return dispatch(increment())
+            },1500);
+        }
+    }
+
+    const mapStateToProps = (state) => ({counter:state})
+    const mapDispatchToProps = {increment:incrementAsync}
+
+    Counter = connect(mapStateToProps,mapDispatchToProps)(Counter);
+
+    const store = createStore(reducer,applyMiddleware(ReduxThunk));
+    ReactDOM.render(
+        <Provider store={store}>
+            <Counter/>
+        </Provider>,
+        document.getElementById("app")
+    )
+
+
+    class Banner extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return (
+                <div className="banner-wrapper">
+                    <h3 className="title">使用redux-thunk中间件 异步获取banner</h3>
+                    <ul className="banner-list">
+                    </ul>
+                </div>
+            )
+        }
+    }
+
+
+
+    ReactDOM.render(
+        <Provider>
+            <Banner/>
+        </Provider>,
+        document.getElementById("banner")
+    )
+
+
+
+</script>
+</body>
+</html>

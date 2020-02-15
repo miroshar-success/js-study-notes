@@ -177,16 +177,56 @@ console.log(store.getState())
 
 ## Provider
     
+    Overview:
+        The <Provider> makes the Redux store available to any nested components that have been wrapped
+        in the connect() function.
+        
+    Normally, you can't use a connected component unless it is nested inside of a <Provider>.
+    
+### Props
+
+    1. store:The single Redux store in your application
+    2. children: The root of your component hierarchy
+    3. context: You may provide a context instance.
+
+*Example*
 ```jsx harmony
-const rootElement = document.getElementById('root')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux';
+const store = createStore(reducer);
+
+ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById("root"));  
+```
+*Using with React Router*
+```jsx harmony
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import {Router,Route} from 'react-router-dom'
+
+const store = createStore();
 ReactDOM.render(
-  <Provider store={store}>
-    <TodoApp />
-  </Provider>,
-  rootElement
+    <Provider store={store}>
+        <Router>
+            <Route exact path="/" children={App}/>
+        </Router>
+    </Provider>,
+    document.getElementById("root")
 )
-```    
+```
+
 ## connect
+    
+    Overview:
+        The connect() function connects a React component to a Redux store.
+        
+        The mapStateToProps and mapDispatchToProps deals with your Redux store's state and dispatch,
+        respectively, state and dispatch will be supplied to your mapStateToProps or mapDispatchToProps
+        functions as the first argument.
+    
     
     React Redux provides a connect function for you to read values from the Redux store(and re-read the
     values when the store updates)。
@@ -212,6 +252,68 @@ export default connect(
   { addTodo }
 )(AddTodo)
 ``` 
+### Example Usage
+
+    1. Inject just dispatch and don't listen to store
+```js
+export default connect()(TodoApp)
+```
+    2. Inject all action creatros(addTodo,completeTodo...) without subscribing to the store
+```js
+import * as actionCreators form './actionCreators'
+export default connect(
+    null,
+    actionCreators
+)(TodoApp)
+```
+
+    3. Inject dispatch and every field in the global state
+        NoteL Don't do this!It kills any performance optimizations because TodoApp wikk re-render after every
+        state change. It's better to have more granular connect() on several components in your view hierarchy
+        that each only listen to a relevant slice of the state.
+```js
+// don't do this!
+export default connect(state => state)(TodoApp)
+```
+
+    4. Inject dispatch and todos
+```js
+function mapStateToProps(state){
+    return {todos:state.todos}
+}
+export default connect(mapStateToProps)(TodoApp)
+```
+    5. Inject todos and all action creators
+```jsx harmony
+import * as actionCreators from './actionCreators'
+
+function mapStateToProps(state) {
+  return { todos: state.todos }
+}
+
+export default connect(
+  mapStateToProps,
+  actionCreators
+)(TodoApp)
+```
+    6. Inject todos and specific action creators (addTodo and deleteTodo) with shorthand syntax;
+```jsx harmony
+import { addTodo, deleteTodo } from './actionCreators'
+
+function mapStateToProps(state) {
+  return { todos: state.todos }
+}
+
+const mapDispatchToProps = {
+  addTodo,
+  deleteTodo
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
+```
 
 ### connect arguments:
 
@@ -247,12 +349,25 @@ export default connect(
                 dispatch the actions upon being called
 
 ### mapStateToProps
-
+    
     Usage:
         function mapStateToProps(state,ownProps?)
         
-        If you do not wish to subscribe to the store,pass null or undefined to connect in place of mapStateToProps.
-    
+    If you do not wish to subscribe to the store,pass null or undefined to connect in place of mapStateToProps.
+    1. If your mapStateToProps function is declared as taking one parameter,it will be called whenever the store state
+    changes,and given the store state as the only parameter.
+```js
+const mapStateToProps = state => ({todos:state.todos})
+```
+    2. If your mapStateToProps function is declared as taking two parameters, it will be called whenever the store
+    state changes or when the wrapper component receives new props(based on shallow equality comparisons).It will be
+    given the store state as the first parameter,and the wrapper component's props as the second parameter.
+```js
+const mapStateToProps = (state,ownProps) => ({
+    todos:state.todos[ownProps.id]
+})
+```
+        
     Tips:
         1. Use Selector Functions to Extract and Transform Data.
             We highly encourage the use of 'selector' functions to help encapsulate the process of extracting values
@@ -382,17 +497,38 @@ const mapStateToProps = {increment,decrement}
         the store, and will still receive the dispatch props defined by mapDispatchToProps.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 异步action创建函数
     
+    使用Redux Thunk中间件。 这个函数并不需要保持纯净,它还可以带有副作用，包括执行异步API请求。
+    
+    Install:
+        npm install redux-thunk --save
+    
+```jsx harmony
+import {createStore,applyMiddleware} from 'reduux';
+import thunk from 'redux-thunk';
+function increment() {
+  return {
+    type: INCREMENT_COUNTER,
+  };
+}
+
+function incrementAsync() {
+  return (dispatch) => {
+    setTimeout(() => {
+      // Yay! Can invoke sync or async actions with `dispatch`
+      dispatch(increment());
+    }, 1000);
+  };
+}
+const store = createStore(reducer,applyMiddleware(thunk))
+
+
+
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers/index';
+
+// Note: this API requires redux@>=3.1.0
+const store = createStore(rootReducer, applyMiddleware(thunk));
+```
