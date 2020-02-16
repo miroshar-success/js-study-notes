@@ -11,6 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "babel-standalone": "^6.26.0",
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.8",
+    "koa-static": "^5.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

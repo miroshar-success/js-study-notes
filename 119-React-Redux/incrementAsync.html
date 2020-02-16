@@ -39,7 +39,6 @@
 <body>
 <div id="root"></div>
 <div id="app"></div>
-<div id="banner"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
 <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
@@ -155,34 +154,6 @@
         </Provider>,
         document.getElementById("app")
     )
-
-
-    class Banner extends React.Component {
-        constructor(props){
-            super(props);
-        }
-        render(){
-            return (
-                <div className="banner-wrapper">
-                    <h3 className="title">使用redux-thunk中间件 异步获取banner</h3>
-                    <ul className="banner-list">
-                    </ul>
-                </div>
-            )
-        }
-    }
-
-
-
-    ReactDOM.render(
-        <Provider>
-            <Banner/>
-        </Provider>,
-        document.getElementById("banner")
-    )
-
-
-
 </script>
 </body>
 </html>

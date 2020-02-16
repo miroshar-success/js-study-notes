@@ -497,7 +497,10 @@ const mapStateToProps = {increment,decrement}
         the store, and will still receive the dispatch props defined by mapDispatchToProps.
 
 
-## 异步action创建函数
+## 同步Action创建函数
+    
+    默认情况下,createStore() 所创建的 Redux store没有使用 middleware,所以只支持同步数据流。可以使用applyMiddleware()
+    来增强createStore()。
     
     使用Redux Thunk中间件。 这个函数并不需要保持纯净,它还可以带有副作用，包括执行异步API请求。
     
@@ -532,3 +535,47 @@ import rootReducer from './reducers/index';
 // Note: this API requires redux@>=3.1.0
 const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
+    // 同步Action 与异步网络请求结合的例子
+```jsx harmony
+const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
+function selectSubreddit(subreddit) {
+  return {
+    type: SELECT_SUBREDDIT,
+    subreddit
+  }
+}
+
+function selectedsubreddit(state='react.js',action){
+    switch(action.type){
+        case SELECT_SUBREDDIT:
+            return action.subreddit;
+        default:
+            return state;
+    }   
+}
+const reducer = createStore(selectedsubreddit)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

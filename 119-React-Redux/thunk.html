@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redux-Thunk</title>
+    <style>
+        body,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style:none;
+        }
+        .banner-wrapper{
+            position:relative;
+            margin:10px auto 0;
+            width:400px;
+            height:160px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+        .banner-list{
+            position:absolute;
+            left:0;
+            top:0;
+            width:3600px;
+        }
+        .banner-item{
+            float:left;
+            width:400px;
+            height:160px;
+        }
+        .banner-item img{
+            width:100%;
+            height:100%;
+            display:block;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.1.3/react-redux.js"></script>
+<script src="https://unpkg.com/redux-thunk@2.3.0/dist/redux-thunk.min.js"></script>
+<script type="text/babel">
+    const {Provider,connect} = ReactRedux;
+    const {createStore,applyMiddleware} = Redux;
+    const ReduxThunk = window.ReduxThunk.default;
+    class Banner extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        componentDidMount(){
+            this.props.getBanner();
+        }
+        render(){
+            const {banners} = this.props;
+            return (
+                <div>
+                    <h3 style={{textAlign:"center"}} className="title">使用redux-thunk中间件异步请求数据</h3>
+                    <div className="banner-wrapper">
+                        <ul className="banner-list">{
+                            banners && banners.length > 0
+                                ? banners.map((banner,index) =>
+                                    <li
+                                        key={index}
+                                        className="banner-item"
+                                    ><img src={banner.imageUrl} alt={banner.typeTitle}/></li>
+                                )
+                                :"Loading ......"
+                        }</ul>
+                    </div>
+                </div>
+            )
+        }
+    }
+    const mapStateToProps = state => ({banners:state.banners})
+    Banner = connect(mapStateToProps,{getBanner})(Banner);
+
+    function reducer(state=[],action){
+        switch(action.type){
+            case "GET_BANNER":
+                return {banners:action.data}
+            default:
+                return state;
+        }
+    }
+
+    function getBanner(){
+        return dispatch => {
+            setTimeout(() => {
+                return fetch("http://jayk23.com/api/music/banner?type=0")
+                    .then(response => response.json())
+                    .then(result => {
+                        const data = result.banners;
+                        dispatch({
+                            type:"GET_BANNER",
+                            data
+                        })
+                    })
+            },2000)
+        }
+    }
+
+
+    const store = createStore(
+        reducer,
+        applyMiddleware(ReduxThunk)
+    )
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <Banner/>
+        </Provider>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
