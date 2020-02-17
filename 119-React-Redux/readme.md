@@ -503,6 +503,7 @@ const mapStateToProps = {increment,decrement}
     来增强createStore()。
     
     使用Redux Thunk中间件。 这个函数并不需要保持纯净,它还可以带有副作用，包括执行异步API请求。
+        tips: 当middleware链中的最后一个middleware开始dispatch action时，这个action必须是一个普通对象。
     
     Install:
         npm install redux-thunk --save
@@ -535,8 +536,9 @@ import rootReducer from './reducers/index';
 // Note: this API requires redux@>=3.1.0
 const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
-    // 同步Action 与异步网络请求结合的例子
+    // 同步Action 与异步网络请求结合的例子,标准的做法是使用Redux Thunk中间件。
 ```jsx harmony
+// 同步Action创建函数(Action Creator)
 const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
 function selectSubreddit(subreddit) {
   return {
@@ -545,6 +547,7 @@ function selectSubreddit(subreddit) {
   }
 }
 
+// reducers.js
 function selectedsubreddit(state='react.js',action){
     switch(action.type){
         case SELECT_SUBREDDIT:
@@ -555,6 +558,7 @@ function selectedsubreddit(state='react.js',action){
 }
 const reducer = createStore(selectedsubreddit)
 ```
+![redux-thunk-demo](https://blog.csdn.net/weixin_33768153/article/details/93861465)
 
 
 
