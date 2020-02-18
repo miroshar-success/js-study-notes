@@ -338,7 +338,7 @@ class SwiperClass {
         });
       }
 
-      // Module create callback
+      // ES6Module create callback
       if (module.create) {
         module.create.bind(instance)(moduleParams);
       }

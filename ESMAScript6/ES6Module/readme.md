@@ -161,13 +161,34 @@ console.log(letter.A);  // A
 console.log(letter.B);  // B
 console.log(letter.C);  // C
 ```
+# Module的加载实现
+
+    默认情况下,浏览器是同步加载JavaScript脚本，即渲染引擎遇到script标签就会停下来，等到执行完脚本再继续向下渲染。
+    如果是外部脚本,还必须加入脚本下载的时间。
     
     
+    异步加载脚本的语法:
+        <script src="" defer></script>
+        <script src="" async></script>
+    <script>标签打开defer和async属性,脚本就会异步加载。渲染引擎遇到这一命令，就会开始下载外部脚本但是不会等它下载和执行，
+    而是直接执行后面的命令
+    
+    defer和async区别:
+        1. defer要等到整个页面在内存中正常渲染结束(DOM结构完全生产)才会执行。
+        2. async一旦下载完,渲染引擎就会中断渲染,执行整个脚本以后再继续渲染。
+    defer是渲染完再执行,async是下载完就执行。多个async脚本是不能保证加载顺序的！
+    
+## 加载规则
+
+    浏览器加载ES6模块，也使用<script>标签，但是要加入type='module'属性！
+    
+    浏览器对于带有type="module"的<script>，都是异步加载，不会造成堵塞浏览器，即等到整个页面渲染完，
+    再执行模块脚本，等同于打开了<script>标签的defer属性。    
     
     
-    
-    
-    
+    ES6模块与CommonJS模块的区别:
+        1. CommonJS模块输出的是一个值的拷贝,ES6模块输出的是值的引用。
+        2. CommonJS模块是运行时加载,ES6模块是编译时输出接口。
     
     
     
