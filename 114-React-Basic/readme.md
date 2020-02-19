@@ -345,11 +345,41 @@ function WelcomeDialog(){
     )
 }
 ```
+# create-react-app
+
+    npx create-react-app my-app
+    cd my-app
+    npm start
     
+    When you create a new app,the CLI will use yarn to install dependencies(when available).If you have Yarn
+    installed,but would prefer to use npm,you can append --use-npm to the creation command.
+    For example:
+        npx create-react-app my-app --use-npm
+```js
+my-app/
+  README.md
+  node_modules/
+  package.json
+  public/
+    index.html
+    favicon.ico
+  src/
+    App.css
+    App.jsx
+    App.test.js
+    index.css
+    index.js
+    logo.svg
+```   
+    For the project to build,these files must exist with exact filenames:
+        public/index.html   is the page template;
+        src/index.js        is the JavaScript entry point;
+    You can delete or rename the other files.
     
-    
-    
-    
+## Available Scripts
+
+    npm start:
+        Runs the app in the development mode.The page will reload if you make edits.
     
     
     

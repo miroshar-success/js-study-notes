@@ -70,10 +70,13 @@ const MyContext = React.createContext(defaultValue);
     3. Context.Consumer
 ```jsx harmony
 <MyContext.Consumer
-    value={defaultValue}
+   { value => /*基于context值进行渲染*/}
 >
 </MyContext.Consumer>
 ``` 
+    这里,React组件也可以订阅到context变更。这需要 函数作为子元素(function as a child)。这个函数接受当前的context值,
+    返回一个React节点。
+
     4. Context.displayName
         context对象接受一个名为displayName的property，类型为字符串。 React Devtools使用该字符串来确定
         context要显示的内容。

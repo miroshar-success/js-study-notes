@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Context</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    const ThemeContext = React.createContext("dark");
+    const OnlineContext = React.createContext(false);
+    ThemeContext.displayName = "theme";
+    OnlineContext.displayName = "online";
+    class App extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                theme:"light",
+                online:false
+            }
+        }
+        handleChange = () => {
+            this.setState(state => ({
+                theme: state.theme === "light"
+                    ? "dark"
+                    : "light"
+            }))
+        }
+        handleSwitch = () => {
+            this.setState(state => ({
+                online:!state.online
+            }))
+        }
+        render(){
+            const {theme,online} = this.state;
+            return (
+                <ThemeContext.Provider value={theme}>
+                    <OnlineContext.Provider value={online}>
+                        <Toolbar/>
+                        <button onClick={this.handleChange}>Press</button>
+                        <button onClick={this.handleSwitch}>Switch</button>
+                    </OnlineContext.Provider>
+                </ThemeContext.Provider>
+            )
+        }
+    }
+    class ThemeButton extends React.Component{
+        render(){
+            return(
+                <ThemeContext.Consumer>
+                    {(theme) => (
+                        <OnlineContext.Consumer>
+                            {(online) => (
+                                <div>
+                                    <p>Theme:{theme}</p>
+                                    <p>Online:{String(online)}</p>
+                                </div>
+                            )}
+                        </OnlineContext.Consumer>
+                    )}
+                </ThemeContext.Consumer>
+            )
+        }
+    }
+    function Toolbar(){
+        return (
+            <div>
+                <ThemeButton/>
+            </div>
+        )
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

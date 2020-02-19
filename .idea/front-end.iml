@@ -23,5 +23,6 @@
     <orderEntry type="module" module-name="react-app" />
     <orderEntry type="module" module-name="todolist" />
     <orderEntry type="module" module-name="ticket" />
+    <orderEntry type="module" module-name="ticket" />
   </component>
 </module>

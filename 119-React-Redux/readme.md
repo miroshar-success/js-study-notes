@@ -153,7 +153,7 @@ export default combineReducers({
   counter
 })
 
-// App.js
+// App.jsx
 import { createStore } from 'redux'
 import reducer from './reducers/index'
 
