@@ -424,10 +424,75 @@ class FileInput extends React.Component {
 }
 ```
 
-# Render Props  
-        
-    render props是指一种在React组件之中使用一个值为函数的prop共享代码的技术
+# 代码分割
+
+    代码分割是由诸如Webpack 这类打包器支持的一项技术,能够创建多个包并在运行时动态加载。对应该进行代码分割
+    能够帮你'懒加载'当前用户所需要的内容。能够显著提高应用性能。尽管没有减少应用整体的代码体积，但是可以避免加载
+    用户永远不需要的代码，并在初始加载的时候减少所需加载的代码量。
     
+## import()
+    
+    在应用中引入代码分割的最佳方式是通过动态import()语法。
+```js
+// 使用前
+import {add} from './math';
+console.log(add(16,26));
+
+// 使用后
+import("./math").then(math => {
+    console.log(math.add(16,26))
+})
+```
+    ES2020 提案引入import()函数，支持动态加载模块。import()返回一个Promise对象。
+    
+    import()函数与import关系:
+        1. import 与模块是静态连接关系,在编译时处理,只能在模块顶层出现，不能在if 等运行时才能确定的代码块之中
+        2. import()函数是运行时加载，与所加载的模块没有静态连接关系。
+        
+    import()使用场景
+
+        1.  按需加载
+        2.  条件加载
+        3.  动态的模块路径
+    import()加载模块成功以后,这个模块会作为一个对象,当作then方法的参数。如果是默认导出,则导出的方法 或变量
+    在接受对象的 default属性上
+```js
+import('./myModule.js')
+.then(myModule => {
+  console.log(myModule.default);
+});
+```    
+    如果同时加载多个模块,可以采用下面的写法。
+```js
+Promise.all([
+  import('./module1.js'),
+  import('./module2.js'),
+  import('./module3.js'),
+])
+.then(([module1, module2, module3]) => {
+    // ......
+});
+```
+## React.lazy
+
+    React.lazy接受一个函数,这个函数需要动态调用import()。它必须返回一个Promise,该Promise需要resolve一个
+    default export的React组件。
+    
+    然后在Suspense组件中渲染lazy组件，可以在等待加载lazy组件时做优雅降级
+```jsx harmony
+const About = React.lazy(() => import("./about.jsx"));
+function App(){
+    return (
+        <div>
+            <React.Suspense fallback={<div>Loading...</div>}>
+                <About/>
+            </React.Suspense>
+        </div>
+    )
+}
+```  
+    fallback属性接受任何在组件加载过程中你想展示的React元素。可以将Suspense组件置于懒加载组件之上的任何
+    位置。
     
     
     
