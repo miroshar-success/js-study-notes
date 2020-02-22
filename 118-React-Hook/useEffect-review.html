@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>useEffect</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    function App(){
+        const [size,setSize] = React.useState({
+            width:document.documentElement.clientWidth,
+            height:document.documentElement.clientHeight
+        })
+        const [count,setCount] = React.useState(0)
+        function handleClick(){
+            setCount(count+1);
+        }
+        function onResize(){
+            setSize({
+                width:document.documentElement.clientWidth,
+                height:document.documentElement.clientHeight
+            })
+        }
+        React.useEffect(() => {
+            window.addEventListener("resize",onResize,false);
+            return () => {
+                window.removeEventListener("resize",onResize)
+            }
+        })
+        React.useEffect(() => {
+            console.log("count",count);
+        },[count])
+        React.useEffect(() => {
+            document.title = `${count}`;
+        })
+        return (
+            <div>
+                <button
+                    onClick={handleClick}
+                >Click {count}</button>
+                <p>size:{size.width} X {size.height}</p>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

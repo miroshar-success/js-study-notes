@@ -494,7 +494,159 @@ function App(){
     fallback属性接受任何在组件加载过程中你想展示的React元素。可以将Suspense组件置于懒加载组件之上的任何
     位置。
     
+# memo
+
+    React.PureComponent 实现了 shouldComponentUpdate()方法,可以判断接受的数据是否改变进而决定
+    是否重新渲染组件
     
+    React.momo是一个高阶组件,类似于React.PureComponent，不同的是React.memo是function组件
+    React.PureComponent是class组件
+```jsx harmony
+// export default Foo
+class Foo extends Component {
+    // 1.  可以通过shouldComponentUpdate判断接受的props是否改变,如果name属性没有改变,则不重新渲染
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.name === this.props.name){
+            return false;
+        }
+        return true;
+    }
+    render() {
+        console.log("foo render");
+        return (
+            <div>
+                foo
+            </div>
+        );
+    }
+}
+// 2. React.PureComponent 在内部实现了shouldComponentUpdate方法,所以上面的组件可以写为:
+class Foo extends React.PureComponent {
+    // 此时,父组件的person属性每次点击时自增,但子组件并不会重新渲染,因为每次接受到的person对象都是同一个对象
+    render() {
+        return (
+            <div>
+                foo
+                age:{this.props.person.age}
+            </div>
+        );
+    }
+}
+// 函数组件 可以使用React.memo 来判断接受的 数据是否更改 
+const Foo = React.memo(function Foo(props){
+    return (
+        <div>{props.person.age}</div>
+    )
+})
+
+// App.jsx
+import Foo from './Foo.jsx';
+class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            count:0,
+        //    如果给Foo组件传递一个对象,每次点击只修改属性值
+            person:{age:27}
+        }
+    }
+    //每次点击按钮,count自增, 当前app组件重新渲染，但是Foo组件也会重新渲染
+    handleClick = () => {
+        this.setState(state => (
+            {count:state.count+1}
+        ))
+        const {person} = this.state;
+        person.age++;
+        this.setState({person})
+    }
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={this.handleClick}
+                >Add</button>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Foo 
+                        name={"kyrie"} 
+                        person={this.state.person}
+                        cb={() => {}}   // 每次传递一个函数会导致子组件重新渲染
+                    />
+                </Suspense>
+            </div>
+        );
+    }
+}
+```
+## shouldComponentUpdate 怎么判断数据是否更改
+```jsx harmony
+// App 组件
+class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            name:NaN,
+            person:{
+                age:27
+            }
+        }
+    }
+    // 点击时,修改person的年龄,因为传入的person属性age更改，不会导致子组件Foo的更改
+    handleClick = () => {
+        const {person} = this.state;
+        person.age++;
+        this.setState({person});
+    // 同时修改name属性为NaN,因为NaN !== NaN, 但是使用Object.is(NaN,NaN)判断时为true，可以判断为NaN===NaN
+        this.setState({name:NaN})
+    }
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={this.handleClick}
+                >Add</button>
+                <p>App age:{this.state.person.age}</p>
+                <Foo name={this.state.name} person={this.state.person}/>
+            </div>
+        );
+    }
+}
+
+// Foo.jsx
+class Foo extends React.PureComponent {
+// 子组件接受的person属性不会导致重新渲染，因为person指针没有变
+// 接受的name属性为NaN,修改为NaN, 判断方式使用 Object.is() 是相等的，所以不会重新渲染!  
+    render() {
+        return (
+            <div>
+                Foo-age:{this.props.person.age}
+            </div>
+        );
+    }
+}
+
+
+// 使用React.Component 方式继承时:
+class Foo extends React.Component{
+    // 因为传入的属性为NaN,点击修改时也为NaN, 使用===判断时为false,所以每次点击都会重新渲染
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.name === this.props.name){
+            return true;
+        }
+        // 使用Object.is判断时,NaN===NaN,所以不会重新渲染
+        if(Object.is(nextProps.name,this.props.name)){
+            return true;
+        }       
+        return false;
+    }
+    render(){
+        return (
+            <div>
+                Foo-age:{this.props.person.age}
+            </div>
+        )
+    }   
+}
+```
     
     
     
