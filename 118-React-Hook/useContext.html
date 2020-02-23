@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>useContext</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    const CountContext = React.createContext(0);
+
+    class Foo extends React.Component {
+        render(){
+            return (
+                <CountContext.Consumer>
+                    {count => <h3>Foo-Count:{count}</h3>}
+                </CountContext.Consumer>
+            )
+        }
+    }
+
+    class Bar extends React.Component {
+        static contextType = CountContext;
+        render(){
+            return (
+                <h3>
+                    Bar-Count:{this.context}
+                </h3>
+            )
+        }
+    }
+
+    function Counter(){
+        const count = React.useContext(CountContext);
+        return (
+            <h3>Counter-Count{count}</h3>
+        )
+    }
+
+
+    function App(){
+        const [count,setCount] = React.useState(0);
+        const handleClick = () => {
+            setCount(count+1)
+        }
+        return (
+            <div>
+                <button onClick={handleClick}>Click</button>
+                <CountContext.Provider value={count}>
+                    <Foo/>
+                    <Bar/>
+                    <Counter/>
+                </CountContext.Provider>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

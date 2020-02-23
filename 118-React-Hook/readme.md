@@ -166,7 +166,33 @@ function App(){
 }
 ```
 
+## useContext
 
+    useContext可以不使用组件嵌套就可以订阅React的Context。使用频率较低但是很有用的hook。
+*Demo*
+```jsx harmony
+function Counter(){
+    const count = React.useContext(CountContext);
+    return (
+        <h3>Counter-Count{count}</h3>
+    )
+}
+
+function App(){
+    const [count,setCount] = React.useState(0);
+    const handleClick = () => {
+        setCount(count+1)
+    }
+    return (
+        <div>
+            <button onClick={handleClick}>Click</button>
+            <CountContext.Provider value={count}>
+                <Counter/>
+            </CountContext.Provider>
+        </div>
+    )
+}
+```
 
 
 
