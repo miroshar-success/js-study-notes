@@ -194,7 +194,17 @@ function App(){
 }
 ```
 
+## useMemo
 
+    memo 类似于PureComponent作用是 优化组件性能,防止组件触发重渲染, memo 针对一个函数组件
+    是否重复执行。
+    
+    useMemo 针对一段函数逻辑是否重复执行。
+    useMemo 是在渲染期间完成的,而useEffect是在渲染之后执行的。
+    
+    tips:
+        useMemo(() => {},[])
+    参数如果是空数组的话 只会执行一次。
 
 
 
