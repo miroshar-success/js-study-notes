@@ -7,6 +7,7 @@
 <body>
 <div id="app"></div>
 <div id="root"></div>
+<div id="demo"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
 <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
@@ -75,6 +76,61 @@
         document.getElementById("root")
     )
 
+    const Count = React.memo(
+        function Count({count}){
+            console.log("count render");
+            return (
+                <div>
+                    <div>子组件count:{count}</div>
+                </div>
+            )
+        }
+    )
+
+    function Demo(){
+        const [count,setCount] = React.useState(0);
+        const [time,setTime] = React.useState(new Date().getMilliseconds());
+        const handleClick = () => {
+            setCount(count+1);
+        }
+        const handleTime = () => {
+            setTime(new Date().getMilliseconds())
+        }
+        function doubleCount(count){
+            console.log("count计算了");
+            return count * 2;
+        }
+/*        const handleChange = () => {
+            console.log("Click");
+        }*/
+        const handleChange = React.useMemo(() => {
+            return () => {
+                console.log("Click");
+            }
+        },[])
+        const dbcount = React.useMemo(() => {
+            return doubleCount(count);
+        },[count === 3])   // 空数组只会执行一次，参数count表示依赖于count改变 决定是否执行
+        // count === 3，count为0 1 2 的时候 不会执行dbcount,count为3时 从false->true,再count自增为4,从true->false dbcount会重新计算。
+        return (
+            <React.Fragment>
+                <hr/>
+                <div>
+                    <p>click {count} times</p>
+                    <p>double-count:{dbcount}</p>
+                    <p>time:{time}</p>
+                    <Count count={dbcount} handleChange={handleChange}/>
+                    <button onClick={handleClick}>changeCount</button>
+                    <button onClick={handleTime}>changeTime</button>
+                </div>
+            </React.Fragment>
+        )
+    }
+
+    ReactDOM.render(
+        <Demo/>,
+        document.getElementById("demo")
+    )
 </script>
 </body>
 </html>
