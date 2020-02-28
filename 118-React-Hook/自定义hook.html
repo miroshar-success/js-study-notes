@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义Hook</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    function useCount(defaultCount){
+        const [count,setCount] = React.useState(defaultCount);
+        const timer = React.useRef();
+        React.useEffect(() => {
+            timer.current = setInterval(() => {
+                setCount(count => count+1);
+            },1000)
+        },[])
+        React.useEffect(() => {
+            if(count >= 10){
+                clearInterval(timer.current);
+            }
+        },[])
+        return [count,setCount];
+    }
+    function Counter(props){
+        const size = useSize();
+        return (
+            <div>
+                <h3>{props.count}</h3>
+                <h4>width:{size.width}, height:{size.height}</h4>
+            </div>
+        )
+    }
+    function App(){
+        const [count,setCount] = useCount(0);
+        return (
+            <div>
+                <Counter count={count}/>
+            </div>
+        )
+    }
+
+
+    function useSize(){
+        const [size,setSize] = React.useState({
+            width:document.documentElement.clientWidth,
+            height:document.documentElement.clientHeight
+        })
+        // 在组件的整个生命周期中,只进行一次事件绑定 和解绑,在解绑的时候,必须传入和绑定时同样的函数句柄才可以
+        React.useEffect(() => {
+            console.log("useEffect 执行");
+            window.addEventListener("resize",onResize,false);
+            return () => {
+                window.removeEventListener("resize",onResize);
+            }
+        },[])
+        const onResize = React.useCallback(() => {
+            console.log("onResize 执行")
+            setSize({
+                width:document.documentElement.clientWidth,
+                height:document.documentElement.clientHeight
+            })
+        },[])
+        return size;
+    }
+
+    function Root(){
+        const size = useSize();
+        return (
+            <div>
+                width:{size.width}
+                height:{size.height}
+            </div>
+        )
+    }
+
+    ReactDOM.render(
+        <Root/>,
+        document.getElementById("root")
+    )
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>

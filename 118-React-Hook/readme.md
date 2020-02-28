@@ -6,6 +6,7 @@
     
     Hook就是JavaScript函数,但是使用它们会有两个额外的规则:
     1. 只能在函数最外层调用Hook.不要在循环,条件判断或者子函数中调用。
+        Only Call Hooks at the Top Level, Don't call Hooks inside loops,conditions,or nested functions.
     2. 只能在React的函数组件中调用Hook。不要在JavaScript函数中调用。也不能在class组件中使用！
     
     使用Hooks的冬季动机：
@@ -205,6 +206,11 @@ function App(){
     tips:
         useMemo(() => {},[])
     参数如果是空数组的话 只会执行一次。
+    
+    useMemo和useCallback的区别：
+        useMemo(() => fn)
+        useCallback(fn)
+    
 ```jsx harmony
 const Counter = memo(function Counter({count}){
     console.log("counter render");
@@ -289,7 +295,92 @@ function App(){
 # useRef
 
     wraning: Function components cannot be given refs.
+    
+    useRef的使用场景:
+    1. 调用子组件上的方法 或者 获取DOM元素
+    2. 同步不同生命周期需要共享的数据
+```jsx harmony
+function CountComponent(){
+    const [number,setNumber] = React.useState(0);
+    const textRef = React.useRef();
+    const it = React.useRef();
+    React.useEffect(() => {
+        it.current = setInterval(() => {
+            setNumber(number => number + 1);
+        },1000)
+    },[])
+    React.useEffect(() => {
+        if(number >= 10){
+            clearInterval(it.current);
+        }
+    })
+    const handleClick = () => {
+        console.log(textRef.current.textContent);
+    }
+    return (
+        <div>
+            <hr/>
+            <p ref={textRef}>{number}</p>
+            <button
+                onClick={handleClick}
+            >click</button>
+        </div>
+    )
+}
+```
+# 自定义Hook
 
+*Demo*
+```jsx harmony
+function useCount(defaultCount){
+    const [count,setCount] = React.useState(defaultCount);
+    const timer = React.useRef();
+    React.useEffect(() => {
+        timer.current = setInterval(() => {
+            setCount(count => count+1);
+        },1000)
+    },[])
+    React.useEffect(() => {
+        if(count >= 10){
+            clearInterval(timer.current);
+        }
+    },[])
+    return [count,setCount];
+}
+function Counter(props){
+    return (
+        <h3>{props.count}</h3>
+    )
+}
+function App(){
+    const [count,setCount] = useCount(0);
+    return (
+        <div>
+            <Counter count={count}/>
+        </div>
+    )
+}
+
+function useSize(){
+    const [size,setSize] = React.useState({
+        width:document.documentElement.clientWidth,
+        height:document.documentElement.clientHeight
+    })
+    React.useEffect(() => {
+        window.addEventListener("resize",onResize,false);
+        return () => {
+            window.removeEventListener("resize",onResize);
+        }
+    },[])
+    const onResize = React.useCallback(() => {
+        setSize({
+            width:document.documentElement.clientWidth,
+            height:document.documentElement.clientHeight
+        })
+    })
+    return size;
+}
+```
 
 
 
