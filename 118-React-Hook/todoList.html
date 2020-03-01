@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React-todoList</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/babel-standalone/babel.js"></script>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script type="text/babel">
+    function Control(){
+        return (
+            <div>
+
+            </div>
+        )
+    }
+    function Todos(){
+        return (
+            <ul></ul>
+        )
+    }
+    function TodoList(){
+        const [todos,setTodos] = useState([]);
+        const addTodo = (todo) => {
+            setTodos(todos => {
+                return [...todos,todo]
+            })
+        }
+        const removeTodo = (id) => {
+            setTodos(todos => todos.filter(todo => {
+                return todo.id !== id;
+            }))
+        }
+        const toggleTodo = (id) => {
+            setTodos(todos => todos.map((todo) => {
+                if(todo.id === id){
+                    todo.completed = !todo.completed;
+                }
+                return todos;
+            }))
+        }
+        return (
+            <div class="todolist-wrapper">
+                <h3>TodoList</h3>
+                <Control/>
+                <Todos/>
+            </div>
+        )
+    }
+    ReactDOM.render(
+        <TodoList/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
