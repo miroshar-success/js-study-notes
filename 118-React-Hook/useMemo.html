@@ -62,9 +62,11 @@
         }
         const otherTitle = React.useMemo(() => {
             return changeTitle(title);
-        },[title]);
+        },[]);
+        // const otherTitle = React.useCallback(changeTitle(title));
         return (
             <div>
+                <hr/>
                 <p>title: {otherTitle}</p>
                 <p>content: {children}</p>
             </div>

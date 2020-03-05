@@ -80,7 +80,7 @@
     function Demo(){
         const [count,setCount] = React.useState(1);
         const [value,setValue] = React.useState("");
-/*        const expensive = React.useMemo(() => {
+        const expensive = React.useMemo(() => {
             console.log('computed');
             return () => {
                 let sum = 0;
@@ -89,16 +89,15 @@
                 }
                 return sum;
             }
-        },[count])*/
-        const expensive = React.useCallback(() => {
+        },[])
+/*        const expensive = React.useCallback(() => {
             console.log("computed");
             let sum = 0;
             for(let i =0; i < count; i++){
                 sum += count;
             }
             return sum;
-        },[])
-
+        },[count])*/
         return (
             <div>
                 <hr/>
@@ -112,7 +111,6 @@
             </div>
         )
     }
-
     ReactDOM.render(
         <Demo/>,
         document.getElementById("demo")

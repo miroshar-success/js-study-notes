@@ -196,7 +196,7 @@ function App(){
 ```
 
 ## useMemo
-
+    
     memo 类似于PureComponent作用是 优化组件性能,防止组件触发重渲染, memo 针对一个函数组件
     是否重复执行。
     
@@ -210,6 +210,8 @@ function App(){
     useMemo和useCallback的区别：
         useMemo(() => fn)
         useCallback(fn)
+    
+        useMemo()返回缓存的变量,useCallback返回缓存的函数
     
 ```jsx harmony
 const Counter = memo(function Counter({count}){
