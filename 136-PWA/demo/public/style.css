@@ -1,0 +1,13 @@
+html,body{
+    padding: 0;
+    margin: 0;
+}
+.title{
+    font-size:30px;
+    font-weight:bold;
+    color:rgba(200,60,50);
+    font-style:italic;
+}
+body{
+    text-align:center;
+}

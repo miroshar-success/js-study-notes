@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>serviceWorker</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="title">Hello,PWA</div>
+<img src="./tong.jpeg" alt="佟丽娅" title="佟丽娅" width="400">
+<script>
+// 判断浏览器是否支持 service worker
+    if("serviceWorker" in navigator){
+        console.log('支持 serviceWorker');
+        // 注册一个service worker
+        navigator.serviceWorker.register('./sw.js').then(function(registration){
+            console.log(registration);
+        },function(error){
+            console.error(error);
+        })
+    }
+    if("caches" in window){
+        console.log("caches support");
+    }
+/*    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4) {
+            if(xhr.status >= 200 && xhr.status < 300){
+                console.log('xhr',xhr.response);
+            }
+        }
+    }
+    xhr.open("GET","http://localhost:3000/api/player",true);
+    xhr.responseType = "json";
+    xhr.send(null);
+
+    fetch("http://localhost:3000/api/player")
+    .then(response => response.json())
+    .then(result => {
+        console.log('fetch',result);
+    })*/
+</script>
+</body>
+</html>
