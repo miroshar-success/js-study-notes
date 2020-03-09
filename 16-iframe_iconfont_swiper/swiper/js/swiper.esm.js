@@ -1159,7 +1159,7 @@ function slideTo (index$$1 = 0, speed = this.params.speed, runCallbacks = true, 
   else direction = 'reset';
 
 
-  // Update Index
+  // Update Header
   if ((rtl && -translate === swiper.translate) || (!rtl && translate === swiper.translate)) {
     swiper.updateActiveIndex(slideIndex);
     // Update Height

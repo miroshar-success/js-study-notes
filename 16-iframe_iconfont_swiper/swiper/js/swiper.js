@@ -2043,7 +2043,7 @@
     else { direction = 'reset'; }
 
 
-    // Update Index
+    // Update Header
     if ((rtl && -translate === swiper.translate) || (!rtl && translate === swiper.translate)) {
       swiper.updateActiveIndex(slideIndex);
       // Update Height

@@ -7,6 +7,9 @@
         2. 原生应用与操作系统可以更加完美的整合,也因此为用户提供了无缝的用户体验。可以通过安装应用使得它在离线的状态下也可以运行。
     PWA赋予了我们同时拥有以上两种优势的应用的能力。
     
+    1. 可以添加至主屏幕
+    2. 实现离线缓存功能
+    3. 实现了消息推送
     
     渲染网站主要有两种方法 -- 在服务器上或在客户端上。
         服务器渲染(SSR) server side render 意味着网站在服务器上渲染，因此它提供了更快的首次加载
@@ -85,7 +88,7 @@ cache.open()
 cache.add()  , cache.addAll()
     
 // 4. 查看已经缓存的数据
-cache.keys()
+caches.keys()
 
 // 5. 匹配缓存文件路径
 cache.match(), cache.matchAll()
@@ -129,15 +132,36 @@ self.addEventListener('fetch',event => {
         })
     }))
 })
-
 ```
         
+## Notification API
+    
+    在页面上下文中发送消息的步骤:
+    获取当前页面允许的授权:
+        Notification.permission
+        1. default 2. denied 3. granted
         
+    Notification.requestPermission().then(permission => {
+        console.log(permission);
+    });
+    
+    创建一个通知提醒:
+```js
+new Notification("Hello World",{
+    body:"This is from notification"
+})
+```
         
+   在 service-worker 中使用notification:
+        Notification.permission     denied
+   
+        不允许使用 new Notification()的方法创建消息通知,在service-worker中使用notification时,必须现在
+        页面上下文中允许消息推送,然后使用
+   
+   self.registration.showNotification(title,?options);
+                        参数和 在页面上下文中使用一样
         
-        
-        
-        
+       
         
         
         

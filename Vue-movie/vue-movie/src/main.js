@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from "./router/index.js"
 import Axios from "axios"
-import PullRefresh from "@/components/PullRefresh"
-import Loading from "@/components/Loading"
+import PullRefresh from "@/common/PullRefresh"
+import Loading from "@/common/Loading"
 import store from "@/store"
 Vue.prototype.$axios = Axios
 Vue.config.productionTip = false

@@ -76,7 +76,7 @@ function addTodo(text){
         
     返回值:
         1. Store保存了应用所有的state的对象。改变state的唯一方法是dispatch action.也可以subscribe监听state的变化。
-```js
+```jsx harmony
 const {createStore} from 'redux';
 
 function todos(state = [],action){
@@ -155,7 +155,7 @@ export default combineReducers({
 
 // App.jsx
 import { createStore } from 'redux'
-import reducer from './reducers/index'
+import reducer from './reducer/index'
 
 let store = createStore(reducer)
 console.log(store.getState())
@@ -268,7 +268,7 @@ export default connect(
 ```
 
     3. Inject dispatch and every field in the global state
-        NoteL Don't do this!It kills any performance optimizations because TodoApp wikk re-render after every
+        Note: Don't do this!It kills any performance optimizations because TodoApp wikk re-render after every
         state change. It's better to have more granular connect() on several components in your view hierarchy
         that each only listen to a relevant slice of the state.
 ```js
@@ -531,7 +531,7 @@ const store = createStore(reducer,applyMiddleware(thunk))
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers/index';
+import rootReducer from './reducer/index';
 
 // Note: this API requires redux@>=3.1.0
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -547,7 +547,7 @@ function selectSubreddit(subreddit) {
   }
 }
 
-// reducers.js
+// index.js
 function selectedsubreddit(state='react.js',action){
     switch(action.type){
         case SELECT_SUBREDDIT:

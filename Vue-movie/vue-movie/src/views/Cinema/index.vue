@@ -9,9 +9,9 @@
 </template>
 
 <script>
-	import TabBar from "@/components/TabBar"
-	import Head from "@/components/Head"
-	import CinemaList from "@/components/CinemaList"
+	import TabBar from "@/common/TabBar"
+	import Head from "@/common/Head"
+	import CinemaList from "@/common/CinemaList"
 	export default{
 		name:"cinema",
 		data(){

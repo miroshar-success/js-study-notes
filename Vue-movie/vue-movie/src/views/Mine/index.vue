@@ -6,8 +6,8 @@
 </template>
 
 <script>
-	import TabBar from "@/components/TabBar"
-	import Head from "@/components/Head"
+	import TabBar from "@/common/TabBar"
+	import Head from "@/common/Head"
 	export default{
 		name:"mine",
 		data(){

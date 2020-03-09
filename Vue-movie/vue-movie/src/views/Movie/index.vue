@@ -12,9 +12,9 @@
 	</div>
 </template>
 <script>
-	import TabBar from "@/components/TabBar"
-	import Head from "@/components/Head"
-	import TopNav from "@/components/TopNav"
+	import TabBar from "@/common/TabBar"
+	import Head from "@/common/Head"
+	import TopNav from "@/common/TopNav"
 	export default{
 		name:"movie",
 		components:{

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service-worker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+    <ul class="list"></ul>
+</div>
+<script>
+    let oList = document.querySelector(".list");
+    fetch("http://jayk23.com/api/music/banner")
+    .then(response => response.json())
+    .then(result => {
+        const {banners} = result;
+        let str = "";
+        for(let i = 0; i < banners.length; i++){
+            str += `<li>
+                    <img src=${banners[i].imageUrl} alt="">
+                </li>`
+        }
+        oList.innerHTML = str;
+    })
+    if("serviceWorker" in navigator){
+        console.log("support serviceWorker");
+        navigator.serviceWorker.register("sw.js",{scope:"./"})
+        .then(response => {
+            console.log(response);
+            if(response.installing){
+                console.log("service worker installing");
+            }else if(response.waiting){
+                console.log('service worker installed');
+            }else if(response.active){
+                console.log("service worker active");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
+    }
+</script>
+</body>
+</html>

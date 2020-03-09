@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>serviceWorker</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="title">Hello,PWA</div>
@@ -13,7 +13,7 @@
     if("serviceWorker" in navigator){
         console.log('支持 serviceWorker');
         // 注册一个service worker
-        navigator.serviceWorker.register('./sw.js').then(function(registration){
+        navigator.serviceWorker.register('sw.js').then(function(registration){
             console.log(registration);
         },function(error){
             console.error(error);
