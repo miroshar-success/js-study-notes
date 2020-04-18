@@ -12,11 +12,12 @@
     
     安装node 和 Watchman
     
-        Watchman是由Facebook提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能(packager可以快速捕捉文件的变化从而实现实时刷新)。
-        brew install node
+        Watchman是由Facebook提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能(packager可以快速捕捉文件的变化从而实现
+        实时刷新)。
         
-        brew install watchman
-        
+            brew install node
+            
+            brew install watchman
         
     更新node版本：
         1. 清除node.js 的cache
@@ -31,7 +32,8 @@
     Yarn 是Facebook提高的替代npm的工具，可以加速node模块的下载。
     
         npm install -g yarn
-    安装完yarn之后 可以使用 yarn 代替npm, yarn 代替npm install命令。用yarn add package_name 代替 npm install package_name;
+    安装完yarn之后可以使用yarn代替npm,
+    yarn 代替 npm install命令。用yarn add MODULE_NAME 代替 npm install MODULE_NAME;
     
 ## CocoaPods
     
@@ -58,6 +60,13 @@
         
     cd ./AwesomeProject/ios
         pod install
+![pod-install](https://github.com/JayK0720/Front-End/blob/master/RN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/imgs/img-1.png)
+
+    yarn ios
+    或者
+    yarn react-native run-ios
+![yarn-ios](https://github.com/JayK0720/Front-End/blob/master/RN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/imgs/img-2.png)
+![successful](https://github.com/JayK0720/Front-End/blob/master/RN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/imgs/img-3.png)
     
     
     
