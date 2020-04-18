@@ -49,3 +49,97 @@ function bar(a){
 bar(3); // ReferenceError
 ```  
     
+# 词法作用域
+
+    词法作用域就是定义在词法阶段的作用域。换句话说,词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的。
+    
+    tips:
+    1. 作用域查找会在找到第一个匹配的标识符时停止。在多层嵌套作用域中可以定义同名的标识符,这叫做'遮蔽效应'。
+    2. 无论函数在哪里被调用,也无论它如果被调用.它的词法作用域都只由函数被声明时所处的位置决定。
+    3. 词法作用域只会查找一级标识符，如果代码中引用了foo.bar.baz,词法作用域只会试图查找foo标识符。
+    
+## eval
+```js
+function foo(str,a){
+    eval(str);
+    console.log(a,b);
+}
+var b = 2;
+foo('var b = 3',1);
+```
+    在严格模式中,eval() 在运行时有自己的词法作用域。意味着其中的声明无法修改所在的作用域。
+```js
+function foo(str){
+    'use strict';
+    eval(str);  // ReferenceError 
+    console.log(a);
+}
+foo('var a = 3');
+```
+
+# 函数作用域和块作用域
+
+    函数作用域的含义是指 属于这个函数的全部变量 都可以在整个 函数的范围内使用及复用（在嵌套的作用域中也可以使用）。
+    
+    1. 隐藏内部实现
+        很多原因促成了基于作用域的隐藏方法。他们大都是从最小特权原则中引申出来的,也叫最小授权或最小暴露原则。应该最小限度地
+        暴露必要内容,而将其他内容都'隐藏'起来。
+```js
+function doSomething(a){
+    b = a + doSomethingElse(a * 2);
+    console.log(b * 3);
+}
+function doSomethingElse(a){
+    return a - 1;
+}
+var b;
+doSomething(2); // 15
+```
+
+    改成下面的写法,变量b 和 函数doSomethingElse 都无法在 函数doSomething外部访问。
+```js
+function doSomething(a){
+    b = a + doSomethingElse(a * 2);
+    console.log(b * 3);
+    function doSomethingElse(a){
+        return a - 1;
+    }
+    var b;
+}
+doSomething(2); // 15
+```
+## 函数作用域
+
+    在任意代码片段外部添加包装函数,可以将内部变量和函数定义'隐藏'起来,外部作用域无法访问包装函数内部的任何内容。
+    虽然这一技术可以解决一些问题,但是也会导致一些新的问题。首先必须声明一个具名函数， 意味这这个具名函数本身'污染'了所在的
+    作用域。 其他必须显式地通过 函数名调用这个函数才能运行其中的代码。
+    
+    tips:
+    1. 区分函数声明和函数表达式最简单的方法是看function 关键字 出现在声明中的位置，如果function是声明中的第一个词,
+    那么就是一个函数声明,否则就是一个函数表达式。
+    2. 函数表达式可以匿名,但函数声明不可以省略函数名。
+```js
+// foo 是一个函数表达式
+var a = 2;
+(function foo(){
+    var a = 3;
+    console.log(a);
+})();
+console.log(a);
+```
+    匿名函数表达式最常见的场景
+```js
+    // 匿名函数表达式
+setTimeout(function(){
+    console.log('Hello World!');
+},2000);
+```
+    1. 如果没有函数名,当函数需要引用自身时只能使用已经过期的arguments.callee. 比如在递归中
+    2. 另一个需要引用自身的例子,是在事件触发后事件监听器需要解绑自身。
+    
+    总结: 始终给函数一个表达式命名 是一个最佳实践。
+```js
+setTimeout(function timeoutHandler(){
+    console.log('I wait 1 second');
+},1000);
+```

@@ -32,5 +32,7 @@
     <orderEntry type="module" module-name="react-ticket" />
     <orderEntry type="module" module-name="react-ticket" />
     <orderEntry type="module" module-name="ticket" />
+    <orderEntry type="module" module-name="demo" />
+    <orderEntry type="module" module-name="demo" />
   </component>
 </module>
