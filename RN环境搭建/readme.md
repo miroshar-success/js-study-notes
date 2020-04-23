@@ -52,7 +52,7 @@
 ```js
 // source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 ```
-![bug](https://www.jianshu.com/p/7b21254cbd77)
+[bug](https://www.jianshu.com/p/7b21254cbd77);
 
     
     安装好依赖后可以初始化项目：
@@ -67,6 +67,102 @@
     yarn react-native run-ios
 ![yarn-ios](https://github.com/JayK0720/Front-End/blob/master/RN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/imgs/img-2.png)
 ![successful](https://github.com/JayK0720/Front-End/blob/master/RN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/imgs/img-3.png)
+    
+# 核心组件与原生组件
+
+    Core Components
+    React Native            Android View        Ios View
+    UI Component
+    
+    <View>                  <ViewGroup>         <UIView>
+    <Text>                  <TextView>          <UITextView>
+    <Image>                 <ImageView>         <UIImageView>
+    <ScrollView>            <ScrollView>        <UIScrollView>
+    <TextInput>             <EditText>          <UITextField>
+    
+# Core Components
+
+    <Text>
+    
+        Any JavaScript expression will work between curly braces,including function cals like 
+        {getFullName('Rum','Tum','Tugger')}
+    
+    <TextInput>
+    <View>
+    
+    <Image
+        source={{uri:"http://www.xxx.jpg"}}
+        style={{width:200,height:200}}
+    />
+    tips:
+        1. 在iOS上使用http链接的图片地址可能不会显示，从Android9开始，也会默认阻止http请求。
+    
+    <Button
+        onPress={}
+        disabled
+    />
+    
+# Props和State
+
+    我们使用两种数据来控制一个组件:props和state。props是在父组件中指定,而且一经指定,在被指定的组件的生命周期中则不再改变。
+    对于需要改变的数据,我们需要使用state。
+```jsx harmony
+function Blink(props){
+    const [isShowingText,setIsShowingText] = useState(true);
+    const timer = useRef();
+    useEffect(() => {
+        timer.current = setInterval(() => {
+            setIsShowingText(!isShowingText);
+        },1000);
+        return () => {
+            clearInterval(timer.current);
+        }
+    },[isShowingText]);
+    if(!isShowingText) return null;
+    return (
+        <Text>{props.text}</Text>
+    )
+}
+
+class App extends Component {
+    render() {
+        return (
+                <SafeAreaView
+                    style={{
+                        flex:1,
+                        justifyContent:'center',
+                        alignItems:'center'
+                    }}
+                >
+                    <Blink text={'Hello World'}/>
+                    <Blink text={'Hello React-Native'}></Blink>
+                    <Blink text={'Hello Vue.js'}></Blink>
+                </SafeAreaView>
+        );
+    }
+}
+```
+
+# StyleSheet
+
+    使用StyleSheet.create来集中定义组件样式。
+```jsx harmony
+const styles = StyleSheet.create({
+  bigBlue: {
+    color: 'blue',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  red: {
+    color: 'red',
+  },
+});
+```
+    React Native中的尺寸都是无单位的,表示的是与设备像素密度无关的逻辑像素点。
+    
+    
+    
+    
     
     
     

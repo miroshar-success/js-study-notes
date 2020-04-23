@@ -16,7 +16,7 @@
 	
 	使用StyleSheet.create来集中定义组件的样式。
 	
-```js
+```jsx
 <Text style={styles.container}></Text>
 
 <!-- 添加多条样式时,写在数组里,相同的属性,后面的会覆盖前面的 -->

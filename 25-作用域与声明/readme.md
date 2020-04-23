@@ -143,3 +143,66 @@ setTimeout(function timeoutHandler(){
     console.log('I wait 1 second');
 },1000);
 ```
+
+# 立即执行函数表达式
+       
+   下面的匿名函数被包裹在一对括号内 成了函数表达式,后面的括号可以立即执行这个函数。
+   
+   IIFE(Immediately invoked function expression)
+   
+    1. IIFE最常见的方式是使用匿名函数表达式。
+```js
+var a = 2;
+(function(){
+    var a = 3;
+    console.log(a); // 3
+})();
+console.log(a); // 2
+
+
+var a = 2;
+(function IIFE(){
+    var a = 3
+    console.log(a);
+})();
+console.log(a);
+```
+
+    2. IIFE的另一个用法是把它们当作函数调用并传递参数。
+```js
+var a = 2;
+(function IIFE(global){
+    var a = 3;
+    console.log(a); // 3
+    console.log(global.a);  // 2
+})(window)
+```
+
+# 块作用域
+    
+    我们在for循环的头部直接定义了变量i,通常是因为只想在for循环内部的上下文中使用i，而忽略了i会被绑定在外部作用域中
+    的事实。
+```js
+for(var i = 0; i < 5; i++){
+    console.log(i); // 0 1 2 3 4
+}
+console.log(i); // 5
+
+
+//考虑下段代码
+var foo = true;
+if(foo){
+    var bar = foo * 2;
+    console.log(bar);   // 2
+}
+console.log(bar);   // 2
+
+// 使用let时的表现,变量i是在本轮循环有效，并且每一次循环的i都是一个新的变量，
+// 循环变量的那部分是一个父作用域,而循环体内部是一个单独的子作用域。
+for(let i = 0; i < 3; i++){
+    let i = 'abc';
+    console.log(i); // 'abc' 'abc' 'abc'
+}
+console.log(i); // i is not defined
+```
+    

@@ -88,7 +88,7 @@
 ## 2.4. HTTP Header的Content-Type
 
     application/x-www-form-urlencoded: 数据被编码为名称/值对
-    multipart/form-date: 数据被编码为一条消息
+    multipart/form-data: 数据被编码为一条消息
     text/plain:数据以纯文本形式(text/json/xml/html)进行编码,其中不含任何控件或格式字符。
 
     serialize() 
