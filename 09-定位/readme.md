@@ -29,7 +29,7 @@
 	（因此会在此元素未添加定位时所在位置留下空白）。position:relative 对 table-*-group, 
 	table-row, table-column, table-cell, table-caption 元素无效。
 	
-	相对定位不会脱离文档流
+	相对定位不会脱离文档流.
 	
 ## fixed
 	

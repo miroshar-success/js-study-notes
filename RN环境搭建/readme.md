@@ -160,7 +160,40 @@ const styles = StyleSheet.create({
 ```
     React Native中的尺寸都是无单位的,表示的是与设备像素密度无关的逻辑像素点。
     
+    React Native中的FlexBox的工作原理和web上的css基本一致，也存在少许差异。首先是默认值不同:
+        1. flexDirection的默认值是column而不是row.
+        2. flex只能指定一个数字值。
+        
+        
+        Justify Content:
+            justifyContent可以决定其子元素沿着主轴的排列方式。可选项有:
+                flex-start, flex-end, center, space-around, space-between, space-evenly.
+                
+        space-between space-evenly 的区别：
+        假设有3个子元素, 
+            space-evenly： 容器剩余空间由4个间隙平分
+            space-between: 容器剩余空间由3个间隙平分
+            
     
+        Align Items
+            在组件的style中指定的 alignItems 可以决定其子元素沿着次轴的排列方式。可选项有:
+                flex-start, center, flex-end ,stretch。
+                tips: 只有将子元素样式中的width:50 去掉之后,alignItems:'center' 才能生效。
+                
+        Align Self
+            alignSelf has the same options and effect as alignItems but instead of affecting the children within
+            a container, you can apply this property to a single child to change it's alignment within its parent.
+            alignSelf overrides any option set by the parent with alignItems。
+            
+        Align content
+            alignContent defines the distribution of lines along the cross-axis. This only has effect when items 
+            are wrapped to multiple lines using flexWrap。
+            
+        Flex Wrap
+            The flexWrap property is set on containers and controls what happens when children overflow the
+            size of the container along the main axis. By default children are forced into a single line(which can
+            shrink elements).If wrapping is allowed items are wrapped into multiple lines along the main axis if needed.
+            
     
     
     

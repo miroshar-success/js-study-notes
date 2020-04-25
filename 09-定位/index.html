@@ -59,6 +59,28 @@
         .wrap img{
             position:absolute;
         }
+        #root{
+            width:400px;
+            height:400px;
+            border:1px solid #ccc;
+        }
+        #root .ele{
+            width:50px;
+            height:50px;
+            text-align:center;
+            line-height:50px;
+        }
+        .ele1{
+            position:relative;
+            top:10px;
+            background-color:skyblue;
+        }
+        .ele2{
+            background-color:seagreen;
+        }
+        .ele3{
+            background-color:pink;
+        }
     </style>
 </head>
 <body>
@@ -75,6 +97,11 @@
         <div class="box2 box">2</div>
         <div class="box3 box">3</div>
         <img src="http://i0.qhimg.com/t01558af52a2d5e9ff0.jpg" width="200">
+    </div>
+    <div id="root">
+        <div class="ele1 ele">1</div>
+        <div class="ele2 ele">2</div>
+        <div class="ele3 ele">3</div>
     </div>
 </body>
 </html>
