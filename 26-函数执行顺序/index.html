@@ -24,6 +24,21 @@
         <li>2</li>
         <li>3</li>
     </ul>
-    <script src='./index.js'></script>
+<!--    <script src='./index.js'></script>-->
+    <script>
+        a = 2;
+        var a;
+        console.log(a); // 2
+
+        console.log(baz); // undefined
+        var baz = 3;
+
+        foo();  // TypeError
+        bar();  // Reference
+        var foo = function bar(){
+
+        }
+
+    </script>
 </body>
 </html>

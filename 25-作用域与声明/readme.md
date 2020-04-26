@@ -205,4 +205,58 @@ for(let i = 0; i < 3; i++){
 }
 console.log(i); // i is not defined
 ```
-    
+## let的其他使用场景
+
+    1. 垃圾收集
+```js
+function process(data){
+    // 
+}
+var someReallyBigData = {};
+process(someReallyBigData);
+
+var btn = document.getElementById('my_button');
+btn.addEventListener('click',function click(event){
+    console.log('button clicked');
+},false);
+```
+    click函数的点击回调并不需要someReallyBigData变量。当process()执行后,在内存中占用大量空间的数据结构就可以被垃圾回收了。
+    由于click函数形成了一个覆盖整个作用域的闭包,JavaScript引擎极有可能依然保存着这个结构。
+```js
+function process(data){
+    // console.log(data);
+}
+{
+    var someReallyBigData = {};
+    process(someReallyBigData);
+}
+
+var btn = document.getElementById('my_button');
+btn.addEventListener('click',function click(event){
+    console.log('button clicked');
+},false);
+```
+## for循环
+
+    一个let可以发挥优势的典型例子就是for循环。
+```js
+for(let i = 0; i < 5; i++){
+    console.log(i);     
+}
+console.log(i);     // ReferenceError
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

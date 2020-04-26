@@ -112,17 +112,105 @@ retutn (
             是否要在文本框右侧显示'清除'按钮。仅在单行模式下可用。
                 never while-editing unless-editing always。
         clearTextOnFocus
-                    
+            如果为true,每次开始输入的时候都会清除文本框的内容。        
+        editable
+            如果为false,文本框是不可编辑的。默认值为true。
+        inlineImageLeft
+            指定一个图片放在左侧。图片必须放置在/anroid/app/src/main/res/drawable目录下。
+        inlineImagePadding
+            给放置在左侧的图片设置padding样式。
+        keyboardType
+            决定弹出何种软键盘类型:
+                default/number-pad/decimal-pad/numeric/email-address/phone-pad
+        multiline
+            如果为true,文本框中可以输入多行文字。默认为false。
+        numberOfLines
+            设置输入框的行数。当multiline为true时使用它，可以占据对应的行数。
+            
+        onBlur
+            当文本框失去焦点的时候调用此函数
         
+        onChange
+            当文本框内容变化时调用此函数。回调参数为{'nativeEvent':{eventCount,target,text}}
+        
+        onEndEditing
+            当文本输入结束后调用此回调函数
+        
+        onFocus
+            当文本框获得焦点的时候调用此回调函数。
+            
+        onKeyPress
+            当一个键被按下的时候调用此回调。
+            
+        onSelectionChange
+            长按选择文本时,选择范围变化时调用此函数。
+            
+        onSubmitEditing
+            当软键盘的 确定/提交 按钮被按下的时候调用此函数。如果multiline={true} 此属性不可用。
+            
+        placeholder
+            
+        placeholderTextColor
+        
+        returnKeyType
+     
+## 处理触摸事件
+
+    Button 按钮组件
+    
+        props:
+            onPress 
+            title
+            color
                 
+    Touchable系列组件
+        TouchableHighlight          会在用户手指按下时变暗。
+            props:
+                activeOpacity: 指定封装的视图在被触摸系统激活时以多少不透明度显示(0-1之间),默认0.85
+                underlayColor: 有触摸操作时显示出来的底层的颜色。
                 
+        TouchableOpacity            会在用户手指按下时降低按钮的透明度,而不会改变背景的颜色。
+            用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低。
+            props:
+                activeOpacity: 指定封装的视图在被触摸操作激活后以多少不透明度显示(0-1之间)，默认0.2。
+                
+        TouchableWithoutFeedback    没有任何视觉反馈
     
+        TouchableNativeFeedback     会在用户手指按下时形成类似墨水涟漪的视觉效果
+
+# 滚动视图
+
+    ScrollView:
+        ScrollView 适合用来显示数量不多的滚动元素。放置在ScrollView中的所有组件都会被渲染,哪怕有些组件因为内容太长
+        被挤出了屏幕外。如果需要显示较长的滚动列表,那么应该使用功能差不多但性能更好的FlatList组件。
+        
+        ScrollView 必须有一个确定的高度才能正常工作。因为它实际上所做的就是将一系列不确定高度的子组件装进一个确定高度的容器。
+        
+        tips:
+            在iOS上 A ScrollView with a single item can be used to allow the user to zoom content.Set up the 
+            maximumZoomScale and minimumZoomScale props and your user will be able to use pinch and expand 
+            gestures to zoom in and out.
     
-    
-    
-    
-    
-    
+    props:
+        1. alwaysBounceVertical
+            当此属性为true时，垂直方向即使内容比滚动视图本身还要小,也可以弹性地拉动一截。
+            
+        2. contentContainerStyle
+            这些样式会应用到一个内层的内容容器上。所有的子视图都会包裹在内容容器内。
+            
+        3. keyboardDismissMode
+            用户拖拽视图的时候,是否要隐藏软键盘。
+                'none'      --- 拖拽时不隐藏软键盘。
+                'no-drag'   --- 当拖拽开始的时候隐藏软键盘
+        
+        4. onContentSizeChange
+            此函数会在ScrollView内部可滚动内容的视图发生变化时调用。
+            
+        5. onMomentumScrollBegin
+            滚动动画开始时调用此函数。
+            
+        6.  onMomentumScrollEnd
+            滚动动画结束时调用此函数。
     
     
     
