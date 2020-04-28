@@ -36,4 +36,48 @@ var foo = function bar(){
 
 }
 ```
+
+## 函数优先
+
+    函数声明和变量声明都会被提升，但是一个值得注意的细节 是函数会首先被提升，然后才是变量。
+  
+```js
+foo();
+
+var foo;
+
+function foo(){
+    console.log(1);
+}
+
+foo = function(){
+    console.log(2);
+}
+
+
+// 上面的代码会被解释为:      tips: var foo 出现在 function foo(){...} 之前,但是它是重复的声明(因此被忽略了)。
+function foo(){
+    console.log(1);
+}
+foo();
+foo = function(){
+    console.log(2);
+}
+```
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
