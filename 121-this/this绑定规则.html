@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this绑定规则</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 默认绑定
+    function foo(){
+        console.log(this.a);
+    }
+    var a = 2;
+    foo();      // 2
+
+    // 严格模式下,this会绑定到undefined.
+    function bar(){
+        console.log(this.a);
+    }
+    bar();
+
+
+    function baz(){
+        console.log('baz:',this.a);
+    }
+    (function(){
+        'use strict';
+        baz();
+    })()
+</script>
+<script type="text/javascript">
+    // 隐式绑定
+    function f1(){
+        console.log(this.a);
+    }
+    var obj = {
+        a:3,
+        f1:f1
+    }
+    obj.f1();   // 3
+</script>
+<script type="text/javascript">
+    function f1(){
+        console.log(this.c);
+    }
+    var obj2 = {
+        c:42,
+        f1:f1
+    }
+    var obj1 = {
+        c:2,
+        obj2:obj2,
+    }
+    obj1.obj2.f1();
+</script>
+</body>
+</html>

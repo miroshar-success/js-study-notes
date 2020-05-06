@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this显示绑定</title>
+</head>
+<body>
+<script type="text/javascript">
+    function foo(){
+        console.log(this.a);
+    }
+    var obj = {
+        a:2
+    }
+    var bar = function(){
+        foo.call(obj);
+    }
+    var a = 'oops global';
+    bar();  // 2
+    setTimeout(bar,1000);    // 2
+
+
+    // 硬绑定
+    function foo(something){
+        console.log(this.a,something);
+        return this.a + something;
+    }
+    var o = {
+        a:2
+    }
+
+    var baz = function(){
+        return foo.apply(o,arguments);
+    }
+    var b = baz(3);
+    console.log(b);
+
+
+
+</script>
+</body>
+</html>
