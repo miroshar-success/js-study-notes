@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优先级</title>
+</head>
+<body>
+<!--<script type="text/javascript">
+    function foo(){
+        console.log(this.a);
+    }
+    var obj1 = {
+        a:2,
+        foo
+    }
+    var obj2 = {
+        a:3,
+        foo
+    }
+    // 隐式绑定
+    obj1.foo(); // 2
+    obj2.foo(); // 3
+    obj1.foo.call(obj2);    // 3
+    obj2.foo.call(obj1);    // 2
+
+</script>
+<script type="text/javascript">
+    function bar(something){
+        this.a = something;
+    }
+    var o1 = {
+        bar:bar
+    }
+    var o2 = {}
+    o1.bar(2);
+    console.log(o1);    // {a: 2, bar: ƒ}
+    console.log(o1.a);  // 2
+
+    o1.bar.call(o2,3);
+    console.log(o2);    // {a:3}
+
+    var b = new o1.bar(4);
+    console.log(o1.a);  //  2
+    console.log(b.a);   //  4
+</script>-->
+<script type="text/javascript">
+    function foo(something){
+        this.a = something;
+    }
+    var obj1 = {}
+
+    var bar = foo.bind(obj1);
+    bar(2);
+    console.log(obj1.a);    // 2
+
+    var baz = new bar(3);
+    console.log(obj1.a);    // 2
+    console.log(baz.a);     // 3
+
+</script>
+</body>
+</html>

@@ -45,9 +45,86 @@
     var c = "hello,this";
     setTimeout(object.m1,1000);
 
+</script>
+<script type="text/javascript">
+    function foo(){
+        console.log(this.a);
+    }
+    var obj = {
+        a:4,
+        foo
+    }
+    var a = 3;
+    obj.foo.call(null);
+
+
+    function bar(a,b){
+        console.log('a:',a,'b:',b);
+    }
+    bar.apply(null,[2,3]);  // a:2  b:3
+
+
+    var baz = bar.bind(null,3);
+    baz(2); // a:3 b:2
+</script>
+<script type="text/javascript">
+    function foo(a,b){
+        console.log('a:',a,'b:',b);
+    }
+    var _$ = Object.create(null);
+    foo.apply(_$,[2,3]);
+
+    var bar = foo.bind(_$,3);
+    bar(2);
+</script>
+<script type="text/javascript">
+    function foo(){
+        console.log(this.a);
+    }
+    var a = 2;
+    var obj = {
+        a:3,
+        foo
+    }
+    var p = {
+        a:4
+    }
+    obj.foo();
+    (p.foo = obj.foo)();
 
 
 
+    function baz(){
+        return (b) => {
+            console.log(this.b);
+        }
+    }
+    var obj1 = {
+        b:2
+    }
+    var obj2 = {
+        b:3
+    }
+    var m1 = baz.call(obj1);
+    m1.call(obj2);  // 输出2 而不是3
+
+
+    const f1 = (a,b) => {
+        this.a = a;
+        this.b = b;
+    }
+    // const o1 = new f1(12,23);   // f1 is not a constructor
+</script>
+<script type="text/javascript">
+    const f2 = () => {
+        console.log(arguments); // arguments is not defined
+    }
+    // f2(1,2,3);
+
+    const f3 = (...rest) =>{
+        console.log(rest);
+    }
+    f3(1,2,3);
 </script>
 </body>
 </html>

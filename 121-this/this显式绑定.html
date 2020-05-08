@@ -6,7 +6,7 @@
 </head>
 <body>
 <script type="text/javascript">
-    function foo(){
+/*    function foo(){
         console.log(this.a);
     }
     var obj = {
@@ -17,11 +17,11 @@
     }
     var a = 'oops global';
     bar();  // 2
-    setTimeout(bar,1000);    // 2
+    setTimeout(bar,1000);    // 2*/
 
 
     // 硬绑定
-    function foo(something){
+/*    function foo(something){
         console.log(this.a,something);
         return this.a + something;
     }
@@ -33,9 +33,45 @@
         return foo.apply(o,arguments);
     }
     var b = baz(3);
+    console.log(b);*/
+
+    function foo(something){
+        console.log(this.a,something);
+        return this.a + something;
+    }
+
+    function bind(fn,obj){
+        return function(){
+            return fn.apply(obj,arguments);
+        }
+    }
+
+    var o = {
+        a:3
+    }
+    var baz = bind(foo,o);
+    var b = baz(2)
     console.log(b);
 
 
+    function f1(something){
+        console.log(this.a,something);
+        return this.a + something;
+    }
+    var o2 = {
+        a : 3
+    }
+    var b1 = f1.bind(o2);
+    console.log( b1(2) );
+
+    function m1(el){
+        console.log(el,this.id);
+    }
+    var obj = {
+        id:'awesome'
+    }
+    var arr = [1,2,3];
+    arr.forEach(m1,obj);
 
 </script>
 </body>
