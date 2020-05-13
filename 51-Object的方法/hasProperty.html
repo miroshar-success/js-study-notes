@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hasProperty</title>
+</head>
+<body>
+<script type="text/javascript">
+    const obj = {
+        a:undefined
+    }
+    console.log('a:',obj.a);    // undefined
+    console.log('b:',obj.b);    // undefined
+
+    const player = {
+        name:'James'
+    }
+    player.__proto__.age = 35;
+    console.log(player.hasOwnProperty('name')); // true
+    console.log(player.hasOwnProperty('age'));  // false
+    Object.defineProperty(player,'firstName',{
+        value:'lebron',
+        enumerable:false
+    })
+    console.log( ('name' in player) );  // true
+    console.log( ('age' in player) );   // true
+
+    console.log(Object.getOwnPropertyNames(player));    // 可以遍历对象上所有的属性
+
+    for(let key in player){ // 遍历对象上所有可枚举属性
+        console.log(key);   // name
+    }
+    console.log(player.hasOwnProperty('firstName'));    // true
+
+</script>
+</body>
+</html>

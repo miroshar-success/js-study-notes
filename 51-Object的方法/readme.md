@@ -1,3 +1,4 @@
+
 # 对象初始化
 	
 	可以通过new Object() Object.create()方法，或者使用字面量标记初始化对象。
@@ -62,7 +63,13 @@ console.log(object[bar]);	// value
 
 // 上述代码的输出也是'value',因为对象foo和bar都会被转成相同的字符串。 这个字符串是'[object Object]'
 ```
-
+    1. obj.a    属性访问
+    2. obj['a'] 键访问
+    
+    在引擎内部，这些值的存储方式是多种多样的，一般并不会存储对象容器内部，存储在对象容器内部的是这项属性的名称。
+    他们就像指针(从技术角度来说就是引用)一样，指向这些值真正的存储位置。
+    
+    
 ## 计算属性名
 	
 	从ECMAScript 2015开始，对象初始化语法开始支持计算属性名。其允许在[]中放入表达式，计算结果可以当作属性。
@@ -91,7 +98,8 @@ console.log(config);	// {size: 12, mobileSize: 4}
 ## 剩余属性
 
 	可以使用剩余/扩展属性将扩展属性添加到对象文字。它将自己提供的对象的枚举属性复制到一个新的对象上。使用比Object.assign()
-	更短的语法，可以轻松克隆(不包括原型)或合并对象
+	更短的语法，可以轻松克隆(不包括原型)或合并对象。
+	
 ```js
 const obj1 = {foo:'bar',x:42};
 const obj2 = {foo:'baz',y:43};
@@ -103,7 +111,8 @@ console.log(obj1,cloneObj);	// {foo:'bar',x:42}	{foo:'foo',x:42}
 ```
 	tips:
 	1. Object.assign()会触发setter,而展开操作符则不会。
-	2. 原型上的属性不会被合并
+	2. 原型上的属性不会被合并.
+	3. 是浅复制
 ```js
 function Player(name,age){
 	this.name = name;
@@ -130,7 +139,8 @@ mergePlayer.say();	// is not a function
     组成的数组。
     
     数组中的枚举属性的顺序与通过for...in 循环（或Object.keys()）迭代的对象属性一一致。    
-    
+    tips:
+        1. 不包括原型链上的属性。只会查找对象直接包含的属性。
 ```js
 let arr = ['a','b','c'];
 console.log(Object.keys(arr));  // ['0','1','2']
@@ -144,7 +154,14 @@ let obj = {
 }
 console.log(Object.getOwnPropertyNames(obj));   // ['0','1','2']
 ```    
-
+    区别:
+        1. in 和 Object.hasOwnProperty(...)查找对象上是否有某个属性。不管是否可枚举，
+            区别在于in 会查找对象的[Property]原型链，而 hasOwnProperty 不会查找。
+            
+        2. Object.keys()和Object.hasOwnPropertyNames() 都返回属性列表数组。
+            区别在于 Object.keys()返回可枚举属性,而getOwnPropertyNames()会返回所有属性。
+            两者都只查找对象本身的属性，不会返回原型链上的属性。
+            
 # Object.getPrototypeOf()
     
     返回指定对象的原型
@@ -170,6 +187,7 @@ console.log( object1.__proto__ === prototype1 );    // true
 # Object.assign()
 	
 	用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+	Object.assign() 是使用 = 操作符来赋值，它是浅复制
 ```js
 const target = {a:1,b:2}
 const source = {b:4,c:5}
@@ -200,7 +218,6 @@ targetObj.sayName();	// targetObj.sayName is not a function
 ```
 
 ## 复制一个对象
-	
 	
 ```js
 const object = {a : 1};
@@ -243,7 +260,7 @@ console.log(JSON.stringify(obj2));	// {"a":2,"b":{"c":3}}
 
 
 // Deep clone
-obj1 = {a : 0, b: {c : 1}};
+const obj1 = {a : 0, b: {c : 1}};
 let obj3 = JSON.parse( JSON.stringify(obj1) );
 obj1.a = 4;
 obj1.b.c = 4;
@@ -324,20 +341,24 @@ for(key in player){
 ```
 
 ## 属性描述符
-
+    
+    在ES5 之前,JavaScript语言本身并没有提供可以直接检测属性特性的方法。从ES5开始,所有的属性都具备了属性描述符。
+        Object.getOwnPropertyDescriptor(obj,property);
+    
     对象里目前存在的属性描述符有两种主要形式：数据描述符和存取描述符。
     1. 数据描述复是一个具有值的属性,可能是可写的，也可能是不可写的
     2. 存取描述符是由getter-setter函数对描述的属性
     
     数据描述符和存取描述符均具有以下可选键值：enumerable和configurable
-    数据描描述符的可选键值：value writable
-    存取描描述符的可选键值：set get 默认undefined
+    数据描述符的可选键值：value writable
+    存取描述符的可选键值：set get 默认undefined
         set:
             一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。当属性值修改时，
             触发执行该方法。该方法将接受唯一参数，即该属性新的参数值。
         get:
             一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。当访问该属性时，该方法会被执行，方法执行时没有参数传入，
-            但是会传入this对象（由于继承关系，这里的this并不一定是定义该属性的对象）
+            但是会传入this对象（由于继承关系，这里的this并不一定是定义该属性的对象）.
+        
 ```js
 // 在对象中添加一个 属性与数据描述符的示例
 let o = {};
@@ -364,7 +385,129 @@ Object.defineProperty(o,'b',{
 console.log(o)
 o.b = 38;
 ```    
+
+### Configurable
+
+    只要属性是可配置的，就是可以通过defineProperty(...)属性来修改属性描述符;
+
+    使用Object.defineProperty(...)定义对象时，enumerable , configurable 和 writable 属性描述符默认为false。
+```js
+var phone = {};
+Object.defineProperty(phone,'brand',{
+    value:'apple',
+});
+console.log(Object.getOwnPropertyDescriptor(phone,'brand'));
+// {value: "apple", writable: false, enumerable: false, configurable: false}
+```
+    tips:
+        1. 如果使用Object.defineProperty(...)定义一个属性,将configurable设置为false时. 再修改属性描述符
+            enumerable writable configurable会报错。但是有一个例外：
+            tips: writable从true修改为false,不会报错。但是无法从false修改为true。
+    
+    configuable不仅控制着属性描述符是否可以被修改，还控制属性是否可以被删除。
+```js
+var computer = {
+    brand:'Apple'
+}
+console.log(computer.brand);    // Apple
+delete computer.brand;
+console.log(computer.brand);    // undefined
+
+
+// 给computer的brand属性描述符 configurable设置为 false,不能使用delete删除brand。
+const computer = {};
+Object.defineProperty(computer,'brand',{
+    value:'Apple',
+    enumerable:true,
+    writable:true,
+    configurable:false
+});
+console.log(computer.brand);    // Apple
+delete computer.brand;
+console.log(computer.brand);    // Apple
+```
+    
 ![Object.defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+
+## Getter和Setter
+
+    当给一个属性定义setter和getter 或者两者都有时,这个属性会被定义为'访问描述符'。
+    在ES5中可以使用getter和setter部分改写默认操作，但是只能应用在单个属性上。无法应用在整个属性上。
+```js
+var obj4 = {
+    count:1,
+    get:function(){
+        return this.count;
+    },
+    set:function(value){
+        this.count = value;
+    }
+}
+console.log('obj4.count:',obj4.count);
+obj4.count = 5;
+console.log(obj4.count);
+```
+# 不变性
+
+## Object.preventExtensions(...)
+
+        Object.preventExtensions()方法让一个对象变得不可扩展，也就是永远不能再添加新的属性。
+    
+    Description:
+        如果一个对象可以添加新属性,则这个对象是可扩展的.Object.preventExtensions()将对象标记为不再可扩展。
+        这样它将永远不会具有它被标记为不可扩展时持有的属性之外的属性。 一般来说,不可扩展属性可能仍然被删除。
+        
+            tips: Object.preventExtensions()仅阻止添加自身的属性。但其对象类型的原型依然可以添加新的属性。
+                  不可扩展对象的原型是不可变的。
+```js
+const phone = {
+    name:'iPhone 6s'
+}
+Object.preventExtensions(phone);
+
+phone.color = 'pink';
+console.log(phone); // {name: "iPhone 6s"}
+
+phone.__proto__.say = function(){
+    console.log(this.name);
+}
+phone.say();    // iPhone 6s;
+
+delete phone.name;
+console.log(phone); // {}
+```
+
+## Object.seal()
+
+    Object.seal() 会创建一个"密封"的对象,这个方法实际上会在一个现有对象上调用Object.preventExtensions() 并把现有属性
+    标记为 configurable:false。
+        密封之后,不仅不能添加属性,也不能修改属性描述符 或者 删除属性。
+        
+## Object.freeze()
+
+    Object.freeze() 会创建一个冻结对象。这个方法会在一个现有对象上调用Object.seal() 并把所有 数据访问的 writable标记为false。
+    这样就无法修改他们的值。
+        这个方法是你可以应用在对象上的级别最高的不可变性。它会禁止对于对象本身及其任意直接属性的修改。
+```js
+var foo = {
+    age:27
+}
+var object = {
+    firstName:'kyrie',
+    lastName:'irving',
+    foo
+}
+console.log(object);
+
+Object.freeze(object);
+
+object.firstName = 'lebron';
+console.log(object.firstName);    // Kyrie
+
+object.foo.age = 30;
+console.log(object.foo.age);    // 30
+```
+    
 # 2. Object.hasOwnProperty()
 
     返回一个布尔值,指示对象自身属性中是否具有指定的属性。
@@ -372,6 +515,33 @@ o.b = 38;
     所有继承了 Object 的对象都会继承到 hasOwnProperty 方法。这个方法可以用来检测一个对象
     是否含有特定的自身属性；和 in 运算符不同，该方法会忽略掉那些从原型链上继承到的属性。
 
+```js
+const obj = {
+    a:undefined
+}
+console.log('a:',obj.a);    // undefined
+console.log('b:',obj.b);    // undefined
+```
+    仅通过返回值,无法判断一个属性是存在并且持有一个undefined的值，还是变量不存在。
+    可以通过 Object.hasOwnProperty()判断对象是否有某个属性。
+        tips:
+        1. in 操作符会检查属性是否在对象及其[Prototype]原型链中。
+        2. hasOwnProperty(...)只会检查属性是否在对象上,不会检查原型链上的属性。
+        
+    创建的普通对象都可以通过对于Object.hasOwnProperty的委托来访问hasOwnProperty(...)。但是通过Object.create(null)
+    创建的对象无法链接到 hasOwnProperty(...).
+        Object.prototype.hasOwnProperty.call(object,[property]);
+```js
+const player = {
+    name:'James'
+}
+player.__proto__.age = 35;
+console.log(player.hasOwnProperty('name')); // true
+console.log(player.hasOwnProperty('age'));  // false
+
+console.log( ('name' in player) );  // true
+console.log( ('age' in player) );   // true
+```
     
 # 3. Object.entries()
 
@@ -546,7 +716,7 @@ console.log('Is rect an instance of Shape?',
 rect.move(1, 1); // Outputs, 'Shape moved.'
 ```
 
-## 使用Oobject.create的propertyObject参数
+## 使用Object.create的propertyObject参数
 
 ```js
 const e = Object.create(Object.prototype,{
@@ -676,3 +846,69 @@ theDog.toString() 	// 'Dog Gabby is a female chocolate Lab'
     引用类型与基本包装类型的主要区别就是对象的生存期,使用new 操作符创建的引用类型的实例,在执行
     流离开当前作用域之前都一直保存在内存中。而自动创建的基本包装类型的对象,则只存在于一行代码
     的执行瞬间。
+    
+# 遍历
+
+    for...of     Iterator接口的目的，就是为了所有数据结构提供一种统一的访问机制，即for...of循环。
+    当使用for...of循环遍历某种数据结构，该循环会自动去寻找Iterator接口。
+    
+    tips:
+        1. 默认的Iterator接口部署在数据结构的Symbol.iterator属性。
+````js
+const myArray = [1,2,3];__
+for(let value of myArray){
+    console.log(value);
+}
+````
+    for...of循环会首先向被访问的对象请求一个迭代器对象，然后通过调用迭代器对象的next()方法来遍历
+    所有返回值。
+```js
+const myArray = [1,2,3];
+const it = myArray[Symbol.iterator]();
+console.log(it);
+console.log( it.next() );   // {value:1,done:false}
+console.log( it.next() )    // {value:2,done:false}
+console.log( it.next() );   // {value:3,done:false}
+console.log( it.next() );   // {value:undefined,done:true}
+```
+    Symbol.iterator 指向该对象的默认遍历器方法。和数组不同，普通对象没有内置的@@iterator,所以无法自动完成for...of遍历。
+    
+    
+    部署了Iterator的数据结构:
+        Array/Map/Set/String/arguments/NodeList对象。
+
+    给对象一个遍历器接口        
+```js
+Object.defineProperty(player,Symbol.iterator,{
+    enumerable:false,
+    writable:false,
+    configurable:true,
+    value:function(){
+        var self = this;
+        var idx = 0;
+        var keys = Object.keys(self);
+        return {
+            next:function(){
+                return {
+                    value:self[keys[idx++]],
+                    done:(idx > keys.length)
+                }
+            }
+        }
+    }
+});
+```
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

@@ -105,3 +105,7 @@ console.log(me.__proto__.__proto__ == Object.prototype);    // true
 ```
 
     {} 相当于这种方法创建的 Object.create(Object.prototype);
+    
+## 内置对象
+
+    Number String Boolean Function Array Object Date Error RegExp
