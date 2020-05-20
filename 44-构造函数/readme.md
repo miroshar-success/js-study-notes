@@ -1,5 +1,4 @@
 
-
 # 1. 对象生成方式
 
 ```js
@@ -69,7 +68,8 @@ Object.prototype.__proto__  == null;
         3. 由构造函数返回的对象就是new表达式的结果。
     
 # 5. Prototype
-
+    
+    
 ```js
 function Player(){
     this.name = 'kyrie irving';
@@ -97,7 +97,24 @@ Player.prototype = {
 let kyrie = new Player();   // let kyrie = new Player;  可以不用加括号,有参数的时候需要加括号
 console.log(kyrie);
 ```
-
+    kyrie.constructor引用被委托给了Player.prototype，而Player.prototype.constructor默认指向Player。
+    
+    kyrie并没有constructor属性，它会委托给原型链上的 Player.prototype。但是这个对象也没有constructor属性，
+    所以它会继续委托。一直到顶端的Object.prototype。这个对象有constructor属性，指向内置的Object(...)函数。
+    
+    
+    在修改了Player.prototype引用后，可以给Player.prototype添加一个.constructor属性。
+```js
+Object.defineProperty(Player.prototype,'constructor',{
+    enumerable:false,
+    writable:true,
+    configurable:true,
+    value:Player
+});
+```
+    可以通过 Object.getOwnPropertyDescriptor(Player.prototype,'constructor'); 获取constructor描述符
+        enumerable属性为false。
+    
 # 6. 继承
 
 ```js
@@ -196,22 +213,6 @@ console.log(Object.keys(Point.prototype));  // []
 console.log(Object.keys(Calc.prototype));   // [toString']
 ```
 
-# 8. hasOwnProperty()
-
-    检测一个对象是否含有特定的自身属性.
-```js
-let object = new Object();
-object.prop = 'exists';
-
-function changeO(){
-    object.newprop = object.prop;
-    delete object.prop;
-}
-object.hasOwnProperty('prop');   // true
-changeO();      
-object.hasOwnProperty('prop');   // false
-```
-
 ## 8.1. 静态方法
 
     static 关键字
@@ -230,11 +231,4 @@ let bar = new Bar(3,6);
 bar.classMethod();  // bar.classMethod is not a function
 ```
 
-# 9. 包装对象
 
-```js
-let s = 'Hello World';
-let word = s.substring(s.indexOf(' ')+1,s.length);
-```
-    字符串可以使用.length .indexOf() .substring() 这些方法的原因是JavaScript会将字符串通过调用new String(s)的方法转传承对象.
-    这个对象继承了String对象的方法。并被用来处理属性的引用,一旦属性引用结束,这个新创建的对象就会被销毁.

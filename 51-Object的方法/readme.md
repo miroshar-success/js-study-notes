@@ -158,12 +158,12 @@ console.log(Object.getOwnPropertyNames(obj));   // ['0','1','2']
         1. in 和 Object.hasOwnProperty(...)查找对象上是否有某个属性。不管是否可枚举，
             区别在于in 会查找对象的[Property]原型链，而 hasOwnProperty 不会查找。
             
-        2. Object.keys()和Object.hasOwnPropertyNames() 都返回属性列表数组。
+        2. Object.keys()和Object.getOwnPropertyNames() 都返回属性列表数组。
             区别在于 Object.keys()返回可枚举属性,而getOwnPropertyNames()会返回所有属性。
             两者都只查找对象本身的属性，不会返回原型链上的属性。
             
 # Object.getPrototypeOf()
-    
+        
     返回指定对象的原型
 ```js
 const prototype1 = {};
@@ -183,6 +183,48 @@ console.log( object1.__proto__ === prototype1 );    // true
     
     Object是Function的实例对象。
     Function.prototype是Object的实例对象
+ 
+# Object.prototype.isPrototypeOf()
+
+    isPrototypeOf()方法用于测试一个对象是否存在于另一个对象的原型链上。
+    
+    a instanceof Foo
+    
+        instanceof  操作符左边是一个普通对象，右边是一个函数。instanceof回答的问题是:
+            1. 在a的整条[[Prototype]]链中是否有Foo.prototype指向的对象。
+```js
+function Foo(){
+}
+var a = new Foo();
+console.log( a instanceof Foo); // true
+
+function Bar(){
+}
+
+Bar.prototype = Object.create(Foo.prototype);
+Bar.prototype.constructor = Bar;
+
+console.log(Bar.prototype instanceof Foo.prototype);//报错 Right-hand side of 'instanceof' is not callable
+console.log(Bar.prototype instanceof Foo.prototype.constructor);    // true
+```  
+    在表达式 object instanceof AFunction 中，object的原型链是针对AFunction.prototype进行检查的，而不是针对
+    AFunction本身。
+    
+```js
+function Foo(){}
+function Bar(){}
+function Baz(){}
+
+Bar.prototype = Object.create(Foo.prototype);
+Baz.prototype = Object.create(Bar.prototype);
+
+const baz = new Baz();
+
+console.log(Baz.prototype.isPrototypeOf(baz));  // true
+console.log(Bar.prototype.isPrototypeOf(baz));  // true
+console.log(Foo.prototype.isPrototypeOf(baz));  // true
+console.log(Object.prototype.isPrototypeOf(baz));   // true
+```    
     
 # Object.assign()
 	
