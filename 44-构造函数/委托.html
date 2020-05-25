@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>委托理论</title>
+</head>
+<body>
+<script type="text/javascript">
+
+/*    const Task = {
+        setId:function(id){
+            this.id = id;
+        },
+        outputId:function(){
+            console.log(this.id);
+        }
+    }
+    const XYZ = Object.create(Task);
+
+    XYZ.prepareTask = function(id,label){
+        this.setId(id);
+        this.label = label;
+    }
+
+    XYZ.outputTaskDetails = function(){
+        this.outputId();
+        console.log(this.label);
+    }
+
+
+    function Foo(){}
+    const a = new Foo();
+    console.log(a); // Foo {}
+
+    Foo.prototype.constructor = function Gotcha(){};
+    const b = new Foo();
+    console.log(b.constructor);
+    console.log(b);
+
+    var Bar = {}
+    var c = Object.create(Bar);
+    console.log(c);
+    Object.defineProperty(Bar,'constructor',{
+        enumerable:false,
+        value:function ABC(){}
+    })
+    console.log(c);*/
+
+    function Foo(who){
+        this.me = who;
+    }
+    Foo.prototype.identify = function(){
+        return `I am ${this.me}`
+    }
+
+    function Bar(who){
+        Foo.call(this,who);
+    }
+    Bar.prototype = Object.create(Foo.prototype);
+
+    Object.defineProperty(Bar.prototype,'constructor',{
+        enumerable:false,
+        writable:true,
+        configurable:true,
+        value:Bar
+    });
+
+    Bar.prototype.speak = function(){
+        console.log('Hello,' + this.identify() + '.' );
+    }
+
+    let b1 = new Bar('b1');
+    let b2 = new Bar('b2');
+
+    b1.speak();
+    b2.speak();
+
+
+    // 对象关联风格
+    const Baz = {
+        init:function(who){
+            this.me = who;
+        },
+        identify:function(){
+            return `I am ${this.me}`;
+        }
+    }
+    const Bee = Object.create(Baz);
+
+    Bee.speak = function(){
+        console.log('Hello,' + this.identify());
+    }
+
+    var a1 = Object.create(Bee);
+    a1.init('a1');
+
+    var a2 = Object.create(Bee);
+    a2.init('a2');
+
+    a1.speak();
+    a2.speak();
+
+
+</script>
+</body>
+</html>
