@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类型转换</title>
+</head>
+<body>
+<script type="text/javascript">
+    var a = [1,2,3]
+    console.log(a.toString());  // 1,2,3
+
+    console.log(JSON.stringify(42));
+    console.log(JSON.stringify('43'))
+
+    console.log(String(null),typeof String(null));
+    console.log(String(undefined));
+    console.log(String(true))
+
+    var obj = {
+        a:42,
+        b:30,
+        c:function(){},
+/*        toJSON:function(){
+            return {b:this.b}
+        }*/
+        [Symbol('foo')]:'foo',
+        d:null,
+        e:undefined
+    }
+    console.log(JSON.stringify(obj));   // {"b":30}
+
+
+    var o = {
+        val:[1,2,3],
+        toJSON:function(){
+            return this.val.slice(1);
+        }
+    }
+    console.log(JSON.stringify(o));
+
+
+    var player = {
+        firstName:'kyrie',
+        lastName:'irving',
+        age:'27',
+        team:'nets',
+        position:'gurad'
+    }
+
+    console.log(JSON.stringify(player));
+    console.log(JSON.stringify(player,['firstName','team']))
+
+    console.log(JSON.stringify(player,function(k,v){
+        if(k !== 'firstName' && k !== 'age') return v;
+    }));
+
+    var abc = {
+        b:42,
+        c:33,
+        d:[1,2,3]
+    }
+    console.log(JSON.stringify(abc,null,3))
+
+
+</script>
+</body>
+</html>

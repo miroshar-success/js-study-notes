@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>值和引用</title>
+</head>
+<body>
+<script type="text/javascript">
+    let a = [1,2,3];
+    let b = a;
+    console.log('a:',a);    // [1,2,3]
+    console.log('b:',b);    // [1,2,3]
+
+    b = [4,5,6];
+    console.log(a); // [1,2,3]
+    console.log(b); // [4,5,6]
+
+
+    function foo(x){
+        x.push(4);
+        console.log(x); // [1,2,3,4]
+
+        x = [4,5,6];
+        x.push(7);
+        console.log(x); // [4,5,6,7]
+    }
+    var c = [1,2,3];
+    foo(c);
+    console.log(c); // [1,2,3,4]
+
+
+
+    function bar(x){
+        x.push(4);
+        console.log(x); // [1,2,3,4]
+
+        x.length = 0;
+        x.push(4,5,6,7);
+        console.log(x); // [4,5,6,7]
+    }
+    const d = [1,2,3];
+    bar(d);
+    console.log('d:',d);    // [4,5,6,7]
+
+</script>
+</body>
+</html>

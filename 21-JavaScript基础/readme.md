@@ -114,3 +114,64 @@ if(!Object.is){
     }
 }
 ```
+
+# 值和引用
+
+    JavaScript中没有指针，如果一个值有10个引用。这些引用指向的都是同一个值。
+        简单值总是通过值复制的方式来赋值/传递。包括null undefined 字符串 数字 布尔值 和 ES6 中的 Symbol。
+        复合值和函数 则总是通过引用复制的方式来赋值/传递。
+        
+    tips:
+        由于引用指向的是值本身而非变量，所以一个引用无法更改另一个引用的指向。
+```js
+let a = [1,2,3];
+let b = a;
+console.log('a:',a);    // [1,2,3]
+console.log('b:',b);    // [1,2,3]
+
+b = [4,5,6];
+console.log(a); // [1,2,3]
+console.log(b); // [4,5,6]
+```
+
+```js
+function foo(x){
+    x.push(4);
+    console.log(x); // [1,2,3,4]
+
+    x = [4,5,6];    // 传递a给函数foo，x指向a,这里给x重新赋值只是修改了x的指向，并不会修改变量a的指向。
+    x.push(7);
+    console.log(x); // [4,5,6,7]
+}
+var c = [1,2,3];
+foo(c);
+console.log(c); // [1,2,3,4]
+```
+
+    如果要修改a的值，必须更改x指向的数组，而不是为x赋值一个新的数组。
+```js
+function bar(x){
+    x.push(4);
+    console.log(x); // [1,2,3,4]
+
+    x.length = 0;
+    x.push(4,5,6,7);
+    console.log(x); // [4,5,6,7]
+}
+const d = [1,2,3];
+bar(d);
+console.log('d:',d);    // [4,5,6,7]
+```
+    我们无法自行决定使用值复制还是引用复制，一切由值的类型来决定。
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
