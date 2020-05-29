@@ -62,6 +62,54 @@
     console.log(JSON.stringify(abc,null,3))
 
 
+    console.log(Number(false)); // 0
+    console.log(Number(true));  // 1
+    console.log(Number(undefined)); // NaN
+    console.log(Number(null));  // 0
+
+    console.log(Number({a:1})); // NaN
+    console.log(Number([1,2,3]))    // NaN
+
+
+    const arr = [1,2,3];
+    console.log(arr.valueOf());
+    console.log(arr);
+    const name = {
+        age:20
+    }
+    console.log(name.valueOf());
+
+
+    var a = {
+        valueOf:function(){
+            return '43'
+        }
+    }
+    var b = {
+        toString:function(){
+            return '43'
+        }
+    }
+    var c = [3,4];
+    c.toString = function(){
+        return this.join("");
+    }
+    console.log(c.join(''));
+
+    console.log(Number(a));
+    console.log(Number(b));
+    console.log(Number(c));
+
+    console.log(Number([]));
+    console.log(Number(''));
+    console.log(Number(" "));
+
+
+    console.log(Boolean(''))
+    console.log(Boolean(" "));
+    console.log(Boolean(false));
+    console.log(Boolean(+0),Boolean(-0),Boolean(null),Boolean(undefined),Boolean(NaN));
+
 </script>
 </body>
 </html>

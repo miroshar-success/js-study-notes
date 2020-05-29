@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number和Boolean</title>
+</head>
+<body>
+<script type="text/javascript">
+    function onlyOne(){
+        var sum = 0;
+        for(let i = 0; i < arguments.length; i++){
+            if(arguments[i]){
+                sum += arguments[i];
+            }
+        }
+        return sum == 1;
+    }
+    var a = true,
+        b = false;
+
+    console.log( onlyOne(a,b) );    // true
+    console.log( onlyOne(a,a,b,b,b) )   // false
+    console.log( onlyOne(a,b,b,b,b,b,b,b));
+
+
+    var a = 42;
+    var b = 'abc';
+    var c;
+    var d = null;
+    if(a){
+        console.log('yep');
+    }
+    while(c){
+        console.log('nope')
+    }
+    c = d ? a : b;
+    console.log(c);
+
+
+    console.log( a || b);   // 42;
+    console.log( d || a);   // 42;
+    console.log( a || c );  // 42
+    console.log(c || a) // 'abc'
+    console.log( false || d )   // null
+
+    function foo(a,b){
+        a = a || 'hello';
+        b = b || 'world';
+        console.log(a + ' ' + b);
+    }
+    foo();
+    foo('yeah','yeah');
+    foo('That is','');
+
+    var e = '42';
+    var o = {}
+    var arr = [];
+
+    if(e){
+        console.log(e);
+    }
+    if(o){
+        console.log(o);
+    }
+    if(arr){
+        console.log(arr)
+    }
+    if(!!e){
+        console.log(e);
+    }
+    if(!!o){
+        console.log(o);
+    }
+    if(!!arr){
+        console.log(arr)
+    }
+    if(Boolean(e)){
+        console.log(e);
+    }
+    if(Boolean(o)){
+        console.log(o);
+    }
+    if(Boolean(arr)){
+        console.log(arr)
+    }
+
+    console.log(undefined == null);
+    console.log(null == undefined)
+
+</script>
+</body>
+</html>

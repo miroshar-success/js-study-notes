@@ -225,7 +225,21 @@ console.log(Bar.prototype.isPrototypeOf(baz));  // true
 console.log(Foo.prototype.isPrototypeOf(baz));  // true
 console.log(Object.prototype.isPrototypeOf(baz));   // true
 ```    
+
+## Object.valueOf()
     
+    valueOf()方法返回指定对象的原始值。
+    
+    不同类型对象的valueOf()方法的返回值:
+        对象           返回值
+        Array           返回数组对象本身
+        Boolean         布尔值
+        Date            存储的时间从1970年1月1日开始计算的毫秒
+        Function        函数本身
+        Number          数字值
+        Object          对象本身
+        String          字符串值
+
 # Object.assign()
 	
 	用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
