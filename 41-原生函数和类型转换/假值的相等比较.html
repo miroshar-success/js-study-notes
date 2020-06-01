@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>假值的真假比较</title>
+</head>
+<body>
+<script>
+    console.log('0' == null);       // false
+    console.log('0' == undefined);  // false
+    console.log('0' == false);  // true
+    console.log('0' == NaN);    // false
+    console.log('0' == 0);  // true
+    console.log('0' == ""); // false
+
+
+    console.log(false == null)  // false
+    console.log(false == undefined) // false
+    console.log(false == NaN)   // false
+    console.log(false == 0) // true
+    console.log(false == "")    // true
+    console.log(false == [])    // true
+    console.log(false == {})    // false
+    console.log(0 == [])    // true
+    console.log(0 == '');   // true
+
+    console.log("" == null) // false
+    console.log("" == undefined)    // false
+    console.log("" == NaN)  // false
+    console.log("" == 0)    // true
+    console.log("" == [])   // true
+    console.log("" == {})   // false
+
+    console.log(0 == null)  // false
+    console.log(0 == undefined) // false
+    console.log(0 == NaN)   // false
+    console.log(0 == [])    // true
+    console.log(0 == {})    // false
+
+    console.log('true' == true);    // false    true --> 1
+    console.log(Number('true'));    // true --> NaN
+    console.log('foo' == ['foo'])   // true
+
+
+    console.log( '0' == false );
+    console.log( false == 0)
+    console.log(false == '')
+    console.log(false == [])
+    console.log("" == 0)
+    console.log("" == [])
+    console.log(0 == [])
+
+    console.log("" == 0)
+    console.log("" == [])
+    console.log(0 == [])
+
+
+    var a = ['42'];
+    var b = ['043'];
+    console.log(a < b); // false
+
+    var c = [4,2];
+    var d = [0,4,3];
+    console.log(c < d);
+
+    var e = {b:42};
+    var f = {b:43};
+    console.log(e < f);
+
+    console.log(e <= f);
+    console.log(e >= f);
+
+</script>
+</body>
+</html>

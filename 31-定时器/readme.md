@@ -1,3 +1,7 @@
+# 异步
+
+    任何时候,只要把一段代码包装成一个函数，并指定它在响应 某个事件(定时器，鼠标点击，Ajax响应等)时执行，
+    就是在代码中创建了一个将来执行的块。也由此在这个程序中引入了异步机制。
 
 # setTimeout()
 
@@ -66,8 +70,8 @@ for (var i = 0;i < 5; i++) {
 	loop(i);
 }
 ```
-![彻底理解setTimeout](https://www.jianshu.com/p/3e482748369d?from=groupmessage)	
-![Event Loop](https://github.com/aooy/blog/issues/5)
+[彻底理解setTimeout](https://www.jianshu.com/p/3e482748369d?from=groupmessage)	
+[Event Loop](https://github.com/aooy/blog/issues/5)
 	
 	
 	tips

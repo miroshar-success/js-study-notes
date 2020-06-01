@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关联</title>
+</head>
+<body>
+<ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<script>
+    var a = 42;
+    var b = 'foo';
+    var c = false;
+    var d = (a && b || c) ? ( (c || b) ? a : (c && b)) : a;
+    console.log(d); // 42;
+
+    var e = a && b || c ? c || b ? a : c && b : a;
+    console.log(e); // 42
+
+    function foo(a){
+        return (
+            (a * 2 + 3) /12
+        )
+    }
+    console.log(foo(4.5));
+
+    // 如果参数被省略或者 值为undefined, 则取该参数的默认值
+    function bar(a = 42, b = a + 1){
+        console.log(a,b);
+    }
+    bar();  // 42   43
+    bar(100)    // 100  101
+    bar(undefined)  // 42  43
+    bar(null)   // null 1
+    console.log(null + 1);
+    console.log(undefined + 1);
+
+
+    function baz(a = 42, b = a + 1){
+        console.log(
+            arguments.length,
+            a,
+            b,
+            arguments[0],
+            arguments[1]
+        )
+    }
+    baz();  // 0 42 43 undefined undefined
+    baz(10);    // 1 10 11 10 undefined
+    baz(10,undefined);  // 2 10 11 10 undefined
+    baz(10,null);   // 2 10 11 10 null
+
+
+    function f1(a){
+        a = 42;
+        console.log(
+            a,
+            arguments[0],
+            Object.prototype.toString.call(arguments)
+        )
+    }
+    f1(3);  // 42 42    [object Arguments]
+    f1()    // 42 undefined [object Arguments]
+
+    console.log(window.list);
+    const aList = document.getElementsByTagName('li');
+    console.log(aList);
+    console.log(Object.prototype.toString.call(aList));
+
+    const oDiv = document.createElement("div");
+    console.log(oDiv);
+    console.log(Object.prototype.toString.call(oDiv));  // [object HTMLDivElement]
+
+
+</script>
+</body>
+</html>

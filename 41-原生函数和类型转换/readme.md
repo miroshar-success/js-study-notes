@@ -232,10 +232,19 @@ if(Boolean(arr)){
     console.log(arr)
 }
 ```
-        
+    var a = {b:42}
+    var b = {b:43}
     
+    a < b   false
+    a == b  false
+    a > b   false
     
+    a <= b  true
+    a >= b  true
     
+    tips:
+        1. JavaScript中 <= 是'不大于'的意思，a <= b被处理成 b < a,然后将结果反转。因为b < a 结果是false,
+        所以 a <= b的结果是true。
     
     
     
