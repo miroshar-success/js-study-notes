@@ -39,5 +39,11 @@
     <orderEntry type="module" module-name="ReactStudyDemo" />
     <orderEntry type="module" module-name="StudyDemo" />
     <orderEntry type="module" module-name="StudyDemo" />
+    <orderEntry type="module" module-name="flow-test" />
+    <orderEntry type="module" module-name="Vue-CloudMusic" />
+    <orderEntry type="module" module-name="vue-cloudmusic" />
+    <orderEntry type="module" module-name="vue-music-player" />
+    <orderEntry type="module" module-name="CloudMusicApi" />
+    <orderEntry type="module" module-name="webpack-demo" />
   </component>
 </module>

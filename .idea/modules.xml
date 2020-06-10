@@ -3,15 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../AwesomeProject/.idea/AwesomeProject.iml" filepath="$PROJECT_DIR$/../AwesomeProject/.idea/AwesomeProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../CloudMusicApi/.idea/CloudMusicApi.iml" filepath="$PROJECT_DIR$/../CloudMusicApi/.idea/CloudMusicApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Cube-ui/.idea/Cube-ui.iml" filepath="$PROJECT_DIR$/../Cube-ui/.idea/Cube-ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/../React-Demo/.idea/React-Demo.iml" filepath="$PROJECT_DIR$/../React-Demo/.idea/React-Demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ReactStudyDemo/.idea/ReactStudyDemo.iml" filepath="$PROJECT_DIR$/../ReactStudyDemo/.idea/ReactStudyDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../StudyDemo/.idea/StudyDemo.iml" filepath="$PROJECT_DIR$/../StudyDemo/.idea/StudyDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vant/.idea/Vant.iml" filepath="$PROJECT_DIR$/../Vant/.idea/Vant.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Vue-CloudMusic/.idea/Vue-CloudMusic.iml" filepath="$PROJECT_DIR$/../Vue-CloudMusic/.idea/Vue-CloudMusic.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-MusicPlayer/.idea/Vue-MusicPlayer.iml" filepath="$PROJECT_DIR$/../Vue-MusicPlayer/.idea/Vue-MusicPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-饿了么/.idea/Vue-饿了么.iml" filepath="$PROJECT_DIR$/../Vue-饿了么/.idea/Vue-饿了么.iml" />
       <module fileurl="file://$PROJECT_DIR$/../demo/.idea/demo.iml" filepath="$PROJECT_DIR$/../demo/.idea/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../flow-test/.idea/flow-test.iml" filepath="$PROJECT_DIR$/../flow-test/.idea/flow-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/../font_1678811_yhzhustll7s/.idea/font_1678811_yhzhustll7s.iml" filepath="$PROJECT_DIR$/../font_1678811_yhzhustll7s/.idea/font_1678811_yhzhustll7s.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/front-end.iml" filepath="$PROJECT_DIR$/.idea/front-end.iml" />
       <module fileurl="file://$PROJECT_DIR$/../js-animations and css-layout/.idea/js-animations and css-layout.iml" filepath="$PROJECT_DIR$/../js-animations and css-layout/.idea/js-animations and css-layout.iml" />
@@ -21,7 +22,10 @@
       <module fileurl="file://$PROJECT_DIR$/../ticket-server/.idea/ticket-server.iml" filepath="$PROJECT_DIR$/../ticket-server/.idea/ticket-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/../todolist/.idea/todolist.iml" filepath="$PROJECT_DIR$/../todolist/.idea/todolist.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ui-component/.idea/ui-component.iml" filepath="$PROJECT_DIR$/../ui-component/.idea/ui-component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Vue-MusicPlayer/.idea/vue-cloudmusic.iml" filepath="$PROJECT_DIR$/../Vue-MusicPlayer/.idea/vue-cloudmusic.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" filepath="$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../vue-music-player/.idea/vue-music-player.iml" filepath="$PROJECT_DIR$/../vue-music-player/.idea/vue-music-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../webpack-demo/.idea/webpack-demo.iml" filepath="$PROJECT_DIR$/../webpack-demo/.idea/webpack-demo.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调函数</title>
+</head>
+<body>
+<script>
+    // 过分信任输入
+    function add1(x,y){
+        return x + y;
+    }
+    console.log( add1(21,21) );
+    console.log( add1('21','21') );
+
+    // 针对不行人输入的防御性代码
+    function add2(x,y){
+        if(typeof x !== 'number' || typeof y !== 'number'){
+            throw Error('Bad parameters');
+        }
+        return x + y;
+    }
+    console.log(add2(21,21));
+    // console.log(add2('21','21'));
+
+    function add3(x,y){
+        x = Number(x);
+        y = Number(y);
+        console.log(x);
+        return x + y;
+    }
+    console.log(add3(21,21));
+    console.log(add3('21','21'));
+    console.log(add3('',22));
+
+    // 为了更优雅的处理错误，有些API设计提供了分离回调(一个用于成功通知，一个用于出错通知)。
+    //
+    var p3 = new Promise(function(resolve,reject){
+        resolve('B');
+    })
+    var p1 = new Promise(function(resolve,reject){
+        resolve(p3);
+    })
+    var p2 = new Promise((resolve,reject) => {
+        resolve("A");
+    });
+    p1.then(function(v){
+        console.log(v);
+    });
+    p2.then(function(v){
+        console.log(v);
+    })
+</script>
+</body>
+</html>
