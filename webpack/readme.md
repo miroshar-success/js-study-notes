@@ -88,11 +88,78 @@ devServer:{
             3. include/exclude：手动添加需要处理的文件
             4. query: 为loaders提供额外的设置选项。
     
-    
-    
-    
-    
-    
+    安装css loader:
+        npm instal style-loader --save-dev
+                Adds CSS to the DOM by injecting a <style> tag
+
+        npm install css-loader --save-dev
+                css-loader解释@import 和 url()。会 import/require()后再解析他们。
+                
+        tips:
+            1. 在配置时，style-loader 要写在 css-loader的前面。
+```js
+// Usage:
+{
+    module:{
+        rules:[
+            {
+                test:/\.css$/,
+                use:[
+                    {loader:"style-loader"},
+                    {loader:'css-loader'}
+                ]
+            }           
+        ]
+    }
+}
+
+// 或者
+module:{
+    rules:[
+        {
+            test:/\.css$/,
+            use:['style-loader','css-loader']
+        }
+    ]
+}
+```
+    js 代码压缩：
+        安装 uglifyjs-webpack-plugin 
+        npm install uglifyjs-webpack-plugin --save-dev
+```js
+// webpack.config.js
+const uglify = require('uglifyjs-webpack-plugin');
+{
+    plugins:[
+        new uglify()
+    ]
+}
+```
+
+    打包html文件
+        npm install html-webpack-plugin --save-dev
+```js
+// webpack.config.js
+{
+    plugins:[
+        new htmlPlugin({
+            minify:{removeAttributeQuotes:true},    // 去掉html里的双引号
+            hash:true,  // 为了防止开发中js有缓存
+            template:'./src/index.html' // 打包的html模版路径和文件名称
+        })
+    ]
+}
+```
+    打包图片：
+        npm install file-loader --save-dev
+        
+        npm install url-loader --save-dev
+```js
+// webpack.config.js;
+// Usage
+
+
+```
     
     
     
