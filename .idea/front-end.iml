@@ -45,5 +45,7 @@
     <orderEntry type="module" module-name="vue-music-player" />
     <orderEntry type="module" module-name="CloudMusicApi" />
     <orderEntry type="module" module-name="webpack-demo" />
+    <orderEntry type="module" module-name="webpack-test" />
+    <orderEntry type="module" module-name="webpack-vue-todo" />
   </component>
 </module>
