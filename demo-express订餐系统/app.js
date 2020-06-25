@@ -1,7 +1,7 @@
 const express = require("express");
 const controller = require("./controller/index.js");
 const app = express();
-app.set("view engine","ejs");
+app.set("views engine","ejs");
 app.use(express.static("public"));
 
 app.get("/order",controller.getData);

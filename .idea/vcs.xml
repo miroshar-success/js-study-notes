@@ -9,5 +9,6 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../js-animations and css-layout" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../react-ticket" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../webpack-vue-todo" vcs="Git" />
   </component>
 </project>

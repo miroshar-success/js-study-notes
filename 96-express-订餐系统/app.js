@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.static("./public"));
-app.set("view engine","ejs");
+app.set("views engine","ejs");
 let controller = require("./controller/controller.js");
 // 订餐页面
 app.get("/order",controller.orderFood);

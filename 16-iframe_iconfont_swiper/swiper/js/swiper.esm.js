@@ -692,7 +692,7 @@ function updateAutoHeight (speed) {
   } else if (speed === true) {
     swiper.setTransition(swiper.params.speed);
   }
-  // Find slides currently in view
+  // Find slides currently in views
   if (swiper.params.slidesPerView !== 'auto' && swiper.params.slidesPerView > 1) {
     for (i = 0; i < Math.ceil(swiper.params.slidesPerView); i += 1) {
       const index$$1 = swiper.activeIndex + i;
@@ -703,7 +703,7 @@ function updateAutoHeight (speed) {
     activeSlides.push(swiper.slides.eq(swiper.activeIndex)[0]);
   }
 
-  // Find new height from highest slide in view
+  // Find new height from highest slide in views
   for (i = 0; i < activeSlides.length; i += 1) {
     if (typeof activeSlides[i] !== 'undefined') {
       const height = activeSlides[i].offsetHeight;

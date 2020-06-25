@@ -5,7 +5,7 @@ app.use(bodyParser.urlencoded({
     extended:false
 }))
 app.use(express.static("./public"));
-app.set("view engine","ejs");
+app.set("views engine","ejs");
 const controller = require("./controller/controller.js");
 // 首页,查看所有学生成绩
 app.get("/",controller.showIndex);

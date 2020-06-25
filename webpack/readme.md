@@ -20,14 +20,14 @@
     
     version:
         webpack -v
-        
         npm install --save-dev webpack-cli  安装脚手架
-```json
+        
+    通常，webpack通过运行一个或多个npm scripts, 会在本地node_modules目录中查找安装的webpack。
+```js
 "scripts": {
     "start": "webpack --config webpack.config.js"
 }
 ```
-    会在本地node_modules目录中查找安装的webpack。
     
 ## webpack基本配置
     

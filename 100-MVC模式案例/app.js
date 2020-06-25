@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const controller = require("./controller/controller.js");
 app.use(express.static("./public"));
-app.set("view engine","ejs");   // 设置模板引擎
+app.set("views engine","ejs");   // 设置模板引擎
 /*
 app.get("/:number",(req,res)=>{
     console.log(req.params);

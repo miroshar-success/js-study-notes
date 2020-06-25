@@ -47,5 +47,7 @@
     <orderEntry type="module" module-name="webpack-demo" />
     <orderEntry type="module" module-name="webpack-test" />
     <orderEntry type="module" module-name="webpack-vue-todo" />
+    <orderEntry type="module" module-name="webpack-vue-todo" />
+    <orderEntry type="module" module-name="webpack-demo" />
   </component>
 </module>

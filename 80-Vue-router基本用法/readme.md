@@ -41,7 +41,7 @@ const router = new VueRouter({
 			component:User,
 			children:[
 				{
-					<!-- 当 user/:id/profile匹配成功,UserProfile会被渲染在User的<router-view>中 -->
+					<!-- 当 user/:id/profile匹配成功,UserProfile会被渲染在User的<router-views>中 -->
 					path:"profile",
 					component:UserProfile
 				}
