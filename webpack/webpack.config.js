@@ -1,14 +1,14 @@
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
+    devtool:'inline-source-map',
     target:'web',
-    entry:{
-        index:path.join(__dirname,'src/index.js'),
-        app:path.join(__dirname,'src/app.js'),
-    },
+    entry:path.join(__dirname,'src/index.js'),
     output:{
-        filename:'[name].js',
+        filename:'bundle.js',
         path:path.join(__dirname,'dist')
     },
     module:{
@@ -36,7 +36,21 @@ module.exports = {
     },
     plugins:[
         new HtmlPlugin({
-            hash:true
-        })
-    ]
+            hash:true,
+            title:'Output Management'
+        }),
+        new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+    ],
+    devServer:{
+        port:'8081',
+        host:"localhost",
+        compress:true,
+        overlay:{
+            errors:true
+        },
+        open:true,
+        hot:true,
+        contentBase:path.join(__dirname,"dist")
+    }
 }

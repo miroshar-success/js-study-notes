@@ -2,6 +2,9 @@
     font-size:50px;
     color:red;
 }
+body{
+    background-color:pink;
+}
 .bg{
     background-image:url('../wq.jpg');
     background-size:100px 100px;
