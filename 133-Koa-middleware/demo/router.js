@@ -7,7 +7,7 @@ router.get('/api/goods',async ctx => {
 	ctx.body = good
 })
 
-router.get('/api/home',async ctx => {
+router.get('/api/home.vue',async ctx => {
 	ctx.body = '首页';
 })
 

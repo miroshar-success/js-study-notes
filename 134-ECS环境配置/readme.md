@@ -86,7 +86,7 @@
     和node一样配置软链
       ln -s /usr/local/nodejs/bin/pm2  /usr/local/bin
       
-    pm2 start app.js
+    pm2 start index.js
 
 
 # Nginx配置

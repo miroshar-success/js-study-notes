@@ -218,7 +218,7 @@ function HomeButton() {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/home");
+    history.push("/home.vue");
   }
   return (
     <button type="button" onClick={handleClick}>

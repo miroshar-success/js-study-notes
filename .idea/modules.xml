@@ -25,7 +25,10 @@
       <module fileurl="file://$PROJECT_DIR$/../Vue-MusicPlayer/.idea/vue-cloudmusic.iml" filepath="$PROJECT_DIR$/../Vue-MusicPlayer/.idea/vue-cloudmusic.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" filepath="$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" />
       <module fileurl="file://$PROJECT_DIR$/../vue-music-player/.idea/vue-music-player.iml" filepath="$PROJECT_DIR$/../vue-music-player/.idea/vue-music-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../vue-ssr/.idea/vue-ssr.iml" filepath="$PROJECT_DIR$/../vue-ssr/.idea/vue-ssr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../vue-ssr-demo/.idea/vue-ssr-demo.iml" filepath="$PROJECT_DIR$/../vue-ssr-demo/.idea/vue-ssr-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../webpack-demo/.idea/webpack-demo.iml" filepath="$PROJECT_DIR$/../webpack-demo/.idea/webpack-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../webpack-study-demo/.idea/webpack-study-demo.iml" filepath="$PROJECT_DIR$/../webpack-study-demo/.idea/webpack-study-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../webpack-test/.idea/webpack-test.iml" filepath="$PROJECT_DIR$/../webpack-test/.idea/webpack-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/../webpack-vue-todo/.idea/webpack-vue-todo.iml" filepath="$PROJECT_DIR$/../webpack-vue-todo/.idea/webpack-vue-todo.iml" />
     </modules>
