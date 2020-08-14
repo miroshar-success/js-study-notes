@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <p>{{message}}</p>
 <!--    v-text 更新元素的textContent 如果要更新部分的 textContent ，需要使用 {{ Mustache }} 插值。-->
     <ul v-text="a">
@@ -84,7 +84,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             message:'Hello Vue.js',
             a:'123',

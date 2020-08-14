@@ -30,6 +30,7 @@
       <module fileurl="file://$PROJECT_DIR$/../webpack-demo/.idea/webpack-demo.iml" filepath="$PROJECT_DIR$/../webpack-demo/.idea/webpack-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../webpack-study-demo/.idea/webpack-study-demo.iml" filepath="$PROJECT_DIR$/../webpack-study-demo/.idea/webpack-study-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../webpack-test/.idea/webpack-test.iml" filepath="$PROJECT_DIR$/../webpack-test/.idea/webpack-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../webpack-vue-ssr/.idea/webpack-vue-ssr.iml" filepath="$PROJECT_DIR$/../webpack-vue-ssr/.idea/webpack-vue-ssr.iml" />
       <module fileurl="file://$PROJECT_DIR$/../webpack-vue-todo/.idea/webpack-vue-todo.iml" filepath="$PROJECT_DIR$/../webpack-vue-todo/.idea/webpack-vue-todo.iml" />
     </modules>
   </component>

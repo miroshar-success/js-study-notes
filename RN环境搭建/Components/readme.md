@@ -116,7 +116,7 @@ retutn (
         editable
             如果为false,文本框是不可编辑的。默认值为true。
         inlineImageLeft
-            指定一个图片放在左侧。图片必须放置在/anroid/app/src/main/res/drawable目录下。
+            指定一个图片放在左侧。图片必须放置在/anroid/server/src/main/res/drawable目录下。
         inlineImagePadding
             给放置在左侧的图片设置padding样式。
         keyboardType

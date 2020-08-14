@@ -35,7 +35,7 @@
 	</head>
 	<body>
 		<div id="box1">{{player}}</div>
-		<div id="app">
+		<div id="server">
 			<span>Message:{{msg}}</span>
 			<br>
 			<span v-once>This will nerver change:{{msg}}</span>
@@ -73,13 +73,13 @@
 				}
 			});
 			
-			const app = new Vue({
-				el:'#app',
+			const server = new Vue({
+				el:'#server',
 				data:{
 					msg:'Hello Vue!'
 				}
 			});
-			console.log(app);
+			console.log(server);
 			
 			new Vue({
 				el:'#box2',

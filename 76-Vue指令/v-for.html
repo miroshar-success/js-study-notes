@@ -8,7 +8,7 @@
     <title>v-for的key值</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <template v-if=" type === 'name' ">
         请输入用户名: <input type="text" placeholder="请输入用户名" key="name-input">
     </template>
@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     let vm = new Vue({
-        el:document.getElementById("app"),
+        el:document.getElementById("server"),
         data:{
             type:'name'
         },

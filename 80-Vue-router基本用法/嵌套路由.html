@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        #app{
+        #server{
             margin:30px auto;
             width:500px;
             height:400px;
@@ -52,7 +52,7 @@
     </style>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <ul class='nav-list'>
         <li class="nav-item"><router-link to="/study">学习</router-link></li>
         <li class="nav-item"><router-link to="/system">生态系统</router-link></li>
@@ -205,7 +205,7 @@
         console.log('afterEach');
     })
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         router
     })
 </script>

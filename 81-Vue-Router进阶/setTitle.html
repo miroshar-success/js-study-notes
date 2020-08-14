@@ -22,14 +22,14 @@
 				background-color:skyblue;
 				text-align:center;
 			}
-			#app{
+			#server{
 				width:320px;
 				border:1px solid #000;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<ul >
 				<router-link tag="li" to="/index">首页</router-link>
 				<router-link tag="li" to="/about">关于</router-link>
@@ -93,7 +93,7 @@
 				next();
 			});
 			new Vue({
-				el:"#app",
+				el:"#server",
 				router
 			})
 		</script>

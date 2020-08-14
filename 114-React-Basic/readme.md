@@ -345,18 +345,18 @@ function WelcomeDialog(){
     )
 }
 ```
-# create-react-app
+# create-react-server
 
-    npx create-react-app my-app
-    cd my-app
+    npx create-react-server my-server
+    cd my-server
     npm start
     
-    When you create a new app,the CLI will use yarn to install dependencies(when available).If you have Yarn
+    When you create a new server,the CLI will use yarn to install dependencies(when available).If you have Yarn
     installed,but would prefer to use npm,you can append --use-npm to the creation command.
     For example:
-        npx create-react-app my-app --use-npm
+        npx create-react-server my-server --use-npm
 ```js
-my-app/
+my-server/
   README.md
   node_modules/
   package.json
@@ -368,18 +368,18 @@ my-app/
     App.jsx
     App.test.js
     index.css
-    index.js
+    app.js
     logo.svg
 ```   
     For the project to build,these files must exist with exact filenames:
         public/index.html   is the page template;
-        src/index.js        is the JavaScript entry point;
+        src/app.js        is the JavaScript entry point;
     You can delete or rename the other files.
     
 ## Available Scripts
 
     npm start:
-        Runs the app in the development mode.The page will reload if you make edits.
+        Runs the server in the development mode.The page will reload if you make edits.
     
     
     

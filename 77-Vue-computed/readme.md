@@ -46,7 +46,7 @@ new Vue({
 
 ```js
 new Vue({
-	el:"#app",
+	el:"#server",
 	data:{
 		message:"Hello"
 	},

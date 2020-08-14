@@ -5,7 +5,7 @@
     <title>computed</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <p>{{msg}}</p>
     <p>计算属性的 reverseMsg: {{reverseMsg}}</p>
     <p>通过方法的 reverseMsg: {{reversedMsg()}}</p>
@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             msg:'hello world',
             a:1,

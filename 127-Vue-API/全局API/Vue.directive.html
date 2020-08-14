@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<h5>自定义指令,文本自动聚焦</h5>
-		<div id="app">
+		<div id="server">
 			<input type="text" v-focus="focus">
 		</div>
 		<h5>指令的参数,表达式</h5>
@@ -35,7 +35,7 @@
 				}
 			});
 			new Vue({
-				el:"#app",
+				el:"#server",
 				data:{
 					focus:"focus"
 				}

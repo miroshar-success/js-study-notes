@@ -5,7 +5,7 @@
     <title>Router-link</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
 <!--    <router-link to="/home.vue">首页</router-link>-->
 <!--    <router-link to="/user">用户中心</router-link>-->
 
@@ -73,14 +73,14 @@
             }
         /*    {
                 path:'/UserCenter/:id',
-                component:UserCenter,
+                components:UserCenter,
                 name:'user'
             }
          */
         ]
     })
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         router
     })
 

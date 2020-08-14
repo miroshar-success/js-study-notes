@@ -5,7 +5,7 @@
 		<title>组件传值</title>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<button @click='handleIncrease'>点我</button>
 			<p>父组件的 count : {{count}}</p>
 			<parent :count='count'></parent>
@@ -30,7 +30,7 @@
 			})
 			
 			new Vue({
-				el:'#app',
+				el:'#server',
 				components:{parent},
 				data:{
 					count:0

@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <h3>单元素组件的过渡</h3>
     <button @click="toggleShow">toggle</button>
     <transition name="fade">
@@ -73,7 +73,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script>
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             show:true,
             flag:true,

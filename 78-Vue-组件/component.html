@@ -10,7 +10,7 @@
 			<blog-post title="Blogging whit Vue"></blog-post>
 			<blog-post title="Why Vue is so fun"></blog-post>
 		</div>
-		<div id="app">
+		<div id="server">
 			<blog 
 				v-for="(post,index) in posts" 
 				:key="index"
@@ -39,7 +39,7 @@
 				props:['title']
 			});
 			new Vue({
-				el:document.getElementById("app"),
+				el:document.getElementById("server"),
 				data:{
 					posts:[
 						{id:1,title:"My Journey with Vue"},

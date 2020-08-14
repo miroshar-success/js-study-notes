@@ -5,7 +5,7 @@
     <title>useMemo</title>
 </head>
 <body>
-<div id="app"></div>
+<div id="server"></div>
 <div id="root"></div>
 <div id="demo"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
@@ -39,7 +39,7 @@
     }
     ReactDOM.render(
         <App/>,
-        document.getElementById("app")
+        document.getElementById("server")
     )
 
     // 将修改的两个属性传递给子组件,接受的子组件 将其中一个数据title修改, 每次修改content时,也会导致title修改函数的执行

@@ -51,7 +51,7 @@
 		</div>
 		
 		<h3>CSS过渡：常用过渡都是CSS过渡</h3>
-		<div id="app">
+		<div id="server">
 			<button @click="handleChangeText">切换</button>
 			<transition name="check" type="transition">
 				<p v-if="show">Hello Vue!</p>
@@ -84,7 +84,7 @@
 			});
 			
 			new Vue({
-				el:"#app",
+				el:"#server",
 				data:{
 					show:true
 				},

@@ -8,13 +8,13 @@
             padding: 0;
             margin: 0;
         }
-        html,body,#app{
+        html,body,#server{
             height:100%;
         }
     </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="server"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
 <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
@@ -201,7 +201,7 @@
     
     ReactDOM.render(
         <MouseTracker/>,
-        document.getElementById("app")
+        document.getElementById("server")
     )
 </script>
 </body>

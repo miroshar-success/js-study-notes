@@ -5,7 +5,7 @@
 		<title>Vue-Router动态路由</title>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<p><input type="text" placeholder="请输入手机号" v-model="tel"></p>
 			<p><input type="text" placeholder="请输入姓名" v-model="name"></p>
 			<router-link :to=`/user/${name}?tel=${tel}`>点击登陆</router-link>
@@ -29,7 +29,7 @@
 				]
 			});
 			new Vue({
-				el:"#app",
+				el:"#server",
 				data:{
 					tel:"",
 					name:""

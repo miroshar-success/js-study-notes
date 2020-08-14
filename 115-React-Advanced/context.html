@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="root"></div>
-<div id="app"></div>
+<div id="server"></div>
 <div id="demo"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
@@ -146,7 +146,7 @@
 
     ReactDOM.render(
         <Association/>,
-        document.getElementById("app")
+        document.getElementById("server")
     )
 
     const MyContext = React.createContext('defaultValue');

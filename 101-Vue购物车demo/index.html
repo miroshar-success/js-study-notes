@@ -39,7 +39,7 @@
     </style>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <template v-if="list.length">
         <table>
             <thead>
@@ -75,7 +75,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 let vm = new Vue({
-    el:document.getElementById("app"),
+    el:document.getElementById("server"),
     data:{
         list:[
             {

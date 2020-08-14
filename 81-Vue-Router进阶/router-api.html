@@ -12,7 +12,7 @@
 		ul,ol{
 			list-style:none;
 		}
-		#app{
+		#server{
 			margin:10px auto 0;
 			width:600px;
 			border:1px solid #000;
@@ -37,7 +37,7 @@
 		}
 	</style>
 	<body>
-		<div id="app">
+		<div id="server">
 			<ul class="navlist">
 				<router-link tag="li" to="/" exact>首页</router-link>
 				<router-link tag="li" to="/guonei">国内</router-link>
@@ -54,7 +54,7 @@
 					<img src="./imgs/index.png">
 				</div>`,
 				mounted(){
-					console.log(router.app);
+					console.log(router.server);
 					console.log(router.mode);
 					console.log(router.currentRoute);
 				}
@@ -109,7 +109,7 @@
 				next();
 			})
 			new Vue({
-				el:"#app",
+				el:"#server",
 				router
 			})
 		</script>

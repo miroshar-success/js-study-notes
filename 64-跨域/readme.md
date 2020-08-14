@@ -13,9 +13,9 @@
 ```
 // example 
 const express = require('express');
-const app = express();
+const server = express();
 
-app.use(function(req,res,next){
+server.use(function(req,res,next){
 	res.header('Access-Control-Allow-Origin','*');
 	res.header('Access-Control-Allow-Credentials',true);
 	res.header('Access-Control-Allow-Methods','post');

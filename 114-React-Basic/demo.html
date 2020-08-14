@@ -13,10 +13,10 @@
     </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="server"></div>
 <div id="root"></div>
 <div id="demo"></div>
-<div class="app"></div>
+<div class="server"></div>
 <div class="demo"></div>
 <script src="node_modules/babel-standalone/babel.js"></script>
 <script src="node_modules/react/umd/react.development.js"></script>
@@ -25,7 +25,7 @@
     console.log(ReactDOM);
     ReactDOM.render(
         <h1>Hello World!</h1>,
-        document.querySelector("#app")
+        document.querySelector("#server")
     )
 //    JSX 是一个JavaScript的语法扩展,潜入表达式,在{}中可以放置任何有效的JavaScript表达式。
     let name = "Kyrie Irving";
@@ -47,7 +47,7 @@
     const element1 = <h2>Hello,{formatName(user)}!</h2>
     ReactDOM.render(
         element1,
-        document.querySelector(".app")
+        document.querySelector(".server")
     )
 
 

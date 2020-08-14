@@ -5,7 +5,7 @@
 		<title>Vuex-state</title>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<user></user>
 			<my-component></my-component>
 		</div>
@@ -43,7 +43,7 @@
 				}
 			})
 			new Vue({
-				el:"#app",
+				el:"#server",
 				store,	// 通过store选项,提供了一种机制将状态从根组件"注入"到每一个子组件中.
 				components:{
 					user,

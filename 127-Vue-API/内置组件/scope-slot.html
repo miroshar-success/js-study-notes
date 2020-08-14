@@ -5,7 +5,7 @@
     <title>Slot-scope</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
 <!--    使用插槽访问子组件的数据 -->
     <user>
         <template v-slot:first>
@@ -35,7 +35,7 @@
     }
 
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         components:{user}
     })
 </script>

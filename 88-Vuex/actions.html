@@ -4,17 +4,17 @@
 		<meta charset="utf-8">
 		<title>Vuex-actions</title>
 		<style>
-			#app{
+			#server{
 				text-align:center;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<p>Action类似Mutition,不同在于:</p>
 			<h4>Action提交的是mutation,而不是直接变更状态</h4>
 			<h4>Action可以包含任意异步操作</h4>
-			<my-app></my-app>
+			<my-server></my-server>
 		</div>
 		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 		<script src="https://unpkg.com/vuex@2.0.0"></script>
@@ -50,7 +50,7 @@
 					}
 				}
 			});
-			const myApp = Vue.component("my-app",{
+			const myApp = Vue.component("my-server",{
 				template:`<div>
 					<button @click="handleAdd">+2</button>
 					<button @click="handleAddAsync">异步+2</button>
@@ -70,10 +70,10 @@
 				}
 			})
 			new Vue({
-				el:"#app",
+				el:"#server",
 				store,
 				components:{
-					"my-app":myApp
+					"my-server":myApp
 				}
 			})
 		</script>

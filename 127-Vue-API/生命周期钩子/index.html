@@ -5,13 +5,13 @@
     <title>Vue-生命周期钩子函数</title>
 </head>
 <body>
-    <div id="app">
+    <div id="server">
         {{message}}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         let vm = new Vue({
-            el:'#app',
+            el:'#server',
             data:{
                 message:'Hello Vue.js',
                 a:1
@@ -71,9 +71,9 @@
             }
         });
 
-        console.log( app.outerHTML );
+        console.log( server.outerHTML );
         /*
-        * <div id="app">
+        * <div id="server">
             Hello Vue.js
            </div>
         * */

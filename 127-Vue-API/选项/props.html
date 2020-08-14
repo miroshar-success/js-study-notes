@@ -5,7 +5,7 @@
     <title>Props</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
 <!--html中的特性名是大小写不敏感的,浏览器会把所有大写字符解释为小写字符-->
     <son
         :msg="msg"
@@ -37,7 +37,7 @@
     })
 
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             msg:'hello world',
             propsTitle:'子组件的标题'

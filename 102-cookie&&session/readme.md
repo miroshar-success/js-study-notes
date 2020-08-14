@@ -63,9 +63,9 @@ response.setHeader('Set-Cookie',['type=ninja','language=javascript'])
     npm install cookie-parser --save
 ```js
 const cookieParser = require("cookie-parser");
-app.use(cookieParser());
+server.use(cookieParser());
 
-app.get("/",(req,res)=>{
+server.get("/",(req,res)=>{
   res.cookie(name,value,{
       maxAge:1000,
   })  

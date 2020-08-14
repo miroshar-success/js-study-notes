@@ -5,7 +5,7 @@
     <title>Vue-component</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     {{msg}}
     <son1/>
     <son2/>
@@ -50,7 +50,7 @@
         template:"#son3"
     }
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             msg:'我是父组件'
         },

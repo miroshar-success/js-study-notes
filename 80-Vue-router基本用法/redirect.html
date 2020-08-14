@@ -5,7 +5,7 @@
 		<title>重定向</title>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<h1>首页</h1>
 			<ul>
 				<router-link tag="li" to="/foo">foo</router-link>
@@ -43,7 +43,7 @@
 			});
 			
 			new Vue({
-				el:"#app",
+				el:"#server",
 				router
 			})
 			

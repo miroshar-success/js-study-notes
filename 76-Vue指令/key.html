@@ -18,7 +18,7 @@
 			<button @click="handleCheckType">切换输入类型</button>
 		</div>
 		<h3>2. 添加了key值,input没有被复用</h3>
-		<div id="app">
+		<div id="server">
 			<template v-if="msg==='name'">
 				<label>用户名:</label>
 				<input type="text" placeholder="请输入用户名" key="name-input">
@@ -43,7 +43,7 @@
 				}
 			});
 			new Vue({
-				el:document.getElementById("app"),
+				el:document.getElementById("server"),
 				data:{
 					msg:'name'
 				},

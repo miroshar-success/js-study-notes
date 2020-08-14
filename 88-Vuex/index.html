@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<div id="demo"></div>
-		<div id="app"></div>
+		<div id="server"></div>
 		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 		<script src="https://unpkg.com/vuex@2.0.0"></script>
 		<script>
@@ -80,8 +80,8 @@
 					}
 				}
 			}
-			const app = new Vue({
-				el:"#app",
+			const server = new Vue({
+				el:"#server",
 				store,
 				components:{Counter},
 				template:"<div><counter></counter></div>"

@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="root"></div>
-<div id="app"></div>
+<div id="server"></div>
 <div id="demo"></div>
 <script src="./node_modules/babel-standalone/babel.js"></script>
 <script src="./node_modules/react/umd/react.development.js"></script>
@@ -53,7 +53,7 @@
     }
     ReactDOM.render(
         <NumberList numbers={numbers}/>,
-        document.getElementById("app")
+        document.getElementById("server")
     )
 
     // key不需要是全局唯一的，在其兄弟节点之间是独一无二的就可以

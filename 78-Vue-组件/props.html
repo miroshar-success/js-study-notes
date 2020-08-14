@@ -11,7 +11,7 @@
 		<my-component></my-component>
 	</div>
 	<h3>组件里的data必须时函数,如果返回的对象是对外部对象的引用,那么这个对象是共享的</h3>
-	<div id="app">
+	<div id="server">
 		<new-component></new-component>
 		<new-component></new-component>
 		<new-component></new-component>
@@ -96,7 +96,7 @@
 				}
 			});
 			new Vue({
-				el:document.getElementById("app"),
+				el:document.getElementById("server"),
 			});
 			
 			Vue.component('blog-post',{

@@ -10,7 +10,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<ul>
 				<router-link tag="li" :to="{name:'index'}">首页</router-link>
 				<router-link tag="li" :to="{name:'about'}">关于</router-link>
@@ -41,7 +41,7 @@
 				]
 			})
 			new Vue({
-				el:"#app",
+				el:"#server",
 				router
 			})
 		</script>

@@ -143,7 +143,7 @@ export default function counter(state = 0, action) {
   }
 }
 
-// index.js
+// app.js
 import { combineReducers } from 'redux'
 import todos from './todos'
 import counter from './counter'
@@ -236,7 +236,7 @@ const mapStateToProps = (state) => (
 {   })
 
 const mapDispatchToProps = {}
-// connect returna s new function that accepts the component to wrap;
+// connect returna s new function that accepts the components to wrap;
 connect(mapStateToProps,mapDispatchToProps)();
 
 
@@ -244,7 +244,7 @@ import { connect } from 'react-redux'
 import { addTodo } from '../redux/actions'
 
 class AddTodo extends React.Component {
-  // ... component implementation
+  // ... components implementation
 }
 
 export default connect(
@@ -547,7 +547,7 @@ function selectSubreddit(subreddit) {
   }
 }
 
-// index.js
+// app.js
 function selectedsubreddit(state='react.js',action){
     switch(action.type){
         case SELECT_SUBREDDIT:

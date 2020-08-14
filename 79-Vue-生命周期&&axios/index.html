@@ -8,13 +8,13 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<p>{{message}}</p>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script>
 			const vm = new Vue({
-				el:"#app",
+				el:"#server",
 				data:{
 					message:'Hello World!'
 				},
@@ -37,14 +37,14 @@
 					console.log("%c%s", "color:red" , "el :" + this.$el);
 					console.log("%c%s", "color:red" , "data : " + this.$data);
 					console.groupEnd();
-					console.log(this,this.$el,this.message);	// <div id="app"></div>  "Hello World"
+					console.log(this,this.$el,this.message);	// <div id="server"></div>  "Hello World"
 				},
 				mounted(){
 					console.groupCollapsed("mounted状态")
 					console.log("%c%s", "color:red" , "el :" + this.$el);
 					console.log("%c%s", "color:red" , "data : " + this.$data);
 					console.groupEnd();
-					console.log(this,this.$el,this.message);	// <div id="app"></div>   "Hello World"
+					console.log(this,this.$el,this.message);	// <div id="server"></div>   "Hello World"
 				},
 				beforeUpdate(){
 // 					console.groupCollapsed("beforeUpdate状态");

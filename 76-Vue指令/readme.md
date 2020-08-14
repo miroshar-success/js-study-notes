@@ -2,7 +2,7 @@
 
 	el 用于指定页面中存在的元素挂载vue实例，可以是HTMLElement,也可以是CSS选择器
 	new Vue({
-		el: '#app' / document.getElementById('app')
+		el: '#server' / document.getElementById('server')
 	})；
 	
 	tips：

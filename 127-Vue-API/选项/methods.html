@@ -5,7 +5,7 @@
     <title>methods</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <button v-on:click="add">点我</button>
     <p>{{count}}</p>
 
@@ -28,7 +28,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             count:0,
             message:'hello'

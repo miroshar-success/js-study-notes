@@ -11,7 +11,7 @@
 			ul,ol{
 				list-style:none;
 			}
-			#app{
+			#server{
 				margin:0 auto;
 				width:800px;
 				height:auto;
@@ -48,7 +48,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<ul class="list">
 				<router-link tag="li" to="/banner">轮播图</router-link>
 				<router-link tag="li" to="/songmv">推荐MV</router-link>
@@ -159,7 +159,7 @@
 				]
 			})
 			new Vue({
-				el:"#app",
+				el:"#server",
 				router
 			})
 		</script>

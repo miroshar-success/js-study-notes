@@ -11,7 +11,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<input type="text" v-model="val" placeholder="edit me">
 			<p>{{val}}</p>
 			<p>textarea元素:</p>
@@ -95,7 +95,7 @@
 		<script>
 			// input:text
 			const vm = new Vue({
-				el:document.getElementById('app'),
+				el:document.getElementById('server'),
 				data:{
 					val:"",
 					message:"Hello Vue.js"

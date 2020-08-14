@@ -6,7 +6,7 @@
     此时this指向window
 ```js
 const vm = new Vue({
-    el:'#app',
+    el:'#server',
     data:{
         count:0
     },
@@ -54,7 +54,7 @@ watch:{
 
 ```vue
 const vm = new Vue({
-    el:'#app',
+    el:'#server',
     data:{
         msg:'hello world',
         a:1

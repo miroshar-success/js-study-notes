@@ -18,7 +18,7 @@ ReactDOM.render(
     <BrowserRouter>
         <App/>
     </BrowserRouter>,
-    document.getElementById("app")
+    document.getElementById("server")
 )
 ```
 ### props
@@ -46,15 +46,15 @@ function App() {
   return (
     <div>
       <Switch>
-        {/* If the current URL is /about, this route is rendered
+        {/* If the current URL is /about, this router is rendered
             while the rest are ignored */}
         <Route path="/about">
           <About />
         </Route>
 
-        {/* Note how these two routes are ordered. The more specific
+        {/* Note how these two router are ordered. The more specific
             path="/contact/:id" comes before path="/contact" so that
-            route will render when viewing an individual contact */}
+            router will render when viewing an individual contact */}
         <Route path="/contact/:id">
           <Contact />
         </Route>
@@ -62,10 +62,10 @@ function App() {
           <AllContacts />
         </Route>
 
-        {/* If none of the previous routes render anything,
-            this route acts as a fallback.
+        {/* If none of the previous router render anything,
+            this router acts as a fallback.
 
-            Important: A route with path="/" will *always* match
+            Important: A router with path="/" will *always* match
             the URL because all URLs begin with a /. So that's
             why we put this one last of all */}
         <Route path="/">
@@ -245,7 +245,7 @@ function HomeButton() {
 // 使用useLocation 判断提示当前要去的地址
 <Prompt
   message={location =>
-    location.pathname.startsWith("/app")
+    location.pathname.startsWith("/server")
       ? true
       : `Are you sure you want to go to ${location.pathname}?`
   }

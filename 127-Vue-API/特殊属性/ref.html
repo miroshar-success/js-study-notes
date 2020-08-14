@@ -5,7 +5,7 @@
     <title>Ref</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <p ref="msg">{{msg}}</p>
     <base-input ref="input"></base-input>
     <ol>
@@ -27,7 +27,7 @@
         }
     }
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         data:{
             msg:'Hello World',
             players:['kyrie','lebron','james','durant']

@@ -18,7 +18,7 @@ Vue.directive("focus",{
 // 注册局部指令,组件也接受一个directives选项
 
 new Vue({
-	el:"#app",
+	el:"#server",
 	directives:{
 		focus:{
 			inserted:function(el){

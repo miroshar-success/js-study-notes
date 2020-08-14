@@ -30,7 +30,7 @@
 			}
 		</style>
 	</head>
-	<div id="app">
+	<div id="server">
 		<!-- 绑定class为字符串的时候 -->
 		<span :class="c1">{{msg}}</span>
 		<!-- 数组 -->
@@ -74,7 +74,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script>
 			const vm = new Vue({
-				el:'#app',
+				el:'#server',
 				data:{
 					msg:'Hello World',
 					c1:'box1',

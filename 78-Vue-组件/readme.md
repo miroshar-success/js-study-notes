@@ -6,7 +6,7 @@
 		
 	});
 ```html
-<div id="app">
+<div id="server">
 	<my-component></my-component>
 </div>
 

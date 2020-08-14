@@ -11,7 +11,7 @@
         ul,ol{
             list-style:none;
         }
-        #app{
+        #server{
             padding-left:50px;
         }
         .new-item{
@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <router-view></router-view>
 </div>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -157,7 +157,7 @@
     })
 
     const vm = new Vue({
-        el:'#app',
+        el:'#server',
         router,
     })
 </script>

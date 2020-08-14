@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 app.use(express.static('public'));
 app.use(cookieParser());
 
-// const CityRouter = require('./routes/city');
+// const CityRouter = require('./router/city');
 const LoginRouter = require('./routes/login');
 app.use('/api',LoginRouter);
 // app.use('/api',CityRouter);

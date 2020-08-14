@@ -5,7 +5,7 @@
     <title>Vue-this.$router</title>
 </head>
 <body>
-<div id="app">
+<div id="server">
     <button @click="goHome">首页</button>
     <button @click="goUser">用户中心</button>
     <button @click="goBack">上一页</button>
@@ -46,7 +46,7 @@
     })
 
     const vm = new Vue({
-        el:"#app",
+        el:"#server",
         router,
         methods:{
             goHome(){

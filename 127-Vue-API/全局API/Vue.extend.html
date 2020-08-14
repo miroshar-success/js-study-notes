@@ -7,7 +7,7 @@
 	<body>
 		<div id="demo">
 		</div>
-		<div id="app">
+		<div id="server">
 			<my-component></my-component>
 		</div>
 		<div id="root"></div>
@@ -44,7 +44,7 @@
 			});
 			Vue.component("my-component",myComponent);
 			new Vue({
-				el:"#app"
+				el:"#server"
 			});
 			
 			new Vue({

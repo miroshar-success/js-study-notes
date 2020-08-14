@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="server">
 	  <keep-alive>
 		  <router-view></router-view>
 	  </keep-alive>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'server',
 }
 </script>
 <style>

@@ -30,7 +30,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="server">
 			<button-counter></button-counter>
 		</div>
 		<div id="root">
@@ -95,10 +95,10 @@
 		<script>
 			/*
 			1. 注册组件,传入一个扩展过的构造器
-			Vue.component("my-component",Vue.extend({}))
+			Vue.components("my-components",Vue.extend({}))
 			
 			2. 注册组件,传入一个选项对象 (自动调用Vue.extend)
-			Vue.component("my-component",{})
+			Vue.components("my-components",{})
 			
 			*/ 
 		   
@@ -117,7 +117,7 @@
 			   }
 		   })
 		   new Vue({
-			   el:"#app"
+			   el:"#server"
 		   })
 		   
 		   
