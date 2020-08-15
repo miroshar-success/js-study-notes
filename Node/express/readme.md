@@ -240,6 +240,5 @@ server.get("/",(req,res,next)=>{
 	res.write("World");
 	res.end();
 })
-
 ```
 	

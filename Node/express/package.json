@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "formidable": "^1.2.1"
-  }
-}

@@ -79,3 +79,6 @@ var load = function (module){
 	
 	path.basename()	返回当前的文件名
 		也可以用 path.parse(__filename).base 返回当前文件名
+		
+
+    

@@ -6,7 +6,7 @@
 ```js
 const http = require("http");
 http.createServer((req,res)=>{
-	res.write()	返回的数据必须是字符串或者Buffer
+	res.write()	// 返回的数据必须是字符串或者Buffer
 	res.end();
 }).listen(3000);
 ```
@@ -25,6 +25,52 @@ http.createServer((req,res)=>{
 	tips:
 	1. 如果使用 response.setHeader()设置响应头时,它们将与response.writeHead()的任何响应头合并,其中
 	response.writeHead()的响应头优先。
+	    res.writeHead(200,{
+	        'Content-Type':'text/plain;charset=utf-8;'
+	    })
+    
+    
+    response.write(chunk,encoding,callback)
+        chunk可以是字符串 或者buffer.如果chunk是一个字符串,则第二个参数指定如何将其编码为字节流。
+    
+    res.end(data,encoding,callback);
+        此方法向服务器发出信号，表明已发送所有响应头和主体，该服务器应该视为此消息已完成。 必须在每个响应上
+        调用此 response.end() 方法。
+        
+        如果指定了 data，则相当于调用 response.write(data, encoding) 之后再调用 response.end(callback)。
+```js
+// 重定向
+const http = require('http');
+const app = http.createServer(function(req,res) {
+    res.writeHead(301,{
+        'Location':'http://www.baidu.com'
+    });
+    res.end()
+});
+
+app.listen(3000,() => {
+    console.log('app starting at port 3000');
+})
+```
+```js
+// 读取一张图片
+const http = require('http');
+
+const app = http.createServer(function(req,res) {
+    res.writeHead(200,{
+        'Content-Type':'image/png'
+    })
+    fs.readFile('./images/1.png','binary',(err,data) => {
+        if(err){
+            console.log(err);
+        }else{
+            console.log(data);
+            res.write(data,'binary');
+            res.end();
+        }
+    })
+});
+```
 		
 # url模块
     
@@ -77,6 +123,9 @@ querystring.stringify({ foo: 'bar', baz: 'qux' }, ';', ':');
 
     res.setHeader() 只允许设置单个标题
     res.writeHead() 允许设置有关响应头的所有内容,包括状态码,内容和多个标头
+    
+    当使用response.setHeader()设置响应头时,他们将与传给response.writeHead()的任何响应头合并,其中response.writeHead()
+    的响应头优先。
     
     example:
         res.setHeader("Content-Type","text/plain");
