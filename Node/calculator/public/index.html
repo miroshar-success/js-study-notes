@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>因素计算器</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <p class="title">因素计算程序:会输出数字n的所有因素.取值范围为:[1-10000]</p>
+    <input type="text" class="input">
+    <input type="submit" class="submit">
+</div>
+<script type="text/javascript">
+    const oInput = document.querySelector('.input');
+    const oSubmit = document.querySelector('.submit');
+    oSubmit.onclick = function(){
+        let value = oInput.value;
+        if( (/\d+/g).test(value) ){
+            window.location.href = '/' + value;
+        }else{
+            window.alert('输入数字');
+        }
+    }
+</script>
+</body>
+</html>

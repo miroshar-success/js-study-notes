@@ -46,6 +46,16 @@ const server = express();
 
 	server.use( express.static("public") );
 		将public下的文件设置为静态文件目录并将 index.html文件设置为首页
+```js
+app.use('/static', express.static('public'));
+
+// 现在，你就可以通过带有 /static 前缀地址来访问 public 目录中的文件了。
+http://localhost:3000/static/images/kitten.jpg
+http://localhost:3000/static/css/style.css
+http://localhost:3000/static/js/app.js
+http://localhost:3000/static/images/bg.png
+http://localhost:3000/static/hello.html
+```
 
 ## express方法
     
@@ -60,17 +70,17 @@ server.get("/",function(req,res){
     res.send("Hello World");
 })
 ```
-   使用指定的回调函数将HTTP POST请求路由到指定的路径
-   server.post(path,callback)
+    使用指定的回调函数将HTTP POST请求路由到指定的路径
+    server.post(path,callback)
        
        
-   server.use(path,callback)
-   get方法和post方法都可以提交
-  在指定的路径上安装指定的中间件函数:当请求的路径的基数匹配时,执行中间件函数path
-   
-   tips:
-   路径将立即匹配其路径后面的任何路径"/"。例如app.use("/apple") 将匹配"/apple", "apple/images"
-   "apple/images/news"等
+    server.use(path,callback)
+    get方法和post方法都可以提交
+    在指定的路径上安装指定的中间件函数:当请求的路径的基数匹配时,执行中间件函数path
+    
+    tips:
+    路径将立即匹配其路径后面的任何路径"/"。例如app.use("/apple") 将匹配"/apple", "apple/images"
+    "apple/images/news"等
    
 ## request
 
@@ -179,12 +189,7 @@ server.post("/login",(req,res)=>{
     application/x-www-form-urlencoded       在发送前编码所有字符
     multipart/form-data                     不对字符编码，在使用包含文件上传空间的表单时,必须使用该值。
     text/plain                              空格转换为"+",但不对特殊字符编码
-    
-# 第三方模块
 	
-	body-parser
-	cookie-parser
-
 ## body-parser
 
     body-parser也可以获取post方式传递的数据,但是只能获取字符，不能获取文件
