@@ -20,7 +20,7 @@
 		// For CommonJS and CommonJS-like environments where a proper `window`
 		// is present, execute the factory and get jQuery.
 		// For environments that do not have a `window` with a `document`
-		// (such as Node.js), expose a factory as module.exports.
+		// (such as node.js), expose a factory as module.exports.
 		// This accentuates the need for the creation of a real `window`.
 		// e.g. var jQuery = require("jquery")(window);
 		// See ticket #14549 for more info.
@@ -780,7 +780,7 @@ function Sizzle( selector, context, results, seed ) {
 					push.apply( results, context.getElementsByTagName( selector ) );
 					return results;
 
-				// Class selector
+				// class selector
 				} else if ( (m = match[3]) && support.getElementsByClassName &&
 					context.getElementsByClassName ) {
 
@@ -1214,7 +1214,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			return results;
 		};
 
-	// Class
+	// class
 	Expr.find["CLASS"] = support.getElementsByClassName && function( className, context ) {
 		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
 			return context.getElementsByClassName( className );
@@ -3783,7 +3783,7 @@ jQuery.extend( {
 				};
 			};
 
-		// Single- and empty arguments are adopted like Promise.resolve
+		// Single- and empty arguments are adopted like promise.resolve
 		if ( remaining <= 1 ) {
 			adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
 				!remaining );
@@ -3796,7 +3796,7 @@ jQuery.extend( {
 			}
 		}
 
-		// Multiple arguments are aggregated like Promise.all array elements
+		// Multiple arguments are aggregated like promise.all array elements
 		while ( i-- ) {
 			adoptValue( resolveValues[ i ], updateFunc( i ), master.reject );
 		}
@@ -3990,9 +3990,9 @@ function camelCase( string ) {
 var acceptData = function( owner ) {
 
 	// Accepts only:
-	//  - Node
-	//    - Node.ELEMENT_NODE
-	//    - Node.DOCUMENT_NODE
+	//  - node
+	//    - node.ELEMENT_NODE
+	//    - node.DOCUMENT_NODE
 	//  - Object
 	//    - Any
 	return owner.nodeType === 1 || owner.nodeType === 9 || !( +owner.nodeType );
@@ -6437,7 +6437,7 @@ jQuery.extend( {
 	// setting or getting the value
 	cssProps: {},
 
-	// Get and set the style property on a DOM Node
+	// Get and set the style property on a DOM node
 	style: function( elem, name, value, extra ) {
 
 		// Don't set styles on text and comment nodes

@@ -153,7 +153,7 @@
           }
         }
       } else if (selector.nodeType || selector === win || selector === doc) {
-        // Node/element
+        // node/element
         arr.push(selector);
       } else if (selector.length > 0 && selector[0].nodeType) {
         // Array of elements or instance of Dom
@@ -1184,7 +1184,7 @@
         });
       }
 
-      // ES6Module create callback
+      // module create callback
       if (module.create) {
         module.create.bind(instance)(moduleParams);
       }
@@ -1211,7 +1211,7 @@
         Class.prototype[key] = module.proto[key];
       });
     }
-    // Class
+    // class
     if (module.static) {
       Object.keys(module.static).forEach(function (key) {
         Class[key] = module.static[key];
@@ -7934,7 +7934,7 @@
     },
   };
 
-  // Swiper Class
+  // Swiper class
 
   var components = [
     Device$1,

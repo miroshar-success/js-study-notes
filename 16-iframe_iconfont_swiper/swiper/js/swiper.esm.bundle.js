@@ -338,7 +338,7 @@ class SwiperClass {
         });
       }
 
-      // ES6Module create callback
+      // module create callback
       if (module.create) {
         module.create.bind(instance)(moduleParams);
       }
@@ -362,7 +362,7 @@ class SwiperClass {
         Class.prototype[key] = module.proto[key];
       });
     }
-    // Class
+    // class
     if (module.static) {
       Object.keys(module.static).forEach((key) => {
         Class[key] = module.static[key];
@@ -6929,7 +6929,7 @@ var Thumbs$1 = {
   },
 };
 
-// Swiper Class
+// Swiper class
 
 const components = [
   Device$1,

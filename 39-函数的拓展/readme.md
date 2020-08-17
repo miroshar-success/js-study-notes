@@ -106,4 +106,3 @@ window.onscroll = function(e){
 }
 ```
 
-# 7. 函数防抖

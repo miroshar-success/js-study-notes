@@ -2,7 +2,7 @@ let oPlayer = document.querySelectorAll('.player>li')[0];
 console.log(oPlayer.__proto__.constructor); // HTMLLIElement 
 console.log(oPlayer.__proto__.__proto__);   // HTMLElement
 console.log(oPlayer.__proto__.__proto__.__proto__);   // Element
-console.log(oPlayer.__proto__.__proto__.__proto__.__proto__);   // Node
+console.log(oPlayer.__proto__.__proto__.__proto__.__proto__);   // node
 console.log(oPlayer.__proto__.__proto__.__proto__.__proto__.__proto__); // EventTarget
 console.log(oPlayer.__proto__.__proto__.__proto__.__proto__.__proto__.__proto__.constructor);   // Object
 
