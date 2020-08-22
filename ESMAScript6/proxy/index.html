@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy</title>
+</head>
+<body>
+<script type="text/javascript">
+    const obj = new Proxy({},{
+        get:function(target,propKey,receiver){
+            console.log(`getting ${propKey}`);
+            console.log(target,propKey,receiver);
+        },
+        set:function(target,propKey,value,receiver){
+            console.log(`setting ${propKey}`);
+            console.log(target,propKey,value,receiver);
+        }
+    });
+
+    // 对player对象进行拦截
+    const player = {
+        firstName:'kyrie',
+        lastName:'irving',
+        age:28
+    }
+
+    const proxy = new Proxy(player,{
+        get(target,prop){
+            console.log('target:',target,'prop:',prop);
+            return target[prop]
+        },
+        set(target,prop,value){
+            target[prop] = value;
+        }
+    });
+
+    // proxy可以作为其他对象对原型
+    var proxy1 = new Proxy({},{
+        get:function(target,propKey){
+            return 35;
+        }
+    });
+
+    let object = Object.create(proxy1);
+    console.log(object.time);   // 35
+
+
+    // 如果没有拦截函数,访问一个不存在的属性,只会返回undefined。
+    const person = {
+        name:'张三'
+    }
+    var personProxy = new Proxy(person,{
+        get:function(target,propKey){
+            if(propKey in person){
+                return person[propKey];
+            }else{
+                throw new Error('error')
+            }
+        }
+    });
+
+    let proto = new Proxy({},{
+        get:function(target,propertyKey){
+            console.log('GET:',propertyKey);
+            return target[propertyKey]
+        }
+    });
+
+    let obj1 = Object.create(proto);
+    console.log(obj1.foo);
+
+
+    // 读取数组负数的索引。
+    function createArray(...elements){
+        let handler = {
+            get(target,propKey){
+                let index = Number(propKey);
+                if(index < 0){
+                    propKey = target.length + index;
+                }
+                return target[propKey]
+            }
+        }
+        let target = [];
+        target.push(...elements);
+        return new Proxy(target,handler)
+    }
+
+    let arr = createArray(1,2,3,4,5);
+    console.log(arr[-2])
+
+
+    // set方法用来拦截某个属性的赋值操作。
+    let validator = {
+        set:function(obj,prop,value){
+            if(prop === 'age'){
+                if(!Number.isInteger(value)){
+                    throw new TypeError('The age is not an integer');
+                }
+            }
+            if(value > 200){
+                throw new RangeError('The age seems invalid');
+            }
+            obj[prop] = value;
+        }
+    }
+    let men = new Proxy({},validator);
+
+    men.age = 30;
+    men.name = 'kyrie';
+    console.log(men);
+
+</script>
+</body>
+</html>

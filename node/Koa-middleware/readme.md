@@ -21,7 +21,7 @@ server.use(views(path.join(__dirname,'views'),{
 	map:{html:'ejs'}
 }))
 
-// 上面两种使用ejs模版写法都可以
+// 上面两种使用ejs模版写法都可以，第二种配置方式,文件后缀名必须是html。
 
 router.get('/user',async (ctx,next)=>{
 	await ctx.render('user',{
@@ -30,9 +30,17 @@ router.get('/user',async (ctx,next)=>{
 })
 server.use(router.routes()).use(router.allowedMethods());
 ```
+    
+## include
 
+    通过 include 指令将相对于模板路径中的模板片段包含进来。(需要提供 'filename' 参数。) 
+    例如，如果存在 "./views/users.ejs" 和 "./views/user/show.ejs" 两个模板文件，你可以通过 
+    <%- include('user/show'); %> 代码包含后者。
+```ejs
+<%-include('public/show.ejs')%>
+```
+    
 # Koa-router
-
 	
 ```js
 // 使用koa-router 的 Demo
@@ -104,6 +112,10 @@ router.get("/news/page/:page",(ctx,next)=>{
 # Koa-bodyparser
 
 	对于Post请求的处理,koa-bodyparser中间件可以把koa上下文的formData数据解析到ctx.request.body中
+	
+	options:
+	    formLimit:limit of the urlencoded body. If the body ends up being larger than this limit,a 413 error
+	    code is returnde, Default is 56KB。
 ```js
 // Demo  Koa使用原生Node获取post的请求数据
 const Koa = require('koa');
@@ -247,9 +259,9 @@ server.listen(3000,() => {
 	session和cookie的比较：
 	当浏览器访问服务器并发送第一次请求时，服务端会创建一个session对象，生成一个类似 key,value的键值对，然后将key(cookie)返回到浏览器，
 	浏览器下次再次访问时，携带key(cookie)，找到对应的session。客户信息都保存在session中。
-	1. cookie数据存放在客户的浏览器上，session数据放在服务器上
-	2. cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗
-	3. 单个cookie保存的数据不能超过4k，很多浏览器都限制一个战斗最多保存20个cookie。
+        1. cookie数据存放在客户的浏览器上，session数据放在服务器上
+        2. cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗
+        3. 单个cookie保存的数据不能超过4k，很多浏览器都限制最多保存20个cookie。
 
 ```js
 const Koa = require('Koa');

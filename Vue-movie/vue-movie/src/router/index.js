@@ -11,31 +11,31 @@ export default new VueRouter({
 			children:[
 				{
 					path:"city",
-					component: () => import("@/common/City")
+					component: () => import("@/components/City")
 				},
 				{
 					path:"onnow",
-					component: () => import("@/common/OnNow")
+					component: () => import("@/components/OnNow")
 				},
 				{
 					path:"upcoming",
-					component: () => import("@/common/UpComing")
+					component: () => import("@/components/UpComing")
 				},
 				{
 					path:"search",
-					component: () => import("@/common/Search")
+					component: () => import("@/components/Search")
 				},
 				{
 					path:"detail/onnow/:movieId",
 					components:{
-						default:() => import("@/common/OnNow"),
+						default:() => import("@/components/OnNow"),
 						detail:() => import("@/views/Movie/detail")
 					}
 				},
 				{
 					path:"detail/upcoming/:movieId",
 					components:{
-						default:() => import("@/common/UpComing"),
+						default:() => import("@/components/UpComing"),
 						detail:() => import("@/views/Movie/detail")
 					}
 				},

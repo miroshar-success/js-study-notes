@@ -43,8 +43,8 @@
 </template>
 
 <script>
-	import Head from "@/common/Head"
-	import Loading from "@/common/Loading"
+	import Head from "@/components/Head"
+	import Loading from "@/components/Loading"
 	export default{
 		name:"movie_detail",
 		data(){

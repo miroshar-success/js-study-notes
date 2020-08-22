@@ -20,11 +20,6 @@
 <script>
 	export default{
 		name:"tabbar",
-		data(){
-			return{
-				
-			}
-		}
 	}
 </script>
 

@@ -206,11 +206,32 @@ server.listen(3000,() => {
 })
 ```
 
-	1. 如果需要在所有路由前面添加前缀, 可以在 new Router设置
+## 中间件 (middleware)
+
+    应用及中间件
+    路由中间件
+    错误处理中间件
+    第三方中间件
 ```js
-const router = new Router({
-	prefix:'api'
+// koa中间件执行顺序
+app.use(async (ctx,next) => {
+    ctx.body = 'hello1';
+    console.log('01 --- 第一个中间件');
+    await next();
+    console.log('05 -- 执行第五步')
 });
 
-访问 / 路由  ===> /api/
+app.use(async (ctx,next) => {
+    ctx.body = 'hello2';
+    console.log('02 --- 第二个中间件');
+    await next();
+    console.log('04 -- 执行第四步');
+});
+
+router.get('/player',async ctx => {
+    console.log('03 -- player page');
+    ctx.body = 'player page';
+})
+
+app.use(router.routes()).use(router.allowedMethods());
 ```

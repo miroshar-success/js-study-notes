@@ -1,4 +1,6 @@
 # Koa-router
+    
+    路由是由一个URL和一个特定的HTTP方法组成的。
 	
 	可以借助中间件 koa-router
 	
@@ -50,7 +52,6 @@ server.listen(3000,function(){
 	
 	Set-Cookie响应头部和Cookie请求头部：
 		response.setHeader('Set-Cookie',['type=ninja','language=javascript']);
-		
 		
 	
 	tips:

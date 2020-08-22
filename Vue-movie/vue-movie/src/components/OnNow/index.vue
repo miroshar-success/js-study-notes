@@ -27,7 +27,6 @@
 	</PullRefresh>
 </template>
 <script>
-	import TopNav from "@/common/TopNav"
 	import {messageBox} from "../../utils/index.js"
 	export default{
 		name:"onnow",
