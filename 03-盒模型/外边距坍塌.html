@@ -6,74 +6,104 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>margin外边距坍塌</title>
     <style>
-        body{
+        html,body{
             padding: 0;
             margin: 0;
         }
-        .container{
-            width: 200px;
-            height: 200px;
-            background-color:#000;
+        .top,.bottom{
+            text-align:center;
+            line-height:100px;
+            height:100px;
+            width:200px;
         }
-        .container .item{
-            width: 50px;
-            background-color:pink;
-            height: 50px;
-            margin:20px;
-            display:inline-block;
-        }
-        .box{
-            width: 50px;
-            height: 50px;
-            margin:30px;
-        }
-        .box1{
+        .top{
+            margin-bottom:30px;
             background-color:skyblue;
         }
-        .box2{
-            background-color:greenyellow;
+        .bottom{
+            margin-top:60px;
+            background-color:pink;
         }
-        .content{
-            width: 150px;
-            height: 150px;
-            background-color:#000;
+        .top-box{
+            overflow:hidden;
         }
-        .content .item{
-            width: 30px;
-            height: 30px;
-            background-color:#fff;
-            float:left;
+        .outside{
+            border: 10px solid blue;
         }
-        .father{
-            width: 250px;
-            height: 250px;
-            background-color:#f00;
+        .inside{
+            width: 200px;
+            height: 200px;
+            background: yellowgreen;
+            float: left;
         }
-        .son{
-            width: 50px;
-            height: 50px;
-            background-color: #fff;
-            margin-top:20px;
+/*        .outside:after{
+            content:'';
+            display:block;
+            clear:both;
+        }*/
+        .outside{
+            overflow:hidden;
         }
-        img{
+
+        .left{
             width: 100px;
-            margin-top:20px;
+            height: 200px;
+            background: yellowgreen;
+            float: left;
+        }
+        .right{
+            height: 300px;
+            background: skyblue;
+            width:300px;
+            display:inline-block;
+        }
+        .big{
+            margin-top:10px;
+            width:100px;
+            height:100px;
+            background-color:red;
+        }
+        .small{
+            width:50px;
+            height:50px;
+            background-color:blue;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="item"></div>
-    </div>
-    <div class="box box1"></div>
-    <div class="box box2"></div>
-    <div class="content">
-        <div class="item"></div>
-        <div class="item"></div>
-    </div>
-    <div class="father">
-        <img src="./1.jpg" alt="">
-        <div class="son"></div>
-    </div>
+<div class="top-box">
+    <div class="top">top: margin-bottom:30px</div>
+</div>
+<div class="bottom">bottom: margin-top:60px</div>
+
+<div class="outside">
+    outside
+    <div class="inside">inside</div>
+</div>
+<div class="left"></div>
+<div class="right"></div>
+
+<div class="big">
+    <div class="small"></div>
+</div>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

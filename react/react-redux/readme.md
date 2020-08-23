@@ -143,7 +143,7 @@ export default function counter(state = 0, action) {
   }
 }
 
-// app.js
+// node-app.js
 import { combineReducers } from 'redux'
 import todos from './todos'
 import counter from './counter'
@@ -547,7 +547,7 @@ function selectSubreddit(subreddit) {
   }
 }
 
-// app.js
+// node-app.js
 function selectedsubreddit(state='react.js',action){
     switch(action.type){
         case SELECT_SUBREDDIT:

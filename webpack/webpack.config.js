@@ -6,7 +6,7 @@ const webpack = require('webpack');
 module.exports = {
     devtool:'inline-source-map',
     target:'web',
-    entry:path.join(__dirname,'src/app.js'),
+    entry:path.join(__dirname,'src/node-app.js'),
     output:{
         filename:'bundle.js',
         path:path.join(__dirname,'dist')

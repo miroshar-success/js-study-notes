@@ -28,8 +28,8 @@
 
 	外边距区域的大小由 margin-top margin-right margin-bottom margin-left。
 
+	margin的top 和 bottom 属性对非替换内联元素无效,例如 <span> 和 <code>
 	
-
 # padding
 
 	padding属性设置一个元素的内边距，padding区域值一个元素的内容和其边界之间的空间,该属性不能为负值。
@@ -74,6 +74,114 @@
 	1. 除可替换元素外,对于行内元素来说,尽管内容周围存在内边距与边框,但其占用空间则由 line-height属性决定。即使
 	边框和内边距仍会显示在内容周围。
 	
-# margin
+# BFC(Block Formatting Context)
+    
+    是Web页面的可视CSS渲染的一部分，是块盒子的布局过程发生的区域。也是浮动元素与其他元素交互的区域。
+    以下方式会创建块格式化上下文:
+        1. 根元素<html>
+        2. 浮动元素(元素的flot不是none)
+        3. 绝对定位元素(元素的position为absolute或fixed)
+        4. 行内块元素(元素的display为inline-block)
+        5. 表格单元格(元素的display为table-cell)
+        6. 表格标题(元素的display为table-caption)
+        7. overflow值不为visible的块元素
+        8. 弹性元素(display为flex或inline-flex元素的直接子元素)
+        9. display:flow-root  一个新的display属性的值,可以创建无副作用的BFC。
+        
+    块格式化上下文包含创建它的元素内部的所有内容。  清除浮动只能清除同一BFC中在它前面的元素的浮动.外边距折叠
+    只会发生在属于同一BFC的块级元素之间。
+    
+    BFC的特性:
+        1. 属于同一个BFC的两个相邻容器的上下margin会重叠
+        2. 计算BFC高度时,浮动元素也参与计算
+        3. BFC的区域不回与浮动元素容器发生重叠
+        4. BFC内的容器在垂直方向依次排列
+        5. 元素的margin-left与其包含块的border-left相接触
+        6. BFC是独立容器，容器内部元素不会影响容器外部元素
+    
+```html
+// demo 外边距坍塌
+<style>
+    .top,.bottom{
+        text-align:center;
+        line-height:100px;
+        height:100px;
+        width:200px;
+    }
+    .top{
+        margin-bottom:30px;
+        background-color:skyblue;
+    }
+    .bottom{
+        margin-top:60px;
+        background-color:pink;
+    }
+</style>
+<div class="top">top: margin-bottom:30px</div>
+<div class="bottom">bottom: margin-top:60px</div>
+```
+    上述例子 top 和 bottom 之间的间距 为 60px,即两者之间margin值的较大者。
+    解决办法:
+        可以给top或者 bottom元素 再添加一个父元素,并设置属性 overflow:hidden,这样 .top和.bottom的div就不处于同一个BFC.
+    
 
-	margin的top 和 bottom 属性对非替换内联元素无效,例如 <span> 和 <code>
+```html
+// demo 清除浮动无法撑开父元素高度
+<style>
+    .outside{
+        border: 10px solid blue;
+    }
+    .inside{
+        width: 200px;
+        height: 200px;
+        background: yellowgreen;
+        float: left;
+    }
+</style>
+
+<div class="outside">
+    outside
+    <div class="inside">inside</div>
+</div>
+```
+    上述案例 父元素 outside会没有高度，因为子元素设置 float后 脱离文档流，父元素又没有设置高度，所以父元素
+    会出现高度坍塌。
+    
+    解决办法:
+        1. 给父元素设置 overflow:hidden 属性。使得父元素.outside触发了BFC，
+        而BFC特性规定“计算BFC高度时浮动元素也参于计算”，此时子元素.inside虽然设置了浮动，但其高度仍计算至父元素内，
+        从而解决了高度塌陷问题。
+        
+        2. 使用伪元素
+        .outside:after{content:"",display:block;clear:both}
+
+
+```html
+// BFC的区域不会与浮动容器发生重叠
+<style>
+    .left{
+        width: 100px;
+        height: 200px;
+        background: yellowgreen;
+        float: left;
+    }
+    .right{
+        height: 300px;
+        background: skyblue;
+    }
+</style>
+<div class="left"></div>
+<div class="right"></div>
+```
+    上述代码 左侧区域会与右侧代码块发生位置重叠,因为.left 浮动会脱离文档流。
+    解决办法: 使右侧 .right div 产生BFC  可以添加一个属性 overflow:hidden 或者 display:inline-block
+
+
+
+
+
+
+
+
+
+

@@ -205,97 +205,50 @@ server.use( staticPublic(path.join(__dirname,'public')) );
 */
 ```
 	koa-compress koa-mount
-	
-# Koa-cookie
 
-	设置签名的Cookie密钥。 server.keys = ['i am a newer secret']; 
-	ctx.cookies.set(name,value,{signed:true});
-	
+# koa-session
+    
+    当浏览器访问服务器并发送第一次请求时,服务器会创建一个session对象，生产一个类似于key,value的键值对，然后将key(cookie)
+    发送到浏览器(客户)端,浏览器下次再访问时,携带key(cookie)，找到对应的session(value)。客户信息保存在session中。
+    
+    设置值: ctx.session.username = 'jayk'
+    获取值: ctx.session.username
+    
+    Installation
+        yarn add koa-session -S
 ```js
-// Demo 
-const Koa = require('koa');
-const server = new Koa();
-const Router = require('koa-router');
-const router = new Router();
-server.keys = ['keyboard'];
+// usage
 
-router.get('/user/:name',async ctx => {
-	let name = ctx.params.name;
-	ctx.state = {
-		name
-	}
-	ctx.cookies.set('name',name,{
-		maxAge:1000*60*60*24,
-		path:'/',	// 路径,默认是 /
-		htttOnly:true,	// 服务器可以访问cookie,不能通过document.cookie操作cookie
-		overwrite:false,	// 布尔值,表示是否覆盖以前设置的同名的cookie
-		signed:true,
-		secure:false   //  安全 cookie   默认false，设置成true表示只有 https可以访问
-	});
-	let visit = ctx.cookies.get('name',{
-		signed:true
-	});
-	if(!visit){
-		ctx.body = 'Visit first time!';
-	}else{
-		ctx.body = `Welcome back, ${name}! `
-	}
-})
-server.use(router.routes()).use(router.allowedMethods());
-
-server.listen(3000,() => {
-	console.log('server starting port 3000');
-})
-```
-
-# Koa-Session
-
-	session是另一种可以记录客户状态的机制,不同的是Cookie保存在客户端浏览器中,而session保存在服务器上。
-	
-	
-	The cookie name is controlled by the key option,which defualts to 'koa:sess'.All other options are passed to
-	ctx.cookies.get() and ctx.cookies.set() allowing you to control security,domain,path,and signing aomong other settings.
-	
-	session和cookie的比较：
-	当浏览器访问服务器并发送第一次请求时，服务端会创建一个session对象，生成一个类似 key,value的键值对，然后将key(cookie)返回到浏览器，
-	浏览器下次再次访问时，携带key(cookie)，找到对应的session。客户信息都保存在session中。
-        1. cookie数据存放在客户的浏览器上，session数据放在服务器上
-        2. cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗
-        3. 单个cookie保存的数据不能超过4k，很多浏览器都限制最多保存20个cookie。
-
-```js
-const Koa = require('Koa');
-const Router = require('koa-router');
 const session = require('koa-session');
-const server = new Koa();
-const router = new Router();
-server.keys = ['some secret hurr'];
+const Koa = require('koa');
+const app = new Koa();
 
+
+app.keys = ['some secret hurr'];
 const CONFIG = {
-	key:'koa:sess',		// cookie key (default is koa:sess)
-	maxAge:86400000,	// cookie的过期时间,(default is 1 days)
-	autoCommit:true,	// automatically commit headers (default true)
-	overwrite:true,	// 
-	httpOnly:true,
-	signed:true,
-	rolling:false,	// 
-	renew:false 	// renew session when session is nearly expired,so we can always keep user logged in (default false)
-}
-
-router.get('/session',async ctx => {
-	if(ctx.path === '/favicon.ico') return;
-	let n = ctx.session.views || 0;
-	ctx.session.views = ++n;
-	ctx.body = n + 'views';
-})
-server.use(session(CONFIG,server));
-server.use(router.routes()).use(router.allowedMethods());
-server.listen(3000,()=>{
-	console.log('server start at port 3000');
-})
+  key: 'koa.sess', /** (string) cookie key (default is koa.sess) */
+  maxAge: 86400000,
+  autoCommit: true, /** (boolean) automatically commit headers (default true) */
+  overwrite: true, /** (boolean) can overwrite or not (default true) */
+  httpOnly: true, /** (boolean) httpOnly or not (default true) */
+  signed: true, /** (boolean) signed or not (default true) */
+  rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
+  renew: false, /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
+  secure: false, /** (boolean) secure cookie*/
+  sameSite: null, /** (string) session cookie sameSite options (default null, don't set it) */
+};
+ 
+app.use(session(CONFIG, app));
 ```
-	To destroy a session simply set it to null:
-	this.session = null;
+	to destroy a session simply set it to null:
+	    this.session = null;
+	
+	
+	Cookie和Session的区别:
+	    1. cookie数据存放在客户的浏览器上,session数据放在服务器上
+	    2. cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗
+	    3. session会在一定时间内保存在服务器上。当访问增多时,会比较占用服务器性能。
+	    4. 单个cookie保存的数据不能超过4k,很多浏览器都限制一个站点最多保存20个cookie。
 	
 # Koa2-cors
 

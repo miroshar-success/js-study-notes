@@ -9,17 +9,20 @@ app.use(views(
     {
         extension:'ejs'
     }
-))
+));
+
+router.use(async (ctx,next) => {
+    ctx.state.username = 'kyrie' ;
+    await next();
+})
 
 app.use(async (ctx,next) => {
-    ctx.state = {
-        title: '公共title'
-    }
+    ctx.state.title = '公共title'
     await next()
 })
 
 router.get('/player',async ctx => {
-    console.log(ctx.state.title);
+    console.log('player:',ctx.state.username);
     await ctx.render('player',{
         firstName:'kyrie',
         lastName:'irving'
@@ -34,6 +37,7 @@ const list = [
 ]
 
 router.get('/news',async ctx => {
+    console.log('news:',ctx.state.username);
     await ctx.render('news',{
         list
     })
@@ -41,6 +45,6 @@ router.get('/news',async ctx => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(3001,() => {
-    console.log('app starting at port 3001');
+app.listen(3003,() => {
+    console.log('app starting at port 3003');
 })

@@ -52,7 +52,7 @@ app.use('/static', express.static('public'));
 // 现在，你就可以通过带有 /static 前缀地址来访问 public 目录中的文件了。
 http://localhost:3000/static/images/kitten.jpg
 http://localhost:3000/static/css/style.css
-http://localhost:3000/static/js/app.js
+http://localhost:3000/static/js/node-app.js
 http://localhost:3000/static/images/bg.png
 http://localhost:3000/static/hello.html
 ```

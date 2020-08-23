@@ -368,12 +368,12 @@ my-server/
     App.jsx
     App.test.js
     index.css
-    app.js
+    node-app.js
     logo.svg
 ```   
     For the project to build,these files must exist with exact filenames:
         public/index.html   is the page template;
-        src/app.js        is the JavaScript entry point;
+        src/node-app.js        is the JavaScript entry point;
     You can delete or rename the other files.
     
 ## Available Scripts

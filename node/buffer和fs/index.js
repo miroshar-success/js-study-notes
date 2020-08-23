@@ -95,7 +95,7 @@ fs.readdir("../fs模块",(err,data)=>{
 });
 
 // 判断路径是否存在
-fs.access("./app.js",(err)=>{
+fs.access("./node-app.js",(err)=>{
     if(err){
         console.log("路径不存在");
     }else{
