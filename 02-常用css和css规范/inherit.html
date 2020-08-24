@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>inherit</title>
+    <style>
+        p.paragraph{
+           color:green;
+           font-weight:bold;
+           font-size:20px;
+        }
+        .box{
+            width:200px;
+            height:100px;
+            background-color:pink;
+            border-width:1px;
+            border-style:solid;
+            text-indent:1em;
+            text-align:center;
+            color:skyblue;
+            line-height:30px;
+            text-transform:capitalize;
+            letter-spacing:2px;
+            cursor:pointer;
+        }
+        .outside{
+            font-style:italic;
+        }
+    </style>
+</head>
+<body>
+<p class="paragraph">This paragraph has <em>emphasized text</em> in it.</p>
+<div class="box">
+    <p class="outside">
+        outside
+        <p class="inside">inside</p>
+    </p>
+</div>
+
+</body>
+</html>

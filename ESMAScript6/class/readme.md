@@ -93,6 +93,22 @@ console.log(p.__proto__.hasOwnProperty('toString'));    // true
     1. 类和模块的内部,默认就是严格模式
     2. 不存在变量提升，且必须保证子类在父类之后定义
     3. 类的方法内部如果含有this,它默认指向类的实例。但是 一旦单独使用该方法,可能会报错。
+```js
+class Logger {
+  printName(name = 'there') {
+    this.print(`Hello ${name}`);
+  }
+
+  print(text) {
+    console.log(text);
+  }
+}
+
+const logger = new Logger();
+const { printName } = logger;
+printName();
+```
+    
     
 ## 静态方法
 

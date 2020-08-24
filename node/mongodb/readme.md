@@ -102,3 +102,52 @@
     1. MongoDB的默认数据库为test,如果没有创建新的数据库,集合将存放在test数据库中。
     2. 在MongoDB中,集合只有在内容插入之后才会创建。创建集合(数据表)后要再插入一个文档(记录),集合才会真正创建。
     
+# MongoDB Node Driver
+
+    The official MongoDB Node.js driver allows Node.js applications to connect to MongoDB and work with 
+    data. The driver features and asynchronous API  which allows you to access method return values through 
+    Promises or specify callbacks to access them when communicatin with MongoDB
+    
+    install:
+        npm install mongodb -S
+        
+    usage:
+```js
+const {MongoClient} = require('mongodb');
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url,{useUnifiedTopology:true});
+
+async function run(){
+    try{
+        await client.connect();
+        const database = client.db('nba');
+        const collection = database.collection('players');
+        
+        const result = await collection.insertOne({firstName:'kyrie',lastName:'irving',age:28})
+        console.log(result);
+    }finally{
+        await client.close();
+    }
+
+}
+run().catch(err => console.log(err));
+```
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

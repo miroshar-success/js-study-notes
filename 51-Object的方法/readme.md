@@ -583,6 +583,10 @@ console.log('b:',obj.b);    // undefined
         tips:
         1. in 操作符会检查属性是否在对象及其[Prototype]原型链中。
         2. hasOwnProperty(...)只会检查属性是否在对象上,不会检查原型链上的属性。
+    
+    tips:
+        JavaScript并没有保护hasOwnProperty这个属性名,因此当某个对象可能自有一个占用该属性名的属性时,就需要使用外部的
+        hasOwnProperty获得正确的结果:
         
     创建的普通对象都可以通过对于Object.hasOwnProperty的委托来访问hasOwnProperty(...)。但是通过Object.create(null)
     创建的对象无法链接到 hasOwnProperty(...).

@@ -213,22 +213,5 @@ console.log(Object.keys(Point.prototype));  // []
 console.log(Object.keys(Calc.prototype));   // [toString']
 ```
 
-## 8.1. 静态方法
-
-    static 关键字
-```js
-class Bar{
-    constructor(a,b){
-        this.a = a;
-        this.b = b;
-    }
-    static classMethod(){
-        console.log(this.a+this.b);
-    }
-}
-
-let bar = new Bar(3,6);
-bar.classMethod();  // bar.classMethod is not a function
-```
 
 

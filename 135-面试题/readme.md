@@ -110,3 +110,30 @@ function remove(arr,item){
     return temp;
 }
 ```
+
+6.    
+```js
+typeof null  // 'object'
+null instanceof Object  // false
+```
+    instanceof 运算符用于检测构造函数的prototype属性是否出现在某个实例对象的原型链上。
+    
+7. 隐式类型转换
+
+```js
+[]['map'] + [1,2,3]         // "function map() { [native code] }1,2,3"
+[]['a'] + [1,[2,3]] // "undefined1,2,3"   多维数组在转化为字符串时会自动降维
+[]['push'](1)   // 1    数组的push方法返回的是数组的长度
+(![]+[])[+[]];  // f    ![]为false + [] 为'false' 
+(![]+[])[+!![]];    // a 
+++[[]][+[]] + [+[]];    // '10'
+[1 < 2 < 3, 3 < 2 < 1]; // [true,true]
+```
+[demo]https://imweb.io/topic/5be2f05a21ff0e9610a6646e
+    
+    
+    
+    
+    
+    
+    
