@@ -22,6 +22,10 @@
         
         
      draggable=true 设置文件可以被拖拽
+    
+    	tips:
+    	1. 兼容FIrefox浏览器时,需要在dragstart事件设置拖拽数据
+    		event.dataTransfer.setData('key','value');
 
 # dataTransfer
     

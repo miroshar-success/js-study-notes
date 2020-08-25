@@ -2,7 +2,7 @@ const fs = require('fs');
 
 // Buffer的拼接
 
-const rs = fs.createReadStream('./readme.md');
+const rs = fs.createReadStream('./readme.md.md');
 console.log('read stream:',rs);
 
 let start = new Date();
@@ -17,7 +17,7 @@ rs.on('end',() => {
 })
 
 /*
-fs.readFile('./readme.md',(err,data) => {
+fs.readFile('./readme.md.md',(err,data) => {
     if(err){
         console.log(err);
     }else{

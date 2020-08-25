@@ -55,7 +55,39 @@
     let index = findOne(arr,3);
     console.log(index);
 
+    function fn(a,b,c){
+        c = 10;
+        console.log(arguments);
+    }
+    fn(1,1,1);
 
+
+    function test(){
+        var message = 'hello';
+    }
+    test()
+    //console.log(message);   // message is not defined;
+
+    function bar(){
+        msg = 'world';
+    }
+    bar();
+    console.log(msg);
+
+    if( !('a' in window) ) {
+        var a = 1;
+    }
+    console.log(a); // undefined;
+
+
+    var out = 25;
+    var inner = {
+        out:20,
+        fun:function() {var out = 30; return this.out;}
+    }
+    console.log( (inner.fun,inner.fun)() ); // 25
+    console.log( inner.fun() ); // 20
+    console.log( (inner.fun = inner.fun)() ); // 25
 
 </script>
 </body>

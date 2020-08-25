@@ -50,7 +50,6 @@
 				const songs = data.hotSongs;
 				let str = '';
 				songs.forEach(function(item,index){
-					console.log(item);
 					index = index + 1;
 					index = index < 9 ? '0' + (index+1) : index+1;
 					const oLi = document.createElement('li');
@@ -74,8 +73,6 @@
 					});
 				});
 			});
-			
-			
 		</script>
 	</body>
 </html>

@@ -40,7 +40,6 @@
     HTML DOM中的HTMLCollection是即时更新的(live);当期所包含的文档结构发生改变时,它会自动更新。
 
 
-
     NodeList 对象是一个节点的集合,是由Node.childNodes和 document.querySelectorAll 返回的
     NodeList是一个静态集合,对文档模型的任何改动都不会影响集合的内容.document.querySelectorAll返回一个静态的NodeList
 

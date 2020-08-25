@@ -213,7 +213,136 @@
 			console.log( [1,2,3].includes(2) );		// true
 			console.log( [1,2,3].includes(NaN) );	// false
 			console.log( [1,2,NaN].includes(NaN) );	// true
-			
+
+
+			let a = [];
+			let b = {};
+			let c = 123;
+			let d = '123';
+			let e = undefined;
+			let f = null;
+			let g = NaN;
+			console.log( ({}).toString() ); // [object Object]
+			console.log( ({}).toString.call(a) );   // [object Array]
+			console.log( ({}).toString.call(b) );   // [object Object]
+			console.log( ({}).toString.call(c) );   // [object Number]
+			console.log( ({}).toString.call(d) );   // [object String]
+			console.log( ({}).toString.call(e) );   // [object Undefined]
+			console.log( ({}).toString.call(f) );   // [object Null]
+			console.log( ({}).toString.call(g) );   // [object Number]
+
+			// 深拷贝
+			function deepCopy(obj){
+				let str = ({}).toString.call(obj);
+				let type = str.slice(8,str.length-1).toLowerCase();
+				if(type == 'array'){
+					let newObj = [];
+					for(let key in obj){
+						if( typeof obj[key] != 'object' ){
+							newObj[key] = obj[key];
+						}else{
+							newObj[key] = deepCopy(obj[key]);
+						}
+					}
+					return newObj;
+				};
+				if(type == 'object'){
+					let newObj = {};
+					for(let key in obj){
+						if( typeof obj[key] != 'object' ){
+							newObj[key] = obj[key];
+						}else{
+							newObj[key] = deepCopy(obj[key]);
+						}
+					}
+					return newObj;
+				};
+			};
+			let arr1 = [1,2,3];
+			let arr2 = deepCopy(arr1);
+			arr1[1]= 5;
+			console.log(arr1,arr2);
+
+			let array1 = [1,{a:1},2,{d:4}];
+			let array2 = deepCopy(array1);
+			array2[1].a = 'kyrie';
+			console.log(array1);
+			console.log(array2);
+
+			let obj1 = {
+				a:1,
+				b:{
+					c:1,
+					d:2
+				}
+			}
+			let obj2 = deepCopy(obj1);
+			obj1.b.c = 'james';
+			console.log(obj1);
+			console.log(obj2);
+
+			// 假定传入的是对象,不是数组
+			function deepRepeat(obj){
+				let newObj = {};
+				for(let key in obj){
+					if(typeof obj[key] != 'object'){
+						newObj[key] = obj[key];
+					}else{
+						newObj[key] = deepRepeat(obj[key]);
+					}
+				}
+				return newObj;
+			}
+			let object1 = {
+				name:{
+					firstName:'kyrie',
+					lastName:'irving'
+				},
+				age:26,
+				career:'player'
+			}
+			let object2 = deepRepeat(object1);
+			for(let item in object1){
+				console.log(item,object1[item]);
+			}
+			object1.name.firstName = 'lebron';
+			console.log(object1);
+			console.log(object2);
+
+			function deep(obj){
+				let str = ({}).toString.call(obj);
+				let type = str.slice(8,str.length-1).toLowerCase();
+				switch(type){
+					case 'array':
+						let newObject = [];
+						for(let key in obj){
+							if(typeof obj[key] != 'object'){
+								newObject[key] = obj[key];
+							}else{
+								newObject[key] = deep(obj[key]);
+							}
+						}
+						return newObject;
+						break;
+					case 'object':
+						let newObj = {};
+						for(let key in obj){
+							if( typeof obj[key] != 'object' ){
+								newObj[key] = obj[key];
+							}else{
+								newObj[key] = deep(obj[key]);
+							}
+						}
+						return newObj;
+						break;
+				}
+			};
+			let a1 = [1,2,3,4,5];
+			let a2 = deep(a1);
+			a1[1] = 'asd';
+			console.log(a1);    // [1,'asd',3,4,5]
+			console.log(a2);    // [1,2,3,4,5]
+
 		</script>
 	</body>
 </html>

@@ -13,7 +13,7 @@ const str = 'http://www.baidu.com';
     res.writeHead(200,{
         'Content-Type':'text/plain;charset=utf-8'
     })
-    fs.readFile('./readme.md',(err,chunk) => {
+    fs.readFile('./readme.md.md',(err,chunk) => {
         if(err){
             console.log(err);
         }else{

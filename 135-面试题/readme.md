@@ -131,9 +131,106 @@ null instanceof Object  // false
 ```
 [demo]https://imweb.io/topic/5be2f05a21ff0e9610a6646e
     
+8. parseInt
+
+    parseInt(x,y)
+    把 y 进制的x 以10进制显示。  y的取值是2-36。 如果y的值是0，就是10进制
+    
+    [1,2,3].map(parseInt);  // [1,NaN,NaN];
+    ['10', '10', '10'].map(parseInt);   //  [10, NaN, 2]
     
     
+    Array.isArray(Array.prototype) //false    因为Array.prototype 是一个数组对象
     
+9. 
+
+```js
+var a = {},b = {key:'b'},c = {key:'c'}
+a[b] = 123;
+a[c] = 456;
+console.log(a[b]);  // 456      
+```
+    对象或者数组的键名 会进行隐式类型转换。对象b和c进行隐士类型转换时会变成 [object Object] 
+    上面的代码 实际执行 a['[object Object]'] = 123; a['object Object'] = 456;
     
+10.
+
+```js
+var a = {n:1};
+var b = a;
+a.n = a = {m:1}
+console.log(a,b);
+// {m:1}  {n:{m:1}}
+```
+11.
+```js
+var x = 1;
+if(function fn(){}){
+    x += typeof fn;
+}
+console.log(x); // '1undefined'
+
+
+
+var fn = function test(){
+    console.log('hello world');
+}
+test(); // Reference Error
+```
+    函数声明 外面包一层括号会变成 函数表达式
+12.
+```js
+var str = typeof typeof {name:'hello'};
+if(str.length === 6) {
+    str.prop = '这是一个字符串';
+}
+console.log(str.prop);
+
+// 引用类型与基本包装类型的主要区别是对象的生存期。使用new操作符创建的引用类型的实例。在执行流离开当前作用域之前都一直
+// 保存在内存中，而自动创建的基本包装类型的对象,则只存在于一行代码的执行瞬间。
+```       
+13.
+```js
+var x = 10;
+function fn(){
+    y = function(){
+        x = 2;
+    }
+    console.log(this);  // window
+    return function(){
+        var x = 3;
+        y();
+        console.log(this.x);    // 2
+    }.apply(this);
+}
+fn();   
+console.log(y); // 是一个函数 function 
+
+
+
+function f1(){
+    var message = 'hello';
+}
+f1();
+console.log(message);   // 报错
+
+
+function f2(){
+    message = 'world';
+}
+f2();
+console.log(message);   // world
+```
+    如果在函数中使用var定义一个变量,那么这个变量在函数退出后就会销毁的。 如果省略了var操作符，message就成了全局变量。
     
-    
+14.
+```js
+var out = 25;
+var inner = {
+    out:20,
+    fun:function() {var out = 30; return this.out;}
+}
+console.log( (inner.fun,inner.fun)() ); // 25
+console.log( inner.fun() ); // 20
+console.log( (inner.fun = inner.fun)() ); // 25
+```
