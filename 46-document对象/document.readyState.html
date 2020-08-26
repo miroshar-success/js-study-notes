@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>document.readyState</title>
+</head>
+<body>
+<p class="text">Hello World</p>
+<script type="text/javascript">
+    document.addEventListener('readystatechange',(event) => {
+        event = event || window.event;
+        switch(document.readyState) {
+            case "loading":
+                console.log('文档正在loading');
+                const oText1 = document.querySelector('.text');
+                console.log('loading:',oText1);
+            break;
+            case 'interactive':
+                const oText2 = document.querySelector('.text');
+                console.log('interactive:',oText2);
+            break;
+            case "complete":
+                const oText3 = document.querySelector('.text');
+                console.log('complete:',oText3);
+                break;
+        }
+    },false);
+
+    document.addEventListener('readystatechange',(event) => {
+        switch(document.readyState){
+            case "loading":
+                console.log('loading');
+                break;
+            case "interactive":
+                const oText = document.createElement('p');
+                oText.textContent = '我是动态生成的';
+                document.body.appendChild(oText);
+                break;
+            case "complete":
+                console.log('complete');
+                break;
+        }
+    },false);
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed'); // 译者注："DOM完全加载以及解析"
+    });
+</script>
+</body>
+</html>

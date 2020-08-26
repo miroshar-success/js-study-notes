@@ -129,4 +129,55 @@ let selectFormElement = document.forms[index].elements[index];
 	如果设置了textContent属性,会删除所有的子节点,并被替换为包含指定字符串的一个单独的文本节点。
 	
     contenteditable 可以编辑
-    oncontextmunu   可以阻止右键点击事件
+    oncontextmunu   可以阻止右键点击事件.
+    
+# Document.readyState
+
+    该属性描述了document的加载状态。
+    当该属性值发生变化时,会在document对象上触发readystatechange事件。
+        document.readyState:
+            1. loading（正在加载）
+            2. interactive(可交互) 文档已被解析,'正在加载'状态结束,但是诸如图像,样式表和框架之类的子资源仍在加载。
+            3. complete(完成) 文档和所有子资源已经完成加载,表示load状态的事件即将被触发。    
+```js
+document.addEventListener('readystatechange',(event) => {
+    switch(document.readyState){
+        case "loading":
+            console.log('loading');
+            break;
+        case "interactive":
+            const oText = document.createElement('p');
+            oText.textContent = '我是动态生成的';
+            document.body.appendChild(oText);
+            break;
+        case "complete":
+            console.log('complete');
+            break;
+    }
+},false);
+```
+
+# Document.DOMContentLoaded
+
+    当纯HTML被完全加载以及解析时,DOMContentLoaded事件会被触发,而不必等待样式表。图片或者子框架完成加载。
+```js
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed'); // 译者注："DOM完全加载以及解析"
+});
+```  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

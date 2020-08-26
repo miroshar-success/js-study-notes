@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript">
+
+    </script>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width:750px;
+            height:300px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script type="text/javascript">
+    window.addEventListener('load', (event) => {
+        console.log('load');
+    });
+
+    document.addEventListener('readystatechange', (event) => {
+        console.log('readystatechange');
+    });
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOMContentLoaded');
+    });
+
+</script>
+</body>
+</html>
