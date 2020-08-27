@@ -2,37 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>mobile</title>
+<!--    <script type="text/javascript">-->
+<!--        (function(window,document) {-->
+<!--            let docEle = window.document.documentElement;-->
+<!--            let dpr = window.devicePixelRatio;-->
+<!--            const fixedWidth = 750; // 设计稿宽度;-->
+<!--            docEle.setAttribute('data-dpr',dpr);-->
+<!--            var resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize';-->
+<!--            function getScale(){-->
+<!--                const screenWidth = window.screen.width;    // 获取移动设备宽度-->
+<!--                const scale = screenWidth / fixedWidth;-->
+<!--                return scale;-->
+<!--            }-->
+<!--            function refresh() {-->
+<!--                const scale = getScale();-->
+<!--                let metaEle = document.querySelector('meta[name="viewport"]');-->
+<!--                if(metaEle) {-->
+<!--                    metaEle.setAttribute(-->
+<!--                        'content',-->
+<!--                        `width=${fixedWidth},initial-scale=${scale},maximum-scale=${scale},minimum-scale=${scale},user-scalable=no`-->
+<!--                    )-->
+<!--                }else{-->
+<!--                    const meta = document.createElement('meta');-->
+<!--                    meta.setAttribute('name','viewport');-->
+<!--                    meta.setAttribute(-->
+<!--                        'content',-->
+<!--                        `width=${fixedWidth},initial-scale=${scale},maximum-scale=${scale},minimum-scale=${scale},user-scalable=no`-->
+<!--                    )-->
+<!--                    document.head.appendChild(meta);-->
+<!--                }-->
+<!--            }-->
+<!--            window.addEventListener(resizeEvent,(event) => {-->
+<!--                refresh();-->
+<!--            },false);-->
+<!--            refresh();-->
+<!--        })(window,document);-->
+<!--    </script>-->
     <script type="text/javascript">
-
+        (function(window,document) {
+            function refresh() {
+                let oHtml = document.querySelector('html');
+                const oWidth = oHtml.getBoundingClientRect().width;
+                const baseWidth = 750;  // 设计稿的宽度
+                const baseFontSize = 100;   // 750设计稿的宽度下，以根元素的字体大小为100px;
+                oHtml.style.fontSize = (oWidth * baseFontSize / baseWidth) + 'px';
+            }
+            const resizeEvent = 'orientationchange' in window ? 'orientation' : 'resize';
+            window.addEventListener(resizeEvent,refresh,false);
+            // document.addEventListener('DOMContentLoaded',refresh,false);
+            document.addEventListener('readystatechange',() => {
+                if(document.readyState === "interactive"){
+                    refresh();
+                }
+            },false);
+        })(window,document);
     </script>
-    <style>
-        body{
+    <style type="text/css">
+        body,html,ul{
             padding: 0;
             margin: 0;
         }
-        .box{
-            width:750px;
-            height:300px;
+        ul,ol{
+            list-style:none;
+        }
+        .list{
+            display:flex;
+        }
+        .item{
+            width:2.5rem;
+            height:100px;
+            text-align:center;
+            line-height:100px;
+        }
+        .item-1{
+            background-color:skyblue;
+        }
+        .item-2{
             background-color:pink;
+        }
+        .item-3{
+            background-color:seagreen;
         }
     </style>
 </head>
-<body>
-<div class="box"></div>
+<body style="font-size:16px;">
+<ul class="list">
+    <li class="item item-1">1</li>
+    <li class="item item-2">2</li>
+    <li class="item item-3">3</li>
+</ul>
 <script type="text/javascript">
-    window.addEventListener('load', (event) => {
-        console.log('load');
+    document.addEventListener('readystatechange',(event) => {
+        event = event || window.event;
+        switch(document.readyState) {
+            case "loading":
+            console.log('loading....');
+            break;
+            case "interactive":
+            console.log('可以获取dom');
+            break;
+            case "complete":
+            console.log('complete');
+            break;
+        }
     });
-
-    document.addEventListener('readystatechange', (event) => {
-        console.log('readystatechange');
-    });
-
-    document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('DOMContentLoaded',(event) => {
+        event = event || window.event;
+        console.log(event);
         console.log('DOMContentLoaded');
-    });
-
+    })
 </script>
 </body>
 </html>

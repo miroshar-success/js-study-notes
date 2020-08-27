@@ -54,22 +54,63 @@
         
 ```js
 // 固定宽度适配方案,将设计稿的进行缩放装载进指定设备中。
-
-const width = window.innerWidth;    // 获取设备宽度
-const fixedWidth = 750; // 设计稿宽度
-const scale = (width / fixedWidth).toFixed(2);   // 缩放比例
-const meta = document.createElement('meta');
-meta.setAttribute('name','viewport');
-meta.setAttribute('content',`width=${fixedWidth},initial-scale=${scale},maximum-scale=${scale}`);
-document.head.appendChild(meta);
+(function(window,document) {
+    let docEle = window.document.documentElement;
+    let dpr = window.devicePixelRatio;
+    const fixedWidth = 750; // 设计稿宽度;
+    docEle.setAttribute('data-dpr',dpr);
+    var resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize';
+    function getScale(){
+        const screenWidth = window.screen.width;    // 获取移动设备宽度
+        const scale = screenWidth / fixedWidth;
+        return scale;
+    }
+    function refresh() {
+        const scale = getScale();
+        let metaEle = document.querySelector('meta[name="viewport"]');
+        if(metaEle) {
+            metaEle.setAttribute(
+                'content',
+                `width=${fixedWidth},initial-scale=${scale},maximum-scale=${scale},minimum-scale=${scale},user-scalable=no`
+            )
+        }else{
+            const meta = document.createElement('meta');
+            meta.setAttribute('name','viewport');
+            meta.setAttribute(
+                'content',
+                `width=${fixedWidth},initial-scale=${scale},maximum-scale=${scale},minimum-scale=${scale},user-scalable=no`
+            )
+            document.head.appendChild(meta);
+        }
+    }
+    window.addEventListener(resizeEvent,refresh,false);
+    refresh();
+})(window,document);
 ```
 ```js
 // rem
+// width/fontSize = baseWidth / baseFontSize;   baseWidth 和 baseFontSize是选为基准的设备宽度及根元素大小。
+// 所以根元素的fontSize算法是 width * baseFontSize / baseWidth;
 
-
-
+(function(window,document) {
+    function refresh() {
+        let oHtml = document.querySelector('html');
+        const oWidth = oHtml.getBoundingClientRect().width;
+        const baseWidth = 750;  // 设计稿的宽度
+        const baseFontSize = 100;   // 750设计稿的宽度下，以根元素的字体大小为100px;
+        oHtml.style.fontSize = (oWidth * baseFontSize / baseWidth) + 'px';
+    }
+    const resizeEvent = 'orientationchange' in window ? 'orientation' : 'resize';
+    window.addEventListener(resizeEvent,refresh,false);
+    // document.addEventListener('DOMContentLoaded',refresh,false);
+    document.addEventListener('readystatechange',() => {
+        if(document.readyState === "interactive"){
+            refresh();
+        }
+    },false);
+})(window,document);
 ```
-    
+  
 # window.screen 
     
     屏幕的可用宽高,(减去下方状态栏的高度)
@@ -79,7 +120,24 @@ document.head.appendChild(meta);
     screen.width        屏幕的总宽度
     screen.height       屏幕的总高度
     
-    
+# orientation
+
+    CSS媒体查询屏幕方向(orientation) 可用于测试视口,viewport。
+        portrait: viewport处于纵向,即高度大于等于宽度。
+        landscape: viewport处于横向,即宽度大于高度。
+```css
+@media (orientation:landscape) {
+    body {
+        flex-direction:row;
+    }
+}
+
+@media (orientation:portrait) {
+    body {
+        flex-direction:column;
+    }
+}
+```    
     
     
     
