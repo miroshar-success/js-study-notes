@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery-practice</title>
+    <style>
+        body,html{
+            padding: 0;
+            margin: 0;
+        }
+        body,html,ul,ol{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width:200px;
+            height:200px;
+            position:absolute;
+            left:200px;
+            top:200px;
+            padding:10px;
+            /*margin:10px;*/
+            transform:translateX(10px);
+            background-color:skyblue;
+            border:10px solid #ccc;
+        }
+        .parent{
+            width:300px;
+            height:300px;
+            position:relative;
+            border:1px solid #ddd;
+        }
+        .child{
+            width:100px;
+            height:100px;
+            background-color:green;
+            position:absolute;
+            left:10px;
+            top:10px;
+        }
+        .size{
+            width:100px;
+            height:100px;
+            padding:5px;
+            border:10px solid transparent;
+            margin:15px;
+        }
+    </style>
+</head>
+<body>
+<ul class="list">
+    <li class="item item-1">1</li>
+    <li class="item item-2">2</li>
+    <li class="item item-3">3</li>
+</ul>
+<div class="test"></div>
+<form action="">
+    <label for="">Name:</label>
+    <input type="text" name="username">
+</form>
+<ol class="player-list">
+    <li class="player-item-1">lebron</li>
+    <li class="player-item-2">kyrie</li>
+    <li class="player-item-3">durant</li>
+</ol>
+<img
+    width="200"
+    title="郭采洁"
+    src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1598532906&di=d0fc46b45faa010273e2c91f35f277ea&src=http://b-ssl.duitang.com/uploads/item/201410/25/20141025203525_XdFKU.thumb.700_0.jpeg" alt="">
+
+<form action="">
+    Kyrie:<input type="checkbox" name="player" value="Kyrie">
+    Lebron:<input type="checkbox" name="player" value="Lebron">
+    Durant:<input type="checkbox" name="player" value="Durant">
+</form>
+<div class="top"></div>
+<div class="text">Hello，I am a Text!</div>
+<div class="box"></div>
+<div class="parent">
+    <div class="child"></div>
+</div>
+<div class="size"></div>
+<div class="document"></div>
+<div id="foo">Foo</div>
+<input type="button" value="submit">
+<input type="text" class="username" placeholder="username">
+<p class="password">
+    <input type="password" name="password" placeholder="password">
+</p>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.list > .item').css({width:"200px",height:"100px",backgroundColor:'yellow'})
+    });
+
+    $('<p>Hello World</p>',{
+        class:'text',
+        click:function() {
+            $(this).toggleClass('test')
+        }
+    }).appendTo('body');
+
+    $('.item').each(function() {
+        $(this).toggleClass('example');
+    });
+
+    // selector;
+    console.log( $(".list>.item").size() );
+    console.log( $(".list>.item").get(0) );
+    console.log( $('.list>.item-3').index() )   // 2
+    console.log($('.test'));
+
+    console.log( $('li') );
+    console.log( $('li,div,.test') );
+    console.log($('form > input'));
+    console.log($('label + input'));
+
+    console.log( $('li.player-item-1 ~ li') );
+    console.log( $('.player-list>li:first') );
+    console.log( $('.list>li:not(.item-1)') );
+    console.log( $('.list>li:even') );
+    console.log( $('.list>li:odd') );
+    console.log( $('.list>li:eq(1)') );
+    console.log( $('.list>li:gt(0)') );
+    console.log( $('.list>li:lt(1)') );
+    console.log( $('.test:empty') );
+    console.log( $('.player-list').empty() );
+
+    // 属性
+    console.log( $('img').attr('src') );
+    setTimeout(() => {
+        $('img').attr({src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598543043646&di=b254683193bdb2562bc122730899f2b7&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw960h1278%2F20180119%2F3e9a-fyqtwzu6961176.jpg'})
+    },1000);
+
+    setTimeout(() => {
+        $('img').removeAttr('title');
+    },2000);
+
+/*
+    $('input[type="checkbox"]').prop({
+        disabled:true
+    })
+*/
+    // $('input[type="checkbox"]').attr({disabled:true});
+    $('form:eq(1)').addClass('player-form');
+    setTimeout(() => {
+        $('form:eq(1)').removeClass('player-form');
+    },3000);
+
+    console.log( $('.list').html() );
+
+    $(".top").html(`<p>Hello,Top</p>`)
+    console.log($('.top').text());
+
+    console.log( $('input[type="checkbox"]').val() );
+
+    $('.text').css({color:'red'});
+    console.log($('.text').css('color'));
+
+    console.log( $('.box').offset() );
+    console.log('children offset:', $('.child').offset() );
+    console.log(' children position: ', $('.child').position());
+
+    console.log( $('body').scrollTop() );
+    console.log( $('.parent').scrollTop() );
+
+    console.log( 'width:', $('.size').width() )
+    console.log( 'innerWidth:', $('.size').innerWidth() );
+    console.log( 'outerWidth:', $('.size').outerWidth() );
+
+    // 文档处理
+/*    $('.document').append(`<p>我是append方法添加的内容</p>`);
+    $('.document').append(`<p class="say">I would like to say</p>`);
+    $('.say').appendTo('body');
+    $('.say').prependTo('body');
+    $('.document').prepend(`<p class="say">I would like to say again</p>`);
+    $('.document').after('<p>say after</p>');
+    $('.document').before('<p>say before</p>');
+
+    $(`<p>Hello,insertBefore</p>`).insertBefore('#foo');*/
+
+    $('.document').append(`<p>Hello append</p>`)
+    $('.document').prepend(`<p>Hello prepend</p>`);
+
+    $('<p>I would want to say</p>').appendTo('body');
+    $('<p>I would want to say again</p>').prependTo('body');
+
+    $('.document').after(`<p>Hello after</p>`);
+    $('.document').before(`<p>Hello before</p>`);
+
+    $(`<p>insertBefore</p>`).insertBefore($("#foo"));
+
+    console.log( $('.document').clone() );
+    console.log( $('.top').clone() );
+
+    $('.document').empty();
+    $('.document').remove();
+
+    $('#foo').on('click',{name:'hello'},(event) => {
+        event = event || window.event;
+        console.log(event.data);
+        console.log('hello,foo 被点击了');
+    });
+
+    $('.text').one('click',{name:'你好'},function(event) {
+        console.log(event.data);
+        console.log('fire only one times');
+    });
+
+    $('.text').toggle('slow');
+    $('.username').blur(() => {
+        console.log('失焦了');
+    });
+    $('.username').change(() => {
+        console.log('value changed');
+    });
+/*    $('.username').click(() => {
+        console.log('获取焦点了');
+    });*/
+
+    $('.username').focus();
+
+    $('input[type="button"]').on('dblclick',() => {
+        console.log('双击了');
+    });
+
+/*    $('.password').focusin(() => {
+        console.log('获取焦点了');
+    })*/
+
+    $(".password").focus((event) => {
+        console.log('获取焦点了');
+    });
+</script>
+</body>
+</html>
