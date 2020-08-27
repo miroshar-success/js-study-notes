@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <title>mobile</title>
 <!--    <script type="text/javascript">-->
@@ -44,7 +47,10 @@
         (function(window,document) {
             function refresh() {
                 let oHtml = document.querySelector('html');
-                const oWidth = oHtml.getBoundingClientRect().width;
+                var oWidth = oHtml.getBoundingClientRect().width;
+                if(oWidth > 750) {
+                    oWidth = 750;
+                }
                 const baseWidth = 750;  // 设计稿的宽度
                 const baseFontSize = 100;   // 750设计稿的宽度下，以根元素的字体大小为100px;
                 oHtml.style.fontSize = (oWidth * baseFontSize / baseWidth) + 'px';
@@ -69,6 +75,7 @@
         }
         .list{
             display:flex;
+            margin:0 auto;
         }
         .item{
             width:2.5rem;
@@ -85,6 +92,35 @@
         .item-3{
             background-color:seagreen;
         }
+        .border{
+            width:6rem;
+            height:20px;
+            background-color:red;
+            /*border-bottom:1px solid black;*/
+        }
+        @media screen and (min-resolution:2dppx) {
+            .border{
+                position:relative;
+            }
+            .border:after{
+                content:'';
+                position:absolute;
+                bottom:0;
+                width:100%;
+                border-bottom:1px solid black;
+            }
+        }
+        .outside{
+            width:300px;
+            height:300px;
+            background-color:skyblue;
+        }
+        .inside{
+            width:100px;
+            height:100px;
+            background-color:red;
+            transform:scale(.5);
+        }
     </style>
 </head>
 <body style="font-size:16px;">
@@ -93,6 +129,10 @@
     <li class="item item-2">2</li>
     <li class="item item-3">3</li>
 </ul>
+<div class="border"></div>
+<div class="outside">
+    <div class="inside"></div>
+</div>
 <script type="text/javascript">
     document.addEventListener('readystatechange',(event) => {
         event = event || window.event;

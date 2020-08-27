@@ -110,7 +110,9 @@
     },false);
 })(window,document);
 ```
-  
+    html{font-size:100px!important}
+    手动设置rem基准值的方法。字体的大小不推荐使用rem作为单位。所以对于字体的设置,仍旧使用px作为单位。
+    
 # window.screen 
     
     屏幕的可用宽高,(减去下方状态栏的高度)
@@ -138,7 +140,41 @@
     }
 }
 ```    
+
+# ppi
+
+    Pixels Per Inch,也叫像素密度,所表示的是每英寸所拥有的像素数量。因此PPI数值越高,即代表显示屏能够以更高的密度
+    显示图像。
     
+    dppx 表示每个px的点数。
+    
+    @media.resolution
+        媒体功能可基于输出装置的像素密度,来应用样式。
+```css
+/* Minimum resolution */
+@media (min-resolution: 72dpi) {
+  p {
+    font-size: 1.5em;
+  }
+}
+
+/* Maximum resolution */
+@media (max-resolution: 300dpi) {
+  p {
+    background: yellow;
+  }
+}
+
+@media (min-resolution:2dppx) {
+    .border-top-1px{
+        position:relative;
+        &::before{
+           width:200%;
+           transform:scale(.333) translateZ(0);
+        }
+    }
+}
+```   
     
     
     
