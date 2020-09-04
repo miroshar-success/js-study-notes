@@ -51,10 +51,19 @@
             /docs/Web/
             /docs/Web/HTTP
         
+## Access-Control-Allow-Origin
+
+    该响应头指定了该响应的资源是否被允许与给定的origin共享。
+        Access-Control-Allow-Origin:*;
+            对于不需要具备凭证(credentials)的请求,服务器会以*作为通配符,从而允许所有域都具有访问资源的权限
+
+        Access-Control-Allow-Origin:<origin>
+            可以指定一个可以访问资源的URI。
+    
+    withCredentials: 表示XHR是否接受cookies和发送cookies,如果该值是false,响应头的Set-Cookie,浏览器也不理会。
+    并且即使有目标站点的Cookies,浏览器也不会发送。    
         
-        
-        
-        
+       
         
         
         

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>before|after</title>
+    <style>
+        q::before,q:before{
+            content:"《";
+            color:blue;
+        }
+        q::after,q:after{
+            content:"》";
+            color:red;
+        }
+        .ribbon{
+            background-color:#5Bc8f7;
+        }
+        .ribbon::before{
+            content:"Look at this orange box";
+            background-color:#ffba10;
+            border-color:black;
+            border-style:dotted;
+        }
+        .list{
+            list-style:none;
+            width:300px;
+        }
+        li{
+            position:relative;
+            height:40px;
+            background-color:#d3d3d3;
+            margin-bottom:3px;
+            line-height:40px;
+            padding-left:30px;
+        }
+        li.done{
+            background-color:#bcff8e;
+        }
+        li.done::before,li.done:before{
+            content:'ok';
+            position:absolute;
+            color:#00a126;
+            font-size:16px;
+            line-height:40px;
+            font-weight:bold;
+            left:5px;
+        }
+        span[data-descr]{
+            position:relative;
+            text-decoration:underline;
+            color:#00f;
+            cursor:help;
+        }
+        span[data-descr]:hover::after{
+            content:attr(data-descr);
+            position:absolute;
+            left:0;
+            top:24px;
+            min-width:200px;
+            border:1px #aaaaaa solid;
+            border-radius:10px;
+            background-color:#ffffcc;
+            padding:12px;
+            color:#000000;
+            font-size:14px;
+            z-index:1;
+        }
+    </style>
+</head>
+<body>
+<q>一些引用,</q>他说,<q>比没有好</q>
+<span class="ribbon">Notice where the orange box is.</span>
+<ul class="list">
+    <li class="item">Buy mild</li>
+    <li>Take the dog for a walk</li>
+    <li>Exercise</li>
+    <li>Write code</li>
+    <li>Play music</li>
+    <li>Relax</li>
+</ul>
+<p>This is a after demo</p>
+<p> 我们有一些
+    <span data-descr="collection of words and punctuation">文字</span>
+    有一些
+    <span data-descr="small popups which also hide again">提示</span>
+    把鼠标放上去 <span data-descr="not to be taken literally">看看</span>
+</p>
+<script type="text/javascript">
+    const oList = document.querySelector('.list');
+    oList.addEventListener('click',(event) => {
+        event = event || window.event;
+        console.log( event.target.tagName.toLowerCase() );
+        console.log(event.target);
+        if(event.target.tagName.toLowerCase() === "li") {
+            event.target.classList.toggle('done');
+        }
+    },false);
+</script>
+</body>
+</html>

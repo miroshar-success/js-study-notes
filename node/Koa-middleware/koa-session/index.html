@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<button class="button">click</button>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    const oButton = document.querySelector('button');
+    oButton.addEventListener('click',(event) => {
+        event = event || window.event;
+        axios({
+            method:'post',
+            url:'http://localhost:5000/login',
+            withCredentials:true,
+            data:{
+                username:'kyrie'
+            },
+        })
+        .then(response => {
+            console.log(response);
+        })
+    },false);
+</script>
+</body>
+</html>

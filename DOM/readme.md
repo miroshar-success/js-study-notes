@@ -1,6 +1,8 @@
 
 # 1. Document
-
+    
+    文档对象模型(DOM)将web页面与脚本或编程语言连接起来。
+    
     元素节点：  element node
     文本节点：  text node
     属性节点：  attribute   node
@@ -46,24 +48,6 @@
     遍历一个NodeList对象中的所有的节点不要尝试使用for...in 或者for each...in 来遍历,因为如果使用这些方法,NodeList对象中的length和item属性
     也会被遍历出来
     
-## 1.3. ChildNodes和Children区别
-
-    childNodes      输出的内容包括文本节点,元素节点,
-    类型是Nodelist
-
-    children        输出的元素只包括元素节点
-    类型是HTMLCollection
-
-    parentElement
-    parentNode
-
-    node.nextSibling    下一个节点,包括文本节点
-    node.nextElementSibling 下一个元素
-
-    firstChild
-    firstElementChild
-    lastChild
-    lastElementChild
 
 # 2. DocumentFragment
 
@@ -80,18 +64,71 @@ let fragment = document.createDocumentFragment();
 
     因为文档片段存在于内存中,并不在DOM树中,所以将子元素插入到文档片段时不会引起页面回流。
 
-# 3. nodeType
+# 3. Node
 
+    Node是一个接口,各种类型的DOM API对象会从这个接口继承。它允许我们使用相似的方式对待这些不同类型的对象。
+        
+        Node.childNodes     返回包含指定节点的子节点的集合,该集合为即时更新的集合(live collection)
+        Node.firstChild     返回树节点的第一个子节点。
+        Node.isConnected    无论节点是否与DOM树连接,都会返回一个布尔值。
+        Node.lastChild      返回当前节点的最后一个子节点。
+        Node.nextSibling    返回其父节点的childNodes列表中紧跟在其后面的节点。
+        Node.nodeName       返回当前节点的节点名称
+        Node.nodeType       节点类型:1表示元素节点,2表示属性节点
+        Node.nodeValue      返回或设置当前节点的值
+        Node.parentElement  返回当前节点的父元素节点
+        Node.textContent    表示一个节点及其后代的文本内容 
+        
     元素    1
     属性    2
     文本    3
     注释    8
     文档    9
+    
+    
+    Node 方法
+        Node.appendChild() 方法将一个节点附加到指定父节点的子节点列表的末尾处。如果将被插入的节点已经存在于当前文档的
+        文档树中,那么appendChild()只会将它从原先的位置移动到新的位置。
+    
+        Node.hasChildNodes()方法返回一个布尔值,表明当前节点是否包含有子节点，判断当前节点是否有子节点的方法
+            Node.hasChildNodes()    true or false
+            Node.firstChild !== null
+            Node.childNodes.length > 0
+        
+        Node.insertBefore()
+            在节点之前插入一个拥有指定父节点的子节点。如果给定的子节点是对文档中现有节点的引用,insertBefore()
+            会从当前位置移动到新位置。
+            var insertNode = parentNode.insertBefore(newNode,referenceNode);
+        
+        tips:
+            没有insertAfter方法,可以使用insertBefore和Node.nextSibling来模拟它。
+            parentNode.insertBefore(newNode,referenceNode.nextSibling);
+        
+        Node.removeChild()  方法返回DOM中的删除的一个子节点。返回删除的节点。
+            parentNode.removeChild(childNode);
+            
+            if(node.parentNode) {
+                node.parentNode.removeChild(node);
+            }
+            
+            // 删除一个元素的所有节点
+            while(node.firstChild){
+                node.removeChild(node.firstChild)
+            }
+            
+# textContent
+
+    在节点上设置textContent属性的话,会删除它的所有子节点,并替换为一个具有给定值的文本节点。 
+    
+    与innerText区别：
+        textContent 会获取所有元素的内容，包括 <script> 和 <style> 元素
+        textContent会返回节点中的每一个元素.相反,innertext受CSS样式的影响,并且不会返回隐藏元素的文本。
 
 # 4. setAttributeNode
 
     用于添加新的属性节点.
     如果元素中已经存在指定名称的属性,那么该属性将被新属性替代.
+    
 
 # 5. classList
 
@@ -105,14 +142,6 @@ let fragment = document.createDocumentFragment();
     contains()  检查元素的类属性中是否存在指定的类
     replace(oldClass,newClass)  用一个新类替换已有类 
 
-# 6. getBoundingClientRect()
-
-    Element.getBoundingClientRect()方法返回元素的大小及其相对于视口的位置.
-    返回值是一个DOMRect对象,这个对象是由该元素的getClientRects()方法返回的一组矩形的集合.
-
-    DOMRect对象包含了一组用于描述边框的只读属性 --left top right和bottom,单位为像素。除了width和
-    height外的属性都是相对于视口的左上角位置而言的。
- 
 # 7. document.forms
 
     forms返回当前文档中的<form>元素的一个集合(一个HTMLCollection)
@@ -123,11 +152,6 @@ let selectForm = document.forms[index];
 let selectFormElement = document.forms[index].elements[index];
 ```
 
-# textContent
-
-	该属性设置或返回指定节点的文本内容以及它的所有后代的文本内容。
-	如果设置了textContent属性,会删除所有的子节点,并被替换为包含指定字符串的一个单独的文本节点。
-	
     contenteditable 可以编辑
     oncontextmunu   可以阻止右键点击事件.
     

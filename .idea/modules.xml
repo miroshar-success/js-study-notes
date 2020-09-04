@@ -18,10 +18,12 @@
       <module fileurl="file://$PROJECT_DIR$/../js-animations and css-layout/.idea/js-animations and css-layout.iml" filepath="$PROJECT_DIR$/../js-animations and css-layout/.idea/js-animations and css-layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/../react-app/.idea/react-app.iml" filepath="$PROJECT_DIR$/../react-app/.idea/react-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../react-ticket/.idea/react-ticket.iml" filepath="$PROJECT_DIR$/../react-ticket/.idea/react-ticket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../server/.idea/server.iml" filepath="$PROJECT_DIR$/../server/.idea/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/../react-ticket/.idea/ticket.iml" filepath="$PROJECT_DIR$/../react-ticket/.idea/ticket.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ticket-server/.idea/ticket-server.iml" filepath="$PROJECT_DIR$/../ticket-server/.idea/ticket-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/../todolist/.idea/todolist.iml" filepath="$PROJECT_DIR$/../todolist/.idea/todolist.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ui-component/.idea/ui-component.iml" filepath="$PROJECT_DIR$/../ui-component/.idea/ui-component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../vue-axios/.idea/vue-axios.iml" filepath="$PROJECT_DIR$/../vue-axios/.idea/vue-axios.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-MusicPlayer/.idea/vue-cloudmusic.iml" filepath="$PROJECT_DIR$/../Vue-MusicPlayer/.idea/vue-cloudmusic.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" filepath="$PROJECT_DIR$/../Vue-饿了么/.idea/vue-eleme.iml" />
       <module fileurl="file://$PROJECT_DIR$/../vue-music-player/.idea/vue-music-player.iml" filepath="$PROJECT_DIR$/../vue-music-player/.idea/vue-music-player.iml" />

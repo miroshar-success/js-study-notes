@@ -57,5 +57,7 @@
     <orderEntry type="module" module-name="webpack-vue-todo" />
     <orderEntry type="module" module-name="webpack-vue-ssr" />
     <orderEntry type="module" module-name="webpack-vue-ssr" />
+    <orderEntry type="module" module-name="vue-axios" />
+    <orderEntry type="module" module-name="server" />
   </component>
 </module>

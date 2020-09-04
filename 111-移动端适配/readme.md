@@ -175,7 +175,29 @@
     }
 }
 ```   
-    
+
+# 将手机网站伪装成app
+
+    将文件引入到html
+    <link rel="manifest" href="./manifest.json">
+```json
+// manifest.json 
+{
+  "name": "app name", // 桌面上的名称
+  "short_name": "", // 添加成功后会显示 将 ... 添加到主屏幕
+  "start_url": "",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "url": "",
+      "size": "",
+      "type": ""
+    }
+  ],
+  "background_color": "",
+  "theme_color": ""
+}
+``` 
     
     
     

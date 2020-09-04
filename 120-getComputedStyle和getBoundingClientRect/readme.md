@@ -48,5 +48,20 @@ elt.style.color = "blue";
     
     tips：
     除了width和height外的属性都是相对于视口左上角的位置而言的。
+    当滚动位置发生变化时,top和left属性也会随之立即发生变化,因为他们的值是相对于视口的。而不是绝对的。如果要获得相对于
+    真个网页左上角定位的属性值,只要给top和left值加上当前的滚动位置(window.scrollX和window.scrollY);
     
 ![getBoundingClientRect]('./boundingClientRect.png')
+
+
+
+
+
+
+
+
+
+
+
+
+
