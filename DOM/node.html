@@ -29,6 +29,7 @@
     <p>Hello World</p>
     <p>Hello World</p>
 </div>
+<div class="parent"><div class="card">card-1</div><div class="card">card-2</div><div class="card">card-3</div></div>
 <script type="text/javascript">
     const oList = document.querySelector(".list");
     const aLi = document.querySelectorAll(".list>li");
@@ -90,6 +91,41 @@
     while(outside.firstChild){
         outside.removeChild(outside.firstChild);
     }
+
+    const oParent1 = document.querySelector('.parent');
+    const oParent2 = document.getElementsByClassName('parent')[0];
+
+    console.log(oParent1.childNodes.length,'parent1Node:',oParent1.childNodes);
+    console.log(oParent2.childNodes.length,'parent2Node:',oParent2.childNodes);
+
+    const aCard = document.querySelectorAll('.card');
+
+    const oDiv = document.createElement('div');
+    oParent1.appendChild(oDiv);
+    oDiv.className='card';
+    console.log(oParent1.childNodes.length);
+    console.log(aCard.length);
+
+    // for...in 遍历 NodeList
+    for(let key in oParent1.childNodes){
+        console.log(key);
+    }
+    oParent1.childNodes.forEach((node) => {
+        console.log('for-each:',node);
+    });
+
+    for(let [key,value] of oParent1.childNodes.entries()) {
+        console.log("key:",key,"value:",value);
+    }
+    for(let value of oParent1.childNodes.values()){
+        console.log('value:',value);
+    }
+
+
+    for(let value of oParent1.childNodes){
+        console.log(value);
+    }
+
 </script>
 </body>
 </html>

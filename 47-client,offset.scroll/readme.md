@@ -4,13 +4,11 @@
 	只读属性,内联元素以及没有CSS样式的元素的clientWidth属性值为0，Element.clientWidth属性表示元素的内部宽度,以像素计。
 	该属性包括内边距,但不包括垂直滚动条(如果有).边框和外边距。
 
-    clientWidth:    获取元素的宽度,包括padding
-    clientHeight:   获取元素的高度,包括padding
+    clientWidth:    获取元素的宽度,包括左右padding
+    clientHeight:   获取元素的高度,包括上下padding
     clientLeft:     元素的左边框的宽度
     clientTop:      元素上边框的宽度
 
-	tips:
-	该属性会被四舍五入为一个整数。如果需要一个小数值,可以使用element.getBoundingClientRect();
 
 # HTMLElement.offsetParent
 

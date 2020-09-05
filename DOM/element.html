@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Element</title>
+    <style>
+        .circle{
+            position:relative;
+            width:300px;
+            height:300px;
+            border:1px solid #ccc;
+        }
+        .box{
+            width:50px;
+            height:50px;
+            background-color:pink;
+            position:absolute;
+            left:30px;
+            top:30px;
+            border:2px solid skyblue;
+            padding:10px;
+            margin:10px;
+        }
+    </style>
+</head>
+<body>
+<p id="paragraph" style="color:green">Sample Paragraph</p>
+<form action="">
+    <p>
+        <input type='button' value="显示属性及其值" class="button">
+        <input type="text" value="" class="text">
+    </p>
+</form>
+<div id="container" style="width:300px; background-color:#a0d0e0;">
+    Some text inside the container.
+    <input type="text" size="40" value="a child element of the container" />
+    <div>
+        <div>a descendant element of the container</div>
+        <div>another descendant element of the container</div>
+    </div>
+</div>
+<div class="card card-1" id="card">hello world</div>
+<div class="list">
+    <li class="player player-1">kyrie</li>
+    <li class="player player-2">lebron</li>
+    <li class="player player-3">durant</li>
+</div>
+<div class="circle">
+    <div class="box"></div>
+</div>
+<script type="text/javascript">
+    const oCard = document.querySelector('.card');
+    console.log('attributes:',oCard.attributes);
+    const oParagraph = document.getElementById("paragraph");
+    const oButton = document.querySelector('.button');
+    const oText = document.querySelector('.text');
+    oButton.addEventListener('click',() => {
+        const attributes = oParagraph.attributes;
+        let str = "";
+        if(attributes.length) {
+            for(let i = 0; i < attributes.length; i++) {
+                str +=  attributes[i].name + '-->' + attributes[i].value;
+            }
+        }
+        oText.value = str;
+    });
+
+    const oList = document.querySelector('.list');
+    const aLi = document.querySelectorAll(".list li");
+    console.log( oList.childNodes[1].attributes );
+    console.log( aLi[0].attributes );
+
+    console.log( oList.childElementCount );
+    console.log( oList.children);
+
+    function getChildCount() {
+        const oContainer = document.getElementById("container");
+        let childCount = 0;
+        if('childElementCount' in oContainer) {
+            childCount = oContainer.childElementCount;
+        }else{
+            if(oContainer.children) {
+                childCount = oContainer.children.length;
+            }else{
+                var child = oContainer.firstChild;
+                while(child){
+                    if(oContainer.firstChild.nodeType === 1){
+                        childCount++;
+                    }
+                    child = child.nextSibling;
+                }
+            }
+        }
+        return childCount;
+    }
+    oButton.addEventListener("click",() => {
+        let count = getChildCount();
+        console.log('count:',count);
+    },false);
+
+
+    const div = document.createElement('div');
+    div.className = 'foo';
+    div.textContent = 'hello world';
+    document.body.appendChild(div);
+    div.classList.add('anotherclass');
+    console.log('div-class',div.classList);
+    console.log(div.classList.value,typeof div.classList.value);
+
+    div.classList.remove('foo');
+    console.log('containers foo:',div.classList.contains("foo"));   //false
+    div.classList.toggle("foo");
+    console.log("contains foo:",div.classList.contains("foo"));
+    // div.classList.toggle("foo")
+
+    div.classList.add("foo",'bar','baz');
+    div.classList.remove("foo","bar","baz");
+    div.classList.replace("anotherclass",'abcd')
+
+
+    console.log('className:',oText.className);
+    oText.className = 'text1';
+    console.log(oText.className);
+
+    const player1 = document.querySelector(".player-1");
+    console.log(player1.className);
+    console.log(player1.className.split(" "))
+
+
+    const oBox = document.querySelector('.box');
+
+    console.log("clientHeight:",oBox.clientHeight);
+    console.log('clientWidth:',oBox.clientWidth);
+
+    console.log('getBoundingClientRect:',oBox.getBoundingClientRect()); // width包括边框的长
+    console.log("clientLeft:",oBox.clientLeft);
+    console.log('clientTop:',oBox.clientTop);
+
+    console.log('firstChild:',oList.firstChild);
+    console.log('lastChild:',oList.lastChild);
+    console.log('firstElementChild:',oList.firstElementChild);
+    console.log("lastElementChild:",oList.lastElementChild);
+    console.log("parentNode",oList.children[0].parentNode);
+    console.log("parentElement:",oList.children[0].parentElement);
+
+</script>
+</body>
+</html>
