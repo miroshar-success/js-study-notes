@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>本地存储</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        h3{
+            padding: 0;
+            margin: 0;
+            line-height:50px;
+        }
+        .button-container{
+            text-align:center;
+        }
+        .container{
+            margin:40px auto;
+            width:600px;
+        }
+    </style>
+</head>
+<body>
+<div class="button-container">
+    <h3>localStorage的几种操作方法,打开控制台：</h3>
+    <button id="add">新增</button>
+    <button id="get">读取</button>
+    <button id="remove">删除</button>
+    <button id="clear">清空</button>
+</div>
+<div class="container">
+    <p class="text">This example is designed to demonstrate usage of the <a href="http://dev.w3.org/html5/webstorage/">W3C Web Storage API</a>. It should work as far back as IE8. Choose custom background colours, logos and fonts from the below drop down menus, then try closing and reopening the page — you will find that your choices are remembered, as they are stored using Web Storage. You can also visit the <a href="event.html" target="_blank">storage event output</a> (opens in new tab). Open this, change some values in the index page, then look at the events page — you'll see the storage changes reported.</p>
+    <p>
+        <label>Choose background color: </label>
+        <input type="color" value="#FF0000" class="color">
+    </p>
+    <p>
+        <label>Choose font size: </label>
+        <select class="font">
+            <option value="sans-serif" selected>Sans-serif</option>
+            <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+            <option value="cursive">Cursive</option>
+        </select>
+    </p>
+</div>
+<script>
+    /*
+    * localStorage属性允许访问一个Document的对象Storage;其存储的数据能在跨浏览器会话保留。
+    * localStorage中的键值对总是以字符串的形式存储。
+    * 方法:
+    * 新增一个项
+    * 1. Storage.setItem();
+    * 读取localStorage项
+    * 2. Storage.getItem()
+    *移除项
+    * 3. Storage.removeItem()
+    * 清空
+    * 4. Storage.clear()
+    * */
+    add.onclick = function(){
+        let userInfo = {
+            "name":'jayk',
+            "sex":"male",
+            "age":"26"
+        };
+        localStorage.setItem("userInfo", JSON.stringify(userInfo) );
+        localStorage.setItem("province","hangzhou");
+        localStorage.setItem("phone","apple");
+        console.log("存储成功");
+    };
+    get.onclick = function(){
+       let info = localStorage.getItem("userInfo");
+       console.group('localStorage.getItem');
+       console.log('JSON.parse前:',typeof info,info);   // String
+       console.log("JSON.parse后:",typeof JSON.parse(info),JSON.parse(info));   // Object
+       console.log(localStorage.getItem("province"),localStorage.getItem("phone"));
+       console.groupEnd();
+    }
+
+    remove.onclick = function(){
+        console.group("localStorage.removeItem");
+        localStorage.removeItem("userInfo");
+        console.log( '删除userInfo后获取该值',JSON.parse(localStorage.getItem("userInfo")) );
+        console.groupEnd();
+    }
+    clear.onclick = function(){
+        console.group('localStorage.clear');
+        console.log(localStorage.clear());
+        console.log("删除成功");
+        console.groupEnd();
+    }
+
+    const oText = document.querySelector('.text');
+    const oColor = document.querySelector('.color');
+    const oSelect = document.querySelector('.font');
+
+    oSelect.addEventListener('change',(event) => {
+        event = event || window.event;
+        oText.style.fontFamily = event.target.value;
+        window.localStorage.setItem('font',event.target.value);
+    });
+
+    oColor.addEventListener('change',(event) => {
+        event = event || window.event;
+        document.body.style.backgroundColor = event.target.value;
+        window.localStorage.setItem('color',event.target.value);
+    });
+
+    function setStyle() {
+        if(window.localStorage.getItem('color')){
+            let color = window.localStorage.getItem('color');
+            let font = window.localStorage.getItem('font');
+            document.body.style.backgroundColor = color;
+            oText.style.fontFamily = font;
+            oSelect.value = font;
+            oColor.value = color;
+        }else{
+            let currentColor = oColor.value;
+            let currentFont = oSelect.value;
+            document.body.style.backgroundColor = currentColor;
+            oText.style.fontFamily = currentFont;
+        }
+    }
+    setStyle();
+
+</script>
+</body>
+</html>
