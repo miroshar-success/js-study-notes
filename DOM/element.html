@@ -48,6 +48,46 @@
 <div class="circle">
     <div class="box"></div>
 </div>
+<div class="outer">
+    <p class="author">马尔克斯</p>
+    <div class="book">
+        <span class="title">霍乱时期的爱情</span>
+        <span class="title">百年孤独</span>
+        <span class="title" style="display:none;">枯枝败叶</span>
+    </div>
+</div>
+<div class="real"></div>
+<video class='video' controls src="https://f.video.weibocdn.com/kkrfQQhJlx07GavcUzRS01041200HkrD0E010.mp4?label=mp4_ld&template=640x360.25.0&trans_finger=40a32e8439c5409a63ccf853562a60ef&ori=0&ps=1BVp4ysnknHVZu&Expires=1599397842&ssig=xJO45uYVzT&KID=unistore,video"></video>
+<button class="fullscreen">全屏显示</button>
+<p class="paragraph" style="width:400px;height:400px;border:1px solid skyblue;padding:10px;overflow:auto;">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at laoreet magna.
+    Aliquam erat volutpat. Praesent molestie, dolor ut eleifend aliquam, mi ligula ultrices sapien, quis cursus
+    neque dui nec risus. Duis tincidunt lobortis purus eu aliquet. Quisque in dignissim magna. Aenean ac lorem at
+    velit ultrices consequat. Nulla luctus nisi ut libero cursus ultrices. Pellentesque nec dignissim enim. Phasellus
+    ut quam lacus, sed ultricies diam. Vestibulum convallis rutrum dolor, sit amet egestas velit scelerisque id.
+    Proin non dignissim nisl. Sed mi odio, ullamcorper eget mattis id, malesuada vitae libero. Integer dolor lorem,
+    mattis sed dapibus a, faucibus id metus. Duis iaculis dictum pulvinar. In nisi nibh, dapibus ac blandit at, porta
+    at arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent
+    dictum ipsum aliquet erat eleifend sit amet sollicitudin felis tempus. Aliquam congue cursus venenatis. Maecenas
+    luctus pellentesque placerat. Mauris nisl odio, condimentum sed fringilla a, consectetur id ligula. Praesent sem
+    sem, aliquet non faucibus vitae, iaculis nec elit. Nullam volutpat, lectus et blandit bibendum, nulla lorem congue
+    turpis, ac pretium tortor sem ut nibh. Donec vel mi in ligula hendrerit sagittis. Donec faucibus viverra fermentum.
+    Fusce in arcu arcu. Nullam at dignissim massa. Cras nibh est, pretium sit amet faucibus eget, sollicitudin in
+    ligula. Vivamus vitae urna mauris, eget euismod nunc. Aenean semper gravida enim non feugiat. In hac habitasse
+    platea dictumst. Cras eleifend nisl volutpat ante condimentum convallis. Donec varius dolor malesuada erat
+    consequat congue. Donec eu lacus ut sapien venenatis tincidunt. Quisque sit amet tellus et enim bibendum varius et
+    a orci. Donec aliquet volutpat scelerisque. Proin et tortor dolor. Ut aliquet, dolor a mattis sodales, odio diam
+    pulvinar sem, egestas pretium magna eros vitae felis. Nam vitae magna lectus, et ornare elit. Morbi feugiat, ipsum
+    ac mattis congue, quam neque mollis tortor, nec mollis nisl dolor a tortor. Maecenas varius est sit amet elit
+    interdum quis placerat metus posuere. Duis malesuada justo a diam vestibulum vel aliquam nisi ornare. Integer
+    laoreet nisi a odio ornare non congue turpis eleifend. Cum sociis natoque penatibus et magnis dis parturient montes,
+    nascetur ridiculus mus. Cras vulputate libero sed arcu iaculis nec lobortis orci fermentum.
+</p>
+<p>
+    <label>I agree</label>
+    <input type="checkbox" class="agree" disabled>
+</p>
+<button class="left">add left</button>
 <script type="text/javascript">
     const oCard = document.querySelector('.card');
     console.log('attributes:',oCard.attributes);
@@ -143,7 +183,75 @@
     console.log("parentNode",oList.children[0].parentNode);
     console.log("parentElement:",oList.children[0].parentElement);
 
-    
+    const oCircle = document.querySelector(".circle");
+    console.log(oCircle.innerHTML);
+
+
+    const oOuter = document.querySelector('.outer');
+    console.log('innerHTML:',oOuter.innerHTML);
+    console.log("innerText:",oOuter.innerText);
+    console.log("textContent:",oOuter.textContent);
+
+    const oReal = document.querySelector(".real");
+    oReal.innerHTML = '<pre>' + document.documentElement.innerHTML.replace(/</g,'&lt;') + "</pre>";
+
+
+    console.log('nextSibling:',oOuter.firstChild.nextElementSibling);
+    console.log("nextElementSibling:",oOuter.firstChild.nextElementSibling);
+
+    console.log('nextSibling:',oOuter.children[0].nextSibling);
+    console.log("nextElementSibling:",oOuter.children[0].nextElementSibling);
+
+    console.log('previousSibling:',oOuter.lastChild.previousSibling);
+    console.log('previousElementSibling:',oOuter.lastChild.previousElementSibling);
+
+    console.log('previousSibling:',oOuter.lastElementChild.previousSibling);
+    console.log('previousElementSibling:',oOuter.lastElementChild.previousElementSibling);
+
+
+    const video = document.querySelector('.video');
+
+    setTimeout(() => {
+        console.log('fullscreen element',document.fullscreenElement);
+    },3000);
+
+
+    const fullscreen = document.querySelector('.fullscreen');
+
+    fullscreen.onclick = function() {
+        video.requestFullscreen()
+    }
+    video.addEventListener('fullscreenchange',(event) => {
+        console.log(event.target,'video全屏了');
+    });
+
+
+    const paragraph = document.querySelector('.paragraph');
+    console.log("scrollHeight:",paragraph.scrollHeight);
+    console.log('clientHeight:',paragraph.clientHeight);
+
+    const agree = document.querySelector('.agree');
+    paragraph.addEventListener('scroll',(event) => {
+        event = event || window.event;
+        console.log('paragraph-scrollTop:',paragraph.scrollTop);
+        if(paragraph.scrollHeight - paragraph.scrollTop == paragraph.clientHeight){
+            console.log('看完了');
+            agree.checked = true;
+            agree.removeAttribute('disabled');
+        }
+    },false);
+
+    document.addEventListener('scroll',(event) => {
+        console.log('scrollLeft',document.documentElement.scrollLeft);
+    });
+
+
+    const left = document.querySelector('.left');
+    left.addEventListener('click',() => {
+        document.documentElement.scrollLeft += 10;
+    });
+
+
 
 </script>
 </body>

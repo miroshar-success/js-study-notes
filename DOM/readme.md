@@ -12,14 +12,6 @@
     document.documentElement    页面所有节点    
     document.body
 
-## 1.1. 获取页面元素的方法
-
-    document.getElementById
-    document.getElementsByClassName
-    document.getElementsByTagName
-    document.querySelector
-    document.querySelectorAll
-
 ## 1.2. HTMLCollection和NodeList区别
 
     HTMLCollection  没有entries keys forEach等方法,动态获取NodeList有这些方法
@@ -136,7 +128,33 @@ console.log(child_nodes.length); // 但此时的输出是“3”
     与innerText区别：
         textContent 会获取所有元素的内容，包括 <script> 和 <style> 元素
         textContent会返回节点中的每一个元素.相反,innertext受CSS样式的影响,并且不会返回隐藏元素的文本。
-
+    
+````html
+<div class="outer">
+    <p class="author">马尔克斯</p>
+    <div class="book">
+        <p class="title">霍乱时期的爱情</p>
+        <p class="title">百年孤独</p>
+        <p class="title" style="display:none;">枯枝败叶</p>
+    </div>
+</div>
+<script type="text/javascript">
+    console.log("textContent:",oOuter.textContent);
+/* textContent: 
+   马尔克斯
+       霍乱时期的爱情
+       百年孤独
+       枯枝败叶
+*/
+    console.log("innerText:",oOuter.innerText);
+/*
+innerText: 马尔克斯
+霍乱时期的爱情
+百年孤独
+*/
+</script>
+````
+    
 ## Element
     
     Element是一个通用性非常强的基类。所有Document对象下的对象都继承自它。
@@ -195,11 +213,21 @@ function GetChildCount () {
     element.firstElementChild   返回对象的第一个子元素
     element.lastElementChild    返回对象的最后一个子元素
     element.innerHTML           设置或获取HTML语法表示的元素的后代。
+    element.onfullscreenchange  元素过渡到全屏模式时触发的全屏更改事件的事件处理程序。
+    element.scrollHeight        一个元素内容高度的度量,包括由于溢出导致的视图中不可见内容,包括由于溢出导致的视图中不可见内容,包括padding。
+                                也包括::before和::after这样的伪元素。
     
-# 4. setAttributeNode
+        tips：判断元素是否滚动到底 
+            element.scrollHeight - element.scrollTop === element.clientHeight;
+    element.scrollLeft          读取或设置元素滚动条到元素左边的距离。
+    element.scrollTop           获取或设置一个元素的内容垂直滚动的像素数。
+    element.scrollWidth         元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容
+    element.tagName             返回当前元素的标签名
+    
+### Element方法
 
-    用于添加新的属性节点.
-    如果元素中已经存在指定名称的属性,那么该属性将被新属性替代.
+    getAttribute()              返回元素指定的属性值。
+    getAttributeNames()         返回一个Array,包含指定元素的所有属性名
     
     
 # 7. document.forms
