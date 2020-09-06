@@ -4,6 +4,6 @@
     <option name="languageLevel" value="ES6" />
   </component>
   <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/Node/stream/yarn.lock" />
+    <file url="file://$PROJECT_DIR$/node/formidable/package.json" />
   </component>
 </project>

@@ -194,6 +194,7 @@ function GetChildCount () {
     element.currentStyle    与window.getComputedStyle方法相同的属性。实现在旧版本的IE浏览器中。
     element.firstElementChild   返回对象的第一个子元素
     element.lastElementChild    返回对象的最后一个子元素
+    element.innerHTML           设置或获取HTML语法表示的元素的后代。
     
 # 4. setAttributeNode
 
