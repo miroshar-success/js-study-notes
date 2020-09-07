@@ -376,10 +376,7 @@ my-server/
         src/node-app.js        is the JavaScript entry point;
     You can delete or rename the other files.
     
-## Available Scripts
 
-    npm start:
-        Runs the server in the development mode.The page will reload if you make edits.
     
     
     
