@@ -226,9 +226,29 @@ function GetChildCount () {
     
 ### Element方法
 
-    getAttribute()              返回元素指定的属性值。
-    getAttributeNames()         返回一个Array,包含指定元素的所有属性名
-    
+    getAttribute()                          返回元素指定的属性值。
+    getAttributeNames()                     返回一个Array,包含指定元素的所有属性名
+    getElementsByClassName()                动态的HTMLCollection
+    getElementsByTagName()                  动态的HTMLCollection
+    hasAttribute()                          返回布尔值是否有某个属性值
+    insertAdjacentElement(position,element) 将一个给定的元素节点插入到相对于被调用的元素的给定的一个位置
+    insertAdjacentHTML(position,element)    将指定的文本解析为Element元素,并将结果插入到DOM树中的指定位置,它不会重新解析它正在使用的元素
+    因此它不会破坏元素内的现有元素。避免了额外的序列化步骤,比直接使用innerHTML操作更快。
+        position
+            一个 DOMString，表示插入内容相对于元素的位置，并且必须是以下字符串之一：
+            'beforebegin'：元素自身的前面。
+            'afterbegin'：插入元素内部的第一个子节点之前。
+            'beforeend'：插入元素内部的最后一个子节点之后。
+            'afterend'：元素自身的后面。
+    querySelector()                         返回与指定的选择器组匹配的元素的后代的第一个元素
+    querySelectorAll()                      non-live的NodeList
+    removeAttribute()                       从指定的元素中删除一个属性
+    setAttribute()                          如果属性值已经存在,则更新该值,否则使用指定的名称和值添加一个新属性。
+    toggleAttribute()                       切换给定元素的某个布尔值属性的状态(属性存在则移除,不存在则添加)。
+    requestFullscreen()                     用于发出异步请求使元素进入全屏模式。进入全屏的元素会收到一个fullscreenchange事件通知
+    已进入全屏 ,如果全屏请求被拒绝,会收到一个fullscreenerror事件。
+    scrollTo()                              滚动到指定位置
+    scrollBy()                              使得元素滚动一段特定距离
     
 # 7. document.forms
 

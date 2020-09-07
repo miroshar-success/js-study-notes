@@ -23,7 +23,36 @@ if( oHello.hasAttributes() ){
 console.log( 'getAttributeNode',oHello.getAttributeNode('id') );
 console.log(  'value:', oHello.getAttributeNode('id').value );
 
+const oItem = document.querySelector(".item");
 
+console.log(oItem.hasAttribute("class"));
+console.log(oItem.hasAttribute("data-name"));
+
+const parent = document.querySelector('.parent');
+const img = document.createElement('img');
+parent.insertAdjacentElement('beforebegin',img);
+// parent.insertAdjacentElement('afterbegin',img);
+parent.insertAdjacentElement('beforeend',img);
+parent.insertAdjacentElement('afterend',img);
+
+parent.insertAdjacentHTML("beforebegin",`<p>我是before-begin</p>`);
+parent.insertAdjacentHTML('afterbegin',`<p>after-begin</p>`);
+parent.insertAdjacentHTML("beforeend",`<p>before-begin</p>`);
+parent.insertAdjacentHTML("afterend",`<p>after-end</p>`);
+
+
+parent.removeAttribute('class');
+
+const video = document.querySelector('.video');
+const button = document.querySelector('.button');
+
+button.addEventListener('click',() => {
+    video.requestFullscreen();
+});
+
+video.addEventListener('fullscreenchange',() => {
+    console.log('进入全屏了');
+});
 
 
 
