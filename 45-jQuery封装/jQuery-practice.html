@@ -87,6 +87,8 @@
 <p class="password">
     <input type="password" name="password" placeholder="password">
 </p>
+<div class="one">one-1</div>
+<div class="one" style="display:none;">one-2</div>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -231,6 +233,12 @@
     $(".password").focus((event) => {
         console.log('获取焦点了');
     });
+
+    $('.one').on('click',() => {
+        console.log('我被点击了:');
+    })
+    console.log($('.one'));
+
 </script>
 </body>
 </html>
