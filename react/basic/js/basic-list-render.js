@@ -90,7 +90,6 @@ function Blog(props){
         </div>
     )
 }
-
 ReactDOM.render(
     <Blog posts={posts}/>,
     document.getElementById("root")
