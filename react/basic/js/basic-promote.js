@@ -44,7 +44,6 @@ class TemperatureInput extends React.Component {
     }
 }
 
-
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
@@ -80,7 +79,45 @@ class Calculator extends React.Component {
     }
 }
 
+class MyInput extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event){
+        this.props.change(event.target.value);
+    }
+    render(){
+        console.log(this.props);
+        return (
+            <div>
+                <input type="text" value={this.props.value} onChange={this.handleChange}/>
+            </div>
+        )
+    }
+}
+
+class App extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            value:0
+        }
+    }
+    handleChange = (value) => {
+        console.log('接受来自子组件的数据',value);
+        this.setState({
+            value
+        })
+    }
+    render() {
+        return (
+            <MyInput value={this.state.value} change={this.handleChange}/>
+        )
+    }
+}
+
 ReactDOM.render(
-    <Calculator/>,
+    <App/>,
     document.getElementById("root")
 )
