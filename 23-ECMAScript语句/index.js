@@ -4,7 +4,7 @@ if(3 > 2){
 }
 
 // switch语句
-var month = prompt('请输入月份');1
+var month = prompt('请输入月份');
 month*=1;
 switch(month){
     case 1:
@@ -47,3 +47,30 @@ function sum(num){
 }
 sum(4);
 
+const age = prompt("Please tell me your age");
+console.log(age);
+
+var x = 3;
+console.log(x++);   // 3
+console.log(x);     // 4
+
+var y = 3;
+console.log(++y);   // 4
+console.log(y);     // 4
+
+console.log('- 操作符', -'3',typeof -'3');
+console.log('+操作符', +'3', typeof +'3');
+
+var x = [0,1,2,3,4,5,6,7,8,9];
+var a = [                       // i j
+    [0,1,2,3,4,5,6,7,8,9],      // 0 9
+    [0,1,2,3,4,5,6,7,8,9],      // 1 8
+    [0,1,2,3,4,5,6,7,8,9],      // 2 7
+    [0,1,2,3,4,5,6,7,8,9],      // 3 6
+    [0,1,2,3,4,5,6,7,8,9],      // 4 5
+    [0,1,2,3,4,5,6,7,8,9],      // 5 4
+]
+
+for(var i = 0, j = 9; i <= j; i++,j--){
+    console.log( 'a['+i+']['+j + ']=' ,a[i][j] );
+}
