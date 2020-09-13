@@ -224,7 +224,18 @@ function App2() {
 ```jsx harmony
 <MyComponent>Hello world!</MyComponent>
 ```
-    2. JSX子元素
+    2.  React组件也能否返回存储在数组中的一组元素
+    
+```js harmony
+render() {
+  // 不需要用额外的元素包裹列表元素！
+  return [
+    <li key="A">First item</li>,
+    <li key="B">Second item</li>,
+    <li key="C">Third item</li>,
+  ];
+}
+```
     3. JavaScript表达式作为子元素
 ```jsx harmony
 function TodoList(){
