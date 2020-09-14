@@ -291,7 +291,6 @@ shouldComponentUpdate(nextProps, nextState) {
   return true;
 }
 
-
 // demo
 class CounterButton extends React.Component {
   constructor(props) {
@@ -321,6 +320,8 @@ class CounterButton extends React.Component {
 }
 ``` 
     大部分情况下,可以使用React.PureComponent来代替手写的shouldComponentUpdate。
+    tips:
+        不可变数据的力量 : 避免更改你正用于props或state的值。
     
 # Portals
 
@@ -334,7 +335,17 @@ ReactDOM.createPortal(child,container)
     一个portal的典型用例是当父组件有overflow:hidden 或z-index样式时,但你需要子组件能够再视觉上'跳出'其容器。
     
     1. 一个从portal内部触发的事件会一直冒泡至包含React树的祖先，尽管这些元素并不是DOM树中的祖先。    
-    
+```jsx harmony
+// usage
+render() {
+  // React 并*没有*创建一个新的 div。它只是把子元素渲染到 `domNode` 中。
+  // `domNode` 是一个可以在任何位置的有效 DOM 节点。
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode
+  );
+}
+```
     
 # Refs
 
