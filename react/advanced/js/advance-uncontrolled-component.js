@@ -18,7 +18,31 @@ class NameForm extends React.Component {
     }
 }
 
+class FileInput extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleSubmit(event){
+        event.preventDefault()
+    }
+    handleChange(event){
+        console.log(event.target.files);
+    }
+    render(){
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>Upload file:
+                    <input type="file" onChange={this.handleChange}/>
+                </label>
+                <input type="submit" value='Submit'/>
+            </form>
+        )
+    }
+}
+
 ReactDOM.render(
-    <NameForm/>,
+    <FileInput/>,
     document.getElementById("root")
 )
