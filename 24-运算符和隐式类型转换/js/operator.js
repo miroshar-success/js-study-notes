@@ -47,8 +47,26 @@ console.log( true ? false : (true ? true : false) );    // false
 console.log( (true ? false : true) ? true : false );    //  false
 
 
+console.log(222.1234567.toFixed(2));
+console.log(typeof 122.34555.toFixed(2))    // string
 
+console.log( typeof 'hello world'); // string
+console.log( typeof null);  // object
+console.log(typeof true);   // boolean
+console.log(typeof undefined);  // undefined
+console.log(typeof {a:'123'});  // object
+console.log(typeof 12); // number
+console.log(typeof []); // object
+console.log(typeof function(){});   // function
+console.log(typeof Symbol('foo'))   // symbol
 
+console.log( 0 == false );  // true
+console.log( 1 == true);    // true
+
+console.log( 0 == "" ); // true
+console.log( 0 == [] ); // true
+
+console.log( [1,2,3] == '1,2,3' );  // true
 
 
 
