@@ -103,3 +103,46 @@ function fun(n,o){
         }
     }
 }
+
+// 闭包
+function makeAdder(x){
+    function add(y){
+        return x + y;
+    }
+    return add;
+}
+
+var plusOne = makeAdder(1);
+console.log( plusOne(3) );      // 4
+console.log( plusOne(10) );     // 11
+
+var plusTen = makeAdder(10);
+console.log( plusTen(13) )      // 23
+
+
+function user(){
+    var user,password;
+    function doLogin(user,password){
+        user = user;
+        password = password;
+    }
+    var publicApi = {
+        login:doLogin
+    }
+    return publicApi;
+}
+
+var fred = user();
+fred.login('fred','123456');
+
+
+if( !Number.isNaN ){
+    Number.isNaN = function(x){
+        return x !== x;
+    }
+}
+
+
+
+
+

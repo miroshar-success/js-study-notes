@@ -25,8 +25,29 @@ const foo = () => {};
 })()
 ```
 
+    (function IIFE(){...}) 函数表达式外面的(...)就是JavaScript语法能否放置其成为普通函数声明的部分。
+```js
+foo1(); // foo1
+foo2(); // foo2 is not defined
+function foo1(){
+    console.log('foo1');
+}
 
+(function foo2(){
+    console.log('foo2')
+})
+```
+    
+    polyfill 用于表示根据新特性的定义,创建一段与之行为等价但能够在旧的JavaScript环境中运行的代码。
+```js
+// isNaN
 
+if(!Number.isNaN){
+    Number.isNaN = function(x){
+        return x !== x;
+    }
+}
+```
 
 
 

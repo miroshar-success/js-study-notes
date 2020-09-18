@@ -68,6 +68,13 @@ console.log( 0 == [] ); // true
 
 console.log( [1,2,3] == '1,2,3' );  // true
 
+var foo = function(){};
+
+console.log(typeof foo);    // function
+
+var x = function bar(){}
+console.log(typeof bar,typeof x);   // undefined function
+
 
 
 
