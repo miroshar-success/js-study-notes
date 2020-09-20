@@ -558,7 +558,6 @@ function selectedsubreddit(state='react.js',action){
 }
 const reducer = createStore(selectedsubreddit)
 ```
-![redux-thunk-demo](https://blog.csdn.net/weixin_33768153/article/details/93861465)
 
 
 
