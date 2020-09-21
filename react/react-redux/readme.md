@@ -175,13 +175,44 @@ console.log(store.getState())
 // }
 ```
 
+# React Redux
+    
+    
 ## Provider
     
-    Overview:
-        The <Provider> makes the Redux store available to any nested components that have been wrapped
-        in the connect() function.
-        
-    Normally, you can't use a connected component unless it is nested inside of a <Provider>.
+    React Redux provides <Provider/>,which makes the Redux store available to the rest of your app;
+```js
+const rootElement = document.getElementById('root')
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  rootElement
+)
+```
+## connect()
+
+    React Redux provides a connect function for you to connec your component to the store.
+    Normally, you'll call connect in this way:
+```js
+import { connect } from 'react-redux'
+import { increment, decrement, reset } from './actionCreators'
+
+// const Counter = ...
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    counter: state.counter
+  }
+}
+
+const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Counter)
+```
     
 ### Props
 
