@@ -37,36 +37,6 @@ store.dispatch({type:"INCREMENT"});
 store.dispatch({type:"DECREMENT"});
 ```
 
-## 三大原则
-
-    1. 单一数据源
-        整个应用的state被存储在一棵 object tree中,并且这个object tree只存在于唯一一个store中。
-    
-    2. State是只读的
-        唯一改变state的方法就是出发action,action是一个用于描述已发生事件的普通对象。
-        
-    3. 使用纯函数来执行修改
-        为了描述action如何改变state tree,你需要编写reducers。
-        
-## Action
-
-    Action是把数据从应用传到store的有效载荷。它是store数据的唯一来源。 Action本质上是JavaScript普通对象
-    我们约定,action内必须使用一个字符串类型的type字段来表示将要执行的动作。
-    
-    Action创建函数就是生成action的方法。 在Redux中的action创建函数只是简单的返回一个action:
-```js
-function addTodo(text){
-    return {
-        type:ADD_TODO,
-        text
-    }  
-}
-```
-    reducer是一个纯函数,接受旧的state和 action.返回新的state.永远不要在reducer里做这些操作:
-        1. 修改传入参数
-        2. 执行有副作用的操作,例如API请求和路由跳转
-        3. 调用非纯函数,如Date.now() 或 Math.random()
-        
 # API
 
 *createStore(reducer,action)*
@@ -178,6 +148,7 @@ console.log(store.getState())
 # React Redux
     
     
+    
 ## Provider
     
     React Redux provides <Provider/>,which makes the Redux store available to the rest of your app;
@@ -191,14 +162,15 @@ ReactDOM.render(
 )
 ```
 ## connect()
-
-    React Redux provides a connect function for you to connec your component to the store.
+    
+    Extracting Data with mapStateToProps
+    
+    React Redux provides a connect function for you to connec your component to the store. you read values from 
+    the Redux store (and er-read the values when store updates).
     Normally, you'll call connect in this way:
 ```js
 import { connect } from 'react-redux'
 import { increment, decrement, reset } from './actionCreators'
-
-// const Counter = ...
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
@@ -213,6 +185,44 @@ export default connect(
   mapDispatchToProps
 )(Counter)
 ```
+    The connect function takes two arguments,both optional:
+        1. mapStateToProps: called every time the store state changes. It receives the entire store state, and should
+        retuen an object of data this component needs.
+        2. mapDispatchToProps: this parameter can either be a function,or an object. Note:we recommend using this 'object
+        shorthand' form.
+        
+## Common ways of calling connect
+    
+    1. Do not subscribe to the store and do not inject action creators:
+        export default connect()(Component)
+    If you call connect without providing any arguments,your component will:
+        1. no re-render when the store changes
+        2. receive props.dispatch that you may use to manually dispatch action
+        
+    2. Subscribe to the store and do not inject action creators
+    If you call connect with only mapStateToProps,your component will:
+        1. subscribe to the values that mapStateToProps extracts from the store,and re-render only when those values
+        have changed
+        2. receive props.dispatch that you may use manually dispatch action
+        
+    3. Do not subscribe to the store and inject action creators
+    if you call connect with only mapDispatchToProps,your component will:
+        1. not re-render when the store changes
+        2. receive each of the action creators you inject with mapDispatchToProps as props and automatically dispatch
+        the actions upon being called
+        
+    4. Subscribe to the store and inject action creators
+    If you call connect with both mapStateToProps and mapDispatchToProps,your component will:
+        1. subscribe to the values that mapStateToProps extracts from the store,and re-render only when those values 
+        have changed.
+        2. receive all of the action creators you inject with mapDispatchToProps as props and automatically dispatch
+        the actions upon being called.
+    
+    
+    Return Values Determine if your Component Re-Renders
+        React Redux devides whether the contents of the object returned from mapStateToProps are different using ===
+        comparison on each fields of the returned object.If any of the fields have changed,then your component will
+        be re-rendered so it can receive the updated values as props,
     
 ### Props
 
