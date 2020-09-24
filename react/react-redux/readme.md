@@ -147,7 +147,8 @@ console.log(store.getState())
 
 # React Redux
     
-    
+    React Redux is the official React binding for Redux.It lets your react components read data from a Redux
+    Store ,and dispatch actions to the store to update data.
     
 ## Provider
     
@@ -217,258 +218,59 @@ export default connect(
         have changed.
         2. receive all of the action creators you inject with mapDispatchToProps as props and automatically dispatch
         the actions upon being called.
+ 
+ ## mapStateToProps
+ 
+    As the first argument passed in to connect,mapStateToProps is used for selecting the part of the data from the store
+    that the connected component needs.
     
+    mapStateToProps should be defined as a function:
+ ```js
+function mapStateToProps(state,ownProps ?);
+```
+    If you do not wish to subscribe to the store,pass null or undefined to connect in place of mapStateToProps.
     
     Return Values Determine if your Component Re-Renders
         React Redux devides whether the contents of the object returned from mapStateToProps are different using ===
         comparison on each fields of the returned object.If any of the fields have changed,then your component will
         be re-rendered so it can receive the updated values as props,
-    
-### Props
-
-    1. store:The single Redux store in your application
-    2. children: The root of your component hierarchy
-    3. context: You may provide a context instance.
-
-*Example*
-```jsx harmony
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
-import {createStore} from 'redux';
-const store = createStore(reducer);
-
-ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById("root"));  
-```
-*Using with React Router*
-```jsx harmony
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-import {Router,Route} from 'react-router-dom'
-
-const store = createStore();
-ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <Route exact path="/" children={App}/>
-        </Router>
-    </Provider>,
-    document.getElementById("root")
-)
-```
-
-## connect
-    
-    Overview:
-        The connect() function connects a React component to a Redux store.
         
-        The mapStateToProps and mapDispatchToProps deals with your Redux store's state and dispatch,
-        respectively, state and dispatch will be supplied to your mapStateToProps or mapDispatchToProps
-        functions as the first argument.
+    Many common operations result in new object or array references being created:
+        1. Creating new arrays with someArray.map() or someArray.filter()
+        2. Merging arrays with array.concat
+        3. Selecting portion of an array with array.slice
+        4. Copying values with Object.assign
+        5. Copying values with the spread operator {...oldState,...newData}
     
-    
-    React Redux provides a connect function for you to read values from the Redux store(and re-read the
-    values when the store updates)。
-    
-```jsx harmony
-const mapStateToProps = (state) => (
-{   })
-
-const mapDispatchToProps = {}
-// connect returna s new function that accepts the components to wrap;
-connect(mapStateToProps,mapDispatchToProps)();
-
-
-import { connect } from 'react-redux'
-import { addTodo } from '../redux/actions'
-
-class AddTodo extends React.Component {
-  // ... components implementation
-}
-
-export default connect(
-  null, // 第一个参数 mapStateToProps 如果不用可以传递为null
-  { addTodo }
-)(AddTodo)
-``` 
-### Example Usage
-
-    1. Inject just dispatch and don't listen to store
-```js
-export default connect()(TodoApp)
-```
-    2. Inject all action creatros(addTodo,completeTodo...) without subscribing to the store
-```js
-import * as actionCreators form './actionCreators'
-export default connect(
-    null,
-    actionCreators
-)(TodoApp)
-```
-
-    3. Inject dispatch and every field in the global state
-        Note: Don't do this!It kills any performance optimizations because TodoApp wikk re-render after every
-        state change. It's better to have more granular connect() on several components in your view hierarchy
-        that each only listen to a relevant slice of the state.
-```js
-// don't do this!
-export default connect(state => state)(TodoApp)
-```
-
-    4. Inject dispatch and todos
-```js
-function mapStateToProps(state){
-    return {todos:state.todos}
-}
-export default connect(mapStateToProps)(TodoApp)
-```
-    5. Inject todos and all action creators
-```jsx harmony
-import * as actionCreators from './actionCreators'
-
-function mapStateToProps(state) {
-  return { todos: state.todos }
-}
-
-export default connect(
-  mapStateToProps,
-  actionCreators
-)(TodoApp)
-```
-    6. Inject todos and specific action creators (addTodo and deleteTodo) with shorthand syntax;
-```jsx harmony
-import { addTodo, deleteTodo } from './actionCreators'
-
-function mapStateToProps(state) {
-  return { todos: state.todos }
-}
-
-const mapDispatchToProps = {
-  addTodo,
-  deleteTodo
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoApp)
-```
-
-### connect arguments:
-
-    The connect function takes two arguments,both optional:
-        1. mapStateToProps: called every time the store state changes.It receives the entire state,and should
-        return an object of data this component needs.
-        2. mapDispatchToProps: this parameter can either be a function,or an object;
-            Note: we recommended using this 'object shorthand' form.
-            
-    As the first argument passed in to connect,mapStateToProps is used for selecting the part of the data from
-    the store that the connected component needs,it is frequently referred to as just mapState for short.
-        1. It is called every time the store state changes
-        2. It reveives the entire store state and should return an object of data this component needs.
-        
-        1. if you call connect without providing any arguments,your component will: 
-                1.1 not re-render when store changes
-                1.2 recive props.dispatch that you may use to manually dispatch action
-                
-        2. if you call connect with only mapStateToProps,your component will:
-                2.1 subscribe to the values that mapStateToProps extracts from the store,and re-render only 
-                when those values have changed.
-                2.2 receive props.dispatch that you may use to manually dispatch action
-                
-        3.  if you call connectwith only mapDispatchToProps,your component will:
-                3.1 not re-render when the store changes
-                3.2 receive each of the action creators you inject with mapDispatchToProps as props and automatically
-                dispatch the actions upon being called
-        
-        4.  if you call connect with both mapStateToProps and mapDispatchToProps,your component will:
-                4.1 subscribe to the values that mapStateToProps extracts from the store,and re-render only when
-                those values have changed.
-                4.2 receive all of the action creators you inject with mapDispatchToProps as props and automatically 
-                dispatch the actions upon being called
-
-### mapStateToProps
-    
-    Usage:
-        function mapStateToProps(state,ownProps?)
-        
-    If you do not wish to subscribe to the store,pass null or undefined to connect in place of mapStateToProps.
-    1. If your mapStateToProps function is declared as taking one parameter,it will be called whenever the store state
-    changes,and given the store state as the only parameter.
-```js
-const mapStateToProps = state => ({todos:state.todos})
-```
-    2. If your mapStateToProps function is declared as taking two parameters, it will be called whenever the store
-    state changes or when the wrapper component receives new props(based on shallow equality comparisons).It will be
-    given the store state as the first parameter,and the wrapper component's props as the second parameter.
-```js
-const mapStateToProps = (state,ownProps) => ({
-    todos:state.todos[ownProps.id]
-})
-```
-        
     Tips:
-        1. Use Selector Functions to Extract and Transform Data.
-            We highly encourage the use of 'selector' functions to help encapsulate the process of extracting values
-            from specific locations in the state tree.
-        2. mapStateToProps Funcitions Should Be Pure and Synchronous
-    
-    
-*mapStateToProps and Performance*
+        In order for your mapStateToProps function to be as fast as possible,you should only re-run these complex
+        transformations when the relevant data has changed.
+            
+## The Number of Declared Arguments Affects Behavior
 
-        React Redux internally implements the shouldComponentUpdate method such that the wrapper component
-        re-renders precisely when the data your component needs has changed. By default, React Redux decides
-        whether the contents of the object returned from mapStateToProps are deifferent using === comparison
-        on each fields of the returned object.If any of the fields have changed,then your component will be
-        re-rendered so it can receive the updated values as props.
+    With just (state), the function runs whenever the root store state object is different.With (state,ownProps),
+    it runs any time the store is different and Also whenever the wrapper props have changed.
     
+    This means that you should not add the ownProps argument unless you actually need to use it.
     
-*The Number of Declared Arguments Affects behavior*
-
-        With just(state),the function runs whenever the root store state object is different. With(state,ownProps)
-        ,it rns any time the store state is different and ALSO whenever the wrapper props have changed.
-        Tisp:
-        1. You should not add the ownProps argument unless you actually need to use it.
+    If the formal definition of the function contains one mandatory parameter, mapStateToProps will not receive
+    ownProps.
 ```js
 function mapStateToProps(state){
     console.log(state); // state
     console.log(arguments[1]);  // undefined
 }
-
-function mapStateToProps (state, ownProps={}){
-    console.log(state); // state;
-    console.log(ownProps);  // undefined
-}
 ```
-    It will receive ownProps when the formal definition of the function contains zero or two mandatory parameters;
+    It will receive ownProps when the formal definition of the function contains zero or two mandatory parameters:
 ```js
 function mapStateToProps(state,ownProps){
-    console.log(state); // state;
-    console.log(ownProps);  // ownProps;
+    console.log(state);     // state
+    console.log(ownProps);  // ownProps
 }
-
 function mapStateToProps(){
-    console.log(arguments[0]);  // state
-    console.log(arguments[1]);  // ownProps
+    console.log(arguments[0],arguments[1]); // state    ownProps
 }
-
-function mapStateToProps(...args) {
-  console.log(args[0]) // state
-  console.log(args[1]) // ownProps
-}
-```    
-*Only Perform Expensive Operations When Data Changes*
-
-    Transforming data can often be expensive(and ususlly results in new object references being created).
-    In order for your mapStateToProps function to be as fast as possible,you should only re-run these complex
-    transformations when the relevant data has changed.
-    
-    These are a few ways to approach this:
-        1. Some transformations could be calculated in an action creator or reducer,and the transformed data could be
-        keep in the store
-        2. Transformations can also be done in a components's render() method.
+```
 
 ### mapDispatchToProps
 
@@ -479,7 +281,7 @@ function mapStateToProps(...args) {
         2. connect can accept an argument called mapDispatchToProps,which lets you create functions that
         dispatch when called, and pass those functions as props to your component.
 
- *Approaches for Dispatching*   
+### Approaches for Dispatching
 
     Default:dispatch as a Prop
         if you do not specify the second arguments to connect(),your component will receive dispatch by default.
@@ -503,7 +305,9 @@ function Counter({count,dispatch}){
     )
 }
 ```
-*Two Forms of mapDispatchToProps*
+    Pass Down action dispatching logic to unconnected child component.
+
+### Two Forms of mapDispatchToProps
 
     The mapDispatchToProps parameter can be of two forms.While the function form allows more customization
     the object form is easy to use.
@@ -526,6 +330,28 @@ const mapDispatchToProps = dispatch => {
 // Object Form
 const mapStateToProps = {increment,decrement}
 ```
+### Arguments
+
+    1. dispatch
+    2. ownProps(optional)
+    
+        If you mapDispatchToProps function is declared as taking two parameters, it will be called with dispatch
+        as the first parameter and the props passed to the connected components as the second parameter.
+````js
+const increment = () => ({ type: 'INCREMENT' })
+const decrement = () => ({ type: 'DECREMENT' })
+const reset = () => ({ type: 'RESET' })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching actions returned by action creators
+    increment: () => dispatch(increment()),
+    decrement: () => dispatch(decrement()),
+    reset: () => dispatch(reset())
+  }
+}
+````
+
     We recommend always using the 'object shorthand' form of mapDispatchToPros,unless you have a specific
     reason to customize the dispatching behavior.
     
@@ -536,7 +362,7 @@ const mapStateToProps = {increment,decrement}
     Note:
         You can skip the first the parameter by passing undefined or null.Your component will not subscribe to
         the store, and will still receive the dispatch props defined by mapDispatchToProps.
-
+    
 
 ## 同步Action创建函数
     
@@ -567,7 +393,6 @@ function incrementAsync() {
   };
 }
 const store = createStore(reducer,applyMiddleware(thunk))
-
 
 
 import { createStore, applyMiddleware } from 'redux';

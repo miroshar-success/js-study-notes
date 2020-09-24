@@ -57,11 +57,11 @@ class Counter extends React.Component {
         this.props.Decrement()
     }
     render(){
-        console.log('count-changed and re-render',this.props.count);
+        console.log('count-changed and re-render',this.props.state);
         return (
             <div>
                 <button onClick={this.handleIncrement}>+</button>
-                <span style={{padding:'0 10px'}}>{this.props.count}</span>
+                <span style={{padding:'0 10px'}}>{this.props.state.count}</span>
                 <button onClick={this.handleDecrement}>-</button>
             </div>
         )
@@ -92,7 +92,7 @@ Switch = connect(mapSwitchState,mapSwitchDispatch)(Switch);
 
 const mapStateToProps = (state,ownProps) => {
     // console.log(ownProps);  // ownProps: {id:123,name:"counter"}
-    return {count:state.count}
+    return {state}
 }
 const mapDispatchToProps = {Increment,Decrement}
 Counter = connect(mapStateToProps,mapDispatchToProps)(Counter);
