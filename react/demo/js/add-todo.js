@@ -71,7 +71,7 @@ class ListItem extends React.Component {
         console.log(this.props.index);
         this.props.delItem(this.props.index);
     }
-    componentDidMount(){
+/*    componentDidMount(){
         console.log('componentDidMount');
     }
     shouldComponentUpdate(nextProps,nextState){
@@ -83,18 +83,58 @@ class ListItem extends React.Component {
     }
     componentWillUnmount(){
         console.log('componentWillUnmount');
-    }
-    componentWillReceiveProps(nextProps){
+    }*/
+/*    componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps:',nextProps)
+    }*/
+    shouldComponentUpdate(nextProps,nextState){
+        console.log('nextProps:',nextProps);
+        if(nextProps.item !== this.props.item){
+            return true;
+        }
+        return false;
     }
     render(){
         const {item} = this.props;
-        console.log('render');
+        console.log('child-render');
         return (
             <li onClick={this.handleClick}>{this.props.name}---{item}</li>
         )
     }
 }
+
+class Banner extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            banner:[]
+        }
+    }
+    componentDidMount(){
+        axios.get('http://localhost:3000/banner').then(response => {
+            console.log(response);
+            if(response.data.code == 200){
+                this.setState({
+                    banner:response.data.banners
+                })
+            }
+        })
+    }
+    render(){
+        return (
+            <div className='banner'>
+                <ul>
+                    {this.state.banner.length > 0 && this.state.banner.map((banner) =>
+                        <li key={banner.targetId}>
+                            <img src={banner.imageUrl} alt=""/>
+                        </li>
+                    )}
+                </ul>
+            </div>
+        )
+    }
+}
+
 ListItem.propTypes = {
     item:PropTypes.string,
     index:PropTypes.number,
@@ -106,6 +146,6 @@ ListItem.defaultProps = {
     name:'kyrie'
 }
 ReactDOM.render(
-    <AddTodo/>,
+    <Banner/>,
     document.getElementById("root")
 )

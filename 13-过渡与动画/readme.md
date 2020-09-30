@@ -1,14 +1,21 @@
 
 # animation
 
-	animation属性是一个简写属性，用于设置六个动画属性
-		animation-name:动画名字
-		animation-duration:完成动画需要的时间
-		animation-timing-function:动画的速度曲线
-		animation-delay:动画在开始之前的延迟	
-		animation-iteration-count:动画播放的次数 n(具体次数)/infinite(无限)
-		animation-direction:是否应该轮流反向播放动画 normal(默认)/alternate
-		
+    CSS3 animation属性是 animation-name animation-duration animation-timing-function animation-delay
+    animation-iteration-count animation-direction animation-fill-mode 和animation-play-state属性的一个简写形式。
+    
+    initialValue:
+        animation-name: none
+        animation-duration: 0s
+        animation-timing-function:ease
+        animation-delay:0s
+        animation-iteration-count:1
+        animation-direction:normal
+        animation-fill-mode:none | forwards | backwards | both
+        animation-play-state:running
+        
+    适用元素: all element, ::before and ::after pseudo-elements
+    
 ## animation-play-state
 
 	暂停动画 paused:running;

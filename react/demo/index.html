@@ -3,6 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>React-Demo</title>
+    <style>
+        p{
+            position:relative;
+            width:100px;
+            height:100px;
+            text-align:center;
+            line-height:100px;
+            background-color:#FF9966;
+        }
+        p.active{
+            animation:run 2s linear 0s 3 forwards alternate;
+        }
+        @keyframes toggle {
+            0%{
+                opacity:1;
+                color:#CCFFFF
+            }
+            50%{
+                opacity:0.5;
+                color:#FFCCCC;
+                font-size:18px;
+            }
+            100%{
+                opacity:0;
+                color:#FFCC99;
+                font-size:16px;
+            }
+        }
+        @keyframes run{
+            0%{
+                left:0px;
+            }
+            100%{
+                left:100px;
+            }
+        }
+        .outside{margin-top:10px;width:300px;height:5px;background-color:pink;}
+        @keyframes move{
+            0%{
+                width:10px;
+                background-color:red;
+            }
+            100%{
+                width:100%;
+            }
+        }
+        .inside{
+            background-color:skyblue;
+            height:5px;
+            width:0;
+            animation:move 3s linear 0s;
+            animation-play-state:paused;
+        }
+        .inside.play{
+            animation-play-state:running;
+        }
+        .inside.paused{
+            animation-play-state:paused;
+        }
+    </style>
 </head>
 <body>
 <div id="root"></div>
@@ -10,9 +70,11 @@
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!--<script type="text/babel" src="./js/click-button.js"></script>-->
 <!--<script type='text/babel' src="./js/counter.js"></script>-->
 <!--<script type="text/babel" src="./js/counter-update.js"></script>-->
-<script type="text/babel" src="./js/add-todo.js"></script>
+<!--<script type="text/babel" src="./js/add-todo.js"></script>-->
+<script type="text/babel" src="./js/css3-animate.js"></script>
 </body>
 </html>
