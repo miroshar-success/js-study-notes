@@ -53,8 +53,7 @@
             background-color:skyblue;
             height:5px;
             width:0;
-            animation:move 3s linear 0s;
-            animation-play-state:paused;
+            animation:move 3s linear 0s infinite reverse;
         }
         .inside.play{
             animation-play-state:running;
@@ -66,15 +65,27 @@
 </head>
 <body>
 <div id="root"></div>
+<div class="grandparent">
+    <div class="parent">
+        <div class="child"></div>
+    </div>
+</div>
 <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/react-transition-group/dist/react-transition-group.js"></script>
 <!--<script type="text/babel" src="./js/click-button.js"></script>-->
 <!--<script type='text/babel' src="./js/counter.js"></script>-->
 <!--<script type="text/babel" src="./js/counter-update.js"></script>-->
 <!--<script type="text/babel" src="./js/add-todo.js"></script>-->
 <script type="text/babel" src="./js/css3-animate.js"></script>
+<script>
+    const oChild = document.querySelector('.child');
+    console.log(oChild);
+    console.log(oChild.parentNode.parentNode);
+    console.log(oChild.parentElement.parentElement);
+</script>
 </body>
 </html>

@@ -10,11 +10,15 @@
         animation-timing-function:ease
         animation-delay:0s
         animation-iteration-count:1
-        animation-direction:normal
+        animation-direction:normal | reverse | alternate-reverse
         animation-fill-mode:none | forwards | backwards | both
         animation-play-state:running
         
     适用元素: all element, ::before and ::after pseudo-elements
+    
+    animation-fill-mode设置CSS动画在执行之前和之后如何将样式应用于其目标。
+        none: 当动画未执行时,动画将不会将任何样式应用于目标。
+        forwards 目标将保留由执行期间遇到的最后一个关键帧计算值。
     
 ## animation-play-state
 

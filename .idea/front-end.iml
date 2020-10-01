@@ -60,5 +60,6 @@
     <orderEntry type="module" module-name="vue-axios" />
     <orderEntry type="module" module-name="server" />
     <orderEntry type="module" module-name="server" />
+    <orderEntry type="module" module-name="React-Demo" />
   </component>
 </module>

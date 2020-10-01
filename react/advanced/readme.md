@@ -669,8 +669,102 @@ class Foo extends React.Component{
     }   
 }
 ```
+# React Transition Group
+
+    Exposes simple components useful for defining extering and exiting transitions.
+
+## Transition    
+    
+    The Transition component lets you describe a transition from one component state to another over time with a simple
+    declarative API.Most commonly it is used to animate the mounting and unmounting of a component.
+    
+    By default the Transition component does not alter the behavior of the component it renders,it only tracks enter and
+    exit states for the components.
+    
+    There are 4 main states a Transition can be in:
+        'entering'/'entered'/'exiting'/'exited'
+```js
+// Usage:
+
+import { Transition } from 'react-transition-group';
+const duration = 300;
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0,
+}
+
+const transitionStyles = {
+  entering: { opacity: 1 },
+  entered:  { opacity: 1 },
+  exiting:  { opacity: 0 },
+  exited:  { opacity: 0 },
+};
+
+const Fade = ({ in: inProp }) => (
+  <Transition in={inProp} timeout={duration}>
+    {state => (
+      <div style={{
+        ...defaultStyle,
+        ...transitionStyles[state]
+      }}>
+        I'm a fade Transition!
+      </div>
+    )}
+  </Transition>
+);
+```
+    Children:
+        A function child can be used instead of a React element,This function is called with the current transition status
+        ('entering','entered','exiting','exited'),which can be used to apply context specific props to a component.
+
+    in:
+        Show the component;triggers the enter or exit states.
+    
+    mountOnEnter:
+        By default the child component is mounted immediately along with the parent Transition component. If you want to 'lazy mount'
+        the comonent on the first in={true} you can set mountOnEnter.
+        
+    unmountOnExit
+        By default the child component stays mounted after it reaches the 'exited' state. Set unmountOnExit if you'd prefer
+        to unmount the component after it finishes exiting.
+        
+    appear:
+        By default the child component does not perform the enter transition when it first mounts,regardless of the value of in.
+        If you want this behavior,set both appear and in to true.
+    
+    enter:
+        Enable or disable enter transition 
+        
+    exit:
+        Enable or disable exit transition
+        
+    timeout
+        The duration of the transition, You may specify a single timeout for all transitions.
+            timeout={500}
+        or individually:
+            timeout={{
+                appear:500,
+                enter:300,
+                exit:500
+            }}
+        
+## CSSTransition
+
+    classNames
+        The animation classNames applied to the component as it appears,enters,exits or has finished the transition.A single
+        name can be provided,which will be suffixed for each state.
+        for example, classNames='fade' applies:
+            fade-appear, fade-appear-active, fade-appear-done
+            fade-enter, fade-enter-active, fade-enter-done
+            fade-exit, fade-exit-active, fade-exit-done   
+    Note: if you're using the appear prop,make sure to define styles for .appear-* as well.
     
     
+    The <TransitionGroup> component manages a set of transition components (<Transition> and <CSSTransition>) in a list.
+    Like with the transition components.
+    
+    tips: <TransitionGroup> render a <div> by default.You can change this behaviro by providing a component prop.
+    you can pass in component={null}.This is useful if the wrapping div borks your css styles.
     
     
     
