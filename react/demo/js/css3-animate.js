@@ -27,6 +27,7 @@ class App extends React.Component {
                     <div className={['inside',this.state.paused ? 'paused' : 'play'].join(' ')}></div>
                 </div>
                 <button onClick={this.toggle}>{this.state.paused ? 'play' : 'paused'}</button>
+                <antd.Button type='primary'>Primary Button</antd.Button>
             </div>
         );
     }

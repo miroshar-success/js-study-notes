@@ -69,7 +69,9 @@ store.dispatch({
     2. 如果 state 是普通对象，永远不要修改它！比如，reducer 里不要使用 Object.assign(state, newData)，
     应该使用 Object.assign({}, state, newData)。这样才不会覆盖旧的 state。
     如果可以的话，也可以使用 对象拓展操作符（object spread spread operator 特性中的 return { ...state, ...newData }。        
-
+    
+    createStore的第二个参数是可选的,用于设置state初始状态。
+    
 *Store*
 
     Store就是用来维持所有应用的state树的一个对象。改变store内的state的唯一途径就是对它dispatch一个action。
@@ -364,7 +366,7 @@ const mapDispatchToProps = dispatch => {
         the store, and will still receive the dispatch props defined by mapDispatchToProps.
     
 
-## 同步Action创建函数
+## Action创建函数
     
     默认情况下,createStore() 所创建的 Redux store没有使用 middleware,所以只支持同步数据流。可以使用applyMiddleware()
     来增强createStore()。
@@ -393,40 +395,23 @@ function incrementAsync() {
   };
 }
 const store = createStore(reducer,applyMiddleware(thunk))
-
-
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './reducer/index';
-
-// Note: this API requires redux@>=3.1.0
-const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
-    // 同步Action 与异步网络请求结合的例子,标准的做法是使用Redux Thunk中间件。
-```jsx harmony
-// 同步Action创建函数(Action Creator)
-const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
-function selectSubreddit(subreddit) {
-  return {
-    type: SELECT_SUBREDDIT,
-    subreddit
-  }
-}
+    Redux Thunk middleware allows you to write action creators that return a function instead of an action.
+    The thunk can be used to delay the dispatch of an action,or to dispatch only if a certain condition is met.
+    The inner function receives the store methods dispatch and getState as parameters.
+```js
+function incrementIfOdd() {
+  return (dispatch, getState) => {
+    const { counter } = getState();
 
-// node-app.js
-function selectedsubreddit(state='react.js',action){
-    switch(action.type){
-        case SELECT_SUBREDDIT:
-            return action.subreddit;
-        default:
-            return state;
-    }   
+    if (counter % 2 === 0) {
+      return;
+    }
+
+    dispatch(increment());
+  };
 }
-const reducer = createStore(selectedsubreddit)
 ```
-
-
-
 
 
 
