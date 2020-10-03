@@ -41,41 +41,9 @@ ReactDOM.render(
 ## Switch Component
     
     Renders the first child <Route> or <Redirect> that matches the location.
-```jsx harmony
-function App() {
-  return (
-    <div>
-      <Switch>
-        {/* If the current URL is /about, this router is rendered
-            while the rest are ignored */}
-        <Route path="/about">
-          <About />
-        </Route>
+    A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL.
+    Use a <Switch> any time you have multiple routes,but you want only one of them to render at a time.
 
-        {/* Note how these two router are ordered. The more specific
-            path="/contact/:id" comes before path="/contact" so that
-            router will render when viewing an individual contact */}
-        <Route path="/contact/:id">
-          <Contact />
-        </Route>
-        <Route path="/contact">
-          <AllContacts />
-        </Route>
-
-        {/* If none of the previous router render anything,
-            this router acts as a fallback.
-
-            Important: A router with path="/" will *always* match
-            the URL because all URLs begin with a /. So that's
-            why we put this one last of all */}
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-```
 ## Link and NavLink
     
     Link标签只会渲染为一个 a 标签
@@ -157,8 +125,6 @@ function App() {
         1. component
         2. children
         3. render
-    tips:
-        The recommended method of rendering something with a <Route> is to use children elements.
     
     Route props:
         All three render methods will be passed the same three route props:
@@ -286,27 +252,11 @@ class Children extends React.Component {
         )
     }
 }
-class ParamsExample extends React.Component {
-    render() {
-        return (
-            <Router>
-                <div>
-                    <h2>Accounts</h2>
-                    <ul>
-                        <li><Link to="/netflix">NetFlix</Link></li>
-                        <li><Link to="/zillow-group">Zillow Group</Link></li>
-                        <li><Link to="/yahoo">Yahoo</Link></li>
-                        <li><Link to="/modus-create">Modus Create</Link></li>
-                    </ul>
-                    <Switch>
-                        <Route path="/:id" component={Children} name={'kyrie'}/>
-                    </Switch>
-                </div>
-            </Router>
-        )
-    }
-}
 ```       
+    tips：
+        1. 如果要在class声明的组件获取动态路由参数,需要使用这种写法:
+    <Route path="/:id" component={Children}/>
+        Children组件可以在 this.props.match.params 获取到动态路由参数
     
     
     

@@ -366,7 +366,7 @@ const mapDispatchToProps = dispatch => {
         the store, and will still receive the dispatch props defined by mapDispatchToProps.
     
 
-## Action创建函数
+## 异步数据流
     
     默认情况下,createStore() 所创建的 Redux store没有使用 middleware,所以只支持同步数据流。可以使用applyMiddleware()
     来增强createStore()。
@@ -412,7 +412,20 @@ function incrementIfOdd() {
   };
 }
 ```
+    Since 2.1.0,Redux Thunk supports injecting a suctom argument using the withExtraArgument function:
+```js
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk.withExtraArgument(api))
+)
 
+// later
+function fetchUser(api){
+    return (dispatch,getState,api) => {
+        // you can use api here
+    }
+}
+```
 
 
 

@@ -34,7 +34,6 @@ function reduceAsync(){
     }
 }
 
-
 const reducer = combineReducers({
     counter
 })
@@ -75,6 +74,12 @@ class App extends React.Component {
         );
     }
 }
+
+console.log('dispatching',add);
+store.subscribe(() => {
+    console.log('next-state',store.getState())
+})
+
 const mapStateToProps = state => {
     return {counter:state.counter}
 }
