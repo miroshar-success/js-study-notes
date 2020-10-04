@@ -26,8 +26,11 @@ function OldSchoolMenuLink({label,to,activeOnlyWhenExact}){
         path:to,
         exact:activeOnlyWhenExact
     });*/
-    const match = useRouteMatch();
-    console.log('custom-link:',match);
+    const match = useRouteMatch({
+        path:to,
+        exact:activeOnlyWhenExact
+    });
+    console.log('custom-link:',match,activeOnlyWhenExact);
     return (
         <div className={match ? 'active' : ""}>
             { match && '> '}

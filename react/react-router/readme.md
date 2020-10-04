@@ -43,7 +43,7 @@ ReactDOM.render(
     Renders the first child <Route> or <Redirect> that matches the location.
     A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL.
     Use a <Switch> any time you have multiple routes,but you want only one of them to render at a time.
-
+    
 ## Link and NavLink
     
     Link标签只会渲染为一个 a 标签
@@ -115,6 +115,10 @@ ReactDOM.render(
         when true,redirecting will push a new entry onto the history instead of replacing the current one.
 
 ## Route
+    
+    One important thing to note is that a <Route path> matches the beginning of the URL,not the whole thing. So a 
+    <Route path='/'> will always match the URL.Because of this,we typically put this <Route> last in our <Switch>
+    Another possible solution is to use <Route exact path='/'> which does match the entire URL.
     
     path: 
         匹配到的地址
@@ -258,7 +262,60 @@ class Children extends React.Component {
     <Route path="/:id" component={Children}/>
         Children组件可以在 this.props.match.params 获取到动态路由参数
     
+## Prompt
     
+    Sometimes you want to prevent the user from navigating away from a page. The most common use
+    case is when they have entered some data into a from but have not submitted it yet.
+    and you do not want them to lose it.
+```js
+<Prompt
+    when={isBlocking}
+    message={location =>
+      `Are you sure you want to go to ${location.pathname}`
+    }
+/>
+```
+    
+## Redirect
+    
+    There are a few useful things to note about this example:
+    1. A <Switch> renders the first child <Route> that matches.
+    2. A <Redirect> may be used to redirect old URLs to new ones
+    3. A <Route path='*'> always matches. 
+```js
+<Switch>
+  <Route exact path="/">
+    <Home />
+  </Route>
+  <Route path="/old-match">
+    <Redirect to="/will-match" />
+  </Route>
+  <Route path="/will-match">
+    <WillMatch />
+  </Route>
+  <Route path="*">
+    <NoMatch />
+  </Route>
+</Switch>
+```
+    
+## Primary Components
+
+    There are three primary categories of components in React Router:
+        routers: like <BrowserRouter> and <HashRouter>
+        route matchers, like <Route> and <Switch>
+        and navigation, like <Link> <NavLink> and <Redirect>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
     
     
     
