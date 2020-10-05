@@ -9,7 +9,7 @@
         Only Call Hooks at the Top Level, Don't call Hooks inside loops,conditions,or nested functions.
     2. 只能在React的函数组件中调用Hook。不要在JavaScript函数中调用。也不能在class组件中使用！
     
-    使用Hooks的冬季动机：
+    使用Hooks的动机：
         1. 在组件之间复用状态逻辑很难
         2. this指向问题
         3. 每个生命周期函数常常包含一些不想关的逻辑。相关关联并且需要对照修改的代码被进行了拆分。很容易产生bug,
@@ -92,6 +92,7 @@ function App(props){
     在React组件中执行过数据获取,订阅或者手动修改过DOM。我们统一把这些操作称为"副作用"。
     useEffect就是一个 Effect Hook,给函数组件增加了操作副作用的能力。它跟class组件的componentDidMount,
     componentDidUpdate和componentWillUnmount具有相同的用途。
+    
 ```jsx harmony
 // demo
 function Example() {
@@ -116,6 +117,9 @@ function Example() {
     --- 包括第一次渲染的时候！
     2. 可以在组件中多次使用useEffect.
     3. 如果你的effect返回一个函数,React将会在执行清除操作时调用它
+    4. React保证了每次运行effect的同时,DOM都已经更新完毕。
+    5. 传递给useEffect的函数在每次渲染中都会有所不同,这是刻意为之的。每次重新渲染,都会生成新的effect,替换掉之前的。每个
+    effect 属于一次特定的渲染。
     
 *Demo*
 ```jsx harmony

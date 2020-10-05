@@ -126,16 +126,22 @@ ReactDOM.render(
         是否是精准匹配
     
     Route render methods:
-        1. component
-        2. children
-        3. render
+        1. <Route component>
+        2. <Route render>
+        2. <Route children> function
     
     Route props:
         All three render methods will be passed the same three route props:
             1. match
             2. location
             3. history
-
+    
+    When you use component the route uses React.createElement to create a new React element from the given component.
+    That means if you provide an inline function to the component prop, you would create a new component every render.
+    This results in the existing component unmounting and the new component mounting instead of just updating the
+    existing component.When using an inline function for inline rendering,use the render or the children prop.
+    
+    
 ## Router-Hook API
     
     只有在 Route 的渲染函数 使用component 参数时,被渲染的函数组件才可以使用 这些Hook。
