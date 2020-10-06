@@ -63,7 +63,69 @@ class Count extends React.Component {
     }
 }
 
+
+/*函数式更新*/
+
+function HelloCount({initialValue}){
+    const [count,setCount] = React.useState(initialValue);
+    function handleReset(){
+        setCount(initialValue);
+    }
+    function handleIncrement(){
+        // setCount(prevCount => prevCount+1)
+        setCount(count+1);
+    }
+    function handleDecrement(){
+        // setCount(prevCount => prevCount-1);
+        setCount(count-1);
+    }
+    return (
+        <div>
+            <p>current-count: {count}</p>
+            <button onClick={handleReset}>reset</button>
+            <button onClick={handleIncrement}>+</button>
+            <button onClick={handleDecrement}>-</button>
+        </div>
+    )
+}
+
+/*惰性初始state,每次更新,cal函数会再次计算*/
+
+function cal(value){
+    console.log('我执行了计算');
+    return value/1000
+}
+
+function CalcCount({initialValue}){
+    const [count,setCount] = React.useState(cal(initialValue));
+    function add(){
+        setCount(count+1);
+    }
+    return (
+        <div>
+            <p>current-count:{count}</p>
+            <button onClick={add}>+</button>
+        </div>
+    )
+}
+
+function OnlyCalcOnceCount({initialValue}){
+    const [count,setCount] = React.useState(() => {
+        return cal(initialValue);
+    })
+    function add(){
+        setCount(count+1);
+    }
+    return(
+        <div>
+            <p>current-count:{count}</p>
+            <button onClick={add}>+</button>
+        </div>
+    )
+}
+
+
 ReactDOM.render(
-    <Count/>,
+    <OnlyCalcOnceCount initialValue={1000}/>,
     document.getElementById("root")
 )

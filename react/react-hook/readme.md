@@ -1,4 +1,8 @@
+# UI
 
+    什么是UI(user-interface)?  
+        UI = f(data),将数据映射到用户界面。
+        
 # React Hook API
 
     Hook 可以让你在不编写class的情况下"勾入"React的特性。例如 useState 是允许你在React函数组件中添加
@@ -47,8 +51,20 @@ function Example() {
   );
 }
 ```
-    如果useState的初始值依赖于父组件的传入,为避免每次更新组件都调用获取初始值的方法,可以使用下面的写法
+### 惰性初始state
+    
+    initialState参数只会在组件的初始渲染中起作用,后续渲染时会被忽略。如果初始state需要通过复杂计算获得,则可以传入一个函数。
+    在函数中计算并返回初始的state,次函数只会在初始渲染时被调用。
+    
 ```jsx harmony
+// Usage:
+const [state, setState] = useState(() => {
+  const initialState = someExpensiveComputation(props);
+  return initialState;
+});
+
+
+// Demo
 function App(props){
     /*
     defaultCount只会在第一次渲染的时候才会使用,但是每次获取defaultCount的计算逻辑还是会运行
@@ -170,10 +186,28 @@ function App(){
     )
 }
 ```
+### 跳过Effect进行性能优化
+
+    如果某些特定值在两次重新渲染之间没有发生变化,可以通知React跳过对effect的调用,只要传递数组作为useEffect的第二个参数即可:
+```js
+useEffect(() => {
+    document.title = `you click ${count} times`;
+},[count])
+
+// 仅在count更改时更新
+```
+    如果想执行只运行一次的effect(仅在组件挂载和卸载时执行),可以传递一个空数组([])作为第二个参数，这就告诉React你的
+    effect不依赖于props或state中的任何值。
+    
+    tips:
+        1. eslint-plugin-react-hooks 中的 exhaustive-deps规则，会在添加错误依赖时发出警告并给出修复建议。
+        2. 如果想要有条件地执行一个effect,可以将判断放到hook内部。
 
 ## useContext
 
-    useContext可以不使用组件嵌套就可以订阅React的Context。使用频率较低但是很有用的hook。
+    useContext可以不使用组件嵌套就可以订阅React的Context。使用频率较低但是很有用的hook。接受一个context对象(React.createContext的返回值)
+    并返回该context的当前值。 当前的context值由上层组件中距离当前组件最近的<MyContext.Provider>的value prop决定。
+    
 *Demo*
 ```jsx harmony
 function Counter(){
@@ -198,6 +232,40 @@ function App(){
     )
 }
 ```
+
+## useReducer
+
+    useReducer作为 useState的替代方法,接受一个形如(state,action) => newState的reducer,并返回当前的state以及其配套的dispatch方法。
+```js
+// Demo
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+    React会确保dispatch函数的标识是稳定的，并且不会在组件重新渲染时改变。
+    
+    指定初始state:
+        可以将state作为第二个参数传入 useReducer是最简单的方法。
 
 ## useMemo
     
