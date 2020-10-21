@@ -8,22 +8,32 @@
     
     创建目录：
         mkdir (make directory)  filename 
-        
+        mkdir -p [dirname]
+        -p 确保目录名称存在，不存在就建一个
+    创建文件：
+        touch filename
     回到根目录
         cd /   或者 cd ~
-    
     查看当前目录内容
         ls
-        
     查看当前绝对路径
         pwd
-        
     递归删除
         rm -rf filename
-        
     替代方法：
         mv 移动文件或目录
-        
+    编辑文件:
+        vim  具有编辑程序的能力,可以主动的以字体颜色辨别语法的正确性。 1.命令模式 2. 输入模式 3. 底线命令模式
+        i: 切换到输入模式,以输入字符
+        x: 删除当前光标所在处的字符
+        :  切换到底线命令模式,以在最底一行输入命令
+        w 保存文件 q 退出程序  
+            esc 退出输入模式,切换到命令模式
+    查看文件安装路径:
+        which node/ which pm2
+    wget:
+        是一个从网络上自动下载文件的自由工具,支持通过http,https,ftp三个最常见的TCP/IP协议下载。
+        所谓自动下载，是指 wget 可以在用户退出系统的之后在继续后台执行，直到下载任务完成
         
 # 安装node
 
@@ -51,7 +61,7 @@
     删除文件夹
         rm -rf filename
         
-# filezilla
+# filezilla工具使用
     
     登录 FileZilla
         主机: ecs公网ip
@@ -88,7 +98,99 @@
       
     pm2 start node-app.js
 
+# Linux安装MongoDB
+    
+    1. Create an /etc/yum.repos.d/mongodb-org-4.4-repo fiel
+        vim /etc/yum.repos.d/mongodb-org-4.4-repo
+        编辑:
+```js
+[mongodb-org-4.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+```
+    2. install mongodb packages
+        sudo yum install -y mongodb-org 
+        有新版本时，yum会对包进行升级,为防止意外升级,需要固定包,编辑 /etc/yum.conf文件
+        
+     exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools
+    
+    3. By default,MongoDB runs using the mongod user account and uses the following default directories:
+        /var/lib/mongo (data directory)
+        /var/log/mongodb (log directory)
+        
+    4. 启动mongodb服务
+        recent versions of Linux tend to use systemd (which uses the systemctl command),while older versions of Linux 
+        tend to use System V init(which use the service command).
+    
+        检测是使用 systemctl 还是 service命令:
+        ps --no-headers -o comm 1  根据返回值使用相应命令:
+            systemd : 使用systemctl命令
+            init:     使用service命令
+    
+    5. 
+        5.1 sudo systemctl start mongod 
+        if you receive an error similar to the following when starting mongod:
+            Failed to start mongod.ervice:Unit mongod.service not found.
+            
+        执行下面的命令后再次使用 上面启动的命令
+            sudo systemctl daemon-reload    
+        
+        5.2 Verify that MongoDB has started successfully.
+            sudo systemctl status mongod
+            
+        5.3 stop mongodb
+            sudo systemctl stop mongod
+        
+        5.4 restart mongodb
+            sudo systemctl restart mongod 
+            
+     Uninstall MongoDB (you must remove the MongoDB applications themselves,the configuration files,and any directories data and logs)
+        1. sudo service mongod stop
+        2. sudo yum erase $(rpm -qa | grep mongodb-org)   
+        3. sudo rm -r /var/log/mongodb
+           sudo rm -r /var/lib/mongo
+    
+    打开云服务27017监听端口
+    防火墙:
+        systemctl status firewalld  --->查看防火墙状态
+        systemctl start firewalld ---> 开启防火墙
+        systemctl stop firewalld    ---> 关闭防火墙
+        firewall-cmd --zone=public --add-port-27017/tcp --permanent 永久开放27017端口
+     
+    Localhost Binding by Default
+        By default,MongoDB launches with bindIp set to 127.0.0.1,which binds to the localhost network interface.
+        This means that the mongod can only accept connections from clients that are running on the same machine.
+        Remote clients will not be able to connect to the mongod. 
+       
+```js
+// 记一次启动失败 code=exited,status=14
 
+// 解决方法
+sudo chown mongod:mongod /tmp/mongodb-27017.sock
+```
+
+## Mongo Shell
+    
+    run mongo shell without any command-line options to connect to a MongoDB instance running on your localhost with 
+    default port 27017
+        mongo   
+        
+        mongo --port 28015 
+    
+    MongoDB instance on a Remote Host (specify a connection string)
+        mongo "mongodb://mongodb0.example.com:28015"  
+    
+    Or use the command-line option --host and --port
+        mongo --host mongodb0.example.com:28015
+        mongo --host mongodb0.example.com --port 28015
+    
+    db : To display the database you are using
+    use database : to switch databse,
+        
+        
 # Nginx配置
 
     Ping是一个十分好用的TCP/IP工具。它主要的功能是用来检测网络的连通情况和分析网络速度。
@@ -208,4 +310,4 @@ server{
     proxy_set_header:       更改来自客户端的请求头信息
     proxy_connect_timeout:  与后台代理服务器尝试建立连接的超时时间
     
-[Nginx](http://nginx.org/en/linux_packages.html#RHEL-CentOS);
+[Nginx文档](http://nginx.org/en/linux_packages.html#RHEL-CentOS)
