@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+<body>
+<div id="root">
+    <button @click="toggle">toggle</button>
+    <keep-alive max="2">
+        <component :is="current"></component>
+    </keep-alive>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./js/lifecycle.js"></script>
+</body>
+</html>

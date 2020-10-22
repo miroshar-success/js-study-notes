@@ -34,32 +34,54 @@
     wget:
         是一个从网络上自动下载文件的自由工具,支持通过http,https,ftp三个最常见的TCP/IP协议下载。
         所谓自动下载，是指 wget 可以在用户退出系统的之后在继续后台执行，直到下载任务完成
+    
+    tar 命令:
+        tar用来建立,还原备份文件的工具程序。它可以加入,解开备份文件内的文件。
+    
+# 域名绑定
+
+    域名列表:
+        1. 解析 --> 添加记录
+            A - 将一个域名志向一个IPV4地址
+            主机记录 : www / @ （添加两条）
+            记录值: 服务器公网ip地址
         
+        二级域名,同样的操作 添加记录。
+    
+    FiliZilla 连接服务器上传文件  端口: 22 用户名 root
+    
+    
+    SSH是 secure shell 的缩写,SSH为建立在应用层基础上的安全协议。专为远程登陆会话和其他网络服务提供安全性的协议。利用SSH协议可以有效防止远程
+    管理过程中的信息泄漏问题。
+    
 # 安装node
 
-    安装到 /usr/local/ 目录下
+    安装到 /usr/local/src 目录下
     uname -a 
         查看当前系统版本
     pwd
         查看当前目录
-    cd ~
+    cd ~   或者 cd /
         回到root根目录下
         
     下载node 
-    wget https://npm.taobao.org/mirrors/node/v12.14.0/node-v12.14.0-linux-x64.tar.xz
+    进入node中文网----> 下载 ----> 阿里云镜像 ----> 选择系统对应的安装包
     
-        解压
-        tar -xvf node-v12.14.0-linux-x64.tar.xz
+        wget https://nodejs.org/dist/v14.14.0/node-v14.14.0-linux-x64.tar.gz  
+    
+        解压nodejs文件
+        tar xvf node-v12.14.0-linux-x64.tar.xz
         
     修改下载的node文件名为 nodejs 
         mv node-v12.14.0-linux-x64 nodejs
         
-    配置环境变量
-        ln -s /usr/local/nodejs/bin/node /usr/local/bin
-        ln -s /usr/local/nodejs/bin/npm /usr/local/bin
+        rm node-v12.14.0-linux-x64.tar.xz 删除压缩包.
         
-    删除文件夹
-        rm -rf filename
+    配置环境变量（可以在任意目录下使用node）
+        ln -s /usr/local/src/nodejs/bin/node /usr/local/bin
+        ln -s /usr/local/src/nodejs/bin/npm /usr/local/bin
+     
+    可以使用node -v  或者 npm -v 查询当前版本
         
 # filezilla工具使用
     
@@ -91,13 +113,26 @@
         其余选项和上面相同
      
 # pm2
-
-    npm install pm2 -g
+    
+    PM2 is a daemon process manager that will help you manage and keep your application online.
+    
+    Installation
+        npm install pm2 -g
+        npm install pm2@latest -g
     和node一样配置软链
       ln -s /usr/local/nodejs/bin/pm2  /usr/local/bin
       
-    pm2 start node-app.js
-
+    常用命令:
+        pm2 restart app_name
+        pm2 reload app_name
+        pm2 stop app_name
+        pm2 delete app_name
+    
+    List managed applications
+        list the status of all application managed by pm2:
+            pm2 [list|ls|status]
+        
+    
 # Linux安装MongoDB
     
     1. Create an /etc/yum.repos.d/mongodb-org-4.4-repo fiel
@@ -190,6 +225,9 @@ sudo chown mongod:mongod /tmp/mongodb-27017.sock
     db : To display the database you are using
     use database : to switch databse,
         
+        
+    Default configuration filr
+        on linux a default /etc/mongod.conf configuration file is included when using a package manager to install mongodb
         
 # Nginx配置
 
