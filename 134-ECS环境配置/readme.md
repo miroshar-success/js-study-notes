@@ -229,38 +229,36 @@ sudo chown mongod:mongod /tmp/mongodb-27017.sock
     Default configuration filr
         on linux a default /etc/mongod.conf configuration file is included when using a package manager to install mongodb
         
-# Nginx配置
+# Nginx
+
+##  Install
 
     Ping是一个十分好用的TCP/IP工具。它主要的功能是用来检测网络的连通情况和分析网络速度。
         ping ip地址（或绑定的域名）
         
-    1. yum -y install gcc gcc-c++ autoconf pcre-devel make automake
-    2. yum -y install wget httpd-tools vim
     
     Install the prerequisites:
         sudo yum install yum-utils
         
     To set up the yum repository, create the file named /etc/yum.repos.d/nginx.repo
-    
         vim /etc/yum.repos.d/nginx.repo
-        
-        [nginx-stable]
-        name=nginx stable repo
-        baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-        gpgcheck=1
-        enabled=1
-        gpgkey=https://nginx.org/keys/nginx_signing.key
-        module_hotfixes=true
-        
-        [nginx-mainline]
-        name=nginx mainline repo
-        baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
-        gpgcheck=1
-        enabled=0
-        gpgkey=https://nginx.org/keys/nginx_signing.key
-        module_hotfixes=true
-        
-    esc 键 :wq保存
+```js
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+```     
     
     To install nginx, run the following command:
         sudo yum install nginx  
@@ -276,39 +274,61 @@ sudo chown mongod:mongod /tmp/mongodb-27017.sock
     
     进入 /usr/share/nginx/html 文件 启动nginx 可以通过ip地址访问
 
-# config
-    
-    nginx.conf 文件是Nginx总配置文件
+    nginx配置文件  
+        
+        nginx.conf 文件是Nginx总配置文件
+        所在目录  /etc/nginx/conf.d
 ![conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/nginx.conf.png)
-
-    default.conf
+    
+        default.conf
+        所在目录: /etc/nginx/conf.d/default.conf
 ![default.conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/default.conf.png)    
+
+[Install Nginx](http://nginx.org/en/linux_packages.html)
+
+## About Configuration
+
+    nginx has one master process and serval worker processes。 The number worker processes is defined in the configuration
+    file and may be fixed for a given configuration or automatically adjusted to the number of available CPU cores.
+    
+    The way nginx and its modules work is determined in the configuration file。  
     
     
-    
-# start | stop | restart
+    start | stop | reload
 
     start:
         第一种方法：nginx
         第二种方法：systemctl start nginx.service
+    
+    Once nginx is started, it can be controlled by invoking the executable with the -s parameter.
+        nginx -s stop   fast shutdown
+        nginx -s quit   graceful shutdown
+        nginx -s reload reloading the configuration file
+        nginx -s reopen reopening the log files.
         
-    stop:
-        1. nginx -s quit    
-        2. systemctl stop nginx.service
-        3. killall nginx   杀死所有进程
-        4. nginx -s stop
+        kill -s QUIT  <master process ID>
+        nginx can be controlled with signals.The process ID of the master process is written to the file 
+        /usr/local/nginx/logs/nginx.pid by default。
         
     restart:
-        systemctl restart nginx.service
+        Changes made in the configuration file will not be applied until the command to reload configuration is send to nginx
+        or it is restarted. reload configuration, execute:
+            nginx -s reload
         
-        
-    重载配置文件：
-        在重新编写或者修改Nginx的配置文件后,操作一下重新载入！
-        nginx -s reload
-    
     查看端口号开启了：
         netstat -tlnp
-  
+    
+    For getting the list of all running nginx processes, the ps utillity may be used.
+        ps -ax | grep nginx
+ 
+## Configuration File's Structure
+
+    nginx consists of modules which are controlled by directives specified in the configuration file. Directives are divided in to
+    simple directives and block directives.
+    
+    A simple directive consists of the name and parameters separated by spaces and ends with a semicolon(;) 
+    A block directive has the same structure as a simple directive。 succrouded by braces({}).      
+        
 # 错误页面设置和访问权限配置  
     
     配置一个404页面：
@@ -348,4 +368,4 @@ server{
     proxy_set_header:       更改来自客户端的请求头信息
     proxy_connect_timeout:  与后台代理服务器尝试建立连接的超时时间
     
-[Nginx文档](http://nginx.org/en/linux_packages.html#RHEL-CentOS)
+[Nginx文档](http://nginx.org/en/docs/beginners_guide.html)
