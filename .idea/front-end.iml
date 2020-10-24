@@ -61,5 +61,6 @@
     <orderEntry type="module" module-name="server" />
     <orderEntry type="module" module-name="server" />
     <orderEntry type="module" module-name="React-Demo" />
+    <orderEntry type="module" module-name="www" />
   </component>
 </module>

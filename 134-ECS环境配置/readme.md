@@ -82,7 +82,9 @@
         ln -s /usr/local/src/nodejs/bin/npm /usr/local/bin
      
     可以使用node -v  或者 npm -v 查询当前版本
-        
+    
+![node-install-1]() 
+       
 # filezilla工具使用
     
     登录 FileZilla
@@ -117,20 +119,23 @@
     PM2 is a daemon process manager that will help you manage and keep your application online.
     
     Installation
-        npm install pm2 -g
-        npm install pm2@latest -g
-    和node一样配置软链
-      ln -s /usr/local/nodejs/bin/pm2  /usr/local/bin
+```js
+npm install pm2 -g
+npm install pm2@latest -g
+// 和node一样配置软链
+ln -s /usr/local/nodejs/bin/pm2  /usr/local/bin
+```
       
     常用命令:
-        pm2 restart app_name
-        pm2 reload app_name
-        pm2 stop app_name
-        pm2 delete app_name
-    
+```js
+pm2 restart app_name
+pm2 reload app_name
+pm2 stop app_name
+pm2 delete app_name
+```
     List managed applications
         list the status of all application managed by pm2:
-            pm2 [list|ls|status]
+        pm2 [list|ls|status]
         
     
 # Linux安装MongoDB
@@ -139,6 +144,7 @@
         vim /etc/yum.repos.d/mongodb-org-4.4-repo
         编辑:
 ```js
+// /etc/yum.repos.d/mongodb-org-4.4-repo
 [mongodb-org-4.4]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
@@ -147,10 +153,12 @@ enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
 ```
     2. install mongodb packages
-        sudo yum install -y mongodb-org 
-        有新版本时，yum会对包进行升级,为防止意外升级,需要固定包,编辑 /etc/yum.conf文件
-        
-     exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools
+```js
+sudo yum install -y mongodb-org 
+// 有新版本时，yum会对包进行升级,为防止意外升级,需要固定包,编辑 /etc/yum.conf文件
+
+exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools
+```
     
     3. By default,MongoDB runs using the mongod user account and uses the following default directories:
         /var/lib/mongo (data directory)
@@ -182,7 +190,8 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
         5.4 restart mongodb
             sudo systemctl restart mongod 
             
-     Uninstall MongoDB (you must remove the MongoDB applications themselves,the configuration files,and any directories data and logs)
+     Uninstall MongoDB (you must remove the MongoDB applications themselves,the configuration files,and any 
+     (directories data and logs)
         1. sudo service mongod stop
         2. sudo yum erase $(rpm -qa | grep mongodb-org)   
         3. sudo rm -r /var/log/mongodb
@@ -190,11 +199,12 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
     
     打开云服务27017监听端口
     防火墙:
-        systemctl status firewalld  --->查看防火墙状态
-        systemctl start firewalld ---> 开启防火墙
-        systemctl stop firewalld    ---> 关闭防火墙
-        firewall-cmd --zone=public --add-port-27017/tcp --permanent 永久开放27017端口
-     
+```js
+systemctl status firewalld  // 查看防火墙状态
+systemctl start firewalld   // 开启防火墙
+systemctl stop firewalld    // 关闭防火墙
+firewall-cmd --zone=public --add-port-27017/tcp --permanent    //  永久开放27017端口
+```
     Localhost Binding by Default
         By default,MongoDB launches with bindIp set to 127.0.0.1,which binds to the localhost network interface.
         This means that the mongod can only accept connections from clients that are running on the same machine.
@@ -243,6 +253,8 @@ sudo chown mongod:mongod /tmp/mongodb-27017.sock
     To set up the yum repository, create the file named /etc/yum.repos.d/nginx.repo
         vim /etc/yum.repos.d/nginx.repo
 ```js
+// vim /etc/yum.repos.d/nginx.repo
+
 [nginx-stable]
 name=nginx stable repo
 baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
@@ -273,16 +285,7 @@ module_hotfixes=true
         -l 代表返回列表
     
     进入 /usr/share/nginx/html 文件 启动nginx 可以通过ip地址访问
-
-    nginx配置文件  
-        
-        nginx.conf 文件是Nginx总配置文件
-        所在目录  /etc/nginx/conf.d
-![conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/nginx.conf.png)
-    
-        default.conf
-        所在目录: /etc/nginx/conf.d/default.conf
-![default.conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/default.conf.png)    
+ 
 
 [Install Nginx](http://nginx.org/en/linux_packages.html)
 
@@ -301,25 +304,30 @@ module_hotfixes=true
         第二种方法：systemctl start nginx.service
     
     Once nginx is started, it can be controlled by invoking the executable with the -s parameter.
-        nginx -s stop   fast shutdown
-        nginx -s quit   graceful shutdown
-        nginx -s reload reloading the configuration file
-        nginx -s reopen reopening the log files.
-        
+```js
+nginx -s stop   fast shutdown
+nginx -s quit   graceful shutdown
+nginx -s reload reloading the configuration file
+nginx -s reopen reopening the log files.
+```
         kill -s QUIT  <master process ID>
         nginx can be controlled with signals.The process ID of the master process is written to the file 
         /usr/local/nginx/logs/nginx.pid by default。
         
     restart:
-        Changes made in the configuration file will not be applied until the command to reload configuration is send to nginx
-        or it is restarted. reload configuration, execute:
+        Changes made in the configuration file will not be applied until the command to reload configuration is send to 
+        nginx or it is restarted. reload configuration, execute:
             nginx -s reload
         
     查看端口号开启了：
-        netstat -tlnp
+```js
+netstat -tlnp
+```
     
     For getting the list of all running nginx processes, the ps utillity may be used.
-        ps -ax | grep nginx
+```js
+ps -ax | grep nginx
+```
  
 ## Configuration File's Structure
 
@@ -329,6 +337,14 @@ module_hotfixes=true
     A simple directive consists of the name and parameters separated by spaces and ends with a semicolon(;) 
     A block directive has the same structure as a simple directive。 succrouded by braces({}).      
         
+        nginx.conf 文件是Nginx总配置文件
+        所在目录  /etc/nginx/conf.d
+![conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/nginx.conf.png)
+    
+        default.conf
+        所在目录: /etc/nginx/conf.d/default.conf
+![default.conf](https://github.com/JayK0720/Front-End/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/default.conf.png)   
+
 # 错误页面设置和访问权限配置  
     
     配置一个404页面：
@@ -342,30 +358,46 @@ module_hotfixes=true
 ```js
  location / {
     deny   123.9.51.42; // 禁止访问
-    allow  45.76.202.231;   
+    allow  45.76.202.231;   // 允许访问
 }
 
-location =/img{
-    allow all;
-}
-// 禁止访问后台
+// 禁止/admin 访问
 location =/admin{
     deny all;
 }
 ```
-# 反向代理
+## Proxy Server
+
+    One of the prequent uses of nginx is setting it up as a proxy server, which means a server that receives requests,
+    passes them to the proxied servers,retrieves responses from them, and sends them to the clients.
     
-    访问http://nginx2.jspang.com然后反向代理到jspang.com这个网站。我们直接到etc/nginx/con.d/8001.conf进行修改。
+        Note that the roor directive is placed in the server context. Such root directive is used when the location block 
+        selected for serving a request does not include own root directive.
+    
+    访问http://nginx2.com然后反向代理到baidu.com这个网站。我们直接到etc/nginx/con.d/8001.conf进行修改。
 ```js
 server{
-        listen 80;
-        server_name nginx2.jspang.com;
-        location / {
-               proxy_pass http://jspang.com;
-        }
+    listen 80;
+    server_name nginx2.com;
+    location / {
+           proxy_pass http://baidu.com;
+    }
 }
 ```
     proxy_set_header:       更改来自客户端的请求头信息
     proxy_connect_timeout:  与后台代理服务器尝试建立连接的超时时间
-    
+
+# 检测网站是否压缩工具
+
+    gzip工具检测
+
+```js
+// nginx.conf 配置gzip压缩
+http {
+// ...
+    #gzip  on;
+    gzip    on;
+    gzip_types    text/plain application/javascript text/css;
+}
+```
 [Nginx文档](http://nginx.org/en/docs/beginners_guide.html)
