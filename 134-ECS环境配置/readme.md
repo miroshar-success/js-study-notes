@@ -83,7 +83,8 @@
      
     可以使用node -v  或者 npm -v 查询当前版本
     
-![node-install-1]() 
+![node-version]("https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node-url.png");
+![node-install]("https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node%E5%AE%89%E8%A3%85.png") 
        
 # filezilla工具使用
     
