@@ -83,8 +83,8 @@
      
     可以使用node -v  或者 npm -v 查询当前版本
     
-![node-version]("https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node-url.png");
-![node-install]("https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node%E5%AE%89%E8%A3%85.png") 
+![node-version](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node-url.png);
+![node-install](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node%E5%AE%89%E8%A3%85.png) 
        
 # filezilla工具使用
     
@@ -100,7 +100,7 @@
     编辑文件
         vim filename
         i
-# 安全组
+#  配置安全组
 
     安全组 ---》 配置规则 ---》 添加安全组规则
     
@@ -242,7 +242,7 @@ sudo chown mongod:mongod /tmp/mongodb-27017.sock
         
 # Nginx
 
-##  Install
+##  Installation
 
     Ping是一个十分好用的TCP/IP工具。它主要的功能是用来检测网络的连通情况和分析网络速度。
         ping ip地址（或绑定的域名）
@@ -332,8 +332,8 @@ ps -ax | grep nginx
  
 ## Configuration File's Structure
 
-    nginx consists of modules which are controlled by directives specified in the configuration file. Directives are divided in to
-    simple directives and block directives.
+    nginx consists of modules which are controlled by directives specified in the configuration file. Directives are 
+    divided in to simple directives and block directives.
     
     A simple directive consists of the name and parameters separated by spaces and ends with a semicolon(;) 
     A block directive has the same structure as a simple directive。 succrouded by braces({}).      

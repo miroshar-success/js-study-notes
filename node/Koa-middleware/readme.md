@@ -250,6 +250,9 @@ app.use(session(CONFIG, app));
 	    3. session会在一定时间内保存在服务器上。当访问增多时,会比较占用服务器性能。
 	    4. 单个cookie保存的数据不能超过4k,很多浏览器都限制一个站点最多保存20个cookie。
 	
+	Secure 如果设置为true,则只应通过被https协议加密的请求发送给服务端。 如果在http协议中,试图接受设置了secure为true的cookie时,服务端会
+	报错: Error: cannot send secure cookie over unencrypted connection.
+	
 # Koa2-cors
 
 	允许设置跨域
