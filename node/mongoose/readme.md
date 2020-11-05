@@ -74,6 +74,8 @@ let blogSchema = new mongoose.Schema({
         By default,Mongoose adds an _id property to your schemas。 When you create a new document with the automatically
         added _id property,Mongoose creates a new _id of type ObjectId to your document.
     
+    加在schema methods属性的函数会编译到Model的prototype,也会暴露到每个document实例
+    
 ### 查找数据:
 
     1. 传入callback参数,操作会被立即执行
