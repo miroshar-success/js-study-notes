@@ -61,8 +61,6 @@ console.log(cloneObj,mergeObj);
 cloneObj.foo = 'foo';
 console.log(obj1,cloneObj);
 
-
-
 function Player(name,age){
 	this.name = name;
 	this.age = age;
