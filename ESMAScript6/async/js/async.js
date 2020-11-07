@@ -41,11 +41,28 @@ async function hello1(){
 hello().then(data => {
 	console.log(data);
 });
-/*await前要加 return 才能得到返回值*/
+/*
+async 函数返回一个Promise对象, 内部return 语句返回的值,会成为then方法回调函数的参数。
+await前要加 return 才能得到返回值
+*/
 hello1().then(data => {
 	console.log(data);
-})
+});
 
+async function f(){
+	let number = Math.random();
+	if(number > 0.5) {
+		return ('successful----' + number)
+	}else{
+		throw new Error('出错了');
+	}
+}
+f().then(data => {
+	console.log('resolve',data);
+})
+	.catch(err => {
+		console.log('reject',err);
+	})
 
 
 
