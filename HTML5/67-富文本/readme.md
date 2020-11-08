@@ -1,10 +1,12 @@
-
 # Document.execCommand()
-		
+    
+    当一个HTML文档切换到设计模式时,document暴露execCommand方法,该方法允许运行命令来操作可编辑内容区域的元素
+    tips: 已废弃
+        
 	设计模式：有些命令需要在设计模式开启下才可以使用
 	document.designMode = 'on'
 	
-	document.execCommand('selectAll')		全选
+	document.execCommand('selectAll')		选中编辑区里的全部内容。
 	document.execCommand('copy')			复制
 	document.execCommand('cut')				剪切
 	document.execCommand('delete')			删除
@@ -14,7 +16,8 @@
 	
 # 自定义事件
 	
-	
+	Event.createEvent()     // 不建议
+	建立一个新的事件,该事件必须先以其init() method 初始化才行
 ```js
 // create Event
 const event = new Event('build');
@@ -30,11 +33,18 @@ elem.dispatchEvent(event);
 
 ## 添加自定义数据
 
-	CustomEvent
+	CustomEvent 创建一个自定义事件
 	
+	Syntax语法:
+    event = new CustomEvent(typeAry,customEventInit);
+        typeArg: 一个自定义事件名称
+        customEventInit:
+            detail: 传入自定义数据
+            bubbles: 表示事件能否冒泡
+            cancelable: 表示该事件是否可以取消
 ```js
 elem.addEventListener('build',function(e){
-	console.log(e);	// 
+	console.log(e.detail);	// 
 },false);
 
 const event = new CustomEvent('build',{
@@ -42,7 +52,8 @@ const event = new CustomEvent('build',{
 		fitstName:'Kyrie',
 		lastName:'irving'
 	}
-})
+});
+elem.dispatchEvent(event);
 ```
 
 # window.getSelection()

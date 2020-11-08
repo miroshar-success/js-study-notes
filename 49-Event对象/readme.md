@@ -1,3 +1,7 @@
+# UIEvent
+    
+    UIEvent接口表示简单的用户界面事件.UIEvent是从Event派生出来的。某些接口是这个的直接或间接后代:
+        MouseEvent TouchEvent FocusEvent KeyboardEvent WheelEvent InputEvent CompositionEvent
 
 # 1. contextmenu
 
