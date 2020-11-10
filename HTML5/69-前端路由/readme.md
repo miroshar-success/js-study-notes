@@ -9,10 +9,12 @@
 	当URL的片段标识符更改时,将触发hashchange事件(跟在#符号后面的URL部分，包括#符号)
 ```js
 // 监听hash值是否变化;
-window.onhashchange = function(){
+window.onhashchange = function(event){
+    console.log(event.newURL,event.oldURL);
 	console.log(window.location.hash);
 }
 ```
+    hashchange事件对象下有两个属性: newURL(当前页面新的URL) 和 oldURL(当前页面旧的URL)
 	tips: 如果页面路由#后没有字符，则window.location.hash获取不到任何内容。
 
 # history

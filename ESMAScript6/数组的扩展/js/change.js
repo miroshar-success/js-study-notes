@@ -51,7 +51,7 @@ function compareFun(a,b){
 console.log( ages.sort(compareFun) );	// [1,3,8,15,20]
 console.log(players.sort(compareFun));	// ["durant", "kobe", "kyrie", "lebron", "wade"]
 
-/* var array = [{ n: "a", v: 1 }, { n: "b", v: 1 }, { n: "c", v: 1 }, { n: "d", v: 1 }, { n: "e", v: 1 }, { n: "f", v: 1 }, { n: "g", v: 1 }, { n: "h", v: 1 }, { n: "i", v: 1 }, { n: "j", v: 1 }, { n: "k", v: 1 }, ];
+/* var array = [{ n: "a", v: 1 }, { n: "b", v: 1 }, { n: "c", v: 1 }, { n: "d", v: 1 }, { n: "e", v: 1 }, { n: "f", v: 1 }, { n: "g", v: 1 }, { n: "h", v: 1 }, { n: "i", v: 1 }, { n: "js", v: 1 }, { n: "k", v: 1 }, ];
 array.sort(function (a, b) {
 		return a.v - b.v;
 });

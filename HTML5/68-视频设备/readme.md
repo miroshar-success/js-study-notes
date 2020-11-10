@@ -57,13 +57,11 @@ window.navigator.getUserMedia({audio:true,video:true},function(){
     }
 }
 ```
-
-        
     在使用video标签显示 视频流时 video.src = URL.createObjectURL(stream)
     tips: 报错  Failed to execute createObjectURL on 'URL'    
     
     Chrome升级后不再支持这种写法,需要修改为: video.srcObject = stream;
-    
+ 
     ## 强烈要求获取指定的尺寸时: 可以使用关键字 min,max 或者 exact(min == max)
 ```js
 {
@@ -73,8 +71,6 @@ window.navigator.getUserMedia({audio:true,video:true},function(){
     }
 }
 ```
-
-    
     ideal 关键字： 当请求包含一个ideal（应用最理想的）值时，这个值有着更高的权重
 ```js
 {
@@ -102,33 +98,22 @@ window.navigator.MediaDevices.getUserMedia({video:{
 	console.log(err);
 })
 ```
+```js
+// usage
+const constraints = {audio:true, video:{width:1280,height:720}};
+navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+  var video = document.querySelector('video');
+  if("srcObject" in video){
+    video.srcObject = stream;
+  }else{
+    video.src = window.URL.createObjectURL(stream);
+  }
+  video.onloadedmetadata = function(){
+    video.play();
+  }
+})
+```
 
-# Navigator.MediaDevices.getUserMedia(constraints)
-	
-	会提示用户给与使用媒体输入的许可，媒体输入产生一个MediaStreaM,里面包含了媒体的轨道。
-	它返回一个Promise对象，成功后会resolve回调一个MediaStream对象
-
-## 参数constraints
-	
-	该参数包含了video和audio两个成员的MediaStreamConstraints对象，用于说明请求的媒体类型。必须至少一个类型
-	或者两个同时可以被指定。
-	
-	1. 不带任何参数的音频和视频 {audio:true,video:true}
-	2. 带有参数 {audio:true,video:{
-		width:1280,
-		height:700
-	}},
-	3. 前置摄像头 {video:{
-		facingMode:'user'
-	}}
-	4. 后置摄像头 {video:{
-		facingMode:'environment'
-	}}
-	5. 帧率 frameRate:{
-		ideal:10,
-		max:15
-	}
-	
 ## MediaStream
 	
 	MediaStream接口是一个媒体内容的流。一个流包含几个轨道，比如视频和音频轨道
