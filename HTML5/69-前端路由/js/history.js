@@ -74,3 +74,10 @@ let btn10 = createButton('go=0');	// go=0 表示刷新当前页面
 btn10.onclick = function(){
 	window.history.go(0);
 }
+
+window.onload = function(){
+	console.log("onload事件");
+}
+window.onpopstate = function(){
+	console.log("onpopstate");
+}

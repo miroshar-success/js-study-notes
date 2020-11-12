@@ -73,3 +73,25 @@ history.pushState(startObj,"page 2","bar.html");
 	2. pushState设置新的URL可以与当前的URL一样，也会把记录添加到栈中，而hash设置的新值必须与原来不一样才会触发记录
 	添加到栈中。
 	
+    如果页面设置了状态对象而用户重启了浏览器,那么当页面重新加载时,页面会接受一个onload事件,但没有popstate事件。
+    可以通过history.state属性获取 得到如果popstate被触发时能得到的状态对象。
+```js
+window.addEventListener('load',function() {
+  let currentState = history.state;
+})
+```	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -3,12 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>前端路由</title>
+  <style>
+    #box{
+      width:100px;
+      height:100px;
+      background-color:pink;
+    }
+    .button{
+      position:relative;
+      top:1000px;
+    }
+    #prompt{font-size:16px;}
+    table{width:90%;margin:10px;margin-left:5%;}
+    #low,#high{background-color:lightgrey;height:1em;}
+    #mid{background-color:green;}
+  </style>
 </head>
 <body>
-<a href="#baidi">hello</a>
-<a href="#">首页</a>
+<!--<a href="#baidi">hello</a><a href="#">首页</a>
+<div id="box"></div>
+<button class="button">click to box</button>-->
 <!--<script src="./js/hash.js"></script>-->
-<script src="./js/history.js"></script>
+<!--<script src="./js/history.js"></script>-->x
 <!--<script src="./js/location.js"></script>-->
+<h1 id="heading">I'am thinking of a number ... </h1>
+<table>
+  <tr>
+    <td id="low"></td>
+    <td id="mid"></td>
+    <td id="high"></td>
+  </tr>
+</table>
+<label id="prompt"></label><input type="text" id="input">
+<script src="./js/guess-number.js"></script>
 </body>
 </html>
