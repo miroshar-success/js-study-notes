@@ -16,3 +16,47 @@
                  
 [window.location](https://developer.mozilla.org/zh-CN/docs/Web/API/Location)
 [window.history](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
+    
+
+# PWA
+
+    离线存储    Service Worker
+    
+[service worker基本使用](https://googlechrome.github.io/samples/service-worker/basic/index.html)     
+        
+        
+# 工具
+    
+    1. serve:   
+        
+    Assuming you would like to serve a static site,single page application or just a static file,this package
+    is just the right choice for you.
+    
+    Usage:
+        yarn global add serve  &&  serve or serve folder_name
+     
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

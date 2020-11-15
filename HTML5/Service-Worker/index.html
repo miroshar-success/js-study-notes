@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>离线缓存</title>
+  <script>
+    if('serviceWorker' in navigator){
+      console.log('hello')
+			navigator.serviceWorker.register('sw.js')
+    }
+  </script>
+</head>
+<body>
+<p>世界,你好</p>
+</body>
+</html>
