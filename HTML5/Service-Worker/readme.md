@@ -30,11 +30,39 @@ if('serviceWorker' in navigator){
     activate    激活    
     fetch       对网页发起的请求进行拦截处理
 ```js
-// sw.js   监听serviceWorker的事件
+// sw.js   一个下载 激活和 监听fetch 的 sw文件
+const CACHE_NAME = 'cache-v1';	// 定义一个缓存的版本;
+self.addEventListener('install',function(event){
+	event.waitUntil( event.open(CACHE_NAME).then(cache => {
+		cache.addAll([
+			'/','./style.css','./1.png'
+		])	// 添加需要缓存的资源
+	}).then(self.skipWaiting()) )
+})
 
+self.addEventListener('activate',function(event){
+	event.waitUntil(caches.keys().then(cacheNames => {
+		return Promise.all(cacheNames.map(cacheName => {
+			if(cacheName !== CACHE_NAME){
+				return caches.delete(cacheName);
+			}
+		}))
+	}))
+})
 
-
-
+self.addEventListener('fetch',function(event){
+	event.respondWith( caches.open(CACHE_NAME).then(cache => {
+		return cache.match(event.request).then(response => {
+			if(response){
+				return response
+			}
+			return fetch(event.request).then(response => {
+				caches.put(event.request,response.clone())
+				return response;
+			})
+		})
+	}) )
+})
 ```
 ##  FetchEvent
 
@@ -52,7 +80,18 @@ self.addEventListener('fetch',function(event){
   )
 })
 ```
+## Clients
+
+	Clients接口的claim()方法允许一个激活的service worker将自己设置为其scope内所有clients的controller.
+	
+	语法:
+		await clients.claim()
+```js
+self.addEventListener('activate', event => {
+  event.waitUntil(clients.claim());
+});
+```
     
-    
+
     
     

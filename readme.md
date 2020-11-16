@@ -7,12 +7,12 @@
     前端路由: hash路由和history路由:
         重要的方法： history.go()/history.back()/history.forward()
         
-                    history.pushState(state,title,url);
-                    history.replaceState(state,title,url);
-                    
-                 onpopstate  会监听 go()/back()/forward()操作
-         
-                 window.onhashchange = function(){}     // 监听hash值改变,可以通过location.hash 获取或设置
+							history.pushState(state,title,url);
+							history.replaceState(state,title,url);
+							
+					 onpopstate  会监听 go()/back()/forward()操作
+	 
+					 window.onhashchange = function(){}     // 监听hash值改变,可以通过location.hash 获取或设置
                  
 [window.location](https://developer.mozilla.org/zh-CN/docs/Web/API/Location)
 [window.history](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
@@ -21,9 +21,47 @@
 # PWA
 
     离线存储    Service Worker
-    
 [service worker基本使用](https://googlechrome.github.io/samples/service-worker/basic/index.html)     
-        
+[w3c-service-worker](https://w3c.github.io/ServiceWorker/#motivations)
+```js
+// sw.js
+// 一个service worker demo
+const CACHE_NAME = 'cache-v1';
+
+self.addEventListener('install',function(event){
+	event.waitUntil(caches.open(CACHE_NAME).then(cache => {
+		cache.addAll([
+			'./',
+			'./index.css',
+			'./1.png'
+		])	// 添加需要缓存的咨询路径
+	}).then(self.skipWaiting()))
+})
+
+self.addEventListener('activate',function(event){
+	event.waitUntil(caches.keys().then(cacheNames => {
+		return Promise.all(cacheNames.map(cache => {
+			if(cacheName !== CACHE_NAME){
+				return caches.delete(cacheName)
+			}
+		}))
+	}).then(() => self.clients.claim()))
+})
+
+self.addEventListener('fetch',function(event){
+	event.respondWith(
+		caches.open(CACHE_NAME).then(cache => {
+			return cache.match(event.request).then(response => {
+				if(response) { return response }
+				return fetch(event.request).then(response => {
+					cache.put(event.request,response.clone());
+					return response;
+				})
+			})
+		})
+	)
+})
+```
         
 # 工具
     
