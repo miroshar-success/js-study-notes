@@ -7,7 +7,6 @@
 	
 	online		有网
 	offline		没有网
-
 	
 	navigator.onLine
 		navigator.onLine是一个值为true/false(true表示在线,false表示离线)的属性。
@@ -23,7 +22,7 @@
 	
 	
 # visibilitychange
-#  
+  
 	当用户最小化窗口或切换到另一个选项卡时，API会发送visibilitychange 事件，让听众知道页面状态已更改！
 	浏览器标签页被隐藏或显示的时候会触发visibilitychange 事件！
 ```js

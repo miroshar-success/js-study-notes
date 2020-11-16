@@ -7,11 +7,18 @@
 <body>
 <div id="root">
     <button @click="toggle">toggle</button>
-    <keep-alive max="2">
+    <keep-alive include='singer'>
         <component :is="current"></component>
     </keep-alive>
 </div>
+
+<div id="mixin">
+	<p>{{message | reverseMessage}}</p>
+	<button @click.stop='hello'>hello from mixin</button>
+	<button @click.stop='get_name'>get name</button>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="./js/lifecycle.js"></script>
+<!-- <script src="./js/lifecycle.js"></script> -->
+<script src='./js/mixins.js'></script>
 </body>
 </html>
