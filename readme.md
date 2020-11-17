@@ -7,12 +7,12 @@
     前端路由: hash路由和history路由:
         重要的方法： history.go()/history.back()/history.forward()
         
-							history.pushState(state,title,url);
-							history.replaceState(state,title,url);
-							
-					 onpopstate  会监听 go()/back()/forward()操作
-	 
-					 window.onhashchange = function(){}     // 监听hash值改变,可以通过location.hash 获取或设置
+				history.pushState(state,title,url);
+				history.replaceState(state,title,url);
+				
+		 onpopstate  会监听 go()/back()/forward()操作
+
+		 window.onhashchange = function(){}     // 监听hash值改变,可以通过location.hash 获取或设置
                  
 [window.location](https://developer.mozilla.org/zh-CN/docs/Web/API/Location)
 [window.history](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
@@ -62,7 +62,18 @@ self.addEventListener('fetch',function(event){
 	)
 })
 ```
-        
+		Notification		通知
+			Notification.permission		获取当前是否开启通知权限	default/denied/granted
+		发送一个通知
+		1. 在页面上下文中: new Notification('hello notification',{body:"通知的内容"})
+    2. 在serviceWorker中: self.registration.showNotification('hello notification',{body:'通知的内容'})
+	
+# Vue
+	
+		keep-alive
+		mixins
+		activated
+		
 # 工具
     
     1. serve:   

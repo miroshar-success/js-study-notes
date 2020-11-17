@@ -39,7 +39,7 @@ store.dispatch({type:"DECREMENT"});
 
 # API
 
-*createStore(reducer,action)*
+*createStore(reducer,initialValue)*
 
         创建一个Redux store来以存放应用中所有的state。应用中有且仅有一个store。
         1. reducer接受两个参数,分别是当前的state树和要处理的action。返回新的state树
