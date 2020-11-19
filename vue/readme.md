@@ -1,4 +1,3 @@
-
 # 内置组件/动态组件
 
     keep-alive
@@ -22,6 +21,17 @@
 ```
 	tips:
 		1. keep-alive 在for循环中不会工作。
+
+# transition
+	
+	JavaScript钩子
+		before-enter/enter/after-enter
+		before-leave/leave/after-leave
+		
+	tips:
+		1. 当使用css过渡时,无需在enter和leave钩子中执行done,动画会立即执行。
+		2. 对于仅使用JavaScript过渡当元素添加 v-bind:class='false'会跳过CSS的检测。
+		3. 当只用JavaScript过渡当时候,在enter和leave中必须使用done进行回调。
 
 # mixins
 	
