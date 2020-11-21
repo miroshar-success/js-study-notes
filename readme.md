@@ -69,10 +69,10 @@ self.addEventListener('fetch',function(event){
     2. 在serviceWorker中: self.registration.showNotification('hello notification',{body:'通知的内容'})
 	
 # Vue
-	
-		keep-alive
-		mixins
-		activated
+		
+		内置组件: keep-alive	transition
+		选项: mixins
+		生命周期函数: activated
 		
 # 工具
     

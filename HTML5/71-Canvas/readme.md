@@ -5,6 +5,7 @@
 	tips:
 	1. <canvas>标签只有两个属性——width和height,如果没有设置宽高，会初始化为宽度为300px,高度为150px。
 	2. <canvas>元素有一个getContext()的方法 用来获得渲染上下文和它的绘画功能。
+	3. canvas是一个二维网络,左上角的坐标为(0,0)
 	
 ## CanvasRenderingContext2D
 
@@ -26,7 +27,7 @@ const ctx = canvas.getContext('2d');
 
 ## 矩形
 	
-	rect() fillRect() 和 strokeRect() 都有4个参数,分别位x,y,width,height, 分别表示 坐标 和 宽高！
+	rect() fillRect() 和 strokeRect() clearRect() 都有4个参数,分别位x,y,width,height, 分别表示 坐标 和 宽高！
 	
 	rect()			创建无填充的矩形
 ```js
@@ -36,10 +37,12 @@ ctx.fill()	/ ctx.stroke()
 	fillRect()		绘制被填充的矩形
 	tips:
 	1. 需要先设置填充的颜色后，再绘制矩形
-	
+	2. stroke()和fill()都是作用在当前路径上的子路径。
 	strokeRect()	绘制描边的矩形
 	描边的宽度由 lineWidth 控制。
 	
+	clearRect()
+	设置指定矩形区域内（以x,y为起点），范围是(width,height)所有像素变成透明,并擦除之前绘制的所有内容的方法。
 	
 ## 圆
 
@@ -53,19 +56,20 @@ ctx.fill()	/ ctx.stroke()
 ctx.beginPath();
 ctx.arc(50,50,50,0,Math.PI,false);
 ```
-
-	clearRect()
-	设置指定矩形区域内（以x,y为起点），范围是(width,height)所有像素变成透明,并擦除之前绘制的所有内容的方法。
-
-
+	弧度:
+		弧长等于半径的弧,其所对对圆心角为1弧度。一周对弧度数为2πR/R, 360度角度 = 2π弧度。
+	
 ## 直线
 
 	确定起点和终点 
-	ctx.movetO(x1,y1);
+	ctx.moveTo(x1,y1);
 	ctx.lineTo(x2,y2);
 	ctx.stroke();
 	
-	linCap	线末端的类型。允许的值:butt(默认),round,square
+	lineCap	线末端的类型。允许的值:butt(默认),round,square
+	
+	tips:
+		1. 如果线段比较宽的话，使用lineTo方法绘制到moveTo()设置的起点,绘制的图像可能会有缺口，可以使用closePath()方法
 	
 ### setLineDash()
  
@@ -339,38 +343,6 @@ image.onload = function(){
 	设置要在绘制新形状时应用的合成操作的类型，其中type是用于标识要使用的合成或混合模式操作的字符串
 	ctx.globalCompositeOperation = type;
 	
-# HTMLCanvasElement.toDataURL()
-
-	返回一个包含图片展示的 data URI.可以使用type参数设置其类型，默认为PNG格式。
-	
-	canvas.toDataURL(type,encoderOptions);
-	
-# HTMLCanvasElement.toBlob()
-
-	该方法创造Blob对象，用以展示canvas上的图片；这个图片文件可以被缓存或保存到本地，由用户代理端自行决定。
-	
-	canvas.toBlob(callback,type,encoderOptions);
-	
-		callback: 		回调函数，可获得一个单独的Blob对象参数
-		type:	  		指定图片格式，默认格式为image/png
-		encoderOptions:	值在0与1之间，当请求图片格式为image/jpeg或者image/webp时用来指定图片展示质量
-		
-# 绘制矩形
-    
-    绘制空心矩形
-        ctx.strokeRect(x,y,width,height);
-        ctx.stroke()    
-    
-    实心矩形
-        ctx.fillStyle = color
-        ctx.fillRect(x,y,width,height);
-        
-    绘制矩形,可以填充,也可以描边
-        ctx.rect(x,y,width,height);
-        
-    清除画布
-        ctx.rect(x,y,w,h);
-        
 # 绘制图片
 
     ctx.drawImage(image,dx,dy);
@@ -379,7 +351,6 @@ image.onload = function(){
         将图片从画布的(dx,dy)开始绘制,图片的大小为 dWidth*dHeight;
     ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         从图片的(sx,sy)处开始裁剪,裁剪的大小为(sWidth*sHeight),从画布的(dx,dy)处开始绘制,绘制的大小为(dWidth*dHeight);
-        
     
 # 像素操作
 
@@ -412,5 +383,7 @@ var canvas = document.getElementById("canvas");
 var dataURL = canvas.toDataURL();
 console.log(dataURL);   // 返回一个base:64的png图片格式。
 ```
-    2. HTMLCanvasElement.toBlob(callback)   方法创造Blob对象,用以展示canvas上的图片。
+    2. HTMLCanvasElement.toBlob(callback,type,encoderOptions)   方法创造Blob对象,用以展示canvas上的图片。
         callback 回调函数可以获得一个单独的Blob对象参数。
+				type:	  		指定图片格式，默认格式为image/png
+				encoderOptions:	值在0与1之间，当请求图片格式为image/jpeg或者image/webp时用来指定图片展示质量
