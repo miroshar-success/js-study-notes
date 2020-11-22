@@ -17,6 +17,46 @@
 [window.location](https://developer.mozilla.org/zh-CN/docs/Web/API/Location)
 [window.history](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
     
+		Canvas画布
+			绘制基本图形：
+				ctx.fill()/ctx.stroke()/ctx.rect()
+				ctx.arc(x,y,r,0,2*Math.PI,false);
+			绘制文本:
+				ctx.font = '30px Arial';	ctx.fillText('hello world',x,y);/ctx.strokeText('hello world',x,y);
+				ctx.textAlign/ctx.textBaseline
+				ctx.direction
+			绘制线段:
+				ctx.moveTo(startX,startY)/ctx.lineTo(x,y);
+				ctx.lineCap='butt/round/square'; ctx.lineJoin='round/miter'
+				ctx.setLineDash([lineWidth,lineCap])	传递一个数组,分别表示线宽和间隔
+			样式:
+				ctx.fillStyle()/ctx.strokeStyle()
+			阴影:
+				ctx.shadowColor/ctx.shadowOffsetX/ctx.shadowOffsetY/ctx.shadowBlur
+			清除:
+				ctx.clearRect(x,y,width,height);
+			路径:
+				ctx.beginPath()	清空子路径列表开始一个新的路径。
+				ctx.closePath()	使笔点返回到当前子路径的起点。
+			变换:
+				ctx.scale()/ctx.transform()/ctx.translate()/ctx/rotate()默认以(0,0)点开始旋转
+			绘图
+				ctx.drawImage(image,dx,dy);
+				ctx.drawImage(image,dx,dy,dWidth,dHeight);
+				ctx.drawImage(image,sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight);
+			像素控制：
+				ctx.createImageData();
+				ctx.getImageData();
+				ctx.putImageData();
+			状态:
+				ctz.save()			// 使用栈保存当前的绘画样式状态
+				ctx.restore()		// 恢复到最近的绘制样式状态
+			合成:
+				ctx.globalAlpha
+			
+[学习canvas,一篇文章就够了](https://www.runoob.com/w3cnote/html5-canvas-intro.html)
+[CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
+[canvas教程](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_usage)
 
 # PWA
 

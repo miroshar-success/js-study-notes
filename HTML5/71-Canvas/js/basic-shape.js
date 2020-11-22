@@ -75,3 +75,14 @@ ctx2.lineWidth = 10;
 ctx2.stroke();
 
 
+const canvas3 = document.getElementById("canvas3");
+const ctx3 = canvas3.getContext('2d');
+
+ctx3.beginPath();
+ctx3.fillStyle = '#f00';
+ctx3.arc(50,50,50,0,270*Math.PI/180,false);
+ctx3.moveTo(50,0);
+ctx3.lineTo(50,50);
+ctx3.lineTo(100,50);
+ctx3.fill();
+

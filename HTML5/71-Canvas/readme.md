@@ -1,6 +1,8 @@
 # Canvas
 	
-	<canvas>是HTML5新增的元素,可用于通过使用JavaScript中的脚本来绘制图形。
+	<canvas>是HTML5新增的元素,可用于通过使用JavaScript中的脚本来绘制图形。它可以用于动画，游戏画面，数据可视化，图片编辑以及实时视频处理
+	等方面。
+	Canvas API主要聚焦于2D图形。而同样使用canvas元素等WebGL API则用于绘制硬件加速的2D和3D图形。
 	
 	tips:
 	1. <canvas>标签只有两个属性——width和height,如果没有设置宽高，会初始化为宽度为300px,高度为150px。
@@ -16,14 +18,12 @@ const canvas = document.getElementById('2d');
 const ctx = canvas.getContext('2d');
 ```
 
-### beginPath()
-
-	Canvas 2D API通过清空子路径列表开始一个新路径的方法。
+	beginPath()
+		Canvas 2D API通过清空子路径列表开始一个新路径的方法。
 	
-### closePath()
-	
-	Canvas 2D API将笔点返回到当前子路径起始点的方法。它尝试从当前点到起始点绘制一条直线。如果图形已经是封闭的或者只有一个点，
-	那么此方法不会做任何操作。
+	closePath()
+		Canvas 2D API将笔点返回到当前子路径起始点的方法。它尝试从当前点到起始点绘制一条直线。如果图形已经是封闭的或者只有一个点，
+		那么此方法不会做任何操作。
 
 ## 矩形
 	
@@ -71,50 +71,58 @@ ctx.arc(50,50,50,0,Math.PI,false);
 	tips:
 		1. 如果线段比较宽的话，使用lineTo方法绘制到moveTo()设置的起点,绘制的图像可能会有缺口，可以使用closePath()方法
 	
-### setLineDash()
+	ctx.lineCap
+		指定绘制每一条线段末端的属性，有3个可能的值，分别是 butt,round和square,默认值是butt
+		square:长度会增加线宽的一半
+			
+	setLineDash()
  
 	setLineDash(segments)方法在填充线时使用虚线模式，它使用一组值来指定描述模式的线和间隙的交替长度。
-	
-	segments:一个Array数组。一组描述交替绘制线段和间距长度的数字。
-```js
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+		segments:一个Array数组。一组描述交替绘制线段和间距长度的数字。
 
-function drawDashLine(pattern){
-	ctx.beginPath();
-	ctx.setLineDash(pattern);
-	ctx.moveTo(0,y);
-	ctx.lineTo(300,y);
-	y += 15;
-}
+	lineDashOffset
+		该属性是设置虚线偏移量的属性。 ctx.lineDashOffset = value; 
+		当value为正数时,整条虚线向左偏移，当value为负数时,向右偏移。
+	
+	lineJoin
+		用来设置2个长度不为0的相连部分(线段，圆弧，曲线)如何连接在一起的属性。
+		1. round
+		通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。
+		2. bevel
+		在相连部分的末端填充一个额外的以三角形为底的区域，每个部分都有各自独立的矩形拐角
+		3. miter(默认值)
+		4. 通过延伸相连部分的外边缘，使其相交于一点形成一个额外的菱形区域。
 
-let y = 15;
-drawDashLine([]);
-drawDashLine([1,1]);
-```
+## font()
+	
+	当前字体样式的属性，使用和CSS font规范相同的字符串值。默认是 10px sans-serif 
+	tips: 两个值必须同时设置
+	
+	textAlign()
+	
+	绘制文本时，文本的对齐方式的属性。该对齐是基于fillText方法的x的值。所有如果想要文字在canvas左右居中时，
+	必须设置x值为canvas宽的一半。
+	ctx.textAlign = 'left | right | center | start | end';
+	
+	当前文本基线的属性。 决定文字垂直方向的对齐方式
+	ctx.textBaseline = 'top | hanging | middle | alhabetic | ideographic | bottom';
+	
+## shadow
+	
+	阴影
+	
+	shadowBlur
+	描述模糊效果程度的属性；它既不对应像素值也不受当前转换矩形的影响。默认值是0
+		ctx.shadowBlur = level;
+	
+	shadowColor
+		描述阴影颜色的属性。
+		tips: shadowColor属性设置成不透明的，并且shadowBlur,shadowOffsetX 或者 shadowOffsetY 属性不为0，阴影
+		才会被绘制。
+	
+	shadowOffsetX/shadowOffsetY
+		阴影水平偏移距离/垂直偏移距离，默认值是0
 
-### lineDashOffset
-	
-	该属性是设置虚线偏移量的属性。 ctx.lineDashOffset = value; 
-	当value为正数时,整条虚线向左偏移，当value为负数时,向右偏移。
-	
-	
-## lineJoin
-	
-	用来设置2个长度不为0的相连部分(线段，圆弧，曲线)如何连接在一起的属性。
-	1. round
-	通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。
-	2. bevel
-	在相连部分的末端填充一个额外的以三角形为底的区域，每个部分都有各自独立的矩形拐角
-	3. miter(默认值)
-	4. 通过延伸相连部分的外边缘，使其相交于一点形成一个额外的菱形区域。
-	
-## lineCap
-
-	指定绘制每一条线段末端的属性，有3个可能的值，分别是 butt,round和square,默认值是butt
-	
-	square:长度会增加线宽的一半
-	
 ## translate
 	
 	通过在网格中移动canvas和canvas原点x水平方向,原点y垂直方向,添加平移变换的方法。
@@ -143,7 +151,6 @@ drawDashLine([1,1]);
 	
 	先保存的后恢复，后保存的先恢复,绘制线条时，需要先使用beginPath()
 	
-	
 ## drawImage()
 
 	CanvasRenderingContext2D.drawImage()方法提供了多种方式在canvas上绘制图像。
@@ -157,7 +164,6 @@ drawDashLine([1,1]);
 		dy:	image的左上角在目标canvas上Y轴坐标
 		dWidth: image在目标canvas上绘制的高度。允许对绘制的image进行缩放。
 		dHeight: image在目标canvas上绘制的高度。允许对绘制的image进行缩放。
-	
 	
 ## createPattern()
 	
@@ -201,7 +207,6 @@ image.onload = function(){
 	ctx.fillRect(0,0,300,150);
 }
 ```
-	
 ## createLinearGradient
 
 	该方法创建一个沿参数坐标指定的直线渐变，返回一个线性CanvasGradient对象。
@@ -262,45 +267,6 @@ image.onload = function(){
 		cpy: 控制点的y轴坐标
 		x:	 终点的x轴坐标
 		y:   终点的y轴坐标
-		
-## font()
-	
-	当前字体样式的属性，使用和CSS font规范相同的字符串值。默认是 10px sans-serif 
-	tips: 两个值必须同时设置
-	
-### textAlign()
-	
-	绘制文本时，文本的对齐方式的属性。该对齐是基于fillText方法的x的值。所有如果想要文字在canvas左右居中时，
-	必须设置x值为canvas宽的一半。
-	ctx.textAlign = 'left | right | center | start | end';
-	
-### textBaseline
-
-	当前文本基线的属性。 决定文字垂直方向的对齐方式
-	ctx.textBaseline = 'top | hanging | middle | alhabetic | ideographic | bottom';
-	
-## shadowBlur
-
-	描述模糊效果程度的属性；它既不对应像素值也不受当前转换矩形的影响。默认值是0
-	ctx.shadowBlur = level;
-	
-## shadowColor
-
-	描述阴影颜色的属性。
-	tips: shadowColor属性设置成不透明的，并且shadowBlur,shadowOffsetX 或者 shadowOffsetY 属性不为0，阴影
-	才会被绘制。
-	
-## shadowOffsetX/shadowOffsetY
-
-	阴影水平偏移距离/垂直偏移距离，默认值是0
-	
-# Image()
-
-	Image()函数将会创建一个新的HTMLImageElement实例。它的功能等价于document.createElement('img');
-	
-	Image(width,height)
-		width: 图片的宽度(即width属性)
-		height: 图片的高度(即height属性)
 	
 # ImageData()
 
@@ -342,15 +308,6 @@ image.onload = function(){
 
 	设置要在绘制新形状时应用的合成操作的类型，其中type是用于标识要使用的合成或混合模式操作的字符串
 	ctx.globalCompositeOperation = type;
-	
-# 绘制图片
-
-    ctx.drawImage(image,dx,dy);
-        将图片从画布的 (dx,dy)点开始绘制
-    ctx.dragImage(image,dx,dy,dWidth,dHeight);
-        将图片从画布的(dx,dy)开始绘制,图片的大小为 dWidth*dHeight;
-    ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-        从图片的(sx,sy)处开始裁剪,裁剪的大小为(sWidth*sHeight),从画布的(dx,dy)处开始绘制,绘制的大小为(dWidth*dHeight);
     
 # 像素操作
 
