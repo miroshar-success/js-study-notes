@@ -40,10 +40,11 @@ ctx.fill()	/ ctx.stroke()
 	2. stroke()和fill()都是作用在当前路径上的子路径。
 	strokeRect()	绘制描边的矩形
 	描边的宽度由 lineWidth 控制。
-	
 	clearRect()
 	设置指定矩形区域内（以x,y为起点），范围是(width,height)所有像素变成透明,并擦除之前绘制的所有内容的方法。
-	
+	3. closePath会通过绘制一条从当前点到起始点的直线来闭合图形。
+	4. 当调用fill()的时候,所有没有闭合的图形会自动闭合,但是调用stroke()时不会自动闭合
+
 ## 圆
 
 	ctx.arc(x,y,r,start,stop,direc);
