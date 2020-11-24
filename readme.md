@@ -53,7 +53,7 @@
 		ctz.save()			// 使用栈保存当前的绘画样式状态
 		ctx.restore()		// 恢复到最近的绘制样式状态
 	合成:
-		ctx.globalAlpha
+		ctx.globalAlpha	// 设置透明度
 			
 [学习canvas,一篇文章就够了](https://www.runoob.com/w3cnote/html5-canvas-intro.html)
 [CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)

@@ -80,6 +80,9 @@ ctx.arc(50,50,50,0,Math.PI,false);
  
 	setLineDash(segments)方法在填充线时使用虚线模式，它使用一组值来指定描述模式的线和间隙的交替长度。
 		segments:一个Array数组。一组描述交替绘制线段和间距长度的数字。
+		
+	tips: 1. 可以创建一个蚂蚁线的效果,它往往应用在计算机图形程序选区工具动效中。它可以帮助用户通过动画的边界来区分
+	图像背景选区边框。
 
 	lineDashOffset
 		该属性是设置虚线偏移量的属性。 ctx.lineDashOffset = value; 

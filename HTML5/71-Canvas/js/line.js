@@ -54,3 +54,21 @@ ctx3.fill();
 ctx3.fillStyle = 'black';
 ctx3.clearRect(75,75,50,50);
 ctx3.fill();
+
+
+const canvas4 = document.getElementById('canvas4');
+const ctx4 = canvas4.getContext('2d');
+let offset = 0;
+function drawDash(){
+	ctx4.clearRect(0,0,300,150);
+	ctx4.setLineDash([4,4]);
+	ctx4.lineDashOffset = offset;
+	ctx4.strokeStyle = 'red';
+	ctx4.strokeRect(10,10,100,100);
+}
+function march(){
+	offset--;
+	drawDash();
+	setTimeout(march,20);
+}
+march();
