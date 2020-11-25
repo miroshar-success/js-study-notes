@@ -54,6 +54,9 @@
 		ctx.restore()		// 恢复到最近的绘制样式状态
 	合成:
 		ctx.globalAlpha	// 设置透明度
+	渐变:
+		ctx.createLinearGradient(x1,x2,y1,y2);
+		ctx.createRadialGradient(x1,y1,r1,x2,y2,r2);
 			
 [学习canvas,一篇文章就够了](https://www.runoob.com/w3cnote/html5-canvas-intro.html)
 [CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
