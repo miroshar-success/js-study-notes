@@ -158,6 +158,11 @@ ctx.arc(50,50,50,0,Math.PI,false);
 ## drawImage()
 
 	CanvasRenderingContext2D.drawImage()方法提供了多种方式在canvas上绘制图像。
+		HTMLImageElement/HTMLVideoElement/HTMLCanvasElement/ImageBitmap
+	
+	tips:
+		在HTMLImageElement上使用crossOrigin属性,可以请求加载其他域名上的图片。如果图片的服务器允许跨域访问这个图片。那么可以使用
+		这个图片而不污染canvas。
 	
 	ctx.drawImage(image,dx,dy);
 	ctx.drawImage(image,dx,dy,dWidth,dHeight);
@@ -308,11 +313,6 @@ image.onload = function(){
 	
 	ctx.getImageData(sx,sy,sw,sh);
 	
-# globalCompositeOperation
-
-	设置要在绘制新形状时应用的合成操作的类型，其中type是用于标识要使用的合成或混合模式操作的字符串
-	ctx.globalCompositeOperation = type;
-    
 # 像素操作
 
     使用ImageData()构造函数创建或者使用 createImageData()和getImageData()。也可以使用putImageData()
