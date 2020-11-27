@@ -38,4 +38,20 @@ ctx2.fill();
 ctx2.translate(110,60);
 ctx2.fillStyle = 'green';
 ctx2.fillRect(0,0,100,50);
-ctx2.fill()
+ctx2.fill();
+
+
+const canvas3 = document.getElementById('canvas3');
+const ctx3 = canvas3.getContext('2d');
+ctx3.translate(75,75);
+
+function drawCircle(){
+	for(let i = 0; i < 12; i++){
+		ctx3.save();
+		ctx3.rotate( 30*i*(Math.PI/180) );
+		ctx3.fillStyle = 'red';
+		ctx3.fillRect(-2,-60,4,8);
+		ctx3.restore();
+	}
+}
+drawCircle()

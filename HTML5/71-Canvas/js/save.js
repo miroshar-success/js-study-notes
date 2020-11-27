@@ -66,4 +66,20 @@ ctx3.lineTo(100,50);
 ctx3.fillStyle = 'red';
 ctx3.arc(50,50,50,0,90*Math.PI/180,false);
 // ctx3.stroke();
-ctx3.fill()
+ctx3.fill();
+
+
+const canvas4 = document.getElementById('canvas4');
+const ctx4 = canvas4.getContext('2d');
+ctx4.fillStyle = 'red';
+ctx4.fillRect(0,0,150,150);
+ctx4.save();
+ctx4.fillStyle = 'green';
+ctx4.fillRect(15,15,120,120);
+ctx4.save();
+ctx4.fillStyle = 'pink';
+ctx4.fillRect(30,30,90,90);
+ctx4.restore();
+ctx4.fillRect(45,45,60,60);
+ctx4.restore();
+ctx4.fillRect(60,60,30,30);
