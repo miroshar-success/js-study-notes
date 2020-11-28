@@ -47,7 +47,7 @@
 		ctx.drawImage(image,sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight);
 		ctx.createPattern(image,type)	// type为 repeat/no-repeat/repeat-x/repeay-y
 	像素控制：
-		ctx.createImageData();
+		ctx.createImageData();	
 		ctx.getImageData();
 		ctx.putImageData();
 	状态:

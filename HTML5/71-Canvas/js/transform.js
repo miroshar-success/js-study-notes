@@ -54,4 +54,20 @@ function drawCircle(){
 		ctx3.restore();
 	}
 }
-drawCircle()
+drawCircle();
+
+// scale方法 会在x , y方向放大图形尺寸,原点位置也会同样改变
+const canvas4 = document.getElementById('canvas4');
+const ctx4 = canvas4.getContext('2d');
+ctx4.save();
+ctx4.scale(10,3);
+ctx4.fillStyle = 'red';
+ctx4.fillRect(1,10,10,10);
+ctx4.restore();
+ctx4.fillStyle = 'green';
+ctx4.fillRect(10,30,100,30);
+
+ctx4.scale(-1,1);
+ctx4.fillStyle = 'deeppink';
+ctx4.font = '30px serif';
+ctx4.fillText('hello world!',-150,70)
