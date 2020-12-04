@@ -62,6 +62,7 @@
 [学习canvas,一篇文章就够了](https://www.runoob.com/w3cnote/html5-canvas-intro.html)
 [CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
 [canvas教程](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_usage)
+[canvas动画](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_animations)
 
 # PWA
 

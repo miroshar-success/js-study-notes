@@ -17,9 +17,10 @@
 		</style>
 	</head>
 	<body> <!--页面主体部分-->
-		<a href="./jay.jpg" download="jay.jpg">杰伦1</a>
-		<a href="http://i.shangc.net/2017/0810/20170810050748377.jpg" download="jay1.jpg">杰伦2</a>
-		<a download="http://i.shangc.net/2017/0810/20170810050748377.jpg">杰伦3</a>
+		<a href="#" data-url="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3401724244,1705001412&fm=11&gp=0.jpg" class='link'>利用iframe下载</a>
+		<iframe class='file' style='display:none;'></iframe>
+		<a href="./jay.jpg" download="jay.jpg">本地路径图片</a>
+		<a href="http://i.shangc.net/2017/0810/20170810050748377.jpg" download="jay1.jpg">在线连接</a>
 		<a href="https://www.baidu.com" target="_blank">百度</a>
 		<a href="https://www.baidu.com" target="_self">百度</a>
 		<a href="https://www.baidu.com" target="_parent">百度</a>
@@ -60,4 +61,15 @@
 		<em>123</em><em>123</em>
 		<input type="text">
 	</body>
+	<script>
+		let link = document.querySelector('.link');
+		let url = link.getAttribute('data-url');
+		const file = document.querySelector('.file');
+		link.onclick = function(){
+			let iframe = document.createElement('iframe');
+			iframe.src = url;
+			document.body.appendChild(iframe);
+			iframe.style.display = 'none';
+		}
+	</script>
 </html>
