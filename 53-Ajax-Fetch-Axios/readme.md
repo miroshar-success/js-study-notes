@@ -31,18 +31,21 @@
     xhr.send()  将请求发送到服务器
         send(string) string仅用于POST请求。
 
-
+		
     1.1 有可能得到的是缓存的结果,可以加一个随机数,或者时间戳
-        xhr.open('GET','https://www.baidu.com?t='+Math.random(),true);
+        xhr.open('GET','https://www.baidu.com?t='+Math.random(),true,user,password);
         xhr.send();
 
     1.2 通过GET方法发送信息,向URL添加信息:
         xhr.open('GET','https://www.baidu.com?name=kyrie&age=26',true);
         xhr.send();
 
-    setRequestHeader()
+    setRequestHeader(header,value)
         XMLHttpRequest.setRequestHeader()是设置HTTP 请求头部的方法。此方法必须在open()方法和send()方法之间调用。
         如果多次对同一个请求头赋值,只会生成一个合并了多个值的请求头。
+				
+		abort()
+			如果请求已被发出,则立即中止请求。
 
 ## 属性
 	
@@ -52,9 +55,10 @@
 	XMLHttpRequest.responseText	返回一个DOMString(当responseType为""或text时)
 	XMLHttpRequest.status	请求的响应状态。
 	XMLHttpRequest.statusText	返回一个DOMString，其中包含HTTP服务器返回的响应状态。
-	XMLHttpRequest.timeout	// 默认为0，表示该请求的最大请求时间,超时会取消请求。
+	XMLHttpRequest.timeout	// 默认为0，表示该请求的最大请求时间,超时会取消请求
 	XMLHttpRequest.upload	 上传进度
 	XMLHttpRequest.withCredentials	用来指定跨域Access-Control请求是否应当带有授权信息,如cookie或授权header头
+		在同一个站点下使用withCredentials属性是无效的。
 
 ## 2.2. 服务器响应
 
@@ -113,7 +117,6 @@
     处理跨域问题:
         header({'Access-Control-Allow-Origin':'*'})
 
-
 # 4. XHR 二级事件
     
     XMLHttpRequestEventTarget是一个描述事件处理程序的接口,可以在一个用于处理XMLHttpRequest事件的对象中使用到
@@ -127,19 +130,26 @@
     2级 XMLHttpRequest引入了大量的新功能(例如跨域请求,上传进度事件以及对上传/下载二进制数据的支持等)，这使得AJAX可以与很多
     尖端的HTML5 API结合使用,例如File System API,Web Audio API和 WebGL。
     
-    
     XMLHttpRequest.upload属性返回一个XMLHttpRequest对象,用来表示上传的进度。这个对象是不透明的,但是作为一个
     XMLHttpRequestEventTarget，可以通过对其绑定事件来追踪它的进度。
     
-    事件	                相应属性的信息类型
-    onloadstart	                获取开始
-    onprogress	                数据传输进行中
-    onabort	                    获取操作终止
-    onerror	                    获取失败
-    onload	                    获取成功
-    ontimeout	                获取操作在用户规定的时间内未完成
-    onloadend	                获取完成（不论成功与否）
-    
+			事件	                相应属性的信息类型
+			onloadstart	                获取开始
+			onprogress	                数据传输进行中
+			onabort	                    获取操作终止
+			onerror	                    获取失败
+			onload	                    获取成功
+			ontimeout	                获取操作在用户规定的时间内未完成
+			onloadend	                获取完成（不论成功与否）
    
-    
-    
+# bug
+
+	在跨域访问携带cookie的时候,会有cookie无法携带, This set-cookie did not specify a 'samesite' attribute and was defaulted
+	to 'samesite=lax' and broke the same rules specified in the samesitelax value。
+	
+	解决方案:
+		chrome://flags/#same-site-by-default-cookies
+		chrome://flags/#cookies-without-same-site-must-be-secure	分别设置为disabled
+	
+[跨域请求无法携带cookie](https://www.jianshu.com/p/a0d6574a8611?from=groupmessage)
+

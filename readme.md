@@ -64,6 +64,11 @@
 [canvas教程](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_usage)
 [canvas动画](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_animations)
 
+# Javascript
+	
+	Ajax
+[XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest)
+
 # PWA
 
   离线存储    Service Worker

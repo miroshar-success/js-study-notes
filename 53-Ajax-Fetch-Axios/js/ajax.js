@@ -1,7 +1,7 @@
 function get_player_list(){
 	const xhr = new XMLHttpRequest();
 	console.log('UNSENT',xhr.readyState);
-	// xhr.timeout = 1000;
+	xhr.timeout = 1000;
 	xhr.responseType = 'json';
 	xhr.open('GET','http://localhost:3000/player',true);
 	console.log('OPEND',xhr.readyState);
@@ -19,6 +19,9 @@ function get_player_list(){
 			console.log('request_url:',xhr.responseURL);
 			console.log('status:',xhr.status);
 		}
+	}
+	xhr.ontimeout = function(){
+		console.log('请求超时了');
 	}
 }
 get_player_list();
