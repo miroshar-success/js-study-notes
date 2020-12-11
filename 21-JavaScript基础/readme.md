@@ -1,3 +1,11 @@
+# 变量
+	
+	使用命名空间,减少全局变量的使用。
+	var namespace = {
+		a:function(){console.log(1)},
+		b:function(){consooe.log(2)}
+	}
+	
 # 内置类型
     
     null
