@@ -1,7 +1,7 @@
 # 单例模式
 
 ```js
-// demo 用代理实现单例模式
+// demo 	用代理实现单例模式
 function CreateDiv(message){
 	this.message = message;
 	this.init();
@@ -24,6 +24,7 @@ const singletonCreateDiv = (function(){
 let m1 = singletonCreateDiv('hello');
 let m2 = singletonCreateDiv('world');
 ```
+
 	
 	
 	

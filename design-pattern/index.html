@@ -3,11 +3,30 @@
 	<head>
 		<meta charset="utf-8">
 		<title>设计模式</title>
+		<style>
+			.wrapper{
+				position:fixed;
+				left:0;right:0;top:0;bottom:0;
+				background-color:rgba(0,0,0,.65);
+				display:none;z-index:-1;
+			}
+			.wrapper .content{
+				position:relative;
+				left:50%;top:50%;
+				width:500px;height:400px;transform:translate(-50%,-50%);
+				background-color:#ffffff;
+				border-radius:5px;
+			}
+		</style>
 	</head>
 	<body>
+		<button class="login-button">登陆</button>
+		<div class="wrapper"></div>
 		<!-- <script src="./js/index.js"></script> -->
 		<!-- <script src="./js/单例模式.js"></script> -->
 		<!-- <script type="text/javascript" src="./js/代理实现单例.js"></script> -->
-		<script type="text/javascript" src="./js/js中的单例模式.js"></script>
+		<!-- <script type="text/javascript" src="./js/js中的单例模式.js"></script> -->
+		<!-- <script type="text/javascript" src="./js-策略/index.js"></script> -->
+		<script type="text/javascript" src="./js-策略/策略模式.js"></script>
 	</body>
 </html>
