@@ -104,20 +104,20 @@ p { color: green; }
     
 ## 属性简写
 
-    常见可以简写的CSS属性:
-        background:
-        CSS 2.1 
-            background-color background-image background-repeat background-attachment background-position
-        CSS 3
-            background-size background-origin background-clip
-        font:
-            font-style font-weight font-size line-height font-family
-        padding
-        margin
-            padding和margin的值是从 top 顺时针开始的：top、right、bottom、接着是 lef
-        border   
-        border-radius:
-             border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius 简写为一个属性。 
+   常见可以简写的CSS属性:
+		background:
+		CSS 2.1 
+				background-color background-image background-repeat background-attachment background-position
+		CSS 3
+				background-size background-origin background-clip
+		font:
+				font-style font-weight font-size line-height font-family
+		padding
+		margin
+				padding和margin的值是从 top 顺时针开始的：top、right、bottom、接着是 lef
+		border   
+		border-radius:
+				 border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius 简写为一个属性。 
         
     
     
