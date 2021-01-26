@@ -141,15 +141,16 @@
 }
 ```    
 
-# ppi
-
-    Pixels Per Inch,也叫像素密度,所表示的是每英寸所拥有的像素数量。因此PPI数值越高,即代表显示屏能够以更高的密度
-    显示图像。
-    
-    dppx 表示每个px的点数。
-    
-    @media.resolution
-        媒体功能可基于输出装置的像素密度,来应用样式。
+# resolution
+	
+	The resolution CSS media feature can be used to test the pixel density of the output device;
+		
+	Pixels Per Inch,也叫像素密度,所表示的是每英寸所拥有的像素数量。因此PPI数值越高,即代表显示屏能够以更高的密度
+	显示图像。
+	
+	dppx 每像素包含点的数量(dots per pixel);
+	dpi	 每英寸包含点的数量。普通屏幕通常包含96dpi,一般将2倍于此的屏幕称之为高分屏	1dppx = 96dpi;
+	
 ```css
 /* Minimum resolution */
 @media (min-resolution: 72dpi) {
