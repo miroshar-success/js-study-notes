@@ -5,10 +5,10 @@
 [mediaDevices.getUserMedia](https://developer.mozilla.org/zh-CN/docs/Web/API/MediaDevices/getUserMedia)
 
 	前端路由: hash路由和history路由:
-			重要的方法： history.go()/history.back()/history.forward()
-			
-			history.pushState(state,title,url);
-			history.replaceState(state,title,url);
+    重要的方法： history.go()/history.back()/history.forward()
+    
+    history.pushState(state,title,url);                     
+    history.replaceState(state,title,url);
 			
 	 onpopstate  会监听 go()/back()/forward()操作
 

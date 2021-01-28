@@ -83,37 +83,37 @@
      
     可以使用node -v  或者 npm -v 查询当前版本
     
-![node-version](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node-url.png);
-![node-install](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node%E5%AE%89%E8%A3%85.png) 
+[node-version](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node-url.png);
+[node-install](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node%E5%AE%89%E8%A3%85.png) 
        
 # filezilla工具使用
     
     登录 FileZilla
-        主机: ecs公网ip
-        用户名：root
-        密码：******
-        端口：22
-    
+			主机: ecs公网ip
+			用户名：root
+			密码：******
+			端口：22
+	
     上传文件
-        此时还无法通过 ip地址进行访问
+			此时还无法通过 ip地址进行访问
     
     编辑文件
-        vim filename
-        i
+			vim filename
+			i
 #  配置安全组
 
-    安全组 ---》 配置规则 ---》 添加安全组规则
-    
-    入方向：
-        端口范围：80/80
-        优先级：1
-        授权类型：地址段访问
-        授权对象：0.0.0.0/0
-        描述：开放80端口
-        
-    再次配置
-        端口范围：3000/9999
-        其余选项和上面相同
+	安全组 ---》 配置规则 ---》 添加安全组规则
+	
+	入方向：
+		端口范围：80/80
+		优先级：1
+		授权类型：地址段访问
+		授权对象：0.0.0.0/0
+		描述：开放80端口
+			
+	再次配置
+		端口范围：3000/9999
+		其余选项和上面相同
      
 # pm2
     
@@ -134,16 +134,16 @@ pm2 reload app_name
 pm2 stop app_name
 pm2 delete app_name
 ```
-    List managed applications
-        list the status of all application managed by pm2:
-        pm2 [list|ls|status]
+	List managed applications
+		list the status of all application managed by pm2:
+		pm2 [list|ls|status]
         
     
 # Linux安装MongoDB
     
-    1. Create an /etc/yum.repos.d/mongodb-org-4.4-repo fiel
-        vim /etc/yum.repos.d/mongodb-org-4.4-repo
-        编辑:
+	1. Create an /etc/yum.repos.d/mongodb-org-4.4-repo fiel
+		vim /etc/yum.repos.d/mongodb-org-4.4-repo
+		编辑:
 ```js
 // /etc/yum.repos.d/mongodb-org-4.4-repo
 [mongodb-org-4.4]
@@ -161,35 +161,35 @@ sudo yum install -y mongodb-org
 exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools
 ```
     
-    3. By default,MongoDB runs using the mongod user account and uses the following default directories:
-        /var/lib/mongo (data directory)
-        /var/log/mongodb (log directory)
-        
-    4. 启动mongodb服务
-        recent versions of Linux tend to use systemd (which uses the systemctl command),while older versions of Linux 
-        tend to use System V init(which use the service command).
+	3. By default,MongoDB runs using the mongod user account and uses the following default directories:
+		/var/lib/mongo (data directory)
+		/var/log/mongodb (log directory)
+			
+	4. 启动mongodb服务
+		recent versions of Linux tend to use systemd (which uses the systemctl command),while older versions of Linux 
+		tend to use System V init(which use the service command).
+
+		检测是使用 systemctl 还是 service命令:
+		ps --no-headers -o comm 1  根据返回值使用相应命令:
+				systemd : 使用systemctl命令
+				init:     使用service命令
     
-        检测是使用 systemctl 还是 service命令:
-        ps --no-headers -o comm 1  根据返回值使用相应命令:
-            systemd : 使用systemctl命令
-            init:     使用service命令
-    
-    5. 
-        5.1 sudo systemctl start mongod 
-        if you receive an error similar to the following when starting mongod:
-            Failed to start mongod.ervice:Unit mongod.service not found.
-            
-        执行下面的命令后再次使用 上面启动的命令
-            sudo systemctl daemon-reload    
-        
-        5.2 Verify that MongoDB has started successfully.
-            sudo systemctl status mongod
-            
-        5.3 stop mongodb
-            sudo systemctl stop mongod
-        
-        5.4 restart mongodb
-            sudo systemctl restart mongod 
+	5. 
+		5.1 sudo systemctl start mongod 
+		if you receive an error similar to the following when starting mongod:
+				Failed to start mongod.ervice:Unit mongod.service not found.
+				
+		执行下面的命令后再次使用 上面启动的命令
+				sudo systemctl daemon-reload    
+		
+		5.2 Verify that MongoDB has started successfully.
+				sudo systemctl status mongod
+				
+		5.3 stop mongodb
+				sudo systemctl stop mongod
+		
+		5.4 restart mongodb
+				sudo systemctl restart mongod 
             
      Uninstall MongoDB (you must remove the MongoDB applications themselves,the configuration files,and any 
      (directories data and logs)
@@ -206,10 +206,10 @@ systemctl start firewalld   // 开启防火墙
 systemctl stop firewalld    // 关闭防火墙
 firewall-cmd --zone=public --add-port-27017/tcp --permanent    //  永久开放27017端口
 ```
-    Localhost Binding by Default
-        By default,MongoDB launches with bindIp set to 127.0.0.1,which binds to the localhost network interface.
-        This means that the mongod can only accept connections from clients that are running on the same machine.
-        Remote clients will not be able to connect to the mongod. 
+	Localhost Binding by Default
+		By default,MongoDB launches with bindIp set to 127.0.0.1,which binds to the localhost network interface.
+		This means that the mongod can only accept connections from clients that are running on the same machine.
+		Remote clients will not be able to connect to the mongod. 
        
 ```js
 // 记一次启动失败 code=exited,status=14
@@ -273,19 +273,19 @@ gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
 ```     
     
-    To install nginx, run the following command:
-        sudo yum install nginx  
-        
-    nginx -v 测试nginx安装的版本
-    
-    查看nginx安装的目录
-        rpm -ql nginx
-    tips:
-        rpm 是linux的rpm包管理工具
-        -q 代表询问模式
-        -l 代表返回列表
-    
-    进入 /usr/share/nginx/html 文件 启动nginx 可以通过ip地址访问
+	To install nginx, run the following command:
+			sudo yum install nginx  
+			
+	nginx -v 测试nginx安装的版本
+	
+	查看nginx安装的目录
+			rpm -ql nginx
+	tips:
+			rpm 是linux的rpm包管理工具
+			-q 代表询问模式
+			-l 代表返回列表
+	
+	进入 /usr/share/nginx/html 文件 启动nginx 可以通过ip地址访问
  
 
 [Install Nginx](http://nginx.org/en/linux_packages.html)
