@@ -74,6 +74,10 @@
 	Ajax
 [XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest)
 
+# ES6
+	
+	1. let和const
+
 # PWA
 
   离线存储    Service Worker
