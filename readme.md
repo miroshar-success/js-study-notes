@@ -8,21 +8,15 @@
 
   重要的方法： history.go()/history.back()/history.forward()
 
-  
-
   history.pushState(state, title, url); 
   history.replaceState(state, title, url); 
-
 			
 	 onpopstate  会监听 go()/back()/forward()操作
 
 	 window.onhashchange = function(){}     // 监听hash值改变,可以通过location.hash 获取或设置
-                 
 
 [window.location](https://developer.mozilla.org/zh-CN/docs/Web/API/Location)
 [window.history](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
-
-    
 
 	Canvas画布
 	绘制基本图形：
@@ -74,22 +68,16 @@
 
 # 移动端
 
-	
-
 	viewport	
 	resolution:2dppx;	媒体查询
 
 # Javascript
-
-	
 
 	Ajax
 
 [XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest)
 
 # ES6
-
-	
 
 	1. let和const
 	2. 数组和对象的解构赋值
@@ -149,27 +137,18 @@ self.addEventListener('fetch', function(event) {
 	1. 在页面上下文中: new Notification('hello notification',{body:"通知的内容"})
 	2. 在serviceWorker中: self.registration.showNotification('hello notification',{body:'通知的内容'})
 
-	
-
 # Vue
-
 		
 	内置组件: keep-alive	transition
 	选项: mixins
 	生命周期函数: activated
-		
 
 # 工具
 
-    
-
 	1. serve: 
 
-			
-	Assuming you would like to serve a static site, single page application or just a static file, this package
-	is just the right choice for you.
-
-	
+	Assuming you would like to serve a static site, single page application or just a static file, 
+  this package is just the right choice for you.
 
 	Usage:
 			yarn global add serve  &&  serve or serve folder_name

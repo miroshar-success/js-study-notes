@@ -54,3 +54,87 @@ console.log(first,last);	// 1 6
 
 let {log,sin,cos,PI,round} = Math;
 console.log( sin(PI/6).toFixed(1) );	// 0.5 
+
+
+const [h,i,j,k,l] = 'hello,world';
+console.log(h,i,j,k,l);
+
+let {toString:o} = 123;
+console.log(o == Number.prototype.toString);	// true;
+
+
+// 函数参数的解构赋值
+
+function m1([x,y]){
+	console.log('sum:',x+y);	// 3
+}
+m1([1,2]);
+
+
+let temp = [[1,3],[3,4]].map(([a,b]) => a + b);
+console.log('array:',temp);	// [4, 7]
+
+
+function m2({x = 0, y = 0} = {}){
+	console.log('x:',x,'y:',y);
+}
+
+m2({x:3,y:8});	// 3, 8
+m2({x:undefined,y:4});	// 0 4
+m2({});		// 0 0
+m2();	// 0 0 
+
+
+// 为函数m3的参数指定默认值
+function m3({x,y} = {x:0,y:0}){
+	console.log('x:',x,'y:',y);
+}
+m3({x:3,y:8});	// 3 8
+m3({x:3});	// 3 undefined
+m3({});	// undefined undefined
+m3();	// 0 0 
+
+
+console.log( [1,undefined,3].map((x = 'yes') => x) );
+// [1,'yes',3];
+
+
+// 解构赋值的用途
+
+// 1. 变量值的交换
+let c1 = 1;
+let c2 = 2;
+[c1,c2] = [c2,c1];
+console.log(c1,c2);	// 2  1
+
+// 2. 从函数返回多个值
+function example() {
+	return [1,2,3];
+}
+let [d1,d2,d3] = example();
+console.log(d1,d2,d3);	// 1 2 3
+
+function app(){
+	return {
+		hello:'hello',
+		world:'world'
+	}
+}
+
+let {hello,world} = app();
+console.log(hello,world);	// hello world
+
+// 3. 提取json数据
+let jsonData = {
+	id:42,
+	status:'OK',
+	data:[867,5309]
+}
+
+let {id,status,data} = jsonData;
+console.log('id:',id,'status:',status,'data:',data);
+
+
+// 4. 加载模块指定的方法
+const {SourceMapConsumer} = require('source-map');
+
