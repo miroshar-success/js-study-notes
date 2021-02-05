@@ -26,6 +26,10 @@
 ```
 [url-loader](https://www.npmjs.com/package/url-loader)
 
+	vue-style-loader
+		This is a fork based on style-loader.Similar to style-loader,you can chain it after css-loader to dynamically
+		inject CSS into the document as style tags。
+
 # 管理输出
 	
 	npm install --save-dev html-webpack-plugin
@@ -82,7 +86,10 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 {
 	devServer:{
 		contentBase:"./dist",
-		port:9000
+		port:9000,
+		host:"0.0.0.0",
+		hot:true,						// 热更新
+		open:true,					// 编译完成后自动打开html页面
 	}
 }
 // package.json
@@ -94,6 +101,72 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 ```
 	webpack-dev-middleware是一个封装器,它可以把webpack处理过的文件发送到一个server。
 [使用express配合webpack-dev-middleware](https://webpack.docschina.org/guides/development/);
+
+# cross-env
+
+	Most Windows command prompts will choke when you ser environment variables with NODE_ENV=production like that.
+	cross-env makes it so you can have a single command without worrying about setting or using the environment
+	properly for the platform.
+	
+	Installation:
+		npm install --save-dev cross-env
+```js
+// webpack.config.js
+{
+	"scripts":{
+		"build":"cross-env NODE_ENV=production webpack --config webpack.config.js",
+		"dev":"cross-env NODE_ENV=development webpack serve"
+	}
+}
+```
+# postcss-loader
+	
+	npm install postcss-loader postcss
+```js
+// Usage postcss.config.js
+module.exports = {
+	plugins:[
+		[
+			"postcss-preset-env"
+		]
+	]
+}
+// webpack.config.js
+{
+	rules:[
+		{
+			test:/\.css/,
+			use:['style-loader','css-loader','postcss-loader']
+		}
+	]
+}
+```
+	在css-loader和style-loader之前使用它,但是在其他预处理器(sass|less|stylus-loader)之后使用,(因为webpack loader从右到做/
+	从底到顶执行)
+	
+# babel-loader
+
+	npm install babel-loader @babel/core @babel/preset-env
+```js
+// webpack.config.js
+{
+	rules:[
+		{
+			test:/\.js$/,
+			exclude:/node_modules/,
+			use:[
+				{
+					loader:"babel-loader",
+				}
+			]
+		}
+	]
+}
+// .babelrc
+{
+	"presets":['@babel/preset-env']
+}
+```
 
 # 代码分离
 	
