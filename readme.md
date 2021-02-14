@@ -94,39 +94,39 @@
 const CACHE_NAME = 'cache-v1';
 
 self.addEventListener('install', function(event) {
-    event.waitUntil(caches.open(CACHE_NAME).then(cache => {
-        cache.addAll([
-            './',
-            './index.css',
-            './1.png'
-        ]) // 添加需要缓存的咨询路径
-    }).then(self.skipWaiting()))
+	event.waitUntil(caches.open(CACHE_NAME).then(cache => {
+		cache.addAll([
+			'./',
+			'./index.css',
+			'./1.png'
+		]) // 添加需要缓存的咨询路径
+	}).then(self.skipWaiting()))
 })
 
 self.addEventListener('activate', function(event) {
-    event.waitUntil(caches.keys().then(cacheNames => {
-        return Promise.all(cacheNames.map(cache => {
-            if (cacheName !== CACHE_NAME) {
-                return caches.delete(cacheName)
-            }
-        }))
-    }).then(() => self.clients.claim()))
+	event.waitUntil(caches.keys().then(cacheNames => {
+		return Promise.all(cacheNames.map(cache => {
+			if (cacheName !== CACHE_NAME) {
+				return caches.delete(cacheName)
+			}
+		}))
+	}).then(() => self.clients.claim()))
 })
 
 self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.open(CACHE_NAME).then(cache => {
-            return cache.match(event.request).then(response => {
-                if (response) {
-                    return response
-                }
-                return fetch(event.request).then(response => {
-                    cache.put(event.request, response.clone());
-                    return response;
-                })
-            })
-        })
-    )
+	event.respondWith(
+		caches.open(CACHE_NAME).then(cache => {
+			return cache.match(event.request).then(response => {
+				if (response) {
+					return response
+				}
+				return fetch(event.request).then(response => {
+					cache.put(event.request, response.clone());
+					return response;
+				})
+			})
+		})
+	)
 })
 ```
 

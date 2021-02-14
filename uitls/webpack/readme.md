@@ -1,5 +1,55 @@
-# 资源处理
+# Vue-loader
+
+```js
+// webpack.config.js
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+module.exports = {
+	module:{
+		rules:[
+			{
+				test:/\.vue$/,
+				loader:"vue-loader"
+			}
+		]
+	},
+	plugins:[
+		new VueLoaderPlugin()
+	]
+}
+```
+	VueLoaderPlugin插件的职责是将定义过的其他规则复制并应用到.vue文件里相应语言的块。
 	
+# 资源处理	
+	
+	当Vue Loader编译单文件组件中的<template>块时,它会将所有遇到的资源URL转换为webpack模块请求:
+```html
+<img src="../image.png">
+
+// 将会编译成为:
+createElement('img',{
+	attrs:{
+		src:require("../image.png")
+	}
+})
+```
+	tips:	所有vue-cli创建的项目都默认配置了将@指向/src。
+	1. 报错信息： 在.vue文件中使用img图片 引入资源 图片路径是 <bbject Module>，因为url-loader默认使用es6模块化解析,而html-loader引入图片
+	是commonjs
+```js
+// webpack.config.js
+{
+	test:/\.(png|jpg|jpeg)$/,
+	use:[
+		{
+			loader:'url-loader',
+			options:{
+				esModule:false	// 关闭url-loader的es6模块化,使用commonjs解析
+			}
+		}
+	]
+}
+```
+
 	asset/resource 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。
 	asset/inline 导出一个资源的 data URI。之前通过使用 url-loader 实现。
 	asset/source 导出资源的源代码。之前通过使用 raw-loader 实现。
@@ -29,6 +79,47 @@
 	vue-style-loader
 		This is a fork based on style-loader.Similar to style-loader,you can chain it after css-loader to dynamically
 		inject CSS into the document as style tags。
+
+# 预处理器
+
+	会根据lang特性以及webpack配置中的规则自动推断出要使用的loader。
+	npm install -D sass-loader node-sass
+```js
+// webpack.config.js
+module.exports = {
+	module:{
+		rules:[
+			{
+				test:/\.scss$/,
+				use:[
+					'vue-style-loader',
+					'css-loader',
+					'sass-loader'
+				]
+			}
+		]
+	}
+}
+// 除了能够import 'style.scss', 还可以在Vue组件中使用SCSS;
+```
+
+# 开发服务器
+
+	webpack-dev-server可用于快速开发应用程序。
+```js
+// webpack.config.js
+module.exports = {
+	devServer:{
+		contentBase:path.join(__dirname,'dist'),	// 静态文件内容的来源。
+		compress:true,	// 利用gzips压缩 dist/目录当中的所有内容并提供一个本地服务。为每个静态文件开启 gzip compression
+		port:9000，
+		historyApiFallback:true,	// 当使用HTML5 history API时,所有的404请求都会响应index.html的内容。
+		before:function(app,server,compiler){
+			// 提供一个在devServer内部的所有中间件执行之前的自定义执行函数
+		}
+	}
+}
+```
 
 # 管理输出
 	
