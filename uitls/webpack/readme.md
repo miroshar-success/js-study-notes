@@ -90,11 +90,19 @@ module.exports = {
 	module:{
 		rules:[
 			{
-				test:/\.scss$/,
-				use:[
+				test:/\.scss$/,	// 普通的.scss文件和 .vue文件中 <style lang="scss">块都应用它
+<!-- 				use:[
 					'vue-style-loader',
 					'css-loader',
 					'sass-loader'
+				] -->
+				use:[	
+					'vue-style-loader',
+					'css-loader',
+					{
+						loader:'sass-loader',	// 允许所有被处理都文件之间共享常见都变量,而不需要显示地导入它们
+						additionalData:`$color:red;`
+					}
 				]
 			}
 		]
