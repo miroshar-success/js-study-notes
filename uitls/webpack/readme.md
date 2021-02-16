@@ -110,6 +110,66 @@ module.exports = {
 }
 // 除了能够import 'style.scss', 还可以在Vue组件中使用SCSS;
 ```
+	混用本地和全局样式(可以在一个组件中同时使用有scoped和非scoped样式)
+	<style></style>
+	<style scoped></style>
+	
+	自组件都根结点会同时受其父组件的scoped CSS 和 子组件的 scoped CSS的影响.这么设计是为了让父组件可以从布局的角度出发,调整其
+	子组件根元素的样式。
+```scss
+<style lang="scss" scoped>
+.a >>> .b {}
+
+.a::v-deep .b{}
+</style>
+```
+	
+	postcss-loader
+	npm install --save-dev postcss-loader postcss
+```js
+// webpack.config.js
+module.exports = {
+	module:{
+		rules: [
+			{
+				test:/\.css$/i,
+				use:['style-loader','css-loader','postcss-loader']
+			}
+		]
+	}
+}
+
+// postcss.config.js
+module.exports = {
+	plugins: [
+		[
+			'postcss-preset-env'
+		]
+	]
+}
+```
+	babel-loader
+	npm install --save-dev babel-loader @babel/core
+```js
+// webpack.config.js
+module:{
+	rules:[
+		{
+			test:/\.js$/,
+			exclude:/node_modules/,	// 
+			loader:'babel-loader'
+		}
+	]
+}
+```
+	npm install @babel/preset-env --save-dev
+```js
+// .babelrc
+{
+	"presets":['@babel/preset-env']
+}
+```
+[babel-loader](https://babel.docschina.org/setup/#installation)
 
 # 开发服务器
 
