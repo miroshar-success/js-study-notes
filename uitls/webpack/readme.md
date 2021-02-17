@@ -148,6 +148,34 @@ module.exports = {
 	]
 }
 ```
+	CSS分离
+	npm install mini-css-extract-plugin -D
+```js
+// webpack.config.js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+module.exports = {
+	module:{
+		rules:[
+			{
+				test:/\.css$/,
+				use:[
+					process.env.NODE_ENV !== 'production'
+					? 'vue-style-loader'
+					:MiniCssExtractPlugin.loader,
+					'css-loader'
+				]
+			}
+		]
+	},
+	plugins:[
+		new MiniCssExtractPlugin({
+			filename:'style.css'
+		})
+	]
+}
+```
+[mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
+
 	babel-loader
 	npm install --save-dev babel-loader @babel/core
 ```js
