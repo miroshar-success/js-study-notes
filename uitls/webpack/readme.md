@@ -51,7 +51,7 @@ createElement('img',{
 ```
 
 	asset/resource 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。
-	asset/inline 导出一个资源的 data URI。之前通过使用 url-loader 实现。
+	asset/inline 导出一个资源的 data URI。之前通过使用 url-loader 实现,默认使用Base64算法编码的文件内容。
 	asset/source 导出资源的源代码。之前通过使用 raw-loader 实现。
 	
 	现在webpack将按照默认条件,自动在resource和inline之间进行选择,小于8kb的文件将会视为inline模块类型,否则被视为resource模块类型。
@@ -149,7 +149,14 @@ module.exports = {
 }
 ```
 	CSS分离
-	npm install mini-css-extract-plugin -D
+	This plugin extracts CSS into separate files.It creates a CSS file per JS file which contains CSS.
+	
+	mini-css-extract-plugin is more often used in production mode to get separate css files.For development mode(including webpack-dev-server)
+	you can use style-loader,because it injects CSS into the DOM using multiple <style></style> and works faster.
+	
+	Install:
+		npm install mini-css-extract-plugin -D
+	
 ```js
 // webpack.config.js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
@@ -169,12 +176,15 @@ module.exports = {
 	},
 	plugins:[
 		new MiniCssExtractPlugin({
-			filename:'style.css'
+			filename:'style.css',	// '[name].css'	,
+			chunkFilename:'[id].css',	// base on filename
+			ignoreOrder:false,	// Enable to remove warnings about conflicting order
 		})
 	]
 }
 ```
 [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
+
 
 	babel-loader
 	npm install --save-dev babel-loader @babel/core
