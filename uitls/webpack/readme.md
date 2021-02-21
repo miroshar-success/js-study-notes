@@ -187,7 +187,7 @@ module.exports = {
 
 
 	babel-loader
-	npm install --save-dev babel-loader @babel/core
+	npm install --save-dev babel-loader @babel/core @babel/preset-env
 ```js
 // webpack.config.js
 module:{
