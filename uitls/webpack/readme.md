@@ -1,3 +1,14 @@
+# webpack
+	
+	Install:
+		npm install webpack webpack-cli(在命令行中运行webpack) --save-dev 
+	webpack通过运行一个或多个npm scripts，会在本地node_modules目录中查找安装的webpack:
+```js
+"scripts":{
+	"start":"webpack --config webpack.config.js"
+}
+```
+
 # Vue-loader
 
 ```js
@@ -76,6 +87,43 @@ createElement('img',{
 ```
 [url-loader](https://www.npmjs.com/package/url-loader)
 
+	style-loader
+		It is recommended to combine style-loader with the css-loader 
+	options:
+		injectType:
+			styleTag: Automatically injects styles into the DOM using multiple <style></style>.It is default behavior.
+			singletonStyleTag:Automatically injects styles into the DOM using one <style></style>
+			lazyStyleTag:injects styles into the DOM using multiple <style></style> on demand. We recommend following 
+			.lazy.css naming convention for lazy styles and the .css for basic style-loader usage.
+		esModule:
+			By default,style-loader generates JS modules that use the ES modules syntax.
+		source maps:
+			The loader automatically inject source maps when previous loader emit them.Therefore,to generate source maps, set 
+			the sourceMap option to true for the previous loader.
+		
+```js
+// main.js
+import styles from './style.css';
+styles.use();
+
+// webpack.config.js
+{
+	rules:[
+		{
+			test:/\.css$/,
+			use:[
+				{
+					loader:'style-loader',
+					options:{
+						injectType:'lazyStyleTag'
+					}
+				}
+				,'css-loader']
+		}
+	]
+}
+```
+		
 	vue-style-loader
 		This is a fork based on style-loader.Similar to style-loader,you can chain it after css-loader to dynamically
 		inject CSS into the document as style tags。
