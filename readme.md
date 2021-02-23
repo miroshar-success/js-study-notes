@@ -59,7 +59,6 @@
 	渐变:
 		ctx.createLinearGradient(x1, x2, y1, y2); 
 		ctx.createRadialGradient(x1, y1, r1, x2, y2, r2); 
-			
 
 [学习canvas, 一篇文章就够了](https://www.runoob.com/w3cnote/html5-canvas-intro.html)
 [CanvasRenderingContext2D](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
@@ -142,6 +141,16 @@ self.addEventListener('fetch', function(event) {
 	内置组件: keep-alive	transition
 	选项: mixins
 	生命周期函数: activated
+
+# Webpack
+	
+	常用loader:
+		css-loader style-loader file-loader url-loader vue-loader	postcss-loader sass-loader(less-loader)
+		babel-loader	
+		
+	常用plugin
+		html-webpack-plugin
+		clean-webpack-plugin	每次构建前清理/dist文件夹
 
 # 工具
 

@@ -117,17 +117,45 @@ styles.use();
 					options:{
 						injectType:'lazyStyleTag'
 					}
-				}
-				,'css-loader']
+				},
+				'css-loader'
+			]
 		}
 	]
 }
 ```
-		
 	vue-style-loader
 		This is a fork based on style-loader.Similar to style-loader,you can chain it after css-loader to dynamically
 		inject CSS into the document as style tags。
-
+		
+	css-loader
+		options:
+			importLoaders: Number default 0
+		The option importLoaders allows you to configure how many loaders before css-loader should be applied to
+		@import ed resources
+```js
+// webpack.config.js
+module.exports = {
+	module:{
+		rules:[
+			test:/\.css$/,
+			use:[
+				'style-loader',
+				{
+					loader:'css-loader',
+					options:{
+						importLoaders:2
+						// 0	no loaders	1 postcss-loader 2 postcss-loader,sass-loader
+					},
+					'postcss-loader',
+					'sass-loader'
+				}
+			]
+		]
+	}
+}
+```
+	
 # 预处理器
 
 	会根据lang特性以及webpack配置中的规则自动推断出要使用的loader。
@@ -388,28 +416,30 @@ module.exports = {
 ```
 	在css-loader和style-loader之前使用它,但是在其他预处理器(sass|less|stylus-loader)之后使用,(因为webpack loader从右到做/
 	从底到顶执行)
-	
-# babel-loader
 
-	npm install babel-loader @babel/core @babel/preset-env
+# HtmlWebpackPlugin	
+	
+	The plugin will generate an HTML5 file for you that includes all your webpack bundles in the body using script tags.
+	Just add the plugin to you webpack config
+	
+	npm install html-webpack-plugin --save-dev
 ```js
 // webpack.config.js
-{
-	rules:[
-		{
-			test:/\.js$/,
-			exclude:/node_modules/,
-			use:[
-				{
-					loader:"babel-loader",
-				}
-			]
-		}
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+	plugins:[
+		new HtmlWebpackPlugin({
+			title:String,//		the title to use for the generated hTML document
+			filename:String,	// The file to write the HTML to .defaults to index.html.
+			inject:'head|body|true|false',
+			publicPath:String,	// The publicPath used for scripts and link tags
+			minify:Boolean,		// true if mode is 'production', otherwise false
+			hash:Boolean, // append a unique webpack compilation hash to all included scripts and css files.
+			// This is useful for cache busting
+			template:String, // if the default generated HTML doesn't meet your needs you can supply your own template.
+			// The easiest way is to use the template option and pass a custom HTML file.
+		})
 	]
-}
-// .babelrc
-{
-	"presets":['@babel/preset-env']
 }
 ```
 
