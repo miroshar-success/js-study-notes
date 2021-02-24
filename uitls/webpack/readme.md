@@ -441,6 +441,28 @@ module.exports = {
 		})
 	]
 }
+// <title><%= htmlWebpackPlugin.options.title %></title>
+```
+
+# tree shaking
+
+	tree shaking是一个术语,通常用于描述移除JavaScript上下文中的未引用代码。它依赖于ES2015模块系统中的静态结构特性。
+	例如import和export。
+	
+	uglifyjs-webpack-plugin
+	This plugin uses uglify-js to minify your JavaScript.
+```js
+// webpack.config.js
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+module.exports = {
+	optimization:{
+		minimizer:[new UglifyJsPlugin({
+			test:/\.js$/i,
+			include:	,// Files to include
+			 exclude:,	// Files to exclude
+		})]
+	}
+}
 ```
 
 # 代码分离
