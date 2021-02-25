@@ -446,7 +446,7 @@ module.exports = {
 
 # tree shaking
 
-	tree shaking是一个术语,通常用于描述移除JavaScript上下文中的未引用代码。它依赖于ES2015模块系统中的静态结构特性。
+	tree shaking是一个术语,通常用于描述移除JavaScript上下文中的未引用代码。(dead-code) 它依赖于ES2015模块系统中的静态结构特性。
 	例如import和export。
 	
 	uglifyjs-webpack-plugin
@@ -460,15 +460,25 @@ module.exports = {
 			test:/\.js$/i,
 			include:	,// Files to include
 			 exclude:,	// Files to exclude
+			 sourceMap:true
 		})]
 	}
 }
 ```
+	tips: 避免在生产中使用inline-** 和 eval-**,因为他们可以增加bundle大小并降低整体性能。
+
+# 生产环境构建
+	
+	开发环境和生产环境的构建目标差异很大。开发环境中需要有强大的 具有实时重新加载(live reloading)或热模块替换(hot module replacement)能力的
+	source map和localhost server。生产环境下则关注更小的bundle,以改善加载时间。
+	工具: webpack-merge
+	npm install --save-dev webpack-merge
 
 # 代码分离
 	
 	常用的代码分离方法有三种:
 		1. 入口起点: 使用entry配置手动地分离代码
+			tips: 如果入口chunks之间包含重复的模块,重复模块会被引入到各个bundle中。
 		2. 防止重复: 使用Entry dependencied或者SplitChunksPlugin去重和分离chunk
 		3. 动态导入: 通过模块的内联函数调用来分离代码
 	

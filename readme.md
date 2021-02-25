@@ -145,13 +145,17 @@ self.addEventListener('fetch', function(event) {
 # Webpack
 	
 	常用loader:
-		css-loader style-loader file-loader url-loader vue-loader	postcss-loader sass-loader(less-loader)
+		css-loader style-loader file-loader url-loader 
+		vue-loader	postcss-loader sass-loader(less-loader)
 		babel-loader	
 		
-	常用plugin
+	常用plugin和工具
 		html-webpack-plugin
 		clean-webpack-plugin	每次构建前清理/dist文件夹
-
+		webpack-merge
+		webpack.HotModuleReplacementPlugin()
+		webpack.DefinePlugin
+		
 # 工具
 
 	1. serve: 
