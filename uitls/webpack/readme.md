@@ -473,6 +473,26 @@ module.exports = {
 	source map和localhost server。生产环境下则关注更小的bundle,以改善加载时间。
 	工具: webpack-merge
 	npm install --save-dev webpack-merge
+	
+	bundle文件名: [contenthash]将根据资源内容创建出唯一hash。当资源内容发生变化时,[contenthash]也会发生变化。
+	
+	将第三方库提取到单独到vendor chunk文件中是比较推荐到做法,因为 他们很少像本地到源代码那样频繁到修改。利用client的长效缓存机制,命中
+	缓存来消除请求,并减少像server获取资源,同时还能保证client代码和server代码版本一致。
+	
+# bundle分析
+
+	webpack-bundle-analyzer
+		npm install --save-dev webpack-bundle-analyzer
+```js
+// webpack.config.js
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+module.exports = {
+	plugins:[
+		new BundleAnalyzerPlugin()
+	]
+}
+```
+[webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
 
 # 代码分离
 	

@@ -156,6 +156,9 @@ self.addEventListener('fetch', function(event) {
 		webpack.HotModuleReplacementPlugin()
 		webpack.DefinePlugin
 		
+	bundle分析工具
+		webpack-chart/webpack-visualizer/webpack-bundle-analyzer/webpack bundle optimize helper
+		
 # 工具
 
 	1. serve: 
