@@ -493,6 +493,7 @@ module.exports = {
 }
 ```
 [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
+[hash,chunkhash,contenthash区别](https://blog.csdn.net/bubbling_coding/article/details/81561362)
 
 # 代码分离
 	
@@ -504,5 +505,20 @@ module.exports = {
 	
 	将第三方库提取到单独到vendor chunk中是比较推荐到做法。这是因为他们很少像本地的源代码那样频繁修改。因此可以利用client的长效缓存机制,命中
 	缓存来消除请求。
+	
+	构建性能:
+		loader: 将loader应用于最少数量的必要模块,通过使用include字段
+```js
+// webpack.config.js 
+module.exports = {
+	rules:[
+		{
+			test:/\.js$/,
+			include:path.resolve(__dirname,'src'),
+			loader:'babel-loader'
+		}
+	]
+}
+```
 	
 [webpack官方文档5.0](https://webpack.docschina.org/guides/development/)
