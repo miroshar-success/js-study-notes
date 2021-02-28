@@ -4,11 +4,15 @@
 		npm install webpack webpack-cli(在命令行中运行webpack) --save-dev 
 	webpack通过运行一个或多个npm scripts，会在本地node_modules目录中查找安装的webpack:
 ```js
-"scripts":{
-	"start":"webpack --config webpack.config.js"
+"scripts": {
+	"serve": "webpack serve --config webpack.dev.js",
+	"build": "webpack --config webpack.prod.js",
+	"start": "http-server dist"
 }
 ```
-
+	核心概念:
+		入口(entry)/输出(output)/loader/插件(plugin)/模式(mode)/
+		
 # Vue-loader
 
 ```js
@@ -479,6 +483,17 @@ module.exports = {
 	将第三方库提取到单独到vendor chunk文件中是比较推荐到做法,因为 他们很少像本地到源代码那样频繁到修改。利用client的长效缓存机制,命中
 	缓存来消除请求,并减少像server获取资源,同时还能保证client代码和server代码版本一致。
 	
+	ECMAScript模块
+		默认情况下,webpack将自动检测文件是ESM还是其他模块系统。 Node.js通过设置 package.json中的属性来显示设置文件模块类型.
+		在package.json中设置 type:"module"会强制package.json下的所有文件使用ECMAScript模块。
+		设置 "type":"commonjs" 会强制使用CommonJS模块。
+		
+# Service Worker
+
+	搭建一个检疫server,测试离线体验。 
+		npm install http-server --save-dev
+		npm install workbox-webpack-plugin
+	
 # bundle分析
 
 	webpack-bundle-analyzer
@@ -508,16 +523,22 @@ module.exports = {
 	
 	构建性能:
 		loader: 将loader应用于最少数量的必要模块,通过使用include字段
+		开发环境启用HMR(hot module replacement)
 ```js
 // webpack.config.js 
 module.exports = {
-	rules:[
-		{
-			test:/\.js$/,
-			include:path.resolve(__dirname,'src'),
-			loader:'babel-loader'
-		}
-	]
+	module:{
+		rules:[
+			{
+				test:/\.js$/,
+				include:path.resolve(__dirname,'src'),
+				loader:'babel-loader'
+			}
+		]
+	},
+	devServer:{
+		hot:true
+	}
 }
 ```
 	
