@@ -13,6 +13,25 @@
 	核心概念:
 		入口(entry)/输出(output)/loader/插件(plugin)/模式(mode)/
 		
+```js
+module.exports = {
+	entry:{
+		app:'./src/app.js'，		// 入口
+		index:'./src/index.js'
+	},
+	output:{	
+		filename:'[name].js',	// 多入口文件,应该使用占位符(substitutions)来确保每个文件具有唯一的名称。
+		path:path.join(__dirname,'dist')
+	}
+}
+```
+	webpack插件是一个具有apply方法的JavaScript对象。apply方法会被webpack compiler调用,并且在整个编译生命周期都可以访问compiler
+	对象。
+	new webpack.ProgressPlugin()	可以查看webpack编译进度。
+	
+	webpack能解析三种文件路径:
+		绝对路径/相对路径/模块路径
+
 # Vue-loader
 
 ```js
@@ -64,7 +83,6 @@ createElement('img',{
 	]
 }
 ```
-
 	asset/resource 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。
 	asset/inline 导出一个资源的 data URI。之前通过使用 url-loader 实现,默认使用Base64算法编码的文件内容。
 	asset/source 导出资源的源代码。之前通过使用 raw-loader 实现。
