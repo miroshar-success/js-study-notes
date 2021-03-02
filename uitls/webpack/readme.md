@@ -25,6 +25,11 @@ module.exports = {
 	}
 }
 ```
+	简单规则:
+		每个HTML页面都有一个入口起点。单页应用(SPA):一个入口起点,多页应用(MPA):多个入口起点。动态加载都模块不是入口起点。
+		默认情况下,每个入口chunk保存了全部其用都模块。
+
+
 	webpack插件是一个具有apply方法的JavaScript对象。apply方法会被webpack compiler调用,并且在整个编译生命周期都可以访问compiler
 	对象。
 	new webpack.ProgressPlugin()	可以查看webpack编译进度。
@@ -380,11 +385,26 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 // webpack.config.js
 {
 	devServer:{
-		contentBase:"./dist",
+		contentBase:"./dist",	// 告诉服务器内容的来源。 devServer.publicPath将用于确定bundle的来源,并具有优先级高于contentBase.
+		compress:true,		// 为每个静态文件开启gzip compression
 		port:9000,
 		host:"0.0.0.0",
-		hot:true,						// 热更新
+		hot:true,						// 热更新，启用webpack的 Hot Module Replacement功能
 		open:true,					// 编译完成后自动打开html页面
+		headers:"",					// 为每个请求添加响应标头
+		historyApiFallback:true,	// 当使用HTML5 historyapi时,所有的404请求都会响应index.html的内容。
+		before:function(app){
+			app.get("/api/path",function(req,res){
+				res.json({
+					data,
+					code:0
+				})
+			})
+		}，
+		overlay:{	// 编译出现错误和警告时在浏览器中全面覆盖显示
+			warnings:true,
+			errors:true	
+		}
 	}
 }
 // package.json
@@ -501,11 +521,33 @@ module.exports = {
 	将第三方库提取到单独到vendor chunk文件中是比较推荐到做法,因为 他们很少像本地到源代码那样频繁到修改。利用client的长效缓存机制,命中
 	缓存来消除请求,并减少像server获取资源,同时还能保证client代码和server代码版本一致。
 	
+	[hash] [chunkhash]和[contenthash]的长度可以使用[hash:16]来指定。
+	
 	ECMAScript模块
 		默认情况下,webpack将自动检测文件是ESM还是其他模块系统。 Node.js通过设置 package.json中的属性来显示设置文件模块类型.
 		在package.json中设置 type:"module"会强制package.json下的所有文件使用ECMAScript模块。
 		设置 "type":"commonjs" 会强制使用CommonJS模块。
 		
+# resolve
+
+	alias	创建import或require别名,来确保模块引入变得更简单,也可以在给定的键后的末尾添加$,以表示精确匹配；
+```js
+module.exports = {
+	resolve:{
+		alias:{
+			xyz$:path.join(__dirname,'path/to/file.js')
+		},
+		extensions:['.js','.json'],	// 用户在引入文件时可以不携带扩展名
+		mainFiles:['index']，	// 解析目录时要使用的文件名
+		modules:[path.resolve(__dirname,'src'),'node_modules']	
+		// 添加一个目录到模块搜索目录,此目录应优先于node_modules/搜索,使用绝对路径,将只在给定目录中搜索。
+	}
+}
+```
+# optimization
+
+	优化
+	
 # Service Worker
 
 	搭建一个检疫server,测试离线体验。 
