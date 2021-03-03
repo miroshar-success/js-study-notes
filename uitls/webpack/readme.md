@@ -404,7 +404,14 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 		overlay:{	// 编译出现错误和警告时在浏览器中全面覆盖显示
 			warnings:true,
 			errors:true	
-		}
+		}，
+		proxy:{
+			"/api":{
+				target:"http://localhost:3000"
+			}
+		},
+		publicPath:'http://localhost:8080/assets/'	// 确保devServer.publicPath始终以/开头和结尾,
+		// 建议devServer.publicPath 与 output.publicPath相同。
 	}
 }
 // package.json
@@ -416,6 +423,23 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 ```
 	webpack-dev-middleware是一个封装器,它可以把webpack处理过的文件发送到一个server。
 [使用express配合webpack-dev-middleware](https://webpack.docschina.org/guides/development/);
+	devServer.proxy
+		当拥有单独的API后端开发服务器并且希望在同一域上发送API请求时。可以使用proxy选项。
+```js
+module.exports = {
+	devServer:{
+		proxy:{
+			'/api':{
+				target:"http://localhost:3000",
+				pathRewrite:{
+					"^/api":""
+				}
+			}
+		}
+	}
+}
+```
+	现在对 /api/users的请求将请求代理到 http://localhost:3000/api/users。 如果不希望传递/api,则需要重写路径.
 
 # cross-env
 
