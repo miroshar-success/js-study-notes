@@ -290,7 +290,11 @@ module.exports = {
 
 
 	babel-loader
+	此package允许你使用Babel和webpack转译JavaScript文件。
 	npm install --save-dev babel-loader @babel/core @babel/preset-env
+	
+	Babel在每个文件都插入了辅助代码,对一些公用方法使用了非常小对辅助代码,比如_extend。默认情况下会被添加到每个需要它到文件中。可以引入
+	Babel runtime作为一个独立模块,来避免重复引入。
 ```js
 // webpack.config.js
 module:{
