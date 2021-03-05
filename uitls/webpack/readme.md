@@ -288,6 +288,24 @@ module.exports = {
 ```
 [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
 
+	DefinePlugin
+		允许在编译时创建配置的全局常量,需要区分 开发模式和生产模式进行不同的操作时非常有用。传递给DefinePlugin的每个键都是一个标识
+		符或多个以. 连接的标识符号。
+```js
+module.exports = {
+	plugins:[
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV':JSON.stringify('production')
+		})
+	]
+}
+```
+	process对象提供一个全局变量,提供了有关当前Node.js进程的信息并对其进行控制。作为全局变量,它始终可供Node.js应用程序使用,无需使用require。
+	process.env属性会返回包含用户环境的对象。在process.env上为属性赋值会隐式地将值转换为字符串。
+	tips:
+		在为 process 定义值时，'process.env.NODE_ENV': JSON.stringify('production') 会比
+		process: { env: { NODE_ENV: JSON.stringify('production') } } 更好
+
 
 	babel-loader
 	此package允许你使用Babel和webpack转译JavaScript文件。
@@ -316,23 +334,9 @@ module:{
 ```
 [babel-loader](https://babel.docschina.org/setup/#installation)
 
-# 开发服务器
+# splitChunksPlugin
 
-	webpack-dev-server可用于快速开发应用程序。
-```js
-// webpack.config.js
-module.exports = {
-	devServer:{
-		contentBase:path.join(__dirname,'dist'),	// 静态文件内容的来源。
-		compress:true,	// 利用gzips压缩 dist/目录当中的所有内容并提供一个本地服务。为每个静态文件开启 gzip compression
-		port:9000，
-		historyApiFallback:true,	// 当使用HTML5 history API时,所有的404请求都会响应index.html的内容。
-		before:function(app,server,compiler){
-			// 提供一个在devServer内部的所有中间件执行之前的自定义执行函数
-		}
-	}
-}
-```
+	当wbepack处理文件路径时,它们始终包含Unix系统中当/和Windows系统中的\。
 
 # 管理输出
 	
