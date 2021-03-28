@@ -137,10 +137,163 @@ self.addEventListener('fetch', function(event) {
 	2. 在serviceWorker中: self.registration.showNotification('hello notification',{body:'通知的内容'})
 
 # Vue
+	
+	全局API: Vue.extend / Vue.nextTick / Vue.directive / Vue.filter / Vue.mixin / Vue.use / Vue.component
+	内置组件: keep-alive	transition slot component transition-group
+	选项: data / props / computed / methods /watch / mixins components/ filters directives 
+	生命周期函数: beforeCreate / created / beforeMount / mounted / beforeUpdate / updated / activated / deactivated
+	beforeDestory / destoryed 
+	特殊attribute: key ref is v-slot 
+	指令:v-text/v-html/v-show/v-if/v-else-if/v-else/v-for/v-on/v-bind/v-model/v-slot
+	
+# Vue-Router
+	
+	导航守卫:
+		1. 全局前置守卫 router.beforeEach 
+```js
+const router = new VueRouter({})
+router.beforeEach((to,from,next) => {
+	// ...
+})
+```
+	2. 全局后置钩子	
+```js
+// 不会接受next函数也不会改变导航本身
+router.afterEach((to,from) => {
+	// ...
+})
+```
+	路由独享的守卫
+```js
+const router = new VueRouter({
+	routes:[
+		{
+			path:"/foo",
+			component:Foo,
+			beforeEnter:(to,from,next) => {
+			}
+		}
+	]
+})
+```
+	组件内的守卫
+		beforeRouterEnter	/ beforeRouteUpdate	/ beforeRouteLeave	
+```js
+const Foo = {
+	template:`...`,
+	beforeRouteEnter(to,from,next){
+		// 无法获取当前实例,可以在next回调函数里获取组件实例
+		next(vm => {
+		})
+	},
+	beforeRouteUpdate(to,from,next){
+		// 在动态路由的情况下 可以在此函数 获取到路径更新
+	},
+	beforeRouteLeave(to,from,next){
+		// 导航离开该组件时调用	
+		const answer = window.confirm("Do you want to leave?");
+		if(answer){
+			next()
+		}else{
+			next(false);
+		}
+	}
+}
+```
+	数据获取两种方式:
+		1. 导航完成之后获取: 在组件生命周期钩子中获取数据。
+		2. 导航完成之前获取: 在路由进入的守卫中获取数据,在数据获取成功后执行导航。
+
+	路由懒加载： 将异步组件返回一个Promise的工厂函数(该函数返回的Promise应该resolve组件本身)。
+	
+```js
+const Foo = () => import('./Foo.vue');
+const Bar = () => import('./Bar.vue');
+```
+	嵌套路由:
+```js
+const router = new VueRouter({
+	routes:[
+		{
+			path:"/user/:id",
+			component:User,
+			children:[
+				{
+					path:'profile',
+					component:UserProfile
+				},
+				{
+					path:"posts",
+					component:UserPosts
+				}
+			]
+		}
+	]
+})
+```
+	命名视图和命名路由
+```html
+<router-view name="a"></router-view>
+<router-view name="b"></router-view>
+<router-link :to="{ name: 'user', params: { id: 123 }}">User</router-link>
+// 如果提供了path, params会被忽略
+```
+```js
+const router = new VueRouter({
+	routes:[
+		{
+			path:"/user/:id",
+			name:'user',
+			component:() => import("./user.vue")
+		},
+		{
+			path:"/layout",
+			name:'Layout',
+			components:{
+				a:Bar,
+				b:Foo
+			}
+		}
+	]
+})
+```
+	滚动行为: 当且仅当popstate导航时才可用。返回值为 {x:number,y:number}
+```js
+const router = new VueRouter({
+	routes:[],
+	scrollBehavior(to,from,savedPosition){
+		if(savedPosition){
+			return savedPosition
+		}else{
+			return {x:0,y:0}
+		}
+	}
+})
+```
+[vue-router](https://router.vuejs.org/zh/installation.html)
+[vue-router-api](https://router.vuejs.org/zh/api/)
+
+# Vuex
+```js
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+const store = new Vuex.Store({
+	state:{
 		
-	内置组件: keep-alive	transition
-	选项: mixins
-	生命周期函数: activated
+	},
+	mutations:{
+		// 处理同步任务
+	},
+	getters:{
+		
+	},
+	actions:{
+		// 可以处理异步任务
+	}
+})
+```
+	辅助函数	mapState	mapGetters	mapMutations	mapActions
 
 # Webpack
 	
