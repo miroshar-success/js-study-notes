@@ -73,7 +73,6 @@
 # Javascript
 
 	Ajax
-
 [XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest)
 
 # ES6
@@ -140,7 +139,7 @@ self.addEventListener('fetch', function(event) {
 	
 	全局API: Vue.extend / Vue.nextTick / Vue.directive / Vue.filter / Vue.mixin / Vue.use / Vue.component
 	内置组件: keep-alive	transition slot component transition-group
-	选项: data / props / computed / methods /watch / mixins components/ filters directives 
+	选项: data / props / computed / methods /watch / mixins components/ filters / directives 
 	生命周期函数: beforeCreate / created / beforeMount / mounted / beforeUpdate / updated / activated / deactivated
 	beforeDestory / destoryed 
 	特殊attribute: key ref is v-slot 
@@ -274,6 +273,7 @@ const router = new VueRouter({
 [vue-router-api](https://router.vuejs.org/zh/api/)
 
 # Vuex
+
 ```js
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -286,7 +286,7 @@ const store = new Vuex.Store({
 		// 处理同步任务
 	},
 	getters:{
-		
+		// vuex的计算属性
 	},
 	actions:{
 		// 可以处理异步任务
@@ -294,6 +294,41 @@ const store = new Vuex.Store({
 })
 ```
 	辅助函数	mapState	mapGetters	mapMutations	mapActions
+
+# Vue服务端渲染
+
+```js
+// Koa搭建的一个完整的实例
+const Koa = require("koa");
+const router = require("koa-router");
+const Vue = require("vue");
+const app = new Koa();
+const renderer = require("vue-server-renderer").createRender({
+	template:require("fs").readFileSync('./index.template.html')	// 使用一个页面模版
+})
+
+const context = {
+	title:"Hello World",
+	metas: `
+		<meta name="keyword" content="vue,ssr">
+		<meta name="description" content="vue srr demo">
+	`
+}
+
+router.get("/home",async ctx => {
+	const app = new Vue({
+		data:{
+			message:"hello world"
+		},
+		template:`<div>{{message}}</div>`
+	})
+	renderer.renderToString(app,context).then(html => {
+		ctx.body = html;
+	})
+})
+app.use(router.routes()).use(router.allowedMethods());
+```
+	所有的生命周期函数中,只有beforeCreate和created会在服务器端渲染过程中被调用。其他任何生命周期钩子函数只会在客户端执行。
 
 # Webpack
 	
@@ -322,8 +357,9 @@ const store = new Vuex.Store({
 	Usage:
 			yarn global add serve  &&  serve or serve folder_name
      
-        
-
+	2. nodemon
+		nodemon is a tool that helps develop node.js based applications by automatically restarting the node application
+		when file changes in the directory are detected!
     
 
     
