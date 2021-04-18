@@ -33,87 +33,90 @@
 			</ol>
 		</div>
 		
+		<!-- 组件 -->
+		<div id="app">
+			<ol v-if="todoList.length">
+				<todo-item
+					v-for="(todo,index) in todoList"
+					:key="'todo-'+index"
+					:todo="todo"
+				></todo-item>
+			</ol>
+		</div>
+		<h2>实例对象</h2>
+		<div id="instance">
+			{{message}}
+		</div>
+		<h2>模版语法</h2>
+		<div id="demo1">
+			<p>{{msg}}</p>
+			<p>{{rawHtml}}</p>
+			<p>Using v-html directives : <span v-html="rawHtml"></span></p>
+			<p>动态绑定html属性: <span v-bind:id="dynamicId">属性为null 或者 undefined的时候 不生效</span></p>
+			<p>动态绑定布尔值: <button :disbaled="isButtonDisabled">click</button></p>
+			<div>
+				<p>JavaScript表达式: {{number+1}}</p>
+				<p>{{ok ? 'OK' : 'NO'}}</p>
+				<p>{{message.split("").reverse().join("")}}</p>
+				<button v-on:[eventname]="hello">{{eventname == 'click' ? 'click' : 'dblclick'}}</button>
+			</div>
+		</div>
+		<h2>Data Property</h2>
+		<div id="demo2">
+			<button @click.stop="increment">{{count}}</button>
+		</div>
+		<h2>计算属性和侦听器</h2>
+		<div id="demo3">
+			<p>Has Published books: <span>{{author.books.length > 0 ? 'Yes' : 'No'}}</span></p>
+			<p>计算属性计算的 Has Published books : <span>{{publishedBooksMessage}}</span></p>
+			<p>方法计算的 Has Published books : <span>{{getPublishedMessage()}}</span></p>
+			<button @click.stop="increment">{{count}}</button>
+			<input type="text" v-model="fullName">
+			{{fullName}}
+			<div>
+				watch-example:
+				<p>Ask a yes/no question:</p>
+				<input type="text" v-model="question">
+				<p>{{answer}}</p>
+			</div>
+		</div>
+		<h2>列表渲染</h2>
+		<ul id="array-rendering">
+			<li v-for="(item,index) in items" :key="item['id']">{{item['text']}}</li>
+		</ul>
+		<div id="array-with-box">
+			<p v-for="(item,index) in items">{{parentMessage}} -- {{index}} -- {{item['text']}}</p>
+		</div>
+		<ul id="v-for-object">
+			<li v-for="(value,key) in object">value:{{value}} -- key:{{key}}</li>
+			<li>————————————————————————————————————————————————————</li>
+			<li v-for="(value) in array">{{value}}</li>
+			<li v-for="(n) in evenNumbers" :key="n">{{n}}</li>
+		</ul>
+		<div id="todo-list-example">
+			<form v-on:submit.prevent="addNewTodo">
+				<label for="new-todo">Add a todo</label>
+				<input type="text" v-model="todo" placeholder="E.g. Feed the cat">
+				<input type="submit" value="Add">
+			</form>
+			<ul>
+				<template v-for="(todo,index) in todo_list">
+					<todo-item :todo="todo" @remove="remove(index)"></todo-item>
+				</template>
+			</ul>
+		</div>
+		<h2>事件处理</h2>
+		<div id="bind-event">
+			
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
-		<script>
-			const Counter = {
-				data(){
-					return {
-						counter:0,
-						timer:null,
-						message:'You loaded this page on ' + new Date().toLocaleString()
-					}
-				},
-				methods:{
-					add(){
-						this.counter += 1;
-					},
-					clear_timer(){
-						if(this.timer){
-							clearInterval(this.timer);
-						}
-					}
-				},
-				mounted(){
-					this.timer = setInterval(() => {
-						this.counter += 1;
-					},1000)
-				}
-			}
-			Vue.createApp(Counter).mount("#root");
-			
-				// 事件绑定
-			const EventHandling = {
-				data(){
-					return {
-						message:'hello world'
-					}
-				},
-				methods:{
-					reverseMessage(){
-						this.message = this.message.split("").reverse().join("");
-					}
-				}
-			}
-			Vue.createApp(EventHandling).mount("#event-handling");
-			
-			// 表单绑定
-			const TwoWayBinding = {
-				data(){
-					return {
-						message:'Hello Vue!'
-					}
-				}
-			}
-			Vue.createApp(TwoWayBinding).mount("#two-way-binding");
-			
-			// 条件渲染
-			const ConditionalRendering = {
-				data() {
-					return {
-						seen:false
-					}
-				},
-				methods:{
-					toggle_show(){
-						this.seen = !this.seen;
-					}
-				}
-			}
-			Vue.createApp(ConditionalRendering).mount("#conditional-rendering");
-			
-			// 条件渲染
-			const ListRendering = {
-				data(){
-					return {
-						todos:[
-							{text:"Learn JavaScript"},
-							{text:"Learn Vue"},
-							{text:"Build something awesome"}
-						]
-					}
-				}
-			}
-			Vue.createApp(ListRendering).mount("#list-rendering");
-		</script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="./js/introduce.js"></script>
+		<script type="text/javascript" src="./js/instance.js"></script>
+		<script type="text/javascript" src="./js/template-syntax.js"></script>
+		<script type="text/javascript" src="./js/data-property.js"></script>
+		<script type="text/javascript" src="./js/computed-watch.js"></script>
+		<script type="text/javascript" src="./js/list-render.js"></script>
+		<script type="text/javascript" src="./js/bind-event.js"></script>
 	</body>
 </html>
