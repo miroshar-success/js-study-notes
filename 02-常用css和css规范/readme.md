@@ -117,7 +117,14 @@ p { color: green; }
 				padding和margin的值是从 top 顺时针开始的：top、right、bottom、接着是 lef
 		border   
 		border-radius:
-				 border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius 简写为一个属性。 
+				 border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius 简写为一个属性。
+					
+					
+	white-space:
+		pre	空白会被浏览器保留。
+		nowrap: 不换行
+		pre-wrap: 保留空白符序列，但是正常地进行换行。
+		pre-line: 合并空白符序列，但是保留换行符。
         
     
     

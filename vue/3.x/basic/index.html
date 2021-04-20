@@ -129,6 +129,48 @@
 			</form>
 			<input type="text" @keyup.enter="enter">
 		</div>
+		<h2>表单绑定</h2>
+		<div id="form-bind">
+			<input type="text" placeholder="edit me" v-model="message">
+			<p>{{message}}</p>
+			<span>Multiline message is:</span>
+			<p style="white-space:pre-line;">{{msg}}</p>
+			<textarea v-model="msg" placeholder="add multiple lines"></textarea>
+		</div>
+		<div id="v-model-select">
+			<select  v-model="selected">
+				<option value="" disabled>Please select one</option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+			</select>
+			<span>{{selected}}</span>
+		</div>
+		<div id="multiple-select">
+			<select name="" id="" v-model="selected" multiple>
+				<option value="kyrie">Kyrie</option>
+				<option value="lerbon">Lebron</option>
+				<option value="wade">Wade</option>
+				<option value="durant">Durant</option>
+			</select>
+			<span>{{selected}}</span>
+		</div>
+		<div id="v-model-select-dynamic">
+			<select v-model="selected">
+				<option value="" disabled>1111</option>
+				<option v-for="(option,index) in options" :key="'option-'+index" :value="option['value']">{{option['text']}}</option>
+			</select>
+			<p>{{selected}}</p>
+		</div>
+		<div id="single-picked">
+			男<input type="radio" name="sex" value="男" v-model="picked_sex">
+			女<input type="radio" name="sex" value="女" v-model="picked_sex">
+		</div>
+		<div id="multiple-picked">
+			<input type="checkbox" name="player" value="durant" v-model="selected_player">
+			<input type="checkbox" name="player" value="kyrie" v-model="selected_player">
+			<p>{{selected_player}}</p>
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="./js/introduce.js"></script>
@@ -138,5 +180,6 @@
 		<script type="text/javascript" src="./js/computed-watch.js"></script>
 		<script type="text/javascript" src="./js/list-render.js"></script>
 		<script type="text/javascript" src="./js/bind-event.js"></script>
+		<script type="text/javascript" src="./js/form-bind.js"></script>
 	</body>
 </html>
