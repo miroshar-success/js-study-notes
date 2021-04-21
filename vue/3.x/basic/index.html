@@ -171,6 +171,26 @@
 			<input type="checkbox" name="player" value="kyrie" v-model="selected_player">
 			<p>{{selected_player}}</p>
 		</div>
+		<div id="component-demo">
+			<button-counter></button-counter>
+			<blog-post title="My journey with Vue"></blog-post>
+			<blog-post title="Blogging with Vue"></blog-post>
+			<blog-post title="Why Vue is so fun"></blog-post>
+			<div :style="{fontSize:postFontSize + 'em'}">
+				<blog-post 
+					v-for="(blog,index) in posts" :key="'blog-'+index"
+					:title="blog['title']"
+					@large_text="postFontSize += $event"
+				></blog-post>
+			</div>
+		</div>
+		<div id="model-component">
+			<!-- <input type="text" v-model="searchText"> -->
+			<p>{{searchText}}</p>
+			<!-- <input type="text" :value="searchText" @input="change_value"> -->
+			<custom-input :model-value="searchText" @update="searchText = $event"></custom-input>
+			<custom-input v-model="searchText"></custom-input>
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="./js/introduce.js"></script>
@@ -181,5 +201,7 @@
 		<script type="text/javascript" src="./js/list-render.js"></script>
 		<script type="text/javascript" src="./js/bind-event.js"></script>
 		<script type="text/javascript" src="./js/form-bind.js"></script>
+		<script type="text/javascript" src="./js/basic-event.js"></script>
+		<script type="text/javascript" src="./js/model-component.js"></script>
 	</body>
 </html>
