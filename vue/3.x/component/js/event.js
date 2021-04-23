@@ -74,11 +74,15 @@ modifer_app.component('modifer-input',{
 	emits:['update:modelValue'],
 	methods:{
 		change_value(event){
-			this.$emit("update:modelValue",event.target.value);
+			let value = event.target.value;
+			if(this.modelModifiers.capitalize){
+				value = value.charAt(0).toUpperCase() + value.slice(1);
+			}
+			this.$emit("update:modelValue",value);
 		}
 	},
 	created(){
-		console.log('created:',this.modelModifers);
+		console.log('created:',this.modelModifiers);
 	}
 }).mount("#modifer-event");
 

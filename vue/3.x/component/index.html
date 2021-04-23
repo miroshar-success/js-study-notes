@@ -22,7 +22,61 @@
 			<p>{{msg}}</p>
 			<modifer-input v-model.capitalize="msg"></modifer-input>
 		</div>
+		<p>组件上使用v-model</p>
+		<div id="emit-bind">
+			<p>{{message}}</p>
+			<my-component v-model="message"></my-component>
+		</div>
+		<p>组件上使用多个v-model</p>
+		<div id="mutiple-event-bind">
+			<p>player:{{player}}</p>
+			<p>singer:{{singer}}</p>
+			<my-component v-model:player="player" v-model:singer="singer"></my-component>
+		</div>
+		<p>v-model的修饰符</p>
+		<div id="modifier-event">
+			<p>{{message}}</p>
+			<my-component v-model.capitalize="message"></my-component>
+		</div>
+		<p>插槽</p>
+		<div id="slot-component">
+			<my-component>123</my-component>
+			<my-component>hello world</my-component>
+			<my-component></my-component>
+		</div>
+		<div id="layout">
+			<base-layout>
+<!-- 				<template v-slot:header>
+					Hello I am header 
+				</template>
+				<template v-slot:body>
+					Hello I am body
+				</template>
+				<template v-slot:footerx>
+					Hello I am footer
+				</template> -->
+				<template v-slot:header>
+					<h1>Here might be a page title</h1>
+				</template>
+				<template v-slot:body>
+					<p>A paragraph for the main content</p>
+					<p>And another one.</p>
+				</template>
+				<template v-slot:footer>
+					<p>Here is some contact info</p>
+				</template>
+			</base-layout>
+		</div>
+		<div id="todo-list">
+			<todo-list>
+				<template v-slot:default="slotProps">
+					<span class="green">{{slotProps.item}}</span>
+				</template>
+			</todo-list>
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="./js/event.js"></script>
+		<script src="./js/review-emit.js"></script>
+		<script src="./js/slot.js"></script>
 	</body>
 </html>
