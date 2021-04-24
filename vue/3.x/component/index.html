@@ -74,9 +74,35 @@
 				</template>
 			</todo-list>
 		</div>
+		<div id="provide">
+			<todo-list></todo-list>
+		</div>
+		<div id="dynamic-component-demo" class="demo">
+			<button
+				 v-for="tab in tabs"
+				 :key="tab"
+				 :class="['tab-button', { active: currentTab === tab }]"
+				 @click="currentTab = tab"
+			 >{{ tab }}</button>
+			 <keep-alive>
+				<component :is="currentTabComponent" class="tab"></component>
+			 </keep-alive>
+		</div>
+		<div id="keep-alive">
+			<button @click.stop="toggleSinger">singer</button><button @click.stop="togglePlayer">player</button>
+			<keep-alive>
+				<component :is="currentTabComponent"></component>
+			</keep-alive>
+		</div>
+		<div id="async-component">
+			<AsyncComp v-if="show"></AsyncComp>
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="./js/event.js"></script>
 		<script src="./js/review-emit.js"></script>
 		<script src="./js/slot.js"></script>
+		<script src="./js/provide-inject.js"></script>
+		<script src="./js/keep-alive.js"></script>
+		<script src="./js/async-component.js"></script>
 	</body>
 </html>
