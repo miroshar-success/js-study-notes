@@ -4,9 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>可复用 & 组合</title>
+  <style>
+    ul,ol{padding: 0;margin: 0;}
+  </style>
 </head>
 <body>
+  <div id="todo_app">
+    <todo-component></todo-component>
+  </div>
+  <div id="setup_app">
+    <my-component></my-component>
+  </div>
+  <div id="introduce_setup">
+    <button @click.stop="change">click me {{counter}}</button>
+    <my-component :counter="counter"></my-component>
+  </div>
+  <div id="context_app">
+    <my-component></my-component>
+  </div>
   <script src="https://unpkg.com/vue@next"></script>
-  <script src="./js/setup.js"></script>
+  <script type="module" src="./js/setup.js"></script>
+  <script type="module" src="./js/setup_introduce.js"></script>
 </body>
 </html>
