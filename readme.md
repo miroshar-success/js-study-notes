@@ -272,6 +272,19 @@ const router = new VueRouter({
 [vue-router](https://router.vuejs.org/zh/installation.html)
 [vue-router-api](https://router.vuejs.org/zh/api/)
 
+# Vue 3.x
+
+	钩子函数	beforeUnmount unmounted
+	composition API:
+		setup(props,context){
+			1. 创建响应式变量 Vue.ref()	Vue.reactive()
+			2. Vue.watch()	监听变量
+			3. Vue.computed()	计算属性
+			4. const {title} = Vue.toRefs(props);	//解构props
+			5. const {title} = Vue.toRef(props,'title'),
+		}
+	在setup里的生命周期函数,函数名前多了on,比如 onMounted onBeforeUpdate
+
 # Vuex
 
 ```js
