@@ -97,6 +97,22 @@
 		<div id="async-component">
 			<AsyncComp v-if="show"></AsyncComp>
 		</div>
+		<div id="teleport-app">
+			<div style="position:relative;">
+				<h3>Tooltips with Vue3 Teleport</h3>
+				<div>
+					<modal-button></modal-button>
+				</div>
+			</div>
+		</div>
+		<div id="teleport">
+			<div style="position:relative">
+				<h3>Tooltips with Vue3 Teleport</h3>
+			</div>
+			<div>
+				<modal-button></modal-button>
+			</div>
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="./js/event.js"></script>
 		<script src="./js/review-emit.js"></script>
@@ -104,5 +120,6 @@
 		<script src="./js/provide-inject.js"></script>
 		<script src="./js/keep-alive.js"></script>
 		<script src="./js/async-component.js"></script>
+		<script src="./js/teleport.js"></script>
 	</body>
 </html>

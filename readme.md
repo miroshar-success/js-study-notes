@@ -285,6 +285,8 @@ const router = new VueRouter({
 		}
 	在setup里的生命周期函数,函数名前多了on,比如 onMounted onBeforeUpdate
 
+	teleport	允许我们控制在DOM中哪个父节点下渲染了HTML。 <teleport to="body"></teleport>
+
 # Vuex
 
 ```js
