@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实例Property</title>
+</head>
+<body>
+  <div id="blog-app">
+    <blog-post>
+      <template v-slot:header>
+        <h1>Here might be a page title</h1>
+      </template>
+      <template v-slot:main>
+        <p>A paragraph for the main content.</p>
+        <p>And another one.</p>
+      </template>
+      <template v-slot:footer>
+        <p>Here is some contact info</p>
+      </template>
+    </blog-post>
+  </div>
+  <div id="blog-render">
+    <blog-post>
+      <template v-slot:header>
+        <h1>Here might be a page title!</h1>
+      </template>
+      <template v-slot:main>
+        <p>A paragraph for the main content.</p>
+        <p>And another one.</p>
+      </template>
+      <template v-slot:footer>
+        <p>Here is some contact info</p>
+      </template>
+    </blog-post>
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="./js/$slots.js"></script>
+</body>
+</html>

@@ -287,6 +287,10 @@ const router = new VueRouter({
 
 	teleport	允许我们控制在DOM中哪个父节点下渲染了HTML。 <teleport to="body"></teleport>
 
+	$slots
+		用来以编程的方式通过插槽分发的内容。每个具名插槽都有其相应的property.(如：v-slot:foo中的内容将会在this.$slots.foo()中找到)
+
+
 # Vuex
 
 ```js

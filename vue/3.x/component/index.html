@@ -113,6 +113,21 @@
 				<modal-button></modal-button>
 			</div>
 		</div>
+		<div id="teleport-component"></div>
+		<div id="multiple-component">
+			<my-component></my-component>
+		</div>
+		<div id="render-function">
+			<anchored-heading :level="1">
+				<h1>我是第一级标题</h1>
+			</anchored-heading>
+			<anchored-heading :level="2">
+				<h1>我是第二级标题</h1>
+			</anchored-heading>
+			<anchored-heading :level="3">
+				<h1>我是第二级标题</h1>
+			</anchored-heading>
+		</div>
 		<script src="https://unpkg.com/vue@next"></script>
 		<script src="./js/event.js"></script>
 		<script src="./js/review-emit.js"></script>
@@ -121,5 +136,8 @@
 		<script src="./js/keep-alive.js"></script>
 		<script src="./js/async-component.js"></script>
 		<script src="./js/teleport.js"></script>
+		<script src="./js/teleport-component.js"></script>
+		<script src="./js/multiple-component.js"></script>
+		<script src="./js/render-function.js"></script>
 	</body>
 </html>
