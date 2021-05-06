@@ -278,6 +278,7 @@ const router = new VueRouter({
 	composition API:
 		setup(props,context){
 			1. 创建响应式变量 Vue.ref()	Vue.reactive()
+				基本数据类型 使用ref创建响应式数据,复杂数据类型使用reactive创建响应式数据
 			2. Vue.watch()	监听变量
 			3. Vue.computed()	计算属性
 			4. const {title} = Vue.toRefs(props);	//解构props
