@@ -281,8 +281,8 @@ const router = new VueRouter({
 				基本数据类型 使用ref创建响应式数据,复杂数据类型使用reactive创建响应式数据
 			2. Vue.watch()	监听变量
 			3. Vue.computed()	计算属性
-			4. const {title} = Vue.toRefs(props);	//解构props
-			5. const {title} = Vue.toRef(props,'title'),
+			4. const {title} = Vue.toRefs(props);	//解构props但保证props的响应性
+			5. const title = Vue.toRef(props,'title');	// 如果title是可选的prop。
 		}
 	在setup里的生命周期函数,函数名前多了on,比如 onMounted onBeforeUpdate
 
@@ -290,7 +290,6 @@ const router = new VueRouter({
 
 	$slots
 		用来以编程的方式通过插槽分发的内容。每个具名插槽都有其相应的property.(如：v-slot:foo中的内容将会在this.$slots.foo()中找到)
-
 
 # Vuex
 
