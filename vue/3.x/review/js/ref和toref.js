@@ -10,7 +10,7 @@ const my_app = Vue.createApp({
     const obj = {count:3};
     const state = Vue.ref(obj.count);
     const state1 = Vue.toRef(obj,'count');
-    function add(){
+    function add(){ // ref是对原始数据对拷贝,不会影响到原始数据
       state.value += 1;
       console.log("原始数据:",obj);
       console.log("响应式数据:",state);
