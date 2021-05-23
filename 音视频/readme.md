@@ -32,25 +32,25 @@
 	
 # AudioContext()
 
-    AudioContext接口表示由音频模块连接而成的音频处理图。每个模块对应一个AudioNode。AudioContext可以控制它所包含的节点
-    的创建,以及音频处理,解码操作的执行。做任何事情之前都要先创建AudioContext对象，因为一切都发生在这个环境之中。
+	AudioContext接口表示由音频模块连接而成的音频处理图。每个模块对应一个AudioNode。AudioContext可以控制它所包含的节点
+	的创建,以及音频处理,解码操作的执行。做任何事情之前都要先创建AudioContext对象，因为一切都发生在这个环境之中。
+	
+	属性：
+		AudioContext.destination
+		返回AudioDestinationNode对象，表示当前audio context中所有节点的最终节点,一般表示音频渲染设备。
     
-    属性：
-        AudioContext.destination
-        返回AudioDestinationNode对象，表示当前audio context中所有节点的最终节点,一般表示音频渲染设备。
     
-    
-    方法：
-        AudioContext.createBuffer() 
-        创建一个空的AudioBuffer()对象，并且通过AudioBufferSourceNode来进行数据填充和播放
-        
-        AudioContext.createBufferSource() 
-        创建一个AudioBufferSourceNode对象，他可以通过AudioBuffer对象来播放和处理包含在内的音频数据。AudioBuffer
-        可以通过AudioContext.createBuffer方法创建或者使用AudioContext.decodeAudioData方法解码音轨来创建。
-    
-        AudioContext.decodeAudioData()
-        从ArrayBuffer对象中异步解码音频文件。在此情况下,这个ArrayBuffer对象通常是通过使用responseType为arraybuffer
-        类型的XMLHttpRequest方法来获取的，该方法只能作用于完整的音频文件。
+	方法：
+		AudioContext.createBuffer() 
+		创建一个空的AudioBuffer()对象，并且通过AudioBufferSourceNode来进行数据填充和播放
+		
+		AudioContext.createBufferSource() 
+		创建一个AudioBufferSourceNode对象，他可以通过AudioBuffer对象来播放和处理包含在内的音频数据。AudioBuffer
+		可以通过AudioContext.createBuffer方法创建或者使用AudioContext.decodeAudioData方法解码音轨来创建。
+
+		AudioContext.decodeAudioData()
+		从ArrayBuffer对象中异步解码音频文件。在此情况下,这个ArrayBuffer对象通常是通过使用responseType为arraybuffer
+		类型的XMLHttpRequest方法来获取的，该方法只能作用于完整的音频文件。
         
         
     
