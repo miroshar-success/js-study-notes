@@ -12,6 +12,12 @@ class Counter extends React.Component {
     )
   }
 }
+// babel-react-optimize   打包时删除代码类型检测
+Counter.propTypes = {
+  caption:PropTypes.string.isRequired,
+  initialValue:PropTypes.number
+}
+
 
 class ControlPanle extends React.Component{
   constructor(props){
