@@ -349,6 +349,24 @@ app.use(router.routes()).use(router.allowedMethods());
 ```
 	所有的生命周期函数中,只有beforeCreate和created会在服务器端渲染过程中被调用。其他任何生命周期钩子函数只会在客户端执行。
 
+# React
+
+	class组件和函数组件	(无状态组件)
+	JSX语法 
+	列表渲染
+	事件绑定
+	生命周期函数
+	state和props
+	表单
+
+# Redux
+
+	createStore		创建唯一数据源 store 
+		let store = createStore(reducer,preloadedState,enchaner);
+
+# React-Redux
+
+
 # Webpack
 	
 	常用loader:
