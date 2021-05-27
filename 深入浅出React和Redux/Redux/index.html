@@ -4,12 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redux</title>
+  <style>
+    ul,ol{list-style:none;padding:0;margin:0;}
+    .todo-item{padding:6px 0;display:flex;justify-content:space-between;}
+    .todo-item .delete{cursor:pointer;color:rgb(240,20,20)}
+  </style>
 </head>
 <body>
   <div id="app"></div>
   <hr>
   <div id="root"></div>
   <div id="demo"></div>
+  <div id="todo"></div>
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -18,5 +24,6 @@
   <script type="text/babel" src="./js/redux-counter.jsx"></script>
   <script type="text/babel" src="./js/redux-demo.jsx"></script>
   <script type="text/babel" src="./js/react-redux.jsx"></script>
+  <script type="text/babel" src="./js/todolist.jsx"></script>
 </body>
 </html>

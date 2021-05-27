@@ -347,7 +347,8 @@ router.get("/home",async ctx => {
 })
 app.use(router.routes()).use(router.allowedMethods());
 ```
-	所有的生命周期函数中,只有beforeCreate和created会在服务器端渲染过程中被调用。其他任何生命周期钩子函数只会在客户端执行。
+	所有的生命周期函数中,只有beforeCreate和created会在服务器端渲染过程中被调用。其他任何生命周期钩子函数只会在
+	客户端执行。
 
 # React
 
@@ -363,10 +364,14 @@ app.use(router.routes()).use(router.allowedMethods());
 
 	createStore		创建唯一数据源 store 
 		let store = createStore(reducer,preloadedState,enchaner);
+[redux](https://redux.js.org/introduction/getting-started)
 
 # React-Redux
 
+	Provider组件提供唯一数据源store /	connect函数
+	mapStateToProps, mapDispatchToProps	绑定redux
 
+[react-redux](https://react-redux.js.org/introduction/getting-started)
 # Webpack
 	
 	常用loader:
@@ -392,7 +397,7 @@ app.use(router.routes()).use(router.allowedMethods());
   this package is just the right choice for you.
 
 	Usage:
-			yarn global add serve  &&  serve or serve folder_name
+		yarn global add serve  &&  serve or serve folder_name
      
 	2. nodemon
 		nodemon is a tool that helps develop node.js based applications by automatically restarting the node application
