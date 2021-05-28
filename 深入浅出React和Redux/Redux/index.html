@@ -8,6 +8,9 @@
     ul,ol{list-style:none;padding:0;margin:0;}
     .todo-item{padding:6px 0;display:flex;justify-content:space-between;}
     .todo-item .delete{cursor:pointer;color:rgb(240,20,20)}
+    .tab{padding:0 5px;cursor:pointer}
+    .tab.active{color:rgb(240,20,20);}
+    input[type="text"]{width:200px;}
   </style>
 </head>
 <body>
@@ -15,6 +18,7 @@
   <hr>
   <div id="root"></div>
   <div id="demo"></div>
+  <hr>
   <div id="todo"></div>
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
