@@ -372,6 +372,8 @@ app.use(router.routes()).use(router.allowedMethods());
 	mapStateToProps, mapDispatchToProps	绑定redux
 
 [react-redux](https://react-redux.js.org/introduction/getting-started)
+[react性能优化工具](https://github.com/crysislinux/chrome-react-perf)
+
 # Webpack
 	
 	常用loader:

@@ -75,16 +75,10 @@ class TodoList extends React.Component{
     super(...arguments);
   }
   toggleTodo(id){
-    store.dispatch({
-      type:TOGGLE_TODO,
-      payload:id
-    })
+    this.props.onToggle(id);
   }
   handleDeleteTodo(id){
-    store.dispatch({
-      type:DELETE_TODO,
-      payload:id
-    })
+    this.props.onDelete(id);
   }
   render(){
     let {list} = this.props;
@@ -127,7 +121,7 @@ class TodoApp extends React.Component{
   handleAdd = () => {
     if(!this.state.text) return;
     this.props.add_todo(this.state.text);
-    this.inputRef.current.value = "";
+    this.setState({text:""})
   }
   handleSetFilter(filter){
     this.props.set_filter(filter);
@@ -140,6 +134,12 @@ class TodoApp extends React.Component{
     }
     let flag = current_filter === FINISHED ? true : false;
     return todo_list.filter(todo => todo['completed'] === flag);
+  }
+  handleToggleTodo = (id) => {
+    this.props.toggle_todo(id);
+  }
+  handleDeleteTodo = (id) => {
+    this.props.delete_todo(id);
   }
   render(){
     let {current_filter} = this.props;
@@ -155,9 +155,13 @@ class TodoApp extends React.Component{
             >{tab}</span>
           ))}
         </div>
-        <input type="text" value={this.state.todo} onChange={this.handleAddTodo} ref={this.inputRef}/>
+        <input type="text" value={this.state.text} onChange={this.handleAddTodo} ref={this.inputRef}/>
         <button onClick={this.handleAdd}>add</button>
-        <TodoList list={todo_list}/>
+        <TodoList 
+          list={todo_list}
+          onToggle={this.handleToggleTodo}
+          onDelete={this.handleDeleteTodo}
+        />
       </div>
     )
   }
@@ -169,7 +173,7 @@ const mapStateToProps = state => {
     current_filter:state.filter
   }
 }
-const mapDispatchToProps = {add_todo,set_filter}
+const mapDispatchToProps = {add_todo,set_filter,toggle_todo,delete_todo}
 
 TodoApp = connect(mapStateToProps,mapDispatchToProps)(TodoApp);
 
