@@ -176,6 +176,7 @@ class App extends React.Component {
     )
   }
 }
+// 优化渲染过程,和数据获取
 const mapAppDispatch = {add_todo,set_filter};
 const mapAppState = state => {
   return {
