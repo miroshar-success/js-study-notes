@@ -359,15 +359,29 @@ app.use(router.routes()).use(router.allowedMethods());
 	生命周期函数
 	state和props
 	表单
-
+	高阶组件	参数为组件,返回值为新组件的函数。(操纵prop,访问ref,抽取状态,包装组件),高阶组件可以给不同的组件扩充不同的新属性
+	
 # Redux
 
-	createStore		创建唯一数据源 store 
+	API:
+		createStore(reducer,[preloadedState])		创建唯一数据源 store 
+		combineReducers(reducers)
+		applyMiddleware(...middlewares)
+		compose
+
+	If your state is a plain object,make sure you never mutate it! For example,instead of returning something like
+	Object.assign(state,newData) from your reducers,return Object.assign({},state,newData).
+
+	Store-API:
+		getState()	/	dispatch /	subscribe
+
+
 		let store = createStore(reducer,preloadedState,enchaner);
 [redux](https://redux.js.org/introduction/getting-started)
 	If the state tree is large,or the calculation expensive,repeating the calculation on every update may cause 
 	performance problems.Reselect can help to avoid these unnecessary recalculations.
 [reselect](https://github.com/reduxjs/reselect) 
+[redux-examples](https://redux.js.org/introduction/examples#counter-vanilla)
 
 	异步action	redux-thunk
 	Redux thunk middleware allows you to write action creators that return a function instead of an action.
