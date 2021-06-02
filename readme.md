@@ -391,6 +391,9 @@ app.use(router.routes()).use(router.allowedMethods());
 
 # React-Redux
 
+	React-Redux is our official package that lets your React components interact with a Redux store by reading
+	pieces of state and dispatching actions to update the store.
+
 	Provider组件提供唯一数据源store /	connect函数
 	mapStateToProps, mapDispatchToProps	绑定redux
 

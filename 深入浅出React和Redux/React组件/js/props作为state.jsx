@@ -38,8 +38,8 @@ class Child extends React.Component {
     console.log("render");
     return (
       <div>
-        <p>子组件的counter:通过state接收props: {this.state.counter}</p>
-        {/* <div>直接使用counter: {this.props.counter}</div> */}
+        <p>class子组件的counter:通过state接收props: {this.state.counter}</p>
+        <div>直接使用counter: {this.props.counter}</div>
       </div>
     )
   }
@@ -59,7 +59,7 @@ function Father(){
   }
   return (
     <div>
-      <p>父组件的counter :{counter}</p>
+      <p>函数父组件的counter :{counter}</p>
       <Son counter={counter}/>
       <button onClick={handleClick}>click me</button>
     </div>
@@ -69,7 +69,7 @@ function Father(){
 function Son(props){
   return (
     <div>
-      <p>子组件的counter:{props.counter}</p>
+      <p>函数子组件的counter:{props.counter}</p>
     </div>
   )
 }
