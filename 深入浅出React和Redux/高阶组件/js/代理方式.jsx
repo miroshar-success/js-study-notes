@@ -6,11 +6,29 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Player firstName="kyrie" lastName="irving" age="29"/>
+        <FilterComponent firstName="kyrie" lastName="kyrie" age="29"/>
+        {/* <Player firstName="kyrie" lastName="irving" age="29"/> */}
       </div>
     )
   }
 }
+
+function wrap(title) {
+  return function(WrappedComponent){
+    return class WrappingComponent extends React.Component {
+      render(){
+        console.log(this.props)
+        return (
+          <div>
+            <div>{title}</div>
+            <WrappedComponent teamp={'篮网'} {...this.props}/>
+          </div>
+        )
+      }
+    }
+  }
+}
+
 
 class Player extends React.Component{
   constructor(props){
@@ -29,22 +47,11 @@ class Player extends React.Component{
   }
 }
 
-function WrapComponent(WrappedComponent){
-  return class WrappingComponent extends React.Component {
-    render(){
-      return (
-        <WrappedComponent team={'篮网'}/>
-      )
-    }
-  }
-}
-
-let FilterComponent = WrapComponent(Player);
+let FilterComponent = wrap('hello')(Player);
 
 ReactDOM.render(
   <div>
     <App/>
-    <FilterComponent/>
   </div>,
   document.getElementById("root")
 )
