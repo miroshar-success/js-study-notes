@@ -6,10 +6,17 @@
   <title>Redux案例</title>
   <style>
     button{margin:0 3px;}
+    ul{list-style:none;}
+    .product-item{padding:10px 0;}
+    .post-item{border:1px solid #e8e8e8;padding-left:10px;margin-bottom:15px;border-radius:4px;}
   </style>
 </head>
 <body>
   <div id="counter"></div>
+  <hr>
+  <div id="card"></div>
+  <hr>
+  <div id="post-feed"></div>
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -17,5 +24,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.1/react-redux.min.js"></script>
   <script src="https://unpkg.com/redux-thunk@2.3.0/dist/redux-thunk.min.js"></script>
   <script type="text/babel" src="./js/counter.jsx"></script>
+  <script type="text/babel" src="./js/ShoppingCart.jsx"></script>
+  <script type="text/babel" src="./js/PostFeed.jsx"></script>
 </body>
 </html>
