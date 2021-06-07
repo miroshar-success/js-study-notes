@@ -1,5 +1,6 @@
 const {createStore,combineReducers} = window.Redux;
 const {Provider,connect} = window.ReactRedux;
+const {BrowserRouter,Link,Route,Switch} = window.ReactRouterDOM;
 
 let initial_posts = [
   {id:1,title:"First Post!",content:"Hello"},
@@ -102,12 +103,30 @@ function AddPostForm(props){
 }
 AddPostForm = connect(null,{addPost})(AddPostForm);
 
-ReactDOM.render(
-  <Provider store={store}>
+function PostPage(){
+  return (
     <React.Fragment>
       <PostList/>
       <AddPostForm/>
     </React.Fragment>
+  )
+}
+
+function App(){
+  return (
+    <div>
+      <Switch>
+        <Route path="/" children={<PostPage/>}/>
+      </Switch>
+    </div>
+  )
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("post-feed")
 )
