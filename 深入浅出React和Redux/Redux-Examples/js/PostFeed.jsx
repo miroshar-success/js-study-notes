@@ -3,8 +3,8 @@ const {Provider,connect} = window.ReactRedux;
 const {BrowserRouter,Link,Route,Switch,useParams} = window.ReactRouterDOM;
 
 let initial_posts = [
-  {id:1,title:"First Post!",content:"Hello",userId:1},
-  {id:2,title:"Second Post",content:"More text",userId:2}
+  {id:1,title:"First Post!",content:"Hello",userId:1,date:1621242220796,reactions:{thumbsUp:10,hooray:3,heart:3,rocket:100,eyes:7}},
+  {id:2,title:"Second Post",content:"More text",userId:2,date:1621261220796,reactions:{thumbsUp:7,hooray:3,heart:13,rocket:20,eyes:9}}
 ]
 let initial_users = [
   {id:0,name:"Tianna Jenkins"},
@@ -29,8 +29,20 @@ function posts (state = initial_posts,action){
         }else{
           return post;
         }
+      });
+    case 'post/REACTION_ADD':
+      let find_post = state.find(post => post['id'] == action.payload.id)
+      let obj = find_post['reactions']; 
+      let {name} = action.payload
+      obj[name] += 1;
+      return state.map((post) => {
+        if(post['id'] === action.payload.id){
+          return Object.assign({},post,{reactions:obj})
+        }else{
+          return post;
+        }
       })
-    default:
+      default:
       return state;
   }
 }
@@ -47,6 +59,14 @@ const updatePost = (payload) => ({
   payload
 })
 
+function reactionAdd(payload){
+  console.log('payload:',payload);
+  return {
+    type:"post/REACTION_ADD",
+    payload
+  }
+}
+
 const reducer = combineReducers({
   posts,
   users
@@ -56,13 +76,19 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
+function TimeAgo({date}){
+  let time = new Date(date).toLocaleDateString();
+  return <span style={{paddingLeft:'20px'}}>{time}</span>
+}
+
 let SinglePostPage = (props) => {
   let {id} = useParams();
   let find_post = props.posts.find(post => post['id'] === id*1);
   if(!find_post) return null;
   return (
     <div>
-      <div className="title">{find_post['title']}</div>
+      <div className="title">{find_post['title']} </div>
+      <TimeAgo date={find_post['date']}/>
       <div className="content">{find_post['content']}</div>
     </div>
   )
@@ -74,26 +100,45 @@ const mapStateToPostState = state => {
 }
 SinglePostPage = connect(mapStateToPostState,null)(SinglePostPage);
 
+const reactionEmoji = {
+  thumbsUp: '👍',
+  hooray: '🎉',
+  heart: '❤️',
+  rocket: '🚀',
+  eyes: '👀'
+}
+
+function ReactiveButton(props){
+  function handleClick(name){
+    props.reactionAdd({
+      id:props.post['id'],
+      name
+    })
+  }
+  const reactButtons = Object.entries(reactionEmoji).map(([name,emoji]) => (
+    <button key={'button-'+name} onClick={handleClick.bind(null,name)}>{emoji} {props.post.reactions[name]}</button>
+  ))
+  return (reactButtons)
+}
+ReactiveButton = connect(null,{reactionAdd})(ReactiveButton)
+
+
 class PostList extends React.Component {
   constructor(props){
     super(props);
   }
-  get_user = (id) => {
-    let users = this.props.users;
-    let find_user = users.find(user => user['id'] == id);
-    return find_user['name']
-  }
   render(){
     console.log(this.props.posts);
+    let orderedPosts = this.props.posts.slice().sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime() )
     return (
       <div>
         <h1>Posts</h1>
         <ul>
-          {this.props.posts.length > 0 && this.props.posts.map((post) => (
-            <li key={post['id']} className="post-item">
-              <h3>{post['title']}</h3>
+          {orderedPosts.length > 0 && orderedPosts.map((post,index) => (
+            <li key={'post-'+index} className="post-item">
+              <h3>{post['title']} ---- <TimeAgo date={post['date']}/></h3>
               <p>{post['content']}</p>
-              <div style={{color:'red'}}>Author: {this.get_user(post['userId'])}</div>
+              <PostAuthor userId={post['userId']}/>
               <Link to={`/post/${post['id']}`}>
                 <span style={{position:'absolute',right:'5px',bottom:'5px',cursor:'pointer'}}>
                   view post
@@ -102,6 +147,7 @@ class PostList extends React.Component {
               <Link to={`/update/${post['id']}`}>
                 <span>edit post</span>
               </Link>
+              <ReactiveButton post={post}/>
             </li>
           ))}
         </ul>
@@ -112,10 +158,30 @@ class PostList extends React.Component {
 const mapStateToProps = state => {
   return {
     posts:state.posts,
-    users:state.users
   }
 }
 PostList = connect(mapStateToProps,null)(PostList);
+
+
+function PostAuthor(props){
+  let {users,userId} = props;
+  let find_users = users.find(user => user['id'] == userId);
+  if(!find_users){
+    return <div>Unknown author</div>
+  }
+  return (
+    <div style={{color:'red'}}>
+      Author : {find_users['name']}
+    </div>
+  )
+}
+const mapStateToAuthor = state => {
+  return {
+    users:state.users
+  }
+}
+PostAuthor = connect(mapStateToAuthor,null)(PostAuthor);
+
 
 function AddPostForm(props){
   const [title,setPostTitle] = React.useState("");
@@ -133,7 +199,8 @@ function AddPostForm(props){
     props.addPost({
       title,
       content,
-      userId:user
+      userId:user,
+      date:new Date().getTime()
     })
     setPostTitle("");
     setContent("");
@@ -236,6 +303,7 @@ function App(){
     </div>
   )
 }
+
 
 ReactDOM.render(
   <Provider store={store}>
