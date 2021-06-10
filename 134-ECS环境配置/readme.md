@@ -1,11 +1,21 @@
 # linux命令行基础
 
+	常见命令可以分为文档形/硬件型和功能型
+
     [root@iZbp13qdeitwuc7nytvvqaZ local]
     root:当前登录的用户名
     @:分隔符
     iZbp13qdeitwuc7nytvvqaZ:主机名
     local：当前文件路径
     
+    操作系统版本    lsb_release -a
+    linux内核版本   uname -a
+    df磁盘空间占用情况  df  （1k作为计量单位）
+                     df -Th 以M为计量单位显示
+    查看目录权限       ls -la
+		查看运行进程			 top命令
+
+
     创建目录：
         mkdir (make directory)  filename 
         mkdir -p [dirname]
@@ -29,6 +39,11 @@
         :  切换到底线命令模式,以在最底一行输入命令
         w 保存文件 q 退出程序  
             esc 退出输入模式,切换到命令模式
+				:q! 不对文件进行保存
+				
+				cat	文件名	查看文件
+				echo '添加的内容' >> 要添加的文件名	(添加文件到文件后)
+											 >								(覆盖文件内容)
     查看文件安装路径:
         which node/ which pm2
     wget:
@@ -40,66 +55,65 @@
     
 # 域名绑定
 
-    域名列表:
-        1. 解析 --> 添加记录
-            A - 将一个域名志向一个IPV4地址
-            主机记录 : www / @ （添加两条）
-            记录值: 服务器公网ip地址
-        
-        二级域名,同样的操作 添加记录。
-    
-    FiliZilla 连接服务器上传文件  端口: 22 用户名 root
-    
-    
-    SSH是 secure shell 的缩写,SSH为建立在应用层基础上的安全协议。专为远程登陆会话和其他网络服务提供安全性的协议。利用SSH协议可以有效防止远程
-    管理过程中的信息泄漏问题。
+	域名列表:
+		1. 解析 --> 添加记录
+			A - 将一个域名指向一个IPV4地址
+			主机记录 : www / @ （添加两条）
+			记录值: 服务器公网ip地址
+		
+		二级域名,同样的操作 添加记录。
+	
+	FiliZilla 连接服务器上传文件  端口: 22 用户名 root
+	
+	SSH是 secure shell 的缩写,SSH为建立在应用层基础上的安全协议。专为远程登陆会话和其他网络服务提供安全性的协议。利用SSH协议可以有效防止远程
+	管理过程中的信息泄漏问题。
     
 # 安装node
 
-    安装到 /usr/local/src 目录下
-    uname -a 
-        查看当前系统版本
-    pwd
-        查看当前目录
-    cd ~   或者 cd /
-        回到root根目录下
-        
-    下载node 
-    进入node中文网----> 下载 ----> 阿里云镜像 ----> 选择系统对应的安装包
-    
-        wget https://nodejs.org/dist/v14.14.0/node-v14.14.0-linux-x64.tar.gz  
-    
-        解压nodejs文件
-        tar xvf node-v12.14.0-linux-x64.tar.xz
-        
-    修改下载的node文件名为 nodejs 
-        mv node-v12.14.0-linux-x64 nodejs
-        
-        rm node-v12.14.0-linux-x64.tar.xz 删除压缩包.
-        
-    配置环境变量（可以在任意目录下使用node）
-        ln -s /usr/local/src/nodejs/bin/node /usr/local/bin
-        ln -s /usr/local/src/nodejs/bin/npm /usr/local/bin
-     
-    可以使用node -v  或者 npm -v 查询当前版本
+	安装到 /usr/local/src 目录下
+	uname -a 
+			查看当前系统版本
+	pwd
+			查看当前目录
+	cd ~   或者 cd /
+		回到root根目录下
+			
+	下载node 
+	进入node中文网----> 下载 ----> 阿里云镜像 ----> 选择系统对应的安装包
+	
+		wget https://nodejs.org/dist/v14.14.0/node-v14.14.0-linux-x64.tar.gz  
+
+		解压nodejs文件
+		tar xvf node-v12.14.0-linux-x64.tar.xz
+			
+	修改下载的node文件名为 nodejs 
+			mv node-v12.14.0-linux-x64 nodejs
+			
+			rm node-v12.14.0-linux-x64.tar.xz 删除压缩包.
+			
+	配置环境变量（可以在任意目录下使用node）
+			ln -s /usr/local/src/nodejs/bin/node /usr/local/bin
+			ln -s /usr/local/src/nodejs/bin/npm /usr/local/bin
+		
+	可以使用node -v  或者 npm -v 查询当前版本
     
 [node-version](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node-url.png);
 [node-install](https://github.com/JayK0720/javascript-study-notes/blob/master/134-ECS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/imgs/node%E5%AE%89%E8%A3%85.png) 
        
 # filezilla工具使用
-    
-    登录 FileZilla
-			主机: ecs公网ip
-			用户名：root
-			密码：******
-			端口：22
 	
-    上传文件
-			此时还无法通过 ip地址进行访问
-    
-    编辑文件
-			vim filename
-			i
+	登录 FileZilla
+		主机: ecs公网ip
+		用户名：root
+		密码：******
+		端口：22
+
+	上传文件
+		此时还无法通过 ip地址进行访问
+	
+	编辑文件
+		vim filename
+		i
 #  配置安全组
 
 	安全组 ---》 配置规则 ---》 添加安全组规则
@@ -117,9 +131,9 @@
      
 # pm2
     
-    PM2 is a daemon process manager that will help you manage and keep your application online.
-    
-    Installation
+	PM2 is a daemon process manager that will help you manage and keep your application online.
+	
+	Installation
 ```js
 npm install pm2 -g
 npm install pm2@latest -g
@@ -402,3 +416,5 @@ http {
 }
 ```
 [Nginx文档](http://nginx.org/en/docs/beginners_guide.html)
+
+

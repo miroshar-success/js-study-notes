@@ -431,6 +431,14 @@ app.use(router.routes()).use(router.allowedMethods());
 		nodemon is a tool that helps develop node.js based applications by automatically restarting the node application
 		when file changes in the directory are detected!
     
+	3. nvm
+		nvm is a version manager for node.js
+
+	4. yarn
+		查看yarn的源	 yarn config get registry
+		设置yarn的源	 yarn config set registry https://registry.npm.taobo.org/ 
+	
+	墨刀 / Axure / xmind / ps / pxCook
 
     
 
