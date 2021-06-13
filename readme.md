@@ -378,15 +378,19 @@ app.use(router.routes()).use(router.allowedMethods());
 
 		let store = createStore(reducer,preloadedState,enchaner);
 [redux](https://redux.js.org/introduction/getting-started)
+
 	If the state tree is large,or the calculation expensive,repeating the calculation on every update may cause 
 	performance problems.Reselect can help to avoid these unnecessary recalculations.
+
 [reselect](https://github.com/reduxjs/reselect) 
+
 [redux-examples](https://redux.js.org/introduction/examples#counter-vanilla)
 
 	异步action	redux-thunk
 	Redux thunk middleware allows you to write action creators that return a function instead of an action.
 	The thunk can be used to delay the dispatch of an action,or to dispatch only if a certain condition is met.
 	The inner function receives the store methods dispatch and getState as parameters.
+
 [redux-thunk](https://github.com/reduxjs/redux-thunk)
 
 # React-Redux
@@ -398,6 +402,7 @@ app.use(router.routes()).use(router.allowedMethods());
 	mapStateToProps, mapDispatchToProps	绑定redux
 
 [react-redux](https://react-redux.js.org/introduction/getting-started)
+
 [react性能优化工具](https://github.com/crysislinux/chrome-react-perf)
 
 # Webpack

@@ -1,4 +1,6 @@
-# webpack
+<!-- TOC -->autoauto- [webpack](#webpack)auto- [Vue-loader](#vue-loader)auto- [资源处理](#资源处理)auto- [预处理器](#预处理器)auto- [splitChunksPlugin](#splitchunksplugin)auto- [管理输出](#管理输出)auto- [开发环境](#开发环境)auto- [cross-env](#cross-env)auto- [postcss-loader](#postcss-loader)auto- [HtmlWebpackPlugin](#htmlwebpackplugin)auto- [tree shaking](#tree-shaking)auto- [生产环境构建](#生产环境构建)auto- [resolve](#resolve)auto- [optimization](#optimization)auto- [Service Worker](#service-worker)auto- [bundle分析](#bundle分析)auto- [代码分离](#代码分离)autoauto<!-- /TOC -->
+
+# 1. webpack
 	
 	Install:
 		npm install webpack webpack-cli(在命令行中运行webpack) --save-dev 
@@ -10,6 +12,8 @@
 	"start": "http-server dist"
 }
 ```
+	查看webpack版本 npx webpack --version
+
 	核心概念:
 		入口(entry)/输出(output)/loader/插件(plugin)/模式(mode)/
 		
@@ -37,7 +41,7 @@ module.exports = {
 	webpack能解析三种文件路径:
 		绝对路径/相对路径/模块路径
 
-# Vue-loader
+# 2. Vue-loader
 
 ```js
 // webpack.config.js
@@ -58,7 +62,7 @@ module.exports = {
 ```
 	VueLoaderPlugin插件的职责是将定义过的其他规则复制并应用到.vue文件里相应语言的块。
 	
-# 资源处理	
+# 3. 资源处理	
 	
 	当Vue Loader编译单文件组件中的<template>块时,它会将所有遇到的资源URL转换为webpack模块请求:
 ```html
@@ -183,7 +187,7 @@ module.exports = {
 }
 ```
 	
-# 预处理器
+# 4. 预处理器
 
 	会根据lang特性以及webpack配置中的规则自动推断出要使用的loader。
 	npm install -D sass-loader node-sass
@@ -227,7 +231,7 @@ module.exports = {
 </style>
 ```
 	
-	postcss-loader
+## postcss-loader
 	npm install --save-dev postcss-loader postcss
 ```js
 // webpack.config.js
@@ -251,7 +255,8 @@ module.exports = {
 	]
 }
 ```
-	CSS分离
+## CSS分离
+
 	This plugin extracts CSS into separate files.It creates a CSS file per JS file which contains CSS.
 	
 	mini-css-extract-plugin is more often used in production mode to get separate css files.For development mode(including webpack-dev-server)
@@ -279,16 +284,48 @@ module.exports = {
 	},
 	plugins:[
 		new MiniCssExtractPlugin({
-			filename:'style.css',	// '[name].css'	,
-			chunkFilename:'[id].css',	// base on filename
-			ignoreOrder:false,	// Enable to remove warnings about conflicting order
+			filename:'style.css',	// '[name].css'	, This option determines the name of each output file
+			chunkFilename:'[id].css',	// This option determines the name of non-entry chunk files
+			ignoreOrder:false,	// Enable to remove warnings about conflicting order,
+			insert:document.head.appendChild(linkTag)	// inserts <link> at the given position
 		})
 	]
 }
 ```
 [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
 
-	DefinePlugin
+## CssMinimizerWebpackPlugin
+
+	这个插件使用cssnano优化和压缩css
+	cnpm install css-minimizer-webpack-plugin --save-dev
+```js
+// usage:
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+module.exports = {
+	module:{
+		rules:[
+			{
+				test:/\.s?css$/,
+				use:[MiniCssExtractPlugin.loader,'css-loader','sass-loader']
+			}
+		]
+	},
+	optimization:{
+		minimizer:[
+			new CssMinimizerPlugin({
+				test:/\.foo\.css$/,	// 用来匹配文件
+				include:/\/includes/,	// 要包含的文件
+				exclude:/\/exclude/,	// 要排除的文件
+			})
+		]
+	}
+}
+```
+	tips: This will enable CSS optimization only in production mode.If you want to run it also in development set 
+	the optimization.minimize option to true
+
+## DefinePlugin
 		允许在编译时创建配置的全局常量,需要区分 开发模式和生产模式进行不同的操作时非常有用。传递给DefinePlugin的每个键都是一个标识
 		符或多个以. 连接的标识符号。
 ```js
@@ -306,6 +343,26 @@ module.exports = {
 		在为 process 定义值时，'process.env.NODE_ENV': JSON.stringify('production') 会比
 		process: { env: { NODE_ENV: JSON.stringify('production') } } 更好
 
+## CopyWebpackPlugin
+
+	Copies individual files or entire directories,which already exist,to the build directory
+	Install:
+		npm install copy-webpack-plugin --save-dev
+```js
+// webpack.config.js
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+module.exports = {
+	plugins:[
+		new CopyWebpackPlugin({
+			patterns:[
+				{from:"source",to:"dest"}
+			]
+		})
+	]
+}
+```
+	tips: copy-webpack-plugin is not designed to copy files generated from the build process,rather it is to
+	copy files that already exist in the resource tree,as part of the build process.
 
 	babel-loader
 	此package允许你使用Babel和webpack转译JavaScript文件。
@@ -334,11 +391,11 @@ module:{
 ```
 [babel-loader](https://babel.docschina.org/setup/#installation)
 
-# splitChunksPlugin
+# 5. splitChunksPlugin
 
 	当wbepack处理文件路径时,它们始终包含Unix系统中当/和Windows系统中的\。
 
-# 管理输出
+# 6. 管理输出
 	
 	npm install --save-dev html-webpack-plugin
 		会创建一个html文件,所有打包的bundle会自动添加到html中
@@ -358,7 +415,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 	]
 }
 ```
-# 开发环境
+# 7. 开发环境
 ```js
 // webpack.config.js
 {
@@ -387,8 +444,9 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 	]
 }
 ```
+	webpack-dev-server在编译之后不会写入到任何输出文件。而是将bundle文件保留在内存中。然后将它们serve到server中。
 	npm run --save-dev webpack-dev-server
-	提供一个简单的web server,并且具有live reloading(实时重新加载)功能。
+		提供一个简单的web server,并且具有live reloading(实时重新加载)功能。
 ```js
 // webpack.config.js
 {
@@ -449,7 +507,7 @@ module.exports = {
 ```
 	现在对 /api/users的请求将请求代理到 http://localhost:3000/api/users。 如果不希望传递/api,则需要重写路径.
 
-# cross-env
+# 8. cross-env
 
 	Most Windows command prompts will choke when you ser environment variables with NODE_ENV=production like that.
 	cross-env makes it so you can have a single command without worrying about setting or using the environment
@@ -466,7 +524,7 @@ module.exports = {
 	}
 }
 ```
-# postcss-loader
+# 9. postcss-loader
 	
 	npm install postcss-loader postcss
 ```js
@@ -491,7 +549,7 @@ module.exports = {
 	在css-loader和style-loader之前使用它,但是在其他预处理器(sass|less|stylus-loader)之后使用,(因为webpack loader从右到做/
 	从底到顶执行)
 
-# HtmlWebpackPlugin	
+# 10. HtmlWebpackPlugin	
 	
 	The plugin will generate an HTML5 file for you that includes all your webpack bundles in the body using script tags.
 	Just add the plugin to you webpack config
@@ -518,7 +576,7 @@ module.exports = {
 // <title><%= htmlWebpackPlugin.options.title %></title>
 ```
 
-# tree shaking
+# 11. tree shaking
 
 	tree shaking是一个术语,通常用于描述移除JavaScript上下文中的未引用代码。(dead-code) 它依赖于ES2015模块系统中的静态结构特性。
 	例如import和export。
@@ -541,7 +599,7 @@ module.exports = {
 ```
 	tips: 避免在生产中使用inline-** 和 eval-**,因为他们可以增加bundle大小并降低整体性能。
 
-# 生产环境构建
+# 12. 生产环境构建
 	
 	开发环境和生产环境的构建目标差异很大。开发环境中需要有强大的 具有实时重新加载(live reloading)或热模块替换(hot module replacement)能力的
 	source map和localhost server。生产环境下则关注更小的bundle,以改善加载时间。
@@ -560,7 +618,7 @@ module.exports = {
 		在package.json中设置 type:"module"会强制package.json下的所有文件使用ECMAScript模块。
 		设置 "type":"commonjs" 会强制使用CommonJS模块。
 		
-# resolve
+# 13. resolve
 
 	alias	创建import或require别名,来确保模块引入变得更简单,也可以在给定的键后的末尾添加$,以表示精确匹配；
 ```js
@@ -576,17 +634,17 @@ module.exports = {
 	}
 }
 ```
-# optimization
+# 14. optimization
 
 	优化
 	
-# Service Worker
+# 15. Service Worker
 
 	搭建一个检疫server,测试离线体验。 
 		npm install http-server --save-dev
 		npm install workbox-webpack-plugin
 	
-# bundle分析
+# 16. bundle分析
 
 	webpack-bundle-analyzer
 		npm install --save-dev webpack-bundle-analyzer
@@ -602,7 +660,7 @@ module.exports = {
 [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
 [hash,chunkhash,contenthash区别](https://blog.csdn.net/bubbling_coding/article/details/81561362)
 
-# 代码分离
+# 17. 代码分离
 	
 	常用的代码分离方法有三种:
 		1. 入口起点: 使用entry配置手动地分离代码
@@ -633,5 +691,9 @@ module.exports = {
 	}
 }
 ```
+
+# babel
+
+	Babel是一个工具链,主要用于在旧的浏览器或者环境中将ECMAScript2015+的代码转换为向后兼容版本的JavaScript代码
 	
 [webpack官方文档5.0](https://webpack.docschina.org/guides/development/)
