@@ -343,6 +343,27 @@ module.exports = {
 		在为 process 定义值时，'process.env.NODE_ENV': JSON.stringify('production') 会比
 		process: { env: { NODE_ENV: JSON.stringify('production') } } 更好
 
+## terser-webpack-plugin
+
+	如果使用的是webpack v5或以上版本,不需要安装这个插件。webpack v5自带最新的terser-webpack-plugin。如果使用webpack v4,
+	则必须安装 terser-webpack-plugin
+
+	npm install terser-webpack-plugin --save-dev
+```js
+// webpack.config.js
+const TerserPlugin = require("terser-webpack-plugin");
+module.exports = {
+	optimization:{
+		minimize:true,
+		minimizer:[new TerserPlugin({
+			test:/\.js(\?.*)?$/,		// test 用来匹配要压缩的文件
+			include:/include/,			// 匹配参与压缩的文件
+			exclude:/exclude/,			// 排序压缩的文件
+		})]
+	}
+}
+```
+
 ## CopyWebpackPlugin
 
 	Copies individual files or entire directories,which already exist,to the build directory
