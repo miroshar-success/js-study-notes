@@ -25,29 +25,46 @@ const foo = () => {};
 })()
 ```
 
-    (function IIFE(){...}) 函数表达式外面的(...)就是JavaScript语法能否放置其成为普通函数声明的部分。
+	(function IIFE(){...}) 函数表达式外面的(...)就是JavaScript语法能否放置其成为普通函数声明的部分。
 ```js
 foo1(); // foo1
 foo2(); // foo2 is not defined
 function foo1(){
-    console.log('foo1');
+	console.log('foo1');
 }
 
 (function foo2(){
-    console.log('foo2')
+	console.log('foo2')
 })
 ```
-    
-    polyfill 用于表示根据新特性的定义,创建一段与之行为等价但能够在旧的JavaScript环境中运行的代码。
+  polyfill 用于表示根据新特性的定义,创建一段与之行为等价但能够在旧的JavaScript环境中运行的代码。
 ```js
 // isNaN
 
 if(!Number.isNaN){
-    Number.isNaN = function(x){
-        return x !== x;
-    }
+	Number.isNaN = function(x){
+		return x !== x;
+	}
 }
 ```
+
+## 函数属性和方法
+
+	Function.name       // 函数名
+	Function.length     // 函数参数个数
+	tips:形参的数量不包括剩余参数个数,仅包括第一个具有默认值之前的参数个数。
+```js
+console.log((function () {}).length)  // 0
+console.log( (function(a){}).length ) // 1
+console.log( (function(a,b){}).length ) // 2
+console.log( (function(...arg){}).length )  // 0
+console.log( (function(a,b,c = 1){}).length ) // 2
+console.log( (function(a,b = 1,c){}).length ) // 1
+```
+	Function.prototype.apply()
+	Function.prototype.bind()
+	Function.prototype.call()
+	Function.prototype.toString()
 
 
 

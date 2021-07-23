@@ -33,6 +33,7 @@ function loop(x) {
   console.log('hello world')
 }())
 ```
+## 高阶函数
 
   函数可以作为参数传递另一个函数 / 函数可以作为另一个函数的返回值
 
@@ -73,3 +74,5 @@ function getScope(){
 }
 getScope(); // kyrie scoped 5;
 ```
+[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
+[reduce方法](https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
