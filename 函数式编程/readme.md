@@ -47,6 +47,8 @@ function factorial(n){
   return (n * factorial(n - 1))
 }
 ```
+  常用高阶函数
+  forEach / map / some / every / find / findIndex / sort / reduce
 ## Function scope
 
   A function defined in the global scope can access all variables defined in the global scope. A
@@ -74,5 +76,18 @@ function getScope(){
 }
 getScope(); // kyrie scoped 5;
 ```
+
+## Function stack
+
+  A function can refer to and call itself. There three ways for a function to refer to itself.
+    1. The function's name
+    2. arguments.callee
+    3. An in-scope variable that refers to the function
+
+  closure
+    1. The inner function can be accessed only from statements in the outer function
+    2. The inner function forms a closure: The inner function can use the arguments and variables of the outer function
+    while the outer function cannot use the arguments and variables of the inner function.
+
 [function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 [reduce方法](https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
