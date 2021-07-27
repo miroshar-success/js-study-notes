@@ -88,6 +88,39 @@ getScope(); // kyrie scoped 5;
     1. The inner function can be accessed only from statements in the outer function
     2. The inner function forms a closure: The inner function can use the arguments and variables of the outer function
     while the outer function cannot use the arguments and variables of the inner function.
+```js
+function outside(x) {
+  function inside(y) {
+    return x + y;
+  }
+  return inside;
+}
+fn_inside = outside(3); 
+                        
+result = fn_inside(5); // returns 8
+result1 = outside(3)(5);
+```
+  A closure must preserve the arguments and variables in all scoped it references. Since each call provides
+  potentially different arguments. A new closure is created for each call to outside.
+
+  The closures can contain multiple scoped; they recursively contain the scope of the functions containing it.
+  This is called scope chaining.
+## Functor
+
+  函数式编程的运算不直接操作值,而是由函子完成。
+  函子是实现了map接口的一个对象, map方法接收一个函数作为参数,处理过的值保存在新的函子中。
+```js
+class Container {
+  constructor(value){
+    this._value = value
+  }
+  map(fn) {
+    return new Container(fn(this.value))
+  }
+}
+```
+  MayBe函子 对外部的空值情况做处理
 
 [function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 [reduce方法](https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+[point-free](https://www.ruanyifeng.com/blog/2017/03/pointfree.html)

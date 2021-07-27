@@ -47,3 +47,47 @@ function foo1(i) {
   console.log('end: ' + i);
 }
 foo1(1);
+
+
+
+// 闭包
+function addSquare(a,b) {
+  function square(x) {
+    return x * x
+  }
+  return square(a) + square(b)
+}
+const a1 = addSquare(3,4)
+const a2 = addSquare(6,8)
+console.log(a1,a2)  // 25 100
+
+
+function outside(x){
+  function inside(y) {
+    return x + y;
+  }
+  return inside
+}
+
+const fn_inside = outside(5)
+console.log(fn_inside(5)) // 10 
+console.log(fn_inside(8)) // 13
+console.log(fn_inside(10))  // 15
+
+
+function m1(x){
+  function m2() {
+    x += 1
+    console.log(x)
+  }
+  return m2
+}
+
+const inside_m1 = m1(8);
+inside_m1() // 9
+inside_m1() // 10
+
+
+const inside_m2 = m1(5)
+inside_m2() // 6
+inside_m2() // 7

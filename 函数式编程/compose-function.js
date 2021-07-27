@@ -33,5 +33,3 @@ function compose(...args) {
 let l = compose(first,reverse);
 console.log(l([1,2,3,4,5])) // 5
 
-
-// 组合函数的结合律
