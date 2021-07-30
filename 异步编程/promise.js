@@ -65,3 +65,24 @@ p2.then(value => {
 // .then(img => {
 //   console.log(img)
 // })
+
+
+console.log(new Date())
+// promise封装ajax
+function ajax(url){
+  const xhr = new XMLHttpRequest()
+  xhr.open('GET', url, true)
+  xhr.responseType = 'json'
+  xhr.send(null)
+  return new Promise(resolve => {
+    xhr.onload = function() {
+      resolve(xhr.response)
+    }
+  })
+}
+
+// ajax('http://apis.juhe.cn/simpleWeather/query?city=hangzhou')
+// .then(res => {
+//   console.log('res:', res)
+// })
+
