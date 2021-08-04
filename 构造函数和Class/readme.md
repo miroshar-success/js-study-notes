@@ -1,4 +1,3 @@
-
 # 1. 对象生成方式
 
 ```js
@@ -62,37 +61,37 @@ Object.prototype.__proto__  == null;
 
 # 4. new关键字
 
-    当代码new Foo()执行时,会发生以下事情:
-        1. 一个继承自Foo.prototype的新对象被创建
-        2. 使用指定的参数调用构造函数Foo,并将this绑定到新创建的对象.new Foo等同于new Foo().
-        3. 由构造函数返回的对象就是new表达式的结果。
+	当代码new Foo()执行时,会发生以下事情:
+		1. 一个继承自Foo.prototype的新对象被创建
+		2. 使用指定的参数调用构造函数Foo,并将this绑定到新创建的对象.new Foo等同于new Foo().
+		3. 由构造函数返回的对象就是new表达式的结果。
     
 # 5. Prototype
     
     
 ```js
 function Player(){
-    this.name = 'kyrie irving';
-    this.age = 26
+	this.name = 'kyrie irving';
+	this.age = 26
 }
 // 在Player的原型上添加属性有两种方法
 Player.prototype.skill = function(){
-    console.log('crossover');
+	console.log('crossover');
 }
 Player.prototype.handle = function(){
-    console.log('dunk');
+	console.log('dunk');
 }
 
 // 这种方法会覆盖,上面的方法不会。
 Player.prototype = {
-    skill(){
-        console.log('crossover');
-    }
+	skill(){
+		console.log('crossover');
+	}
 }
 Player.prototype = {
-    handle(){
-        console.log('dunk');
-    }
+	handle(){
+		console.log('dunk');
+	}
 }
 let kyrie = new Player();   // let kyrie = new Player;  可以不用加括号,有参数的时候需要加括号
 console.log(kyrie);
@@ -106,30 +105,30 @@ console.log(kyrie);
     在修改了Player.prototype引用后，可以给Player.prototype添加一个.constructor属性。
 ```js
 Object.defineProperty(Player.prototype,'constructor',{
-    enumerable:false,
-    writable:true,
-    configurable:true,
-    value:Player
+	enumerable:false,
+	writable:true,
+	configurable:true,
+	value:Player
 });
 ```
-    可以通过 Object.getOwnPropertyDescriptor(Player.prototype,'constructor'); 获取constructor描述符
-        enumerable属性为false。
+	可以通过 Object.getOwnPropertyDescriptor(Player.prototype,'constructor'); 获取constructor描述符
+	enumerable属性为false。
     
 # 6. 继承
 
 ```js
 // 第一种方法:
 function ClassA(){
-    this.name = '我是函数a';
-    this.method = 'say';
+	this.name = '我是函数a';
+	this.method = 'say';
 }
 ClassA.prototype = {
-    say(){
-        console.log(`我是函数${this.name}`);
-    }
+	say(){
+		console.log(`我是函数${this.name}`);
+	}
 }
 function ClassB(){
-    this.name = '我是函数b';
+	this.name = '我是函数b';
 }
 
 // 将函数A的原型赋值给函数B,这样函数B只能继承函数A原型上的方法,而无法获取函数A构造函数本身的属性
@@ -173,13 +172,13 @@ p.toString();   // 3
     ES6中引入了Class(类)关键字,作为对象的模板,通过class关键字,可以定义类.基本上,ES6的class可以看作只是一个语法糖.
 ```js
 class Point{
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-    }
-    toString() {
-        console.log(this.x + this.y);
-    }
+	constructor(x,y){
+		this.x = x;
+		this.y = y;
+	}
+	toString() {
+		console.log(this.x + this.y);
+	}
 }
 // 可以new class声明的类,和ES5的构造函数使用方法一致. 构造函数的prototype属性,在ES6的'类'上继续存在.
 let p = new Point();
@@ -192,22 +191,22 @@ p.toString();
 ```js
 // 类的方法
 class Point{
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-    }
-    toString(){
-        console.log(this.x + this.y);
-    }
+	constructor(x,y){
+		this.x = x;
+		this.y = y;
+	}
+	toString(){
+		console.log(this.x + this.y);
+	}
 }
 
 // 构造函数的方法
 function Calc(x,y){
-    this.x = x;
-    this.y = y;
+	this.x = x;
+	this.y = y;
 }
 Calc.prototype.toString = function(){
-    console.log(this.x+this.y);
+	console.log(this.x+this.y);
 }
 console.log(Object.keys(Point.prototype));  // []
 console.log(Object.keys(Calc.prototype));   // [toString']
