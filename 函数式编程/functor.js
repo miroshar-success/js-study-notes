@@ -42,3 +42,22 @@ const h = new MayBe(['kyrie','durant','james','wade'])
 .map(arr => arr.map(item => item.toUpperCase()))
 .map(() => null)
 console.log('h:',h)
+
+
+
+class Functor {
+  constructor(value) {
+    this._value = value
+  }
+  map(func) {
+    return new Functor(func(this._value))
+  }
+  value(f) {
+    return f(this._value)
+  }
+}
+
+const my_functor = new Functor('kyrie irving')
+console.log(my_functor.map(item => item.split('')))
+
+my_functor.map(item => item.split('')).value(console.log)

@@ -52,3 +52,29 @@ Promise.resolve()
 }).then(v => {
   console.log(v)
 })
+
+
+// setTimeout(function timer1(){
+//   new Promise(resolve => {
+//     console.log('hello-1111')
+//   })
+//   console.log('hello-22222')
+// },1000)
+
+setTimeout(() => {
+  console.log('你好')
+},1000)
+
+new Promise((resolve) => {
+  setTimeout(() => {
+    resolve('世界')
+  },1000)
+}).then(v => {
+  console.log(v)
+})
+
+async function t2(){
+  const a = await new Promise((resolve) => {})
+  console.log('a',a)  // 不会执行,因为promise的状态没有改变
+}
+t2()
