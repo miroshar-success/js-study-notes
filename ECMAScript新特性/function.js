@@ -116,7 +116,7 @@ var handler = {
     console.log('type:',type, this.id)
   }
 }
-handler.init();
+// handler.init();
 
 
 // 
@@ -128,3 +128,17 @@ function bar() {
 bar().call({id:5})
 const b = bar.call({id:100})
 b() // 100
+
+
+// ---------------------- toString()
+
+function moon(){
+  /*
+  1111
+  2222
+  3333
+  */
+  console.log('hello world')
+}
+
+console.log(moon.toString())
