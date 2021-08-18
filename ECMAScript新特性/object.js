@@ -94,4 +94,32 @@ singer[singerSymbol] = 'hello';
 console.log(Object.getOwnPropertyDescriptor(Object.prototype,'toString'));
 
 console.log(Object.getOwnPropertyNames(singer))
-console.log(Object.getOwnPropertySymbols(singer))
+console.log(Object.getOwnPropertySymbols(singer));
+
+
+// ------------ super关键字
+const _proto_ = {
+  foo:'hello'
+}
+let obj1 = Object.create(_proto_)
+
+console.log('obj1:', obj1, obj1.__proto__)
+
+
+// ---------- 扩展运算符
+let obj = {a:{b:1}}
+let {...x} = obj;
+console.log('x:',x)
+x.a.b = 2;
+console.log('obj:', obj)  // {a:{b:2}}
+
+const o1 = Object.create({m:1,n:2})
+o1.z = 3;
+
+let {m,...newObj} = o1;
+console.log(m,newObj);  // 1  {z:3}
+
+const o2 = Object.create({p:1})
+o2.q = 2;
+let {p,q} = o2;
+console.log(p,q)  // 1 2
