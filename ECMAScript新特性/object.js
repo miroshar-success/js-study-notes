@@ -123,3 +123,17 @@ const o2 = Object.create({p:1})
 o2.q = 2;
 let {p,q} = o2;
 console.log(p,q)  // 1 2
+
+
+const x1 = false, x2 = '123'
+console.log(x1 || x2) // 123
+
+const y1 = '123', y2 = false;
+console.log(y1 || y2) // 123xs
+
+
+const m1 = false , m2 = '123'
+console.log(m1 && m2) // false
+
+const n1 = '123', n2 = false;
+console.log(n1 && n2) // false

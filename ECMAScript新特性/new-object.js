@@ -10,14 +10,15 @@ console.log(Object.is(NaN,NaN)) // true
 // --------------- Object.is(x,y)
 function equal(x,y) {
   if(x === y) {
-    // 
+    // 如果a为真,则返回A, 否则返回B
     return x !== 0 || 1/x === 1/y
   }else{
+    // 对NaN的判断,两个值都不等于自身
     return x !== x && y !== y;
   }
 }
 console.log(equal(1,1)) // true
-console.log(equal('foo','foo')) //false
+console.log(equal('foo','foo')) //true
 console.log(equal(true,true)) // true
 console.log(equal({},{})) // false
 console.log(equal(+0,-0)) // false
