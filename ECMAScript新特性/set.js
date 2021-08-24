@@ -18,6 +18,8 @@ console.log('set:', set)  // Set { NaN }
 // ----------------- Set结构  add()添加 / delete删除  / has()是否存在 / clear() 
 console.log('set.prototype.constructor:', Set.prototype.constructor);
 let s3 = new Set(['kyrie', 'durant', 'wade', 'james'])
+s3.add('curry')
+console.log(s3)
 console.log(s3.delete('kyrie'))
 console.log('s3:', s3)
 console.log(s3.size)
