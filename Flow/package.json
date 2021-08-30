@@ -1,0 +1,16 @@
+{
+  "name": "Flow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "flow": "flow"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "flow-bin": "^0.158.0",
+    "nodemon": "^2.0.12"
+  }
+}
