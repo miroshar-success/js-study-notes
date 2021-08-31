@@ -1,4 +1,4 @@
-// @flow
+//      
 /*
 Booleans
 Strings
@@ -8,14 +8,13 @@ undefined
 Symbols
 */
 
-function method(x:number, y:string, z:boolean){
+function method(x       , y       , z        ){
   console.log(x,y,z)
 }
 method(3.14, 'hello', true)
-method(3.15,'123',false)
 
 //-------------------------------------- boolean check
-function acceptBoolean(value:boolean){
+function acceptBoolean(value        ){
   console.log(value)
 }
 acceptBoolean(false)
@@ -24,7 +23,7 @@ acceptBoolean(1 === 1)  // 隐式类型转换
 acceptBoolean(!!'')
 
 //--------------------------------------  number check
-function acceptNumber(value:number){
+function acceptNumber(value       ){
   console.log(value)
 }
 const value = Math.PI
@@ -35,7 +34,7 @@ acceptNumber(Infinity)
 acceptNumber(value)
 
 // -------------------------------------- string check
-function acceptsString(value: string){
+function acceptsString(value        ){
   console.log(value)
 }
 // 隐士类型转换的时候 只允许字符串和数字  或者字符串和字符串的拼接
@@ -50,19 +49,19 @@ console.log({}.toString())  // [object Object]
 
 
 //-------------------------------------- null and void
-function acceptsNull(value:null) {
+function acceptsNull(value     ) {
 }
 
 acceptsNull(null)
 // acceptsNull(undefined)
 
-function acceptUndefined(value:void){
+function acceptUndefined(value     ){
 }
 acceptUndefined(undefined)
 // acceptUndefined(undefined)
 
 // --------------Maybe Types ?number ?string
-function acceptMaybeString(value: ?string){
+function acceptMaybeString(value         ){
 }
 acceptMaybeString()
 acceptMaybeString('bar')
@@ -70,7 +69,7 @@ acceptMaybeString(undefined)
 acceptMaybeString(null)
 
 // ----------------Optional object properties
-function acceptObject(value:{foo?: string}){
+function acceptObject(value               ){
 
 }
 acceptObject({foo:'string'})
@@ -79,7 +78,7 @@ acceptObject({foo:undefined})
 // acceptObject({foo:null})
 
 // ------------------------ Optional function parameters
-function baz(value?: string){
+function baz(value         ){
 }
 baz('bar')
 baz(undefined)
@@ -87,20 +86,19 @@ baz(undefined)
 baz()
 
 //------------------------ function parameters with defaults
-function bar(value: string = 'default'){
+function bar(value         = 'default'){
 }
 bar()
 bar('123')
 // bar(null)
 
 // ------------------------ symbol
-function acceptSymbol(value:symbol){
+function acceptSymbol(value       ){
 }
 acceptSymbol(Symbol('hello'))
 
 
-// ----------------
+// ---------------- 移除注解
 /*
-flow-remove-types 移除注释
-vscode 插件 Flow-language-support 检测flow插件
+flow-remove-types
 */
