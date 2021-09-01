@@ -26,3 +26,17 @@ identity(null)
 identity(undefined)
 identity(NaN)
 identity(Infinity)
+
+// ------------- mixed
+function acceptMix(value:mixed){
+  if(typeof value === 'string'){
+    return '' + value
+  }
+  return ''
+}
+acceptMix(123)
+acceptMix('123')
+acceptMix(undefined)
+acceptMix(null)
+acceptMix(Symbol('hello'))
+acceptMix(false)
