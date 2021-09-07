@@ -29,3 +29,9 @@ function fn(obj:any){
   let baz = bar + 'baz'
   let f1:number = obj.f1
 }
+
+/*
+Mixed 强类型  any:弱类型
+*/
+
+const oBody:HTMLElement | null = document.querySelector('body')

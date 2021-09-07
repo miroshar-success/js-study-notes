@@ -46,3 +46,16 @@ interface MyInterfaceTwo<A,B,C> {
 }
 
 //------------------------------------------- variance (read-only and write-only)
+interface OneInstance {
+  +firstName: string, // readOnly
+  -lastName: string,  // writeOnly
+  age: number | string
+}
+
+const obj:OneInstance = {
+  firstName:'kyrie',
+  lastName:'irving',
+  age:30
+}
+obj.firstName
+obj.lastName = '123'
