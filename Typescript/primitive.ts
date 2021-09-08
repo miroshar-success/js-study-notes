@@ -79,3 +79,46 @@ function wrapInArray(obj: string | string []): Array<string>{
 }
 wrapInArray('123')
 wrapInArray(['1','2','3'])
+
+// --------------------------------- generics
+/* Generics provide variables to types. */
+type StringArray = Array<string>
+type NumberArray = Array<number>
+type ObjectArray = Array<{name:string}>
+
+interface Backpack<Type> {
+  add: (obj:Type) => void;
+  get:() => Type
+}
+
+// ----------------------------------------------- Structural Type system
+interface Point{
+  x: number;
+  y: number;
+}
+
+function logPoint(p:Point) {
+  console.log(`${p.x} - ${p.y}`);
+}
+const point: Point = {x:12,y:26}
+logPoint(point)
+
+// -------- The shape-matching only requires a subset of the object's fields to match
+const point3 = {x:12, y:26, z:89}
+const point4 = {x:37, y:26, width:30, height: 80}
+logPoint(point3)
+logPoint(point4)
+
+class VirtualPoint {
+  x: number;
+  y: number;
+  constructor(x: number, y:number){
+    this.x = x
+    this.y = y
+  }
+}
+const newPoint = new VirtualPoint(13,56)
+
+
+const obj = {width:10, height:15}
+const area = obj.width * obj.height;
