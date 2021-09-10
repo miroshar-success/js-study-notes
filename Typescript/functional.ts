@@ -108,3 +108,86 @@ let arr3:ReadonlyArray<number> = [1,2,3]
 let arr4:readonly number[] = [1,2,3]
 // arr3.push(123)  // error
 // arr4.push(345)  // error
+
+// -----------------------  类型断言
+const numbers:number [] = [100,120,120,300]
+const res = numbers.find(item => item > 0)
+const number1 = res as number;
+
+
+// ---------------------------- 接口
+interface Post {
+  title: string;
+  content: string;
+  subtitle?: string;
+  readonly summary: string;
+}
+function getPostDetail(post:Post){
+  console.log(post.title, post.content)
+}
+
+
+// ----------------------------------------- class
+class Person {
+  private name: string;
+  public age: number;
+  protected gender: boolean;
+  constructor(name: string, age: number){
+    this.name = name;
+    this.age = age
+    this.gender = true;
+  }
+  sayHi(msg: string): void{
+    console.log('message:', msg)
+  }
+  sayHello():void{
+    console.log(this.gender)
+  }
+  static create(name:string,age:number){
+    return new Person(name,age)
+  }
+}
+
+const tom = new Person('tom',20)
+// console.log(tom.name)  // error
+console.log(tom.age)
+// console.log(tom.gender) // error
+Person.create('kyrie',123)
+
+
+
+// --------------------------------- 接口
+interface Eat{
+  eat(food:string): void
+}
+interface Run {
+  run(distance:number): void
+}
+
+class Men implements Eat, Run{
+  eat(food:string):void{
+    console.log(food)
+  }
+  run(distance:number) {
+    console.log(distance)
+  }
+}
+class Animal implements Eat,Run {
+  eat(food:string){
+    console.log(food)
+  }
+  run(distance:number){
+    console.log(distance)
+  }
+}
+
+
+// -------------------------- 泛型 
+function createNumberArray(length:number, value:number): number [] {
+  const array = Array<number>(length).fill(value)
+  return array
+}
+function createArray<T>(length:number, value:T): T[] {
+  const array = Array<T>(length).fill(value)
+  return array
+}
