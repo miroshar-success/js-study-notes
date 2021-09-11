@@ -295,21 +295,21 @@ foo();
 var foo;
 
 function foo(){
-    console.log(1);
+	console.log(1);
 }
 
 foo = function(){
-    console.log(2);
+	console.log(2);
 }
 
 
 // 上面的代码会被解释为:      tips: var foo 出现在 function foo(){...} 之前,但是它是重复的声明(因此被忽略了)。
 function foo(){
-    console.log(1);
+	console.log(1);
 }
 foo();
 foo = function(){
-    console.log(2);
+	console.log(2);
 }
 ```
 
