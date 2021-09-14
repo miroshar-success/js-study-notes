@@ -89,13 +89,6 @@ const array:number[] = [1,2,3,4,5]
 array.push(102)
 array[0]
 
-// ---- readonly
-// interface Rx {
-//   readonly x : number
-// }
-// let rx:Rx = {x : 1};
-// rx.x
-
 interface ReadOnlyInterface {
   readonly y: string;
 }
