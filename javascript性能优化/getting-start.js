@@ -39,3 +39,53 @@ count_fn()
 2. Timeline时序图记录
 3. 堆快照查找分离DOM
 */
+
+// 创建dom,但不再页面上显示 分离dom
+// let tempElement = null;
+// function fn() {
+//  const ul = document.createElement('ul')
+//  for(let i = 0; i < 10; i++){
+//    ul.appendChild(document.createElement('li'))
+//  }
+//  tempElement = ul;
+//  tempElement = null;
+// }
+
+// document.querySelector('.button').addEventListener('click',fn,false)
+
+// ------------ 代码优化
+/*
+1. 减少全局变量使用
+2. 缓存全局变量
+3. 方法添加到原型对象上
+4. 避开闭包陷阱
+5. 避免使用方法访问对象到属性
+*/
+
+// 减少作用域链查找层级
+// 使用时间委托
+// jsbench.me 检测js代码性能网站
+
+let variable = 10;
+function foo(b){
+  let variable = 2;
+  function baz(c){
+    console.log(variable + b + c)
+  }
+  return baz
+}
+const f1 = foo(2)
+f1(3)
+
+
+var name = 'zce'
+function foo(){
+  name = '666'
+  function baz(){
+    var age = 30;
+    console.log(name)
+    console.log(age)
+  }
+  baz()
+}
+foo()
