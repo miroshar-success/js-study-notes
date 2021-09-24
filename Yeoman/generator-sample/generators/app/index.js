@@ -10,8 +10,41 @@ module.exports = class extends Generator {
     const tmpl = this.templatePath('hello-world.txt')
     // 输出路径
     const output = this.destinationPath('foo.txt')
-    const context = {title: 'hello world'}
+    const context = this.answers;
     this.fs.copyTpl(tmpl, output, context)
+
+    // 创建一个简易的生成vue基本目录的方式
+    const templates = [
+      'src/App.vue',
+      'src/main.js',
+      'src/router.js',
+      'src/components/HelloWorld.vue',
+      'src/store/index.js',
+      'src/store/getters.js',
+      'src/store/mutations.js',
+      'src/store/state.js',
+      'src/views/About.vue',
+      'src/views/Home.vue'
+    ]
+    templates.forEach(item => {
+      this.fs.copyTpl(
+        this.templatePath(item),
+        this.destinationPath(item),
+        this.answers
+      )
+    })
+  }
+  prompting() {
+    return this.prompt([
+      {
+        type:'input',
+        name:'name',
+        message:'Your project name',
+        default: this.appname
+      }
+    ]).then(answers => {
+      this.answers = answers
+    })
   }
 }
 /*

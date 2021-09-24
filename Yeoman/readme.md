@@ -22,3 +22,22 @@ yo --help // access the full help screen
 yo --generators // list every installed generators
 yo --version  // get the version
 ```
+
+## 接收用户输入
+```js
+prompting() {
+  return this.prompt([
+    {
+      type:'input',
+      name:'name',
+      message:'Your project name',
+      default: this.appname
+    }
+  ]).then(answers => {
+    this.answers = answers
+  })
+}
+```
+
+
+
