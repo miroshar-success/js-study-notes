@@ -58,7 +58,7 @@ let view = new Proxy({
     return true;
   }
 })
-// let li1 = view.selected = document.querySelector('.item-1');  
+// let li1 = view.selected = document.querySelector('.item-1');
 // console.log(li1)  // true
 
 // let li2 = view.selected = document.querySelector('.item-2');

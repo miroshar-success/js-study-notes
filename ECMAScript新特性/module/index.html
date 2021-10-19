@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class='button'>click</button>
+  <!-- 每个module模块都是运行在单独的 私有作用域中 -->
+  <script type='module'>
+    const foo = 'hello'
+    console.log('foo:',foo) // hello
+  </script>
+  <script type='module'>
+    const foo = 'world'
+    console.log('foo:', foo)  // world
+  </script>
+
+
+<!-- 禁止this指向全局对象 -->
+<script type='module'>
+  console.log(this) // undefined
+</script>
+
+<!-- 引入外部文件 -->
+<script type='module'>
+  // import {firstName, lastName, age, multiple} from './js/index.js'
+  // console.log(firstName,lastName, age)
+  // console.log(multiple(10))
+
+  // import 命令具有提升效果, 会提升到整个模块的头部首先执行。 这种行为的本质是，import命令是编译阶段执行的，在代码运行之前。
+  // console.log(m);
+  // import {m} from './js/index.js'
+</script>
+
+<script type='module'>
+  // --------------------------------------------- 整体导入 挂载到重命名到对象属性上
+  // --------------------------------------------- 如果是默认导出 使用这个方法, 会挂载到 default 属性上
+  // import * as circle from './js/index.js'
+  // import {area, length} from './js/index.js'
+  // console.log(area,length)
+  // console.log(circle, typeof circle)
+  // console.log(circle.area(10), circle.length(10))
+</script>
+
+<script type='module'>
+  // import * as player from './js/index.js'
+  // console.log(player)
+
+  // import foo from './js/default.js'
+  // foo()
+</script>
+
+<!-- <script type='module'>
+  -------------------------------------------------- 异步引入
+  import('./js/default.js').then(module => {  // 异步加载,返回的是一个promise
+    console.log(module.add)
+  })
+</script> -->
+<script type='module'>
+  const button = document.querySelector('.button')
+  console.log(button)
+  button.addEventListener('click',() => {
+    import('./js/default.js').then(module => {
+      // console.log(module.hello())
+      module.hello()
+    })
+  })
+</script>
+
+<script type='module'>
+  // import {foo,bar, baz} from './js/index.js'
+  // console.log(foo,bar, baz)
+</script>
+
+<script type='module'>
+  // ------------------------------------------ 同时加载多个模块
+  const button = document.querySelector('.button')
+  button.addEventListener('click',() => {
+    Promise.all([import('./js/foo.js'), import('./js/bar.js'), import('./js/baz.js')])
+    .then(([{foo},{bar},{default:baz}]) => {
+      console.log(foo,bar,baz)
+    })
+  })
+</script>
+<!-- --------------------------- nomodule 不支持 esmodule的浏览器 -->
+</body>
+</html>
