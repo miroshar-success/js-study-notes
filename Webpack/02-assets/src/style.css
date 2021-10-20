@@ -1,0 +1,19 @@
+body{
+  padding: 0;
+  margin: 0;
+  background-color:#fafafa;
+}
+.header{
+  font-size:20px;
+  font-weight:bold;
+  background-color:pink;
+  color:#000;
+  text-align:center;
+}
+.iu{
+  background-image:url('./images/iu.jpeg');
+  background-size:200px 200px;
+  width:200px;
+  height:200px;
+  background-repeat:no-repeat;
+}
