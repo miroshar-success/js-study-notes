@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+//--------------------------------------- 配置devServer
 // module.exports = {
 //   entry: path.join(__dirname,'src/index.js'),
 //   mode:'development',
@@ -24,7 +24,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // }
 
 
-// 比较每个sourceMap
+// ------------------------------------------------- 比较每个sourceMap
 
 // eval 不会生成sourceMap, 将模块代码放到eval函数执行，携带一个url标注 sourceMap的文件路径
 
@@ -37,35 +37,112 @@ const modes = [
   'inline-source-map', 'eval-nosources-cheap-source-map'
 ]
 
-module.exports = modes.map(item => {
-  return {
+// module.exports = modes.map(item => {
+//   return {
+//     entry:path.join(__dirname,'src/index.js'),
+//     devtool:item,
+//     mode:'none',
+//     output:{
+//       filename:`js/${item}.js`,
+//       path:path.join(__dirname,'dist'),
+//       clean:true
+//     },
+//     // module:{
+//     //   rules:[
+//     //     {
+//     //       test:/\.js$/,
+//     //       use:[
+//     //         {
+//     //           loader:'babel-loader',
+//     //           options:{
+//     //             presets:['@babel/preset-env']
+//     //           }
+//     //         }
+//     //       ]
+//     //     }
+//     //   ]
+//     // },
+//     plugins:[
+//       new HtmlWebpackPlugin({
+//         filename:`${item}.html`
+//       })
+//     ]
+//   }
+// })
+
+// --------------------------------- 热更新 ------------------------------------
+// const webpack = require('webpack')
+// module.exports = {
+//   mode:'development',
+//   entry:path.join(__dirname,'src/index.js'),
+//   devtool:'eval-cheap-module-source-map',
+//   output:{
+//     filename:'[name].bundle.js',
+//     path:path.join(__dirname,'dist'),
+//     clean:true
+//   },
+//   devServer:{
+//     port:'5050',
+//     hot:true,
+//     static:path.join(__dirname,'dist'),
+//     compress:true,
+//     host:'0.0.0.0'
+//   },
+//   module:{
+//     rules:[
+//       {
+//         test:/\.css$/,
+//         use:['style-loader','css-loader']
+//       }
+//     ]
+//   },
+//   plugins:[
+//     new HtmlWebpackPlugin({
+//       title:'hot module replacement'
+//     }),
+//     new webpack.HotModuleReplacementPlugin()
+//   ]
+// }
+
+
+// --------------------------------------webpack导出函数
+module.exports = (env,argv) => {
+  console.log(argv)
+  const config = {
     entry:path.join(__dirname,'src/index.js'),
-    devtool:item,
-    mode:'none',
     output:{
-      filename:`js/${item}.js`,
+      filename:'[name].bundle.js',
       path:path.join(__dirname,'dist'),
       clean:true
     },
-    // module:{
-    //   rules:[
-    //     {
-    //       test:/\.js$/,
-    //       use:[
-    //         {
-    //           loader:'babel-loader',
-    //           options:{
-    //             presets:['@babel/preset-env']
-    //           }
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // },
-    plugins:[
+    module:{
+      rules:[
+        {
+          test:/\.css$/,
+          use:['style-loader','css-loader']
+        }
+      ]
+    }
+  }
+  if(argv.mode === 'development'){
+    config.mode = 'development'
+    config.devtool = 'eval-source-map'
+    // config.devServer = {
+    //   hot:true,
+    //   port:'5050',
+    //   host:'0.0.0.0',
+    //   static:path.join(__dirname,'dist'),
+    //   compress:true
+    // }
+    config.plugins = [
+      ...config.plugins,
       new HtmlWebpackPlugin({
-        filename:`${item}.html`
+        title:'测试'
       })
     ]
+  }else{
+    config.mode = 'production'
+    config.devtool = false;
   }
-})
+  return config;
+}
