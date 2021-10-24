@@ -15,20 +15,19 @@
 // })
 
 
-// hot-module-replacement
+// ------------------------ hot-module-replacement ------------------------
 /*
 1. css模块开箱即用热更新
 */
-import './style.css';
+import { Button } from './components/index.js'
 
-console.log('hello world')
+import './style.css';
 
 function createElement(){
   const textarea = document.createElement('textarea');
   textarea.classList.add('textarea');
   return textarea;
 }
-console.log('hello world')
 document.body.appendChild(createElement());
 
 // --------------- js文件模块热替换 该对象是hmr对象提供的
@@ -37,4 +36,15 @@ document.body.appendChild(createElement());
 //     console.log('我更新了')
 //   })
 // }
+// ------------------------------- definePlugin ------------------------
+console.log(API_BASE_URL)
+
+
+
+
+// ------------------------------- tree-shaking -------------------------------
+document.body.appendChild(Button())
+/* unused harmony exports Link, Heading */
+
+// sideEffects 一般用于npm包 标记是否有副作用
 

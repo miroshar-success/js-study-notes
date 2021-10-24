@@ -76,15 +76,54 @@ splitChunkPlugin
 
 
 /*
-使用符合ECMAScript提案的 import()语法实现动态导入。
+--------------------- 使用符合ECMAScript提案的 import()语法实现动态导入。-----------------
 */
+// module.exports = {
+//   mode:'development',
+//   devtool:'inline-source-map',
+//   entry:path.join(__dirname,'src/index.js'),
+//   output:{
+//     path:path.join(__dirname,'dist'),
+//     filename:'[name].bundle.js',
+//     clean:true
+//   }
+// }
+
+
+//  ---------------------   多入口打包 ---------------------
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
-  mode:'development',
-  devtool:'inline-source-map',
-  entry:path.join(__dirname,'src/index.js'),
+  mode:'none',
+  entry:{
+    index:path.join(__dirname,'src/index.js'),
+    main:path.join(__dirname,'src/main.js')
+  },
   output:{
-    path:path.join(__dirname,'dist'),
     filename:'[name].bundle.js',
+    path:path.join(__dirname,'dist'),
     clean:true
-  }
+  },
+  module:{
+    rules:[
+      {
+        test:/\.css$/,
+        use:['style-loader','css-loader']
+      }
+    ]
+  },
+  plugins:[
+    new HtmlWebpackPlugin({
+      title:'index',
+      filename:'index.html',
+      hash:true,
+      chunks:['index']
+    }),
+    new HtmlWebpackPlugin({
+      title:'main',
+      filename:'main.html',
+      hash:true,
+      chunks:['main']
+    })
+  ]
 }
+

@@ -9,9 +9,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (() => {
-  return document.createElement('button')
-});
+function createElement(tag,text){
+  let element = document.createElement(tag)
+  element.textContent = text;
+  return element;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createElement);
 
 
 /***/ })
@@ -19,7 +23,7 @@ __webpack_require__.r(__webpack_exports__);
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/
+/******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -33,14 +37,14 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/
+/******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -53,12 +57,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -69,63 +73,50 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-// import print from './print.js'
+/* harmony import */ var _global_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+// import Vue from 'vue'
+// const root = document.createElement('div')
 
-// function createElement(tag){
-//   const button = document.createElement(tag)
-//   button.textContent = 'click me!';
+// const Counter = {
+//   data() {
+//     return {
+//       counter:0
+//     }
+//   }
+// }
+// const instance = Vue.createApp(Counter);
+// const vm = instance.mount(root)
+// console.log('hello world')
+
+// console.log(instance, vm);
+/*-----------------------------import().then()---------------------------------*/
+// function createElement() {
+//   const button = document.createElement('button');
+//   button.textContent = 'hello world';
 //   return button;
 // }
-
-// const button = createElement('button')
-
-// document.body.appendChild(button)
+// const button = createElement();
 
 // button.addEventListener('click',function() {
-//   print('hello world')
-// })
-
-
-// ------------------------ hot-module-replacement ------------------------
-/*
-1. css模块开箱即用热更新
-*/
-
-
-
-
-function createElement(){
-  const textarea = document.createElement('textarea');
-  textarea.classList.add('textarea');
-  return textarea;
-}
-document.body.appendChild(createElement());
-
-// --------------- js文件模块热替换 该对象是hmr对象提供的
-// if(module.hot){
-//   module.hot.accept('./index.js',() => {
-//     console.log('我更新了')
+//   import(/*webpackChunkName print*/'./print').then(({print}) => {
+//     print('hello world')
 //   })
-// }
-// ------------------------------- definePlugin ------------------------
-console.log("http://www.baidu.com")
+// },false)
+// document.body.appendChild(button);
 
 
+// 多入口打包  index.js
 
 
-// ------------------------------- tree-shaking -------------------------------
-document.body.appendChild((0,_components_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])())
-/* unused harmony exports Link, Heading */
+let button = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__["default"])('button','click me')
 
-// sideEffects 一般用于npm包 标记是否有副作用
-
+document.body.appendChild(button)
 
 })();
 

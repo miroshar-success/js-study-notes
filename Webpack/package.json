@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack --config 04-development-environment/webpack.config.js",
-    "start": "webpack serve --config 04-development-environment/webpack.config.js"
+    "build": "webpack --config 05-code-splitting/webpack.config.js",
+    "start": "webpack serve --config 05-code-splitting/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +26,6 @@
     "html-webpack-plugin": "^5.4.0",
     "style-loader": "^3.3.0",
     "webpack-dev-server": "^4.3.1"
-  }
+  },
+  "sideEffects":false
 }

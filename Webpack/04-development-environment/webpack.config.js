@@ -105,44 +105,88 @@ const modes = [
 // }
 
 
-// --------------------------------------webpack导出函数
-module.exports = (env,argv) => {
-  console.log(argv)
-  const config = {
-    entry:path.join(__dirname,'src/index.js'),
-    output:{
-      filename:'[name].bundle.js',
-      path:path.join(__dirname,'dist'),
-      clean:true
-    },
-    module:{
-      rules:[
-        {
-          test:/\.css$/,
-          use:['style-loader','css-loader']
-        }
-      ]
-    }
-  }
-  if(argv.mode === 'development'){
-    config.mode = 'development'
-    config.devtool = 'eval-source-map'
-    // config.devServer = {
-    //   hot:true,
-    //   port:'5050',
-    //   host:'0.0.0.0',
-    //   static:path.join(__dirname,'dist'),
-    //   compress:true
-    // }
-    config.plugins = [
-      ...config.plugins,
-      new HtmlWebpackPlugin({
-        title:'测试'
-      })
+// --------------------------------------webpack导出函数------------------
+// module.exports = (env,argv) => {
+//   console.log(argv)
+//   const config = {
+//     entry:path.join(__dirname,'src/index.js'),
+//     output:{
+//       filename:'[name].bundle.js',
+//       path:path.join(__dirname,'dist'),
+//       clean:true
+//     },
+//     module:{
+//       rules:[
+//         {
+//           test:/\.css$/,
+//           use:['style-loader','css-loader']
+//         }
+//       ]
+//     }
+//   }
+//   if(argv.mode === 'development'){
+//     config.mode = 'development'
+//     config.devtool = 'eval-source-map'
+//     // config.devServer = {
+//     //   hot:true,
+//     //   port:'5050',
+//     //   host:'0.0.0.0',
+//     //   static:path.join(__dirname,'dist'),
+//     //   compress:true
+//     // }
+//     config.plugins = [
+//       ...config.plugins,
+//       new HtmlWebpackPlugin({
+//         title:'测试'
+//       })
+//     ]
+//   }else{
+//     config.mode = 'production'
+//     config.devtool = false;
+//   }
+//   return config;
+// }
+const webpack = require('webpack');
+
+module.exports = {
+  mode:'none',
+  entry:path.join(__dirname,'src/index.js'),
+  // devtool:'eval-cheap-module-source-map',
+  output:{
+    filename:'[name].bundle.js',
+    path:path.join(__dirname,'dist'),
+    clean:true
+  },
+  module:{
+    rules:[
+      {
+        test:/\.css$/,
+        use:['style-loader','css-loader']
+      }
     ]
-  }else{
-    config.mode = 'production'
-    config.devtool = false;
-  }
-  return config;
+  },
+  optimization:{
+    sideEffects:true, //
+    // usedExports:true, // ---------------------- 打包实际import引入的代码
+    // concatenateModules:true
+    // minimize:true     // ---------------------- 压缩代码
+  },
+  plugins:[
+    new webpack.DefinePlugin({
+      API_BASE_URL:JSON.stringify('http://www.baidu.com'),
+      PRODUCTION:JSON.stringify(true),
+      VERSION:JSON.stringify('5fa3b9'),
+      BROWSER_SUPPORTS_HTML5:true
+    })
+    // new HtmlWebpackPlugin({
+    //   title:'define-plugin'
+    // })
+  ]
+  // devServer:{
+  //   port:'5050',
+  //   host:'0.0.0.0',
+  //   static:path.join(__dirname,'dist'),
+  //   compress:true,
+  //   hot:true
+  // }
 }
