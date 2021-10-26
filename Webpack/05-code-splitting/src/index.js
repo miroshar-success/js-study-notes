@@ -30,8 +30,21 @@
 
 
 // 多入口打包  index.js
-import createElement from './global.js'
+// import createElement from './global.js'
 
-let button = createElement('button','click me')
+// let button = createElement('button','click me')
 
-document.body.appendChild(button)
+// document.body.appendChild(button)
+
+/*---------------------------------------- import().then() --------------------------------------------*/
+import './style.css';
+
+function createElement(){
+  const element = document.createElement('div');
+  element.textContent = 'hello world'
+  element.classList.add('red')
+  return element;
+}
+
+document.body.appendChild(createElement())
+

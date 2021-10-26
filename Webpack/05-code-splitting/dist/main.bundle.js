@@ -1,68 +1,9 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
-/* 0 */,
-/* 1 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function createElement(tag,text){
-  let element = document.createElement(tag)
-  element.textContent = text;
-  return element;
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createElement);
-
-
-/***/ })
-/******/ 	]);
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -76,10 +17,7 @@ function createElement(tag,text){
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _global_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 // import Vue from 'vue'
 // const root = document.createElement('div')
 
@@ -95,14 +33,43 @@ __webpack_require__.r(__webpack_exports__);
 // console.log('hello world')
 
 // console.log(instance, vm);
+/*-----------------------------import().then()---------------------------------*/
+// function createElement() {
+//   const button = document.createElement('button');
+//   button.textContent = 'hello world';
+//   return button;
+// }
+// const button = createElement();
+
+// button.addEventListener('click',function() {
+//   import(/*webpackChunkName print*/'./print').then(({print}) => {
+//     print('hello world')
+//   })
+// },false)
+// document.body.appendChild(button);
 
 
+// 多入口打包  index.js
+// import createElement from './global.js'
 
+// let button = createElement('button','click me')
 
-let link = (0,_global_js__WEBPACK_IMPORTED_MODULE_0__["default"])('a','hello world');
-document.body.appendChild(link);
+// document.body.appendChild(button)
 
-})();
+/*---------------------------------------- import().then() --------------------------------------------*/
+
+const button = document.createElement('button');
+
+button.textContent = 'click me';
+button.classList.add('button')
+document.body.appendChild(button)
+
+// button.addEventListener('click',() => {
+//   import(/* webpackChunkName: 'print' */'./print.js').then(({print}) => {
+//     print('hello world')
+//   })
+// },false)
+
 
 /******/ })()
 ;
