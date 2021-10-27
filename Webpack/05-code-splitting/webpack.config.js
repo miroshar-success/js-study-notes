@@ -155,15 +155,13 @@ splitChunkPlugin
 /*-------------------------------------------  提取css ----------------------------------------------*/
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  mode:'none',
-  entry:path.join(__dirname,'src/index.js'),
+  mode:'development',
+  entry:path.join(__dirname,'src/main.js'),
   output:{
-    filename:'[name].bundle.js',
+    filename:'bundle.js',
     path:path.join(__dirname,'dist'),
-    clean: true
   },
   module:{
     rules:[
@@ -175,8 +173,9 @@ module.exports = {
   },
   devServer:{
     static:path.join(__dirname,'dist'),
-    port:'5050',
-    hot:true
+    port:'9090',
+    hot:true,
+    compress:true
   },
   plugins:[
     new HtmlWebpackPlugin({

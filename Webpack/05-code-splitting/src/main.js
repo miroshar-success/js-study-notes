@@ -14,7 +14,7 @@
 
 // console.log(instance, vm);
 
-
+import './style.css';
 import createElement from './global.js'
 
 let link = createElement('a','hello world');

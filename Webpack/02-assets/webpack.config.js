@@ -4,6 +4,7 @@
 打包image: asset/resource
 */
 const path = require('path');
+
 module.exports = {
   mode:'none',
   entry:path.join(__dirname,'src/index.js'),
@@ -24,5 +25,9 @@ module.exports = {
         type:'asset/resource'
       }
     ]
+  },
+  devServer:{
+    port:8080,
+    open:true
   }
 }

@@ -37,11 +37,11 @@
 // document.body.appendChild(button)
 
 /*---------------------------------------- import().then() --------------------------------------------*/
-import './style.css';
+import './reset.scss'
 
 function createElement(){
   const element = document.createElement('div');
-  element.textContent = 'hello world'
+  element.textContent = 'hello world111111'
   element.classList.add('red')
   return element;
 }
