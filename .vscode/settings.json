@@ -1,6 +1,7 @@
 {
   "typescript.locale": "en",
   "cSpell.words": [
-    "htmlwebpackplugin"
+    "htmlwebpackplugin",
+    "iife"
   ]
 }
