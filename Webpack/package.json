@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack serve --config 07-cache/webpack.config.js",
-    "build": "webpack --config 07-cache/webpack.config.js"
+    "start": "webpack serve --config 08-library/webpack.config.js",
+    "build": "webpack --config 08-library/webpack.config.js"
   },
   "keywords": [],
   "author": "",

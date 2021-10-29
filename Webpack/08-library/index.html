@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src='./dist/webpack-number.js'></script>
+  <!-- -------------------- 未使用 lodash 库的情况下 使用打包文件 ------------- -->
+<!--   <script type='text/javascript'>
+    const number = 1, string = 'one';
+    console.log(webpackNumbers.numberToWord(number))  // one
+    console.log(webpackNumbers.wordToNumber(string))  // 1
+    console.log(webpackNumbers.numberToWord(6)) // can not find a word
+    console.log(webpackNumbers.wordToNumber('six'));  // can not find a number
+  </script> -->
+
+  <!-- -------------------- 在使用 lodash 库的情况下 使用打包文件 ------------- -->
+  <script type='text/javascript'>
+    const number = 1, string = 'one';
+    console.log(webpackNumbers.numberToWord(number))
+    console.log(webpackNumbers.wordToNumber(string))  // 1
+  </script>
+</body>
+</html>
