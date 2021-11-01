@@ -1,13 +1,13 @@
 const s1 = Symbol()
-console.log('s1:', typeof s1)
+console.log('s1:', typeof s1) // symbol
 
 const obj1 = {
   [Symbol('foo')]: 'foo',
   [Symbol('bar')]: 'bar'
 }
-console.log(obj1)
+console.log(obj1) // {[Symbol(foo)]:'foo', [Symbol(bar)]:'bar'}
 
-console.log(obj1[Symbol('foo')])  //undefined
+console.log(obj1[Symbol('foo')])  //undefined, 不相同
 
 const name = Symbol('name')
 const obj2 = {
@@ -16,15 +16,15 @@ const obj2 = {
     console.log(this[name])
   }
 }
-console.log(obj2[name])
-obj2.say()
+console.log(obj2[name]) // hello kyrie
+obj2.say()  // hello kyrie
 
 
 // Symbol参数是一个对象-------------
 const obj3 = {
   [Symbol({firstName:'kyrie'})]: 'hello world'
 }
-console.log(obj3)
+console.log(obj3) // {[Symbol([object Object])]: 'hello world'}
 
 // Symbol描述参数相同 foo foo
 const sym1 = Symbol('foo'), sym2 = Symbol('foo');
@@ -39,7 +39,7 @@ let o = {};
 Object.defineProperty(o,mySymbol,{
   value:'你好,世界'
 })
-console.log(o)
+console.log('o',o)
 
 const log = {
   DEBUG:Symbol('DEBUG'),
@@ -88,7 +88,7 @@ console.log(Object.getOwnPropertySymbols(player));    // [ Symbol(first), Symbol
 console.log(JSON.stringify(player)) // {"team":"nets"}
 
 
-// ---------------------- Symbol.for() 
+// ---------------------- Symbol.for()
 console.log(Symbol.for('key') === Symbol.for('key'))  // true
 
 let singer = {
@@ -106,3 +106,24 @@ class Foo {
   }
 }
 console.log([1,2,3] instanceof new Foo())   // true
+
+// -------------------------------- symbol.toStringTag -----------------------------
+console.log(Object.prototype.toString.call('foo'))  // [object String]
+console.log(Object.prototype.toString.call(false))  // [object Boolean]
+console.log(Object.prototype.toString.call(3))      // [object Number]
+console.log(Object.prototype.toString.call([1,2,3]))  // [object Array]
+console.log(Object.prototype.toString.call({name:'kyrie'})) // [object Object]
+console.log(Object.prototype.toString.call(null))   // [object Null]
+console.log(Object.prototype.toString.call(undefined))  // [object Undefined]
+console.log(Object.prototype.toString.call(function(){})) // [object Function]
+console.log(Object.prototype.toString.call(new Date())) // [object Date]
+// ------ 引擎为它们设置好了toStringTag标签 ---------
+console.log(Object.prototype.toString.call(new Map()))  // [object Map]
+console.log(Object.prototype.toString.call(new Set()))  // [object Set]
+console.log(Object.prototype.toString.call(function *m(){}))  // [object GeneratorFunction]
+
+const d1 = {}
+Object.defineProperty(d1,Symbol.toStringTag,{
+  value:'hello world'
+})
+console.log(Object.prototype.toString.call(d1)) // [object hello world]

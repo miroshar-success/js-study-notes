@@ -5,7 +5,6 @@ m1.set(o,'content')
 console.log('m1:', m1)  // Map(1) { { p: 'Hello World!' } => 'content' }
 console.log(m1.get(o))  // content
 console.log(m1.has(o))  // true
-console.log(m1.has(o))  // false
 
 
 // --------------------- 数组作为成员

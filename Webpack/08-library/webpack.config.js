@@ -16,7 +16,7 @@ const path = require('path')
 } */
 
 
-// -------------------- 外部化lodash --------------------
+// -------------------------------------- 外部化lodash --------------------------------------
 module.exports = {
   mode:'none',
   entry:path.join(__dirname, 'src/index.js'),
