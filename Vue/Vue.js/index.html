@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue</title>
+</head>
+<body>
+  <h3>get-start</h3>
+  <div id="getting-start">
+    {{counter}}
+  </div>
+  <!-- 属性绑定 -->
+  <div id="bind-attribute">
+    <span v-bind:title='message'>鼠标悬停</span>
+  </div>
+  <!-- 时间绑定 -->
+  <div id="event-handling">
+    {{message}}
+    <button v-on:click='reverse_message'>click</button>
+  </div>
+  <!-- input表单 -->
+  <div id="two-way-binding">
+    <input type="text" v-model='message'>
+    <p>{{message}}</p>
+  </div>
+  <!-- 条件判断 -->
+  <div id="conditional-rendering">
+    <button @click='toggle'>click</button>
+    <div v-if='visible'>现在你看到我了</div>
+  </div>
+  <!-- 循环 -->
+  <div id="list-rendering">
+    <ol>
+      <li v-for="todo in todos">{{todo.text}}</li>
+    </ol>
+  </div>
+  <!-- 组件 -->
+  <div id="app">
+    <p>{{message}}</p>
+    <todo-item></todo-item>
+  </div>
+  <!-- 组件穿传参数 -->
+  <div id="list-app">
+    <todo-item v-for="todo in todos" :todo='todo'></todo-item>
+  </div>
+  <hr>
+  <h3>模版语法</h3>
+<!-- ------------------------模版语法------------------------- -->
+<h6>模版语法</h6>
+  <div id="mustaches">
+    <p>Using mustaches: {{rawHtml}}</p>
+    <p>Using v-html directive <span v-html="rawHtml"></span></p>
+  </div>
+  <h6>绑定属性 和 属性为布尔值时的属性</h6>
+  <div id="dynamicId">
+    <p v-bind:id='dynamicId'>dynamicId: {{dynamicId}}</p>
+    <p v-bind:class='undefinedClass'>undefined: {{undefinedClass}}</p>
+    <p v-bind:class='nullClass'>null: {{nullClass}}</p>
+    <p v-bind:class='emptyClass'>empty string</p>
+  </div>
+  <div id="truthy-app">
+    <button :disabled='isButtonDisabled'>click me</button>
+    <button :disabled="empty">empty string</button>
+    <button :disabled='isDisabled1'>boolean</button>
+    <button :disabled='isDisabled2'>string</button>
+    <button :disabled='isDisabled3'>number</button>
+    <button :disabled='isDisabled4'>null</button>
+    <button :disabled='isDisabled5'>undefined</button>
+  </div>
+  <h6>javascript表达式</h6>
+  <div id="js-expression">
+    <p>number + 1 --------- {{number + 1}}</p>
+    <div> {{ok ? 'ok' : 'cancel'}}</div>
+    <div>message.split(" ").reverse().join(" ") -------- {{message.split(" ").reverse().join(" ")}}</div>
+    <div :id="'last-'+number">bind-id</div>
+  </div>
+
+  <h6>指令</h6>
+  <div id="directive-app">
+    <p v-if='seen'>now you see me</p>
+    <button @click.stop='changeHandler("click")'>click</button>
+    <button @click.stop='changeHandler("mouseover")'>mouseover</button>
+    <button @click.stop='changeHandler("dblclick")'>dblclick</button>
+    <div>
+      <div v-on:[name]='emitHandler' style="width:80px;height:80px;background:red;font-size:12px;cursor:pointer;">动态事件参数,默认click触发</div>
+    </div>
+    <button v-bind:date='new Date().getTime()'>timestamp-button</button>
+    <button :disabled='null'>null attribute button</button>
+  </div>
+  <hr>
+  <script src="./src/vue.development.js"></script>
+  <script src='./src/01-getting-start.js'></script>
+  <script src='./src/02-template.js'></script>
+</body>
+</html>

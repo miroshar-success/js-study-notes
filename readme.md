@@ -443,8 +443,9 @@ app.use(router.routes()).use(router.allowedMethods());
 		查看yarn的源	 yarn config get registry
 		设置yarn的源	 yarn config set registry https://registry.npm.taobo.org/ 
 	
-![npm-run-all](https://www.npmjs.com/package/npm-run-all)
-![browser-sync](http://www.browsersync.cn/#install)
+[npm-run-all](https://www.npmjs.com/package/npm-run-all)
+
+[browser-sync](http://www.browsersync.cn/#install)
 
     
 

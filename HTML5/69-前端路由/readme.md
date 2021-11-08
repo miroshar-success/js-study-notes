@@ -10,7 +10,7 @@
 ```js
 // 监听hash值是否变化;
 window.onhashchange = function(event){
-    console.log(event.newURL,event.oldURL);
+  console.log(event.newURL,event.oldURL);
 	console.log(window.location.hash);
 }
 ```

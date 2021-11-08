@@ -35,7 +35,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 } */
 
  // -------------------------------- commonjs打包结果   --------------------------------
-module.exports = {
+/* module.exports = {
   mode:'none',
   entry:path.join(__dirname,'src/index.js'),
   devtool:'hidden-source-map',
@@ -48,5 +48,20 @@ module.exports = {
     new HtmlWebpackPlugin({
       title:'hello world'
     })
+  ]
+} */
+
+
+// ----------------------- 打包入口--------------
+module.exports = {
+  mode:'none',
+  entry:path.join(__dirname,'src/index.js'),
+  output:{
+    filename:'bundle.js',
+    path:path.join(__dirname,'entry'),
+    clean:true
+  },
+  plugins:[
+    new HtmlWebpackPlugin()
   ]
 }

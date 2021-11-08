@@ -43,7 +43,7 @@ console.log('index.js代码执行了') */
 // --------------------------------  懒加载 --------------------------------
 const button = document.createElement('button')
 button.addEventListener('click',function(){
-  import(/*webpackChunkName: "print"*/ './print.js').then((module) => {
+  import(/* webpackChunkName: "print.js" */ './print.js').then((module) => {
     console.log('module:', module)
     // print('hello world')
     module.print('hello')
