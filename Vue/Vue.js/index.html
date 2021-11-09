@@ -89,8 +89,47 @@
     <button :disabled='null'>null attribute button</button>
   </div>
   <hr>
+  <h6>计算属性和侦听器</h6>
+  <div id="computed-basic">
+    <p>Has published books:</p>
+    <div>{{author.books.length > 0 ? 'Yes': 'No'}}</div>
+    <div>使用计算属性: {{publishedBooksMessage}}</div>
+    <div>使用方法: {{calcPublishedBooksMessage()}}</div>
+    <button @click.stop='increment'>{{count}}</button>
+  </div>
+  <h6>computed-getter</h6>
+
+  <div id="computed-getter">
+    <p>{{firstName}} - {{lastName}}</p>
+    <input type="text" v-model='fullName'>
+  </div>
+  <hr>
+  <h6>style/class</h6>
+  <div id="class-app">
+    <div :class='{active:isActive}'>hello</div>
+    <div class='static' :class='{active:isActive,"text-danger":hasError}'>多个class</div>
+    <div :class='classObject'>class-object</div>
+    <div :class='classMap'>class-computed</div>
+    <div>数组语法</div>
+    <div :class='[activeClass,errorClass]'>class-array</div>
+    <!-- 组件上添加class -->
+    <player-component class='component-class'></player-component>
+    <my-component class='baz'></my-component>
+  </div>
+
+  <div id="style-app">
+    <div :style='{color:activeColor,fontSize:fontSize + "px"}'>hello style</div>
+    <div :style="[baseStyles,overridingStyles]">array-style</div>
+  </div>
+  <button class='button'>click</button>
+  <div class='text'></div>
   <script src="./src/vue.development.js"></script>
   <script src='./src/01-getting-start.js'></script>
   <script src='./src/02-template.js'></script>
+  <script src='./src/03-computed-watch.js'></script>
+  <script src='./src/04-class-style.js'></script>
+  <script src='./src/05-2.x响应式.js'></script>
+  <script src='./src/06-3.x响应式.js'></script>
+  <script src='./src/07-subscribe-watcher.js'></script>
 </body>
 </html>
