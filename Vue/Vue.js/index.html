@@ -123,6 +123,58 @@
   </div>
   <button class='button'>click</button>
   <div class='text'></div>
+  <hr>
+  <h6>v-for列表循环</h6>
+  <div id="foo-app">
+    <!-- for ... in -->
+    <ul>
+      <li v-for='(item,i) in list' :key='i'>{{item.message}}</li>
+    </ul>
+    <!-- for ... of  -->
+    <ol>
+      <li v-for='(item) of list'>{{item.message}}</li>
+    </ol>
+    <ul>
+      <li v-for='(value,key) of author'>{{key}} - {{value}}</li>
+    </ul>
+    <!-- v-if的优先级 比 v-for更高 ,无法读取v-for里的变量 -->
+    <ol>
+      <!-- <li v-for='todo in items' v-if='todo.completed'>{{todo.text}}</li> -->
+    </ol>
+    <ol>
+      <template v-for='todo in items' :key='todo.text'>
+        <li v-if='todo.completed'>
+          {{todo.text}}
+        </li>
+      </template>
+    </ol>
+  </div>
+
+  <div id='todo-list-app'>
+    <input type="text" v-model='todo' placeholder='E.g.Feed the cat'>
+    <button @click.stop='add_todo'>add</button>
+    <ul>
+      <todo-item v-for="(todo,i) in todos" :todo='todo'></todo-item>
+    </ul>
+  </div>
+  <h6>元素复用</h6>
+  <div id="key-app">
+    <template v-if='type==="username"'>
+      <label>用户名:</label>
+      <input type="text" placeholder='用户名'>
+    </template>
+    <template v-else>
+      <label>邮箱</label>
+      <input type="text" placeholder='邮箱'>
+    </template>
+    <button @click.stop='toggle'>toggle</button>
+  </div>
+  <hr>
+  <h6>mini-vue</h6>
+  <div id="my-vue-app">
+    <p>{{message}}</p>
+    <div>{{count}}</div>
+  </div>
   <script src="./src/vue.development.js"></script>
   <script src='./src/01-getting-start.js'></script>
   <script src='./src/02-template.js'></script>
@@ -131,5 +183,7 @@
   <script src='./src/05-2.x响应式.js'></script>
   <script src='./src/06-3.x响应式.js'></script>
   <script src='./src/07-subscribe-watcher.js'></script>
+  <script src='./src/08-for.js'></script>
+  <script src='./src/09-vue-mini.js'></script>
 </body>
 </html>
