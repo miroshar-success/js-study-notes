@@ -5,11 +5,11 @@
 4. 将$data中的属性 通过Object.defineProperty 变为响应式
 */
 
-class Observer {
+class Observer {  // 处理数据为响应式
   constructor(data) {
     this.walk(data)
   }
-  walk(data) {
+  walk(data) {  // 将对象传递defineReactive, 转换为getter/setter
     if(!(typeof data === 'object' && data !== null)) return;
     Object.keys(data).forEach((key) => {
       this.defineReactive(data, key, data[key])
@@ -26,6 +26,7 @@ class Observer {
         return value
       },
       set(newValue) {
+        console.log('this:',this)
         if(newValue === value) return;
         value = newValue
         _self.walk(newValue)  // 如果重新赋值,将基本数据类型赋值为对象,则为重新赋值的对象 添加getter/setter

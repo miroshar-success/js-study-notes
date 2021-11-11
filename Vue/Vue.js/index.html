@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vue</title>
+  <style>
+    .box1{
+      width:100px;
+      height:100px;
+      background-color:red;
+    }
+    .box2{
+      width:50px;
+      height:50px;
+      background-color:green;
+    }
+  </style>
 </head>
 <body>
   <h3>get-start</h3>
@@ -175,6 +187,34 @@
     <p>{{message}}</p>
     <div>{{count}}</div>
   </div>
+  <h6>事件绑定</h6>
+
+  <div id="basic-event">
+    <button @click='counter += 1'>click me {{counter}} times</button>
+    <button @click='greet'>greet</button>
+  </div>
+  <!-- 内联事件 传递参数  -->
+  <div id="inline-handler">
+    <button @click='say("hi")'>Say hi</button>
+    <button @click='say("hello")'>Say hello</button>
+    <button @click='get_event("Form cannot be submitted yet",$event)'>get-event</button>
+  </div>
+  <!-- 多个事件处理器 -->
+  <div id="multiple-event">
+    <button @click='one($event), two($event)'>multiple-event</button>
+  </div>
+  <div id="capture-event">
+    <div class="box1" @click.capture='click_box1'>
+      <div class="box2" @click.stop='click_box2'></div>
+    </div>
+    <form action="" method='GET' @submit.prevent='onSubmit'>
+      <div>
+        <label for="">username</label>
+        <input type="text" v-model='username'>
+      </div>
+      <input type="submit">
+    </form>
+  </div>
   <script src="./src/vue.development.js"></script>
   <script src='./src/01-getting-start.js'></script>
   <script src='./src/02-template.js'></script>
@@ -185,5 +225,6 @@
   <script src='./src/07-subscribe-watcher.js'></script>
   <script src='./src/08-for.js'></script>
   <script src='./src/09-vue-mini.js'></script>
+  <script src='./src/10-event-bind.js'></script>
 </body>
 </html>
