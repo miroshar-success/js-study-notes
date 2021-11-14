@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>document对象</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node</title>
+  <style>
+    body{padding: 0;margin: 0;}
+  </style>
 </head>
 <body>
-    <div class="element" id="hello" style="background-color:red;"></div>
-    <div class="item item-1" data-name="hello"></div>
-    <div class="parent">
-        <p>hello</p>
-    </div>
-    <video class='video' controls src="https://f.video.weibocdn.com/004GhXffgx07GfAqCDvi010412015N5q0E010.mp4?label=mp4_ld&template=640x360.25.0&trans_finger=40a32e8439c5409a63ccf853562a60ef&ori=0&ps=1BVp4ysnknHVZu&Expires=1599486972&ssig=9%2FAPOSRTA0&KID=unistore,video"></video>
-    <button class="button">全屏</button>
-    <script type="text/javascript" src="./element-function.js"></script>
+  <div class='text-content-wrapper'>
+    <div style='opacity:0'>opacity:0</div>
+    <div>now you can see me</div>
+    <div style='visibility:none;'>visibility</div>
+    <div style='display:none;' class='none'>display:none</div>
+  </div>
+  <div class="attributes">
+    <div class='name' id='hello' data-id='123' style='color:red;'>123</div>
+  </div>
+  <button class='button-1'>click</button>
+  <button class='button-2'>click</button>
+  <script src='./src/text-content.js'></script>
+  <script src='./src/attributes.js'></script>
+  <script>
+    function print(message){
+      console.log(message)
+    }
+    print('hello world')
+  </script>
 </body>
 </html>
