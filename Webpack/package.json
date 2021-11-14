@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack serve --config 09-analyzer/webpack.config.js",
+    "start": "webpack serve --config 11-snabbdom/webpack.config.js",
     "build": "webpack --config 09-analyzer/webpack.config.js"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
+    "snabbdom": "^3.1.0",
     "tapable": "^2.2.1",
     "vue": "^2.6.14",
     "vue-router": "^3.5.3",
