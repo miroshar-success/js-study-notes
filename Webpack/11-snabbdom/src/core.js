@@ -8,6 +8,7 @@ import {
   propsModule, h, init, eventListenersModule,
   toVNode
 } from 'snabbdom'
+
 const patch = init([
   classModule,
   styleModule,
@@ -182,3 +183,66 @@ const event_vnode = h('div', [
   })
 ])
 patch(eventContainer, event_vnode)
+
+
+// 选择器位置调换
+const selectorDiv = document.createElement('div');
+selectorDiv.classList.add('hello')
+selectorDiv.id = 'world'
+document.body.appendChild(selectorDiv)
+
+const selector_vnode = h('div',[
+  h('span', 'hello world')
+])
+patch(selectorDiv, selector_vnode)
+
+
+
+
+// 解析选择器
+const selector = 'div#hello.world'
+const hashIdx = selector.indexOf('#')
+const dotIdx = selector.indexOf('.', hashIdx)
+console.log(hashIdx,dotIdx) // 3 9
+
+
+
+/*
+function vnode(
+  sel:string | undefined,
+  data: any | undefined,
+  children: Array<VNode | string>,
+  text: string | undefined,
+  elm: Element | Text | undefined
+): VNode {
+  const key = data=== undefined ? undefined : data.key
+  return {
+    sel,
+    data,
+    text,
+    elm,
+    children,
+    key
+  }
+}
+
+
+// 判断是否为同一个节点
+function sameVnode(vnode1:VNode, vnode2:VNode):boolean {
+  return vnode1.key === vnode2.key && vnode1.sel === vnode2.sel
+}
+
+
+// createElm(vnode,insertedVnodeQueue)  将vnode 转换为 element
+
+// is.primitive(vnode.text) 判断text string/number两种类型的text
+
+----------------- patch 函数 -----------------
+return function(oldVNode: VNode | Element, vnode:Vnode) :VNode {
+  isVNode 判断是否为 vnode
+  emptyNodeAt 将dom转化为vnode
+}
+*/
+
+
+// ---------removeVnode / addVnode --------
