@@ -186,7 +186,12 @@
   <div id="my-vue-app">
     <p>{{message}}</p>
     <div>{{count}}</div>
+    <div v-text='text'></div>
+    <div v-html='html'></div>
+    <input type="text" v-model='model'>
+    <input type="text" v-model='message'>
   </div>
+  <hr>
   <h6>事件绑定</h6>
 
   <div id="basic-event">
@@ -215,6 +220,11 @@
       <input type="submit">
     </form>
   </div>
+  <hr>
+  <div id="real-app">
+    <div class="box">hello vue.js</div>
+    <button class='button'>click</button>
+  </div>
   <script src="./src/vue.development.js"></script>
   <script src='./src/01-getting-start.js'></script>
   <script src='./src/02-template.js'></script>
@@ -226,5 +236,23 @@
   <script src='./src/08-for.js'></script>
   <script src='./src/09-vue-mini.js'></script>
   <script src='./src/10-event-bind.js'></script>
+  <script>
+    /*
+    Virtual DOM 普通的js对象描述DOM对象 Snabbdom库
+    */
+    const div = document.querySelector('#my-vue-app')
+    let str = '';
+    for(let key in div){
+      str += key;
+    }
+    console.log(str)
+
+    // 真实dom
+    let button = document.querySelector('#real-app .button')
+    let box = document.querySelector('#real-app .box')
+    button.addEventListener('click', () => {
+      box.textContent = 'hello world'
+    })
+  </script>
 </body>
 </html>

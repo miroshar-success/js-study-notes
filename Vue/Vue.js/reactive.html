@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue响应式</title>
+  <style>
+    .dialog{
+      position:fixed;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      background-color:rgb(0,0,0,.5);
+      color:#fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <button @click='change_player'>click</button>
+    <ul>
+      <li v-for='(player,i) in players' :key='i'>{{player}}</li>
+    </ul>
+    <button @click='change_age'>change age</button>
+    <ol>
+      <li v-for="(singer, i) in singers" :key='i'>
+        {{singer.firstName}} - {{singer.lastName}} - {{singer.age}}
+      </li>
+    </ol>
+  </div>
+  <!-- computed -->
+  <div id="computed">
+    <button @click='click'>click me {{count}}</button>
+    <p>fullName - 1 - {{fullName}}</p>
+    <p>fullName - 2 - {{fullName2('lebron')}}</p>
+  </div>
+  <!-- 普通对象渲染 -->
+  <div class="singer-object">
+  </div>
+  <!-- virtual-dom -->
+  <div id="virtual-dom">
+  </div>
+  <!-- vue-components -->
+  <div id="app-component">
+    <my-component></my-component>
+  </div>
+  <div id="directive-component">
+    <input type="text" v-model.trim='message'>
+    <p>{{message}}</p>
+    <p>{{ message | reverseMessage }}</p>
+  </div>
+  <div id="extend"></div>
+  <div id="player-app"></div>
+  <div id="dialog-app"></div>
+  <div id="dialog-1">
+  </div>
+  <hr>
+  <div id="proxy-instance">
+  </div>
+  <script src='./src/vue.development.2.x.js'></script>
+  <script src='./src/11-reactive.js'></script>
+  <script src='./src/12-proxy-instance.js'></script>
+  <script>
+    // isNative
+    function isNative(Ctor){
+      return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+    }
+    console.log(isNative(Object))   // true
+    console.log(isNative(String))   // true
+    console.log(isNative(Number))   // true
+    console.log(isNative(Proxy))    // true
+    console.log(isNative(Promise))  // true
+    console.log(isNative(Date))     // true
+    console.log(isNative(Function)) // true
+    console.log(isNative(Boolean))  // true
+    console.log(isNative(Symbol))   // true
+    console.log(Object.toString(), typeof Object.toString())  // function Object() { [native code] } string
+    console.log(Symbol.toString(), typeof Symbol.toString())  // function Symbol() { [native code] } string
+  </script>
+</body>
+</html>

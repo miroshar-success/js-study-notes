@@ -121,3 +121,21 @@ console.log(arc.getArchive());
 1: {value: 12}
 2: {value: 13}
 */
+
+
+// -------------------------防止改写config对象-------------------------
+function Vue(){
+
+}
+const config = {
+  version:'1.2.3'
+}
+Object.defineProperty(Vue,'config',{
+  get(){
+    return config
+  },
+  set(){
+    console.log('error')
+  }
+})
+console.log(Vue,Vue.config = {})

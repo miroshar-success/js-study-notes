@@ -2,6 +2,7 @@ const data = {
   message:'hello world',
   count:0
 }
+
 const vm = {};
 
 /* Object.defineProperty(vm,'count',{

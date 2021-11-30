@@ -51,6 +51,6 @@ button.addEventListener('click',() => {
 },false)
 
 
-function handleInlineClick(arguments){
-  console.log(this)
+function handleInlineClick(){
+  console.log(this,arguments.callee)
 }

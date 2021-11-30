@@ -244,5 +244,3 @@ return function(oldVNode: VNode | Element, vnode:Vnode) :VNode {
 }
 */
 
-
-// ---------removeVnode / addVnode --------
