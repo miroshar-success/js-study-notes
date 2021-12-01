@@ -20,13 +20,18 @@ Vue.component('my-component-2',{
   template:`<div>component-2</div>`
 }) */
 
-new Vue({
+const render_instance = new Vue({
   el:'#proxy-instance',
-  count:3,
-  data: {
-    count:3
+  data: { // 对象最终会挂载到vue实例上
+    count:3,
+    message:'hello'
   },
   created(){
     console.log(this.$options, this.$options.count)
+  },
+  render(h){
+    return h('div','hello world')
   }
 })
+console.log(render_instance)
+console.log(render_instance._data, render_instance.$attrs)

@@ -31,7 +31,7 @@ let s: 'left' | 'right' = 'right'
 pad('123',1, s)
 
 
-// 
+//
 const str:string = 'I am a string'
 console.log(str)
 
@@ -45,7 +45,7 @@ const CIRCLE:string = 'CIRCLE'
 const SQUARE:string = 'SQUARE'
 const TRIANGLE: string = 'TRIANGLE'
 
-type Shape = 
+type Shape =
 | {kind: 'circle'; radius: number}
 | {kind: 'square'; x: number}
 | {kind: 'triangle'; x:number; y:number}
@@ -175,7 +175,7 @@ class Animal implements Eat,Run {
 }
 
 
-// -------------------------- 泛型 
+// -------------------------- 泛型 ---------------------
 function createNumberArray(length:number, value:number): number [] {
   const array = Array<number>(length).fill(value)
   return array
