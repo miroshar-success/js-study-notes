@@ -58,9 +58,18 @@
   <hr>
   <div id="proxy-instance">
   </div>
+  <div id="init-demo">
+    <child-component></child-component>
+  </div>
+  <div id="prop-el">
+    <div>{{msg}}</div>
+    <child></child>
+  </div>
   <script src='./src/vue.development.2.x.js'></script>
   <script src='./src/11-reactive.js'></script>
   <script src='./src/12-proxy-instance.js'></script>
+  <script src='./src/13-init-lifecycle.js'></script>
+  <script src='./src/14-prop.js'></script>
   <script>
     // isNative
     function isNative(Ctor){
