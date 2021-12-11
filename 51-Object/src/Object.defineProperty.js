@@ -3,9 +3,8 @@
 const object1 = {};
 Object.defineProperty(object1,'property1',{
   value:42,
-  writable:false
 })
-object1.property1 = 77; // 无法修改 key为 property1的值
+object1.property1 = 77; // 无法修改 key为 property1的值,
 console.log(object1.property1)  // 42
 
 // -------------------- 定义一个key为symbol的属性 ----------------
@@ -14,6 +13,12 @@ Object.defineProperty(object1,Symbol('foo'),{
   writable:true
 })
 console.log('object1:', object1)  // {property1:42,Symbol(foo):'hello world'}
+
+/*
+对象目前存在的属性描述符有两种主要形式: 数据描述符和存取描述符, 不能同时两者都有
+数据描述符: value / writable
+数据存取符: getter / setter
+*/
 
 // ----------------------- 数据描述符 value/writable----------------------------------------
 const obj = {}
@@ -72,6 +77,18 @@ for(let key in b2){
   console.log('b2-key:',key)  // age
 }
 console.log(Object.keys(b1), Object.keys(b2)) //[]  ['age']
+
+
+// ------------------ Symbol是否可以通过 for...in Object.keys()输出 -----------------
+
+const symbol_object = Object.defineProperty({}, Symbol.for('e'), {
+  value:'我是symbol值',
+  enumerable: true
+})
+console.log(Object.keys(symbol_object)) // []
+for(let key in symbol_object){
+  console.log(key)  // 没有输出
+}
 
 //------------------------------------  Configurable 属性 ----------------------------------------
 // configurable 是否可被删除 以及除value和writable特性外的其他特性是否可被修改
@@ -139,3 +156,48 @@ Object.defineProperty(Vue,'config',{
   }
 })
 console.log(Vue,Vue.config = {})
+
+
+// -------------------- 传了getter, 但是没有传setter ---------------
+let age = 20
+const singer = Object.defineProperty({}, 'age', {
+  get() {
+    return age
+  }
+})
+console.log('singer', singer)
+console.log(singer.age)
+singer.age = 30
+console.log(singer.age)
+
+
+// -------------------- 传了setter, 没有传getter ----------------
+const kyrie = Object.defineProperty({}, 'age', {
+  set(newValue) {
+    age = newValue
+  }
+})
+console.log('kyrie', kyrie)
+kyrie.age = 50
+console.log(kyrie.age)  // undefined
+
+// ------------------------ 继承属性 ------------------------
+function MyClass(){
+}
+var class_value;
+Object.defineProperty(MyClass.prototype, 'x', {
+  get(){
+    return class_value
+  },
+  set(v){
+    class_value = v
+  }
+})
+const class_a = new MyClass()
+const class_b = new MyClass()
+console.log(class_a, class_b)
+class_a.x = 1
+console.log('class_b.x:', class_b.x)
+
+console.log('-----------------------------------------------------------------')
+
