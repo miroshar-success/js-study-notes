@@ -5,6 +5,9 @@ const watch_instance = new Vue({
       count:0,
       player:{
         age:30
+      },
+      singer:{
+        age:28
       }
     }
   },
@@ -38,12 +41,18 @@ const watch_instance = new Vue({
     // ------------------- 监听对象的属性 ---------------
     'player.age':function(){
       console.log('player-age-changed')
-    }
+    },
+    // 找到一个methods中定义的函数
+    'singer.age':'watch_singer_age'
   },
   methods:{
     click() {
       this.count += 1;
       this.player.age += 1
+      this.singer.age += 1;
+    },
+    watch_singer_age(){
+      console.log('singer-age-changed')
     }
   }
 })
