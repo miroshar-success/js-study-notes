@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>购物车</title>
+  <style>
+    table{border-collapse:collapse;}
+    .table td{border:1px solid #e8e8e8;padding:3px 5px;color:rgba(0,0,0,.65);text-align:center;white-space:nowrap;}
+    .table thead{background-color:rgb(250,250,250);}
+    .table thead td{color:rgba(0,0,0,.85);}
+    .table .bg{
+      width:150px;height:150px;
+      background-repeat:no-repeat;background-size:contain;
+    }
+    #cart-demo{display:flex;}
+    .product-list,.cart-list{padding:0 10px;}
+  </style>
+</head>
+<body>
+  <div id="cart-demo">
+    <div class="product-list">
+      <h4>商品列表</h4>
+      <table class='table'>
+        <thead><td>商品</td><td>图片</td><td>价格</td><td>操作</td></thead>
+        <tbody>
+          <tr v-for="(product,i) in product_list" :key='product.id'>
+            <td>{{product.name}}</td>
+            <td>
+              <div
+              class='bg'
+              :style="{
+                backgroundImage:`url(${product.url})`
+              }"></div>
+            </td>
+            <td>{{product.price}}</td>
+            <td><button @click='add_card(product)'>加入购物车</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cart-list">
+      <h4>我的购物车</h4>
+      <template v-if='cart_list.length'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <td><input type="checkbox" v-model='toggle_cart'></td>
+              <td>商品</td><td>价格</td><td>数量</td><td>合计</td><td>操作</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for='good in cart_list'>
+              <td>
+                <input type="checkbox" :checked='good.checked' @change='toggle_good(good,$event)'>
+              </td>
+              <td>{{good.name}}</td>
+              <td>{{good.price}}</td>
+              <td>
+                <button @click='reduce_good(good)'>-</button>
+                <input type="text" :value='good.number' style='width:50px;'>
+                <button @click='add_good(good.id)'>+</button>
+              </td>
+              <td>{{good.total}}</td>
+              <td><button @click='del_cart_good(good)'>删除</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style='padding:10px 0;'>
+          <span>已选择 {{checkedGoodLength}} 件商品</span>
+          <span style='padding-left:20px;'>总计 {{checkedGoodTotal}}</span>
+        </div>
+      </template>
+      <template v-else>
+        <div style='text-align:center;color:#666;'>暂无数据</div>
+      </template>
+    </div>
+  </div>
+
+  <script src='../../src/vue.development.js'></script>
+  <script src='../../src/vuex.development4.js'></script>
+  <script src='./src/index.js'></script>
+</body>
+</html>
