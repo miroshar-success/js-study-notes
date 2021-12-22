@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>defer</title>
+</head>
+<body>
+  <div id="app">hello world</div>
+  <ul id="list"></ul>
+  <script async src='./js/async.js'></script>
+  <script type='module'>
+    //  解析DOM之后， 在DOMContentLoaded 之前 执行的
+    // type='module' 相当于加了 defer属性
+    import {add, hello} from './js/default.js'
+    const message = hello('hello')
+    const result = add(1,2)
+    console.log(result)
+  </script>
+  <script type='module'>
+    const name = 'hello'
+    console.log('我是第二个模块' + name)
+  </script>
+  <script>
+    const title = document.querySelector('#app')
+    console.log(title.textContent)
+
+    //初始的HTML文档被完全加载和解析完成之后, DOMContentLoaded事件被触发,无需等待样式表,图像和 子框架的完全加载
+    window.addEventListener('DOMContentLoaded',() => {
+      console.log('DomContentLoaded')
+    },false)
+
+/*     const Fragment = document.createDocumentFragment();
+    const list = document.querySelector('#list')
+    for(let i = 0; i < 100000; i++){
+      const li = document.createElement('li')
+      li.textContent = i;
+      Fragment.appendChild(li)
+    }
+    list.appendChild(Fragment) */
+  </script>
+</body>
+</html>

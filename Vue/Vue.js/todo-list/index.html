@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    body,input,html,ul,ol{padding: 0;margin: 0;}
+    li{list-style:none;}
+    input,button{border:1px solid #e8e8e8;outline:none;transition:all .4s;}
+    input:hover,button:hover{border-color:#1890ff;}
+    section{
+      margin:50px auto 0;
+      width:500px;
+    }
+    input::-webkit-input-placeholder{color:#b1b1b1;}
+    header{display:flex;}
+    .add-input{flex:1;min-width:0;height:32px;text-indent:5px;font-size:14px;}
+    .add-button{height:34px;color:#fff;background-color:#1890ff;cursor:pointer;}
+    .add-button:active{background-color:rgb(9,109,217)}
+    .todo-item{padding:3px 3px;height:40px;line-height:40px;border-bottom:1px solid #d9d9d9;}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <section>
+      <header>
+        <input
+          type="text"
+          v-model.trim='todo'
+          class='add-input'
+          placeholder='What needs to be done?'
+          @keyup.enter='add'
+        >
+        <button class='add-button' @click='add'>Add a Todo</button>
+      </header>
+      <todo-list :list='list'></todo-list>
+    </section>
+  </div>
+  <script src='../../src/vue.development.js'></script>
+  <script src='./index.js'></script>
+</body>
+</html>

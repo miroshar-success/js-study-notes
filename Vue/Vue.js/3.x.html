@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.x响应式</title>
+</head>
+<body>
+  <!-- setup -->
+  <div id="setup-demo">
+    <button @click='increase'>{{count}}</button>
+  </div>
+  <hr>
+  <!-- computed -->
+  <div id="setup-computed">
+    <input type="text" v-model='message'>
+    <div>{{reverseMessage}}</div>
+    <button @click='increase'>{{count}} - {{double}}</button>
+  </div>
+  <hr>
+  <!-- watch -->
+  <div id="setup-watch">
+    <button @click='increase'>{{count}}</button>
+    <button @click='change_age'>change age</button>
+    <div>{{player.firstName}} - {{player.lastName}} - {{player.age}}</div>
+  </div>
+  <script src='../src/vue.development.js'></script>
+  <script src='./src/21-setup.js'></script>
+</body>
+</html>
