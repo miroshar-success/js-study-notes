@@ -26,5 +26,16 @@
   </div>
   <script src='../src/vue.development.js'></script>
   <script src='./src/21-setup.js'></script>
+  <script type='module'>
+    import reactive from './src/22-reactive.js'
+    const player = reactive({
+      firstName: 'kyrie',
+      lastName: 'irving',
+      age:30
+    })
+    console.log(player.age) // 30
+    delete player.age;
+    console.log(player.age) // undefined
+  </script>
 </body>
 </html>
