@@ -27,7 +27,7 @@
   <script src='../src/vue.development.js'></script>
   <script src='./src/21-setup.js'></script>
   <script type='module'>
-    import reactive from './src/22-reactive.js'
+    import { reactive, effect, ref, toRefs } from './src/22-reactive.js'
     const player = reactive({
       firstName: 'kyrie',
       lastName: 'irving',
@@ -36,6 +36,46 @@
     console.log(player.age) // 30
     delete player.age;
     console.log(player.age) // undefined
-  </script>
+
+
+    const product = reactive({
+      price:5000,
+      count:3,
+      name:'phone'
+    })
+    console.log('product', product)
+    let total = 0;
+    effect(() => {
+      total = product.price * product.count;
+    })
+    console.log('total-1',total)
+
+    product.price = 4000
+    console.log('total-2',total)
+
+    product.count = 1
+    console.log('total-3',total)
+
+    // ----------------- ref -------------
+    const count = ref(0)
+    console.log('count1:',count.value)
+    count.value += 1;
+    console.log('count:2', count.value)
+
+
+    // --------- toRefs ----------
+    function usePlayer(){
+      const player = reactive({
+        firstName:'kyrie',
+        lastName:'irving',
+        age:30
+      })
+      return toRefs(player)
+    }
+    const {firstName, lastName, age} = usePlayer()
+    console.log('c', firstName.value, lastName.value, age.value)
+    age.value += 1;
+    console.log(age.value)
+</script>
 </body>
 </html>
