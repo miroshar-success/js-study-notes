@@ -61,7 +61,7 @@ p2.finally((v) => {
     console.log('finally-v:', v)  // v:undefined
   },1000)
 }).then(v => {
-  console.log('1s later', v)
+  console.log('1s later', v)  // 456
 })
 
 

@@ -29,3 +29,30 @@ p1.then(() => {
 }).then(v => {
   console.log(v)
 })
+
+
+
+// ------------------------- then链式调用回调函数的参数 ---------------------------
+const p3 = new Promise(resolve => resolve('hello world'))
+p3.then(v => {
+  console.log('v3', v)  // hello world  1
+}).then(v => {
+  console.log('v4', v)  // undefined  4
+}).then(v => {
+  console.log('v5', v)  // undefined  6
+})
+
+p3.finally((v) => {
+  console.log('finally-', v)  // undefined  2
+}).then(v => {
+  console.log('finally-later', v) // hello world  7
+})
+
+
+p3.then(v => {
+  console.log('finally-before', v)  // undefined  3
+}).finally((v) => {
+  console.log('finally', v) // undefined  5
+}).then(v => {
+  console.log('finally-after', v) // undefined  8
+})
