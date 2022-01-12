@@ -17,7 +17,7 @@ const thenable = {
   }
 }
 Promise.resolve(thenable).then(v => {
-  console.log('v', v)
+  console.log('v', v) // thenable
 })
 
 const thenable_2 = {
@@ -28,7 +28,7 @@ const thenable_2 = {
   }
 }
 Promise.resolve(thenable_2).then(result => {
-  console.log('result', result)
+  console.log('result', result) // setTimeout
 })
 
 
@@ -57,3 +57,12 @@ Promise.resolve(() => {}).then(v => {console.log(v)}) // [Function (anonymous)]
 
 // ----------------------------- 不带有任何参数 -----------------------------
 const p = Promise.resolve() // 直接返回一个resolved状态的Promise对象。
+// 立即promise.resolve()的promise对象，是在本轮事件循环的结束执行,而不是在下一轮事件循环开始时候
+
+setTimeout(() => {
+  console.log('three')
+},0)
+Promise.resolve().then(function(){
+  console.log('two')
+})
+console.log('one')  // one two three

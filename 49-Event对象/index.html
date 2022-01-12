@@ -6,9 +6,49 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="controls">
+    <button id="reload" type="button">Reload</button>
+  </div>
+
+  <div class="event-log">
+    <label>Event log:</label>
+    <textarea readonly class="event-log-contents" rows="8" cols="30"></textarea>
+  </div>
   <button id="button">click</button>
   <button class='button'>check</button>
+  <button class='_button'>same function</button>
   <button onclick='handleInlineClick()'>inline-method</button>
+  <a href="http://www.baidu.com" class='link'>百度</a>
+  <ul class='player-list'>
+    <li>kyrie irving</li>
+    <li>lebron james</li>
+    <li>kevin durant</li>
+  </ul>
   <script src='./src/addEventListener.js'></script>
+  <script src='./src/window.load.js'></script>
+  <script>
+    //------------------ 这个demo来自mdn -------------------------
+    const log = document.querySelector('.event-log-contents');
+    const reload = document.querySelector('#reload');
+
+    reload.addEventListener('click', () => {
+      log.textContent ='';
+      window.setTimeout(() => {
+          window.location.reload(true);
+      }, 200);
+    });
+
+    window.addEventListener('load', (event) => {
+      log.textContent = log.textContent + 'load\n';
+    });
+
+    document.addEventListener('readystatechange', (event) => {
+      log.textContent = log.textContent + `readystate: ${document.readyState}\n`;
+    });
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      log.textContent = log.textContent + `DOMContentLoaded\n`;
+    });
+  </script>
 </body>
 </html>
