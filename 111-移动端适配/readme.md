@@ -166,19 +166,19 @@
 }
 
 @media (min-resolution:2dppx) {
-    .border-top-1px{
-        position:relative;
-        &::before{
-           width:200%;
-           transform:scale(.333) translateZ(0);
-        }
+  .border-top-1px{
+    position:relative;
+    &::before{
+      width:200%;
+      transform:scale(.333) translateZ(0);
     }
+  }
 }
 ```   
 
 # 将手机网站伪装成app
 
-    将文件引入到html
+  将文件引入到html
     <link rel="manifest" href="./manifest.json">
 ```json
 // manifest.json 
