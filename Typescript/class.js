@@ -35,7 +35,7 @@ class Dog extends Animal {
 }
 const dog = new Dog()
 dog.bark() */
-// -------------------- 继承 ----------------------
+// ------------------------ 继承 --------------------------
 var Animal = /** @class */ (function () {
     function Animal(name) {
         this.name = name;
@@ -72,3 +72,96 @@ var sam = new Snake('Sammy the Python');
 var tom = new Horse('Tommy the Palomino');
 sam.move();
 tom.move(34);
+// -------------- 公共,私有与受保护的修饰符 ------------
+var Player = /** @class */ (function () {
+    function Player(name) {
+        this.name = name;
+        this.age = 30;
+        this.team = 'Nets';
+    }
+    Player.prototype.skill = function (s) {
+        console.log("".concat(this.name, "\u2018s skill is ").concat(s));
+    };
+    return Player;
+}());
+var kyrie = new Player('kyrie');
+kyrie.skill('crossover');
+// --------------------- 比较private和protected ---------------
+// protected 在派生类中仍然可以访问
+var Person = /** @class */ (function () {
+    function Person(name, age) {
+        if (age === void 0) { age = 40; }
+        this.name = name;
+        this.age = age;
+    }
+    return Person;
+}());
+var Employee = /** @class */ (function (_super) {
+    __extends(Employee, _super);
+    function Employee(name, department) {
+        var _this = _super.call(this, name, 40) || this;
+        _this.department = department;
+        return _this;
+    }
+    Employee.prototype.getElevatorPitch = function () {
+        console.log(this.age);
+        return "Hello, my name is ".concat(this.name, " and I work in ").concat(this.department);
+    };
+    return Employee;
+}(Person));
+var howard = new Employee('howard', 'sale');
+var person = new Person('kyrie', 20);
+// --------------- readonly修饰符 -----------------
+var Octopus = /** @class */ (function () {
+    function Octopus(name) {
+        this.numberOfLengths = 0;
+        this.name = name;
+    }
+    return Octopus;
+}());
+var dad = new Octopus('Man with the 8 strong legs');
+// --------------------- 存取器 --------------------
+var Singer = /** @class */ (function () {
+    function Singer() {
+    }
+    return Singer;
+}());
+var singer = new Singer();
+singer.fullName = 'jay chou';
+if (singer.fullName) {
+    console.log(singer.fullName);
+}
+// -------- 验证密码是否正确 ---------
+/* const password = 'secret keyword';
+class Game {
+  private _fullName:string
+  get fullName():string{
+    return this._fullName
+  }
+  set fullName(value:string) {
+    if(password && password === 'secret keyword'){
+      this._fullName = value;
+    }else{
+      console.log('Error: Unauthorized update of Game!')
+    }
+  }
+}
+const game = new Game()
+game.fullName = 'Bob Smith'; */
+// ------------------- 静态属性 ------------------
+var Grid = /** @class */ (function () {
+    function Grid(scale) {
+        this.scale = scale;
+    }
+    Grid.prototype.calculateDistanceFromOrigin = function (point) {
+        var xDist = point.x - Grid.origin.x;
+        var yDist = point.y - Grid.origin.y;
+        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+    };
+    Grid.origin = { x: 0, y: 0 };
+    return Grid;
+}());
+var grid1 = new Grid(1.0);
+var grid2 = new Grid(5.0);
+console.log(grid1.calculateDistanceFromOrigin({ x: 2, y: 3 }));
+console.log(grid2.calculateDistanceFromOrigin({ x: 3, y: 4 }));

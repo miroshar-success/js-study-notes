@@ -100,3 +100,62 @@ class Employee extends Person {
 const howard = new Employee('howard', 'sale')
 
 const person = new Person('kyrie', 20)
+
+
+// --------------- readonly修饰符 -----------------
+class Octopus {
+  readonly name: string
+  readonly numberOfLengths: number = 0;
+  constructor(name:string) {
+    this.name = name;
+  }
+}
+const dad = new Octopus('Man with the 8 strong legs')
+
+
+
+// --------------------- 存取器 --------------------
+class Singer {
+  fullName: string
+}
+
+const singer = new Singer()
+singer.fullName = 'jay chou';
+if(singer.fullName){
+  console.log(singer.fullName)
+}
+
+// -------- 验证密码是否正确 ---------
+/* const password = 'secret keyword';
+class Game {
+  private _fullName:string
+  get fullName():string{
+    return this._fullName
+  }
+  set fullName(value:string) {
+    if(password && password === 'secret keyword'){
+      this._fullName = value;
+    }else{
+      console.log('Error: Unauthorized update of Game!')
+    }
+  }
+}
+const game = new Game()
+game.fullName = 'Bob Smith'; */
+
+
+// ------------------- 静态属性 ------------------
+class Grid {
+  static origin = {x : 0, y: 0}
+  calculateDistanceFromOrigin(point:{x:number, y:number}){
+    const xDist = point.x - Grid.origin.x;
+    const yDist = point.y - Grid.origin.y;
+    return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+  }
+  constructor(public scale:number){}
+}
+const grid1 = new Grid(1.0)
+const grid2 = new Grid(5.0)
+console.log(grid1.calculateDistanceFromOrigin({x:2,y:3}))
+console.log(grid2.calculateDistanceFromOrigin({x:3,y:4}))
+
