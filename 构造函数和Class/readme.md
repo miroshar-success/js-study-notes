@@ -8,15 +8,14 @@ let obj = {};
 let obj = new Object();
 ```
     Object = new Function();
-    Function = new Functon();
+    Function = new Function();
     Function.prototype = new Object();
 
 # 2. 构造函数
 
     1. 首字母大写
     2. 内部使用this
-    3. 没有返回值
-    4. 调用函数使用关键字 new 
+    3. 调用函数使用关键字 new 
 ```js
 function Person(){
     this.name = 'kyrie';
