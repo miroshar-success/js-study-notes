@@ -52,3 +52,73 @@ console.log(p1.colors, p2.colors, c1.colors, c2.colors)
 // [ 'black', 'red', 'blue', 'green' ] [ 'red', 'blue', 'green' ] [ 'red', 'blue', 'white' ] [ 'red', 'blue', 'white' ]
 
 console.log(Child.prototype.__proto__ === Parent.prototype) // true
+
+
+// ---------- 把构造函数上的属性/方法 赋值到child上 --------------
+function Animal(name){
+  this.name = name;
+  this.eat = function(){
+    console.log(this.name + '-' + 'eat')
+  }
+}
+Animal.prototype.run = function(){
+  console.log(this.name + '-' + 'run')
+}
+
+function LandAnimals(name, id){
+  // 属性或者方法 只能继承 构造函数里定义的,在原型上定义的方法 无法继承
+  Animal.call(this, name)
+  this.id = id;
+  this.foods = ['vegetables', 'fruit', 'feed']
+}
+
+const animal = new Animal('animal')
+const monkey = new LandAnimals('monkey', 123)
+const pig = new LandAnimals('pig',456)
+
+console.log('pig', pig)
+console.log('monkey', monkey)
+pig.foods.pop()
+console.log(pig.foods, monkey.foods)  // [ 'vegetables', 'fruit' ] [ 'vegetables', 'fruit', 'feed' ]
+
+pig.eat()
+monkey.eat()
+// pig.run()    pig.run is not a function
+
+
+// ----------------- 组合继承 -------------------
+/*
+通过call方法继承父类构造函数属性和方法, 修改子类原型对象, 继承父类原型上的对象。
+问题: 调用了两次Parent方法
+*/
+function Father(name, age){
+  this.name = name;
+  this.age = age;
+  this.colors = ['blue', 'green', 'red']
+}
+Father.prototype.say = function(){
+  console.log('I am ' + this.name);
+}
+function Son(name, age){
+  Father.apply(this, Array.from(arguments));
+  this.skill = ['hello', 'world']
+}
+Son.prototype = new Father()
+Son.prototype.constructor = Son;
+const son1 = new Son('kyrie', 30);
+const son2 = new Son('lebron', 37);
+
+son1.skill.pop();
+console.log(son1, son2)
+/* Son { name: 'kyrie', age: 30, skill: [ 'hello' ] }
+Son { name: 'lebron', age: 37, skill: [ 'hello', 'world' ] }
+*/
+son1.say()  // I am kyrie
+son2.say()  // I am lebron
+console.log(son1.colors)  // [ 'blue', 'green', 'red' ]
+son1.colors.pop()
+console.log(son1.colors)  // [ 'blue', 'green' ]
+console.log(son2.colors)  // [ 'blue', 'green', 'red' ]
+
+
+// ----------------------- 寄生式继承 -------------------------

@@ -121,3 +121,43 @@ function createObject(){
 
 const animal = createObject(Animal, 'monkey')
 console.log('animal', animal)
+
+
+// ---------------- 一个demo --------------
+function Range(from, to) {
+  this.from = from;
+  this.to = to;
+}
+Range.prototype.includes = function(x){
+  return this.from <= x && this.to >= x;
+}
+Range.prototype.foreach = function(f){
+  for(let i =  Math.ceil(this.from); i <= this.to; i++){
+    f(i)
+  }
+}
+Range.prototype.toString = function(){
+  return '(' + this.from + '...' + this.to + ')';
+}
+
+const range_1 = new Range(1.3, 8)
+const range_2 = new Range(3,6)
+console.log(range_1.includes(12), range_1.includes(5))  // false true
+range_2.foreach(console.log)  // 3 4 5 6
+console.log(range_1.toString()) // 1.3 ... 8
+
+
+
+function D(){
+}
+console.log('d.prototype:', D.prototype)
+console.log(Object.getOwnPropertyNames(D.prototype))  // ['constructor']
+console.log(Object.getOwnPropertyDescriptor(D.prototype,'constructor'))
+/*
+{
+  value: [Function: D],
+  writable: true,
+  enumerable: false,
+  configurable: true
+}
+*/
