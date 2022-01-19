@@ -54,7 +54,7 @@ console.log(p1.colors, p2.colors, c1.colors, c2.colors)
 console.log(Child.prototype.__proto__ === Parent.prototype) // true
 
 
-// ---------- 把构造函数上的属性/方法 赋值到child上 --------------
+// ---------- 把构造函数上的属性/方法 赋值到child上(构造函数继承) --------------
 function Animal(name){
   this.name = name;
   this.eat = function(){
@@ -122,3 +122,30 @@ console.log(son2.colors)  // [ 'blue', 'green', 'red' ]
 
 
 // ----------------------- 寄生式继承 -------------------------
+function ParentFunction(name,colors){
+  this.name = name;
+  this.colors = colors;
+}
+ParentFunction.prototype.say = function(){
+  console.log(this.colors)
+}
+
+function ChildFunction(name, colors, id){
+  ParentFunction.call(this, name, colors, id)
+  this.id = id;
+}
+const TempFunction = function(){
+}
+TempFunction.prototype = ParentFunction.prototype
+ChildFunction.prototype = new TempFunction()
+ChildFunction.prototype.constructor = ChildFunction;
+
+const c_1 = new ChildFunction('c1', ['red','green','blue'], 1)
+const c_2 = new ChildFunction('c2', ['red','green','blue'], 2)
+
+console.log(c_1, c_2)
+c_1.say()
+c_2.say()
+c_1.colors.pop()
+console.log(c_1, c_2)
+
