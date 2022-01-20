@@ -161,3 +161,49 @@ console.log(Object.getOwnPropertyDescriptor(D.prototype,'constructor'))
   configurable: true
 }
 */
+
+
+// -------------- 箭头函数不能用作构造函数 ------------
+const ArrowFunction = (name) => {
+  this.name = name;
+}
+// const arrow = new ArrowFunction()
+// console.log('arrow', arrow) // ArrowFunction is not a constructor
+
+
+// ---------- function.prototype 可以被for...in遍历 -----------
+function Bar(){
+  this.name = 'bar'
+}
+Bar.prototype.say = function() {}
+const bar = new Bar()
+console.log(bar instanceof Bar)
+for(let key in bar){
+  console.log('bar-key', key) // name say
+}
+Object.defineProperty(Bar.prototype, 'skill', {
+  value:function(){
+    console.log('hello')
+  }
+})
+// skill 是不可枚举属性
+for(let key in bar){
+  console.log('bar-key', key) // name say
+}
+
+console.log(Bar.prototype.isPrototypeOf(bar)) // true
+
+
+
+// ---------- 构造函数名字 ----------
+Function.prototype.getName = function() {
+  if('name' in this) return this.name;
+  return this.name = this.toString().match(/function\s*([^(]*)\(/)[1];
+}
+const Complex = function(x,y){
+  this.x = x
+  this.y = y;
+}
+const complex = new Complex(1,2)
+console.log(complex.__proto__.constructor)
+console.log(Complex.getName())  // Complex

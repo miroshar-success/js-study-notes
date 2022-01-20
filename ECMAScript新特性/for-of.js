@@ -1,147 +1,150 @@
-// --------- 数组遍历
-const player = ['kyrie','durant','james'];
-for(let item of player){
-  console.log('player:',item)
+// --------------- 数组遍历 ------------
+const players = ['kyrie', 'lebron', 'durant']
+for(let player of players){
+  console.log('player:', player)
+  /*
+  player: kyrie
+  player: lebron
+  player: durant
+  */
 }
-for(let key in player){
-  console.log('key:', key)
-}
-// ------- arguments遍历
-function sum() {
-  for(let arg of arguments){
-    console.log('arg:', arg)
+
+function makeIterator(array) {
+  let nextIndex = 0;
+  return {
+    next:function() {
+      return nextIndex < array.length ?
+        {
+          value:array[nextIndex++],
+          done:false
+        }
+        : {
+          value:undefined,
+          done:true
+        }
+    }
   }
 }
-sum(1,2,3,4,5)
+const iteratorPlayer = makeIterator(players)
+console.log(iteratorPlayer.next())
+console.log(iteratorPlayer.next())
+console.log(iteratorPlayer.next())
+/*
+{ value: 'kyrie', done: false }
+{ value: 'lebron', done: false }
+{ value: 'durant', done: false }
+*/
 
-// --------------- map结构遍历
+// -------------------- 字符串遍历 -------------
+const string = 'hello world'
+for(let key of string){
+  console.log(key)
+}
+// -------- 原生具备 Iterator接口的数据格式 ------
+/*
+Array, Map, Set, String, TypedArray arguments对象, NodeList对象
+*/
 const map = new Map()
-map.set('firstName','kyrie')
-map.set('lastName', 'irving')
-for(let [key,value] of map){
-  console.log('map:', key, value)
+map.set('h', 'hello')
+map.set('w', 'world')
+console.log('map', map) // { 'h' => 'hello', 'w' => 'world' }
+for(let [key, value] of map){
+  console.log('map', key, value)
 }
 
-// -------------- set
-const set = new Set()
-set.add('kyrie')
-set.add('irving')
-for(let value of set){
-  console.log('set-value:', value)
+const set = new Set(['hello', 'world', 'message'])
+for(let key of set){
+  console.log('set:', key)  // hello world message
 }
 
-// ------------- string
-for(let value of 'hello world'){
-  console.log('string-value:', value)
+function foo() {
+  console.log(arguments)
+  for(let key of arguments){
+    console.log('argument', key)  // 1 2 3 4 5
+  }
 }
-
-// --------------- ArrayLike
-const iterable = {
-  0:'a',
-  1:'b',
-  2:'c',
-  3:'d',
-  length:4,
-  [Symbol.iterator]: Array.prototype[Symbol.iterator]
-}
-for(let v of iterable){
-  console.log('object-v:', v)
-}
-// --------------- 普通对象遍历部署iterator无效果
-const object = {
-  'firstName': 'kyrie',
-  lastName: 'irving',
-  age: 29,
-  length: 3,
-  [Symbol.iterator]: Array.prototype[Symbol.iterator]
-}
-for(let v of object){
-  console.log('v:', v)
-}
+foo(1,2,3,4,5)
 
 
-// Promise的同步和异步
-var resolvedPromiseArray = [Promise.resolve(33), Promise.resolve(44)]
-const p = Promise.all(resolvedPromiseArray)
-console.log('p:', p)
-
-setTimeout(() => {
-  console.log('the stack is now empty')
-  console.log(p)
-})
-
-const empty_promise = Promise.all([])
-console.log(empty_promise)
-
-var p1 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 1000, 'one');
-});
-var p2 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 2000, 'two');
-});
-var p3 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 3000, 'three');
-});
-var p4 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 4000, 'four');
-});
-var p5 = new Promise((resolve, reject) => {
-  reject('reject');
-});
-
-Promise.all([p1, p2, p3, p4, p5]).then(values => {
-  console.log(values);
-}, reason => {
-  console.log(reason)
-});
-
-
-
-const arr = ['1',2,3,4,5]
-const iterator = arr[Symbol.iterator]()
-console.log(iterator.next())
-console.log(iterator.next())
-
-
+// ------------------ 遍历对象 --------------
 const obj = {
-  store:['hello','world','你好','世界'],
-  [Symbol.iterator]:function() {
-    let self = this, index = 0;
+  data:['hello', 'world'],
+  [Symbol.iterator]() {
+    const self = this;
+    let index = 0;
     return {
-      next:function() {
-        const result = {
-          value: self.store[index],
-          done:index >= self.store.length
+      next() {
+        if(index < self.data.length) {
+          return {
+            value: self.data[index++],
+            done:false
+          }
+        }else{
+          return {
+            value: undefined,
+            done: true
+          }
         }
-        index += 1;
-        return result
       }
     }
   }
 }
 for(let v of obj){
-  console.log('for-of-object:', v)
+  console.log('obj-v:', v)  // hello  world
 }
 
+// ------------ 类数组对象可以部署数组的Symbol.iterator --------------
+// 普通对象部署数组的 Symbol.iterator没有效果
+const arrayLike = {
+  0:'hello',
+  1:'world',
+  length:2,
+  [Symbol.iterator]:Array.prototype[Symbol.iterator]
+}
+for(let item of arrayLike){
+  console.log('array-like-item', item)  // hello world
+}
 
-const todo = {
-  learn:['vue','react','angular'],
-  life:['吃饭','碎觉'],
-  [Symbol.iterator]:function() {
-    let todos = [...this.learn,...this.life], index=0;
-    return {
-      next:function() {
-        let result = {
-          value: todos[index],
-          done:index >= todos.length
+const _object = {
+  a: 'a',
+  b: 'b',
+  c: 'c',
+  length: 3,
+  [Symbol.iterator]:Array.prototype[Symbol.iterator]
+}
+for(let item of _object){
+  console.log('_object-item', item) // undefined  undefined undefined
+}
+
+// 给一个普通对象部署 遍历接口
+const object = {
+  firstName:'kyrie',
+  lastName:'irving',
+  age:30,
+}
+/* for(let value of object){ // object is not iterable
+  console.log(value)
+} */
+object[Symbol.iterator] = function(){
+  const _this = this;
+  const keys = Object.keys(this)
+  let nextIndex = 0;
+  return {
+    next:function() {
+      if(nextIndex < keys.length) {
+        return {
+          value:_this[keys[nextIndex++]],
+          done:false
         }
-        index += 1;
-        return result;
+      }else{
+        return {
+          value:undefined,
+          done:true
+        }
       }
     }
   }
 }
-
-for(let t of todo){
-  console.log('todo-item:', t)
+for(let item of object){
+  console.log(item) // kyrie irving 30
 }
