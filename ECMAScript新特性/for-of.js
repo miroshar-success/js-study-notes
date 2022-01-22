@@ -148,3 +148,77 @@ object[Symbol.iterator] = function(){
 for(let item of object){
   console.log(item) // kyrie irving 30
 }
+
+// ------------ 调用Iterator接口的场合 ------------
+// 1. 解构赋值
+const _set = new Set().add('a').add('b').add('c')
+const [x, y] = _set;
+console.log('x,y', x, y)  // a, b
+const [first, ...rest] = _set;
+console.log('first',first, rest)  // a ,[b,c]
+
+// 2 ... 扩展运算符
+const str = 'hello world'
+console.log([...str]);
+
+
+// 3. yield*  yield*后面跟的是一个可遍历结构,会调用该结构的遍历器接口。
+const generator = function* (){
+  yield 1;
+  yield * [2,3,4]
+  yield 5
+}
+const iterator = generator()
+console.log(iterator.next())
+console.log(iterator.next())
+console.log(iterator.next())
+console.log(iterator.next())
+console.log(iterator.next())
+/*
+{ value: 1, done: false }
+{ value: 2, done: false }
+{ value: 3, done: false }
+{ value: 4, done: false }
+{ value: 5, done: false }
+*/
+
+
+// ---------- 给对象一个遍历器接口 ----------
+const player = {
+  firstName: 'kyrie',
+  lastName: 'irving',
+  age: 30
+}
+
+function* entry(object){
+  for(let key of Object.keys(object)){
+    yield [key, object[key]]
+  }
+}
+for(const [key,value] of entry(player)){
+  console.log('key,', key, 'value:', value)
+}
+/*
+key, firstName value: kyrie
+key, lastName value: irving
+key, age value: 30
+*/
+
+
+// ------------ for..of遍历数组 跳出循环 ---------
+// forEach 无法跳出循环
+const number_array = [1,2,3,4,5,6,7,8,9,10];
+
+for(let number of number_array){
+  if(number > 5) {
+    break;
+  }
+  console.log('number', number)
+}
+
+for(let key in number_array){
+  if(number_array[key] > 5){
+    break;
+  }
+  console.log('number', key)
+}
