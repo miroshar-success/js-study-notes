@@ -222,3 +222,31 @@ for(let key in number_array){
   }
   console.log('number', key)
 }
+
+// ------------ 判断是否具有 iterator接口 ----- ------------
+const my_set = new Set().add('1').add('2').add('3')
+const my_map = new Map().set({name:'hello'},{name:'world'})
+const my_array = [1,2,3,4,5]
+const my_array_like = {
+  0: 'hello',
+  1: 'world',
+  2: '你好'
+}
+const my_string = 'hello world';
+
+function has_iterator(data){
+  return typeof data[Symbol.iterator] === 'function'
+}
+
+console.log(has_iterator(my_set)) // true
+console.log(has_iterator(my_map)) // true
+console.log(has_iterator(my_array)) // true
+console.log(has_iterator(my_array_like))  // false
+console.log(has_iterator(my_string))  // true
+
+function foo() {
+  console.log(has_iterator(arguments))  // true
+}
+foo(1,2,3,4,5)
+
+
