@@ -207,3 +207,26 @@ const Complex = function(x,y){
 const complex = new Complex(1,2)
 console.log(complex.__proto__.constructor)
 console.log(Complex.getName())  // Complex
+
+
+// --------------- new.target -------------
+function Foo() {
+  console.log('new.target:',new.target)
+}
+Foo()
+new Foo()
+
+
+// ----------- constructor  new.target ------------
+class A {
+  constructor() {
+    console.log(new.target.name);
+  }
+}
+class B extends A {
+  constructor() {
+    super()
+  }
+}
+const a = new A() // A
+const b = new B() // B
