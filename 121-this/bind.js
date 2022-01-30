@@ -48,3 +48,47 @@ function fn() {
 }
 
 fn.bind(1).bind(2)
+
+
+
+// ---------- 优先级 ---------
+function f2() {
+  console.log(this._a)
+}
+const o1 = {
+  _a: 10,
+  f2
+}
+const o2 = {
+  _a: 20,
+  f2
+}
+o1.f2()   // 10
+o2.f2()   // 20
+
+o1.f2.call(o2)  // 20
+o2.f2.call(o1)  // 10
+
+// ------------------ new关键字和隐式绑定 -----------------
+function f3(value) {
+  this._b = value;
+}
+const object_1 = {
+  f3
+}
+
+const object_2 = {}
+
+object_1.f3(10)
+console.log(object_1._b)  // 10
+
+object_1.f3.call(object_2, 10)
+console.log(object_2._b)  // 10
+
+const bac = new object_1.f3(4)
+console.log(object_1._b)  // 10
+console.log(bac._b) // 4
+
+
+
+
