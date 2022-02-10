@@ -24,8 +24,42 @@
     <button @click='change_age'>change age</button>
     <div>{{player.firstName}} - {{player.lastName}} - {{player.age}}</div>
   </div>
+  <hr>
+  <!-- slot-scope -->
+  <div id="slot-scope">
+    <div>{{message}}</div>
+    <todo-button>hello world</todo-button>
+  </div>
+  <div id="slot-button">
+    <scope-button>{{message}}</scope-button>
+    <scope-button></scope-button>
+  </div>
+  <!-- 具名插槽 -->
+  <div id="layout-app">
+    <base-layout>
+      <template v-slot:header>
+        <h1>Here might be a page title</h1>
+      </template>
+      <template v-slot:main>
+        <div>This is a paragraph</div>
+      </template>
+      <template v-slot:footer>
+        <div>hello, 我是footer</div>
+      </template>
+    </base-layout>
+  </div>
+  <!-- 插槽作用域 -->
+  <div id="slot-scope-app">
+    <todo-list></todo-list>
+    <player-list>
+      <template v-slot:default='slotProps'>
+        <span>{{slotProps.item}}</span>
+      </template>
+    </player-list>
+  </div>
   <script src='../src/vue.development.js'></script>
   <script src='./src/21-setup.js'></script>
+  <script src='./src/23-slot-scope.js'></script>
   <script type='module'>
     import { reactive, effect, ref, toRefs } from './src/22-reactive.js'
     const player = reactive({
