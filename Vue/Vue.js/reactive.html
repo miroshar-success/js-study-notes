@@ -95,6 +95,10 @@
     <component-a></component-a>
     <component-b></component-b>
   </div>
+  <!-- vue-plugin -->
+  <div id="plugin-demo">
+    <button @click.stop='get_message'>message-click</button>
+  </div>
 
   <script src='../src/vue.development.2.x.js'></script>
   <script src='./src/11-reactive.js'></script>
@@ -107,6 +111,7 @@
   <script src='./src/18-vnode.js'></script>
   <script src='./src/19-event-bus.js'></script>
   <script src='./src/20-mini-vuex.js'></script>
+  <script src='./src/24-vue-plugin.js'></script>
   <script>
     // isNative
     function isNative(Ctor){
