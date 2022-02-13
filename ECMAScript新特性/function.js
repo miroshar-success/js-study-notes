@@ -100,16 +100,28 @@ function print_argument(_y, y = _y){
 print_argument(5) // 5
 
 
+// --------- 参数默认值是函数 ----------
+let _foo = 'outer'
+function _bar(func = () => _foo){
+  let _foo = 'inner'
+  console.log(func())
+}
+_bar()  // outer
+
+
 // ------------------ rest参数 ---------------
 function add(...args){
   console.log(Array.isArray(args))  // true
   return args.reduce((prev,next) => prev + next, 0)
 }
+console.log(add(1,2,3,4,5,6,7,8,9,10,11,12))  // 78
+
+
 
 function add_1(){
   console.log(Array.isArray(arguments)) // false
-  console.log(arguments,Array.from(arguments));
-  console.log([...arguments])
+  console.log(arguments,Array.from(arguments)); // [Arguments] { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } [ 1, 2, 3, 4, 5 ]
+  console.log([...arguments])   // [ 1, 2, 3, 4, 5 ]
 }
 
 let result = add(1,2,3,4,5)
@@ -119,15 +131,24 @@ add_1(1,2,3,4,5)
 
 // ------------------- 箭头函数
 const f1 = () => {
-  // console.log(arguments)
   console.log('arrow-this:', this)
 }
 f1()
 
 // new f1()     // f1 is not a constructor
 
+// -------------- name 属性 ------------
+const f_1 = () => {}
+console.log('f1-name:', f_1.name) // f_1
 
-// ------------------------------- this指向
+const f_2 = function f_3() {}
+console.log('f2_name:', f_2.name) // f_3
+
+console.log((new Function).name)  // anonymous
+
+
+
+// ------- this指向 -----------
 var id = 21;
 function foo1(){
   setTimeout(() => {
@@ -147,17 +168,25 @@ foo2.call({id:42})
 function Timer(){
   this.s1 = 0;
   this.s2 = 0;
-  setTimeout(() => {
-    console.log('arrow-function:', this)
-  },0)
-  setTimeout(function() {
-    console.log('this:',this)
-  },0)
+  // 绑定的是定义时所在的作用域
+  setInterval(() => {
+    this.s1+=1
+    console.log('arrow-function:', this)  // Timer {s1: 0, s2: 0}
+  },1000)
+  setInterval(function() {
+    console.log('this:',this) // window
+  },1000)
 }
-const timer = new Timer()
-console.log('timer:', timer)
+/* const timer = new Timer()
 
-// DOM事件的this
+setTimeout(() => {
+  console.log('s1:', timer.s1)  // 3
+},3200)
+setTimeout(() => {
+  console.log('s2:', timer.s2)  // 0
+},3200) */
+
+//  ----------- DOM事件的this ---------
 var handler = {
   id:123456,
   init: function() {
@@ -176,6 +205,19 @@ var handler = {
 }
 // handler.init();
 
+// ----------- 箭头函数this ----------
+function m1() {
+  return () => {
+    return () => {
+      console.log(this.id)
+    }
+  }
+}
+
+const _m = m1.call({id:1})
+_m.call({id:2})() //1
+_m().call({id:3}) // 1
+// arguments super new.target在箭头函数中不存在
 
 //
 function bar() {
@@ -188,7 +230,15 @@ const b = bar.call({id:100})
 b() // 100
 
 
-// ---------------------- toString()
+// ---------- 部署管道机制 ------------(pipeline)
+// ---- 将相加的结果 继续传递 -----
+const pipeline = (...funcs) => v => funcs.reduce((prev,next) => next(prev), v)
+const plus = x => x + x
+const multiple = x => x * x;
+const p_m = pipeline(plus, multiple)
+console.log(p_m(5)) // 100
+
+// --------- toString() ----------
 
 function moon(){
   /*
