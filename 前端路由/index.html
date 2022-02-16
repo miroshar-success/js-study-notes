@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>history和hash路由</title>
+</head>
+<body>
+  <div class="history">
+    <button class='baidu_btn'>百度-pushState</button>
+    <button class='baidu_qq'>qq-location</button>
+    <button class='ali_btn'>阿里巴巴-replaceState</button>
+    <hr>
+    <div>
+      <button class="back_btn">back</button>
+      <button class="forward_btn">forward</button>
+      <input type="number" value='1' min='1' class='input_number'>
+      <button class='go_btn'>go</button>
+    </div>
+    <hr>
+  </div>
+  <div class="hash">
+    <button class="hash_btn">获取当前hash值</button>
+  </div>
+  <hr>
+  <a href="#gray">gray</a>
+  <a href="#blue">blue</a>
+  <a href="#green">green</a>
+  <script src='./src/history.js'></script>
+  <script src='./src/hash.js'></script>
+</body>
+</html>
