@@ -14,7 +14,7 @@ hash_btn.addEventListener('click', () => {
   }
 })
  */
-
+// ----------- 一个hash路由 -------------
 class HashRouter {
   constructor() {
     this.router = {};
@@ -28,7 +28,6 @@ class HashRouter {
   refresh () {
     const path = window.location.hash.slice(1)
     if(!path) return
-    console.log(path, this.router, this)
     this.router[path]()
   }
 }
@@ -50,10 +49,6 @@ hash_router.route('blue', () => {
 hash_router.route('green', () => {
   change_body_color('green')
 })
-
-console.log(hash_router)
-
-
 
 class Point{
   constructor(x,y) {

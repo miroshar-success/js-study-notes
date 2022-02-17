@@ -42,3 +42,55 @@ _$('.back_btn').addEventListener('click', () => {
 window.addEventListener('popstate', () => {
   console.log('popstate', event.state)
 })
+
+
+// ----------- history router ---------
+
+function changeBodyColor(color) {
+  const body = document.querySelector('body')
+  body.style.backgroundColor = color;
+}
+class HistoryRouter {
+  constructor() {
+    this.routes = {}
+    this.listen_popstate()
+  }
+  go(path) {  // 路由跳转
+    // pushState 无法监听popstate
+    window.history.pushState({path}, null, path)
+    const cb = this.routes[path]
+    if(cb) {
+      cb()
+    }
+  }
+  route(path, callback) { // 注册路由
+    this.routes[path] = callback || function() {}
+  }
+  listen_popstate() { // 在点击按钮切换时修改
+    window.addEventListener('popstate', e => {
+      const path = e.state && e.state.path;
+      this.routes[path] && this.routes[path]()
+    })
+  }
+}
+
+const history_router = new HistoryRouter()
+history_router.route('/gray', () => {
+  changeBodyColor('gray')
+})
+history_router.route('/green', () => {
+  changeBodyColor('green')
+})
+history_router.route('/blue', () => {
+  changeBodyColor('blue')
+})
+
+const history_link = document.querySelector('.history-link')
+history_link.addEventListener('click', e => {
+  const tagName = e.target.tagName;
+  if(tagName.toLowerCase() === 'a') {
+    e.preventDefault()
+    const path = e.target.getAttribute('href')
+    history_router.go(path)
+  }
+},false)
