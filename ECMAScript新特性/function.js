@@ -250,3 +250,104 @@ function moon(){
 }
 
 console.log(moon.toString())
+
+// ------------- 尾调用 ---------
+function foo1(x = 0) {
+  if(x > 3) {
+    return foo2(x)
+  }
+  return foo3(x)
+}
+
+function foo2(x) {
+  return Math.pow(x,3)
+}
+function foo3(x) {
+  return Math.pow(x,4)
+}
+
+console.log(foo1(3))  // 81
+console.log(foo1(5))  // 123
+
+// -------- demo --------
+function addOne(x) {
+  var one = 1
+  function inner(b) {
+    return b + one
+  }
+  return inner(x)
+}
+
+console.log(addOne(12)) // 13
+/*
+// 以上函数不会进行尾调用优化, 因为内层函数inner用到了外层函数 addOne 的内部变量。
+*/
+
+
+// ---------- 尾调用优化 （只在严格模式下开启） ---------
+function factorial_1(n) {
+  if(n === 1) return 1
+  return n * factorial_1(n - 1)
+}
+
+console.log(factorial_1(5)) // 120
+console.log(factorial_1(15))  // 1307674368000
+
+console.log(factorial_1(100)) // 9.33262154439441e+157
+
+
+function factorial_2(n, total) {
+  if(n === 1) return total
+  return factorial_2(n - 1, n * total)
+}
+
+console.log(factorial_2(5, 1))  // 120
+console.log(factorial_2(100, 1))  // 9.332621544394418e+157
+
+
+// -------- 斐波那契数列 --------
+// 确保最后一步只调用自身。（把所有用到的内部变量改写成函数的参数）
+function fibonacci_1(n) {
+  if(n <= 1) {
+    return 1
+  }
+  return fibonacci_1(n - 1) + fibonacci_1(n - 2)
+}
+console.log(fibonacci_1(10))  // 89
+// console.log(fibonacci_1(100))  // 栈溢出
+
+function fibonacci_2(n, acc1 = 1, acc2 = 2) {
+  if(n <= 1) return acc2
+  return fibonacci_2(n - 1, acc2, acc1 + acc2)
+}
+console.log(fibonacci_2(100)) // 927372692193079200000
+
+
+// ------- 蹦床函数 --------
+function trampoline(f) {
+  while(f && f instanceof Function) {
+    f = f()
+  }
+  return f
+}
+
+function sum(x, y) {
+  if(y > 0) {
+    return sum(x + 1, y-1)
+  }else{
+    return x
+  }
+}
+// console.log( sum(1, 10000) ) // maximum call stack
+
+function sum1(x, y) {
+  if(y > 0) {
+    return sum1.bind(null, x+1, y-1)
+  }else{
+    return x
+  }
+}
+
+console.log(trampoline(sum1(1, 100000)))
+
+// console.log(trampoline(sum(1,10000)))
