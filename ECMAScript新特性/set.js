@@ -142,5 +142,10 @@ console.log('ss', ss)
 
 let weak = new WeakSet()
 
+weak.add({})
+weak.add([])
 
+const timeId = setInterval(() => {
+  console.log(weak)
+})
 
