@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key值</title>
+</head>
+<body>
+<!--   <div id="app">
+    <div>index作为key</div>
+    <ul>
+      <li v-for='(player,i) in player_list' :key='i'>
+        {{player.firstName}}
+        {{player.lastName}}
+      </li>
+    </ul>
+    <hr>
+    <div>firstName作为key</div>
+    <ul>
+      <li v-for='(player,i) in player_list' :key='player.firstName'>
+        {{player.firstName}}
+        {{player.lastName}}
+      </li>
+    </ul>
+    <hr>
+    <div>没有key</div>
+    <ul>
+      <li v-for='(player,i) in player_list'>
+        {{player.firstName}}
+        {{player.lastName}}
+      </li>
+    </ul>
+    <ul>
+      <li v-for='(value,index) in array' :key='index'>
+        <test></test>
+      </li>
+    </ul>
+    <button @click.stop='delete_player'>delete</button>
+  </div> -->
+
+  <!-- vue 3.x -->
+  <div id="root">
+    <div>index作为key</div>
+    <ul>
+      <li v-for='(player,i) in player_list' :key='i'>
+        {{player.firstName}} -
+        {{player.lastName}}
+      </li>
+    </ul>
+    <hr>
+    <div>firstName作为key</div>
+    <ul>
+      <li v-for='(player,i) in player_list' :key='player.firstName'>
+        {{player.firstName}} -
+        {{player.lastName}}
+      </li>
+    </ul>
+    <hr>
+    <div>没有key</div>
+    <ul>
+      <li v-for='(player,i) in player_list' :key='player.firstName'>
+        {{player.firstName}} -
+        {{player.lastName}}
+      </li>
+    </ul>
+    <ul>
+      <li v-for='(value,index) in array' :key='index'>
+        <test></test>
+      </li>
+    </ul>
+    <button @click.stop='delete_player'>delete</button>
+  </div>
+  <!-- <script src='../src/vue.development.2.x.js'></script> -->
+  <script src='../src/vue.development.js'></script>
+  <script src='./src/26-key.js'></script>
+</body>
+</html>
