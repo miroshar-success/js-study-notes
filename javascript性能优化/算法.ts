@@ -769,3 +769,64 @@ function getMaxCharLength( str: string): CharProps {
 
 console.log(getMaxCharLength(string))
 // { char: 'd', length: 10 }
+
+
+// ---------- 回文数字 -------
+// 利用字符串 反转后 和 当前字符相比
+function reverseNumber(n: number) :number[] {
+  if(n === 0) return []
+  const result:number[] = []
+  for(let i = 1; i <= n; i++) {
+    if(i.toString() === i.toString().split('').reverse().join('')){
+      result.push(i)
+    }
+  }
+  return result
+}
+
+console.log(reverseNumber(100))
+
+
+// ------ 比较字符 对应位置---------
+function reverseNumber2(n: number): number [] {
+  if(n === 0) return []
+  const result: number[] = []
+  for(let i = 1; i <= n; i++) {
+    let start = 0, end = i.toString().length - 1;
+    let flag = true
+    while(start < end) {
+      if(i.toString()[start] === i.toString()[end]) {
+        start+=1;
+        end -= 1
+      }else{
+        flag = false
+        break;
+      }
+    }
+    if(flag) {
+      result.push(i)
+    }
+  }
+  return result
+}
+console.log(reverseNumber2(100))
+
+// ----- 通过求数的反转数字 --------
+function reverseNumber3(n: number): number [] {
+  if(n === 0) return []
+  const result: number[] = []
+  for(let i = 1; i <= n; i++) {
+    // 直接求一个数的反转数
+    let x = i // 当前数字
+    let rev = 0 // 反转数字
+    while(x > 0) {
+      rev = rev * 10 + x % 10
+      x = Math.floor(x / 10)
+    }
+    if(rev === i) {
+      result.push(i)
+    }
+  }
+  return result
+}
+console.log(reverseNumber3(100))

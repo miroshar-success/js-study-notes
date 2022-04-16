@@ -704,4 +704,62 @@ function getMaxCharLength(str) {
     return res;
 }
 console.log(getMaxCharLength(string));
-// { char: 'e', length: 7 }
+// { char: 'd', length: 10 }
+// ---------- 回文数字 -------
+// 利用字符串 反转后 和 当前字符相比
+function reverseNumber(n) {
+    if (n === 0)
+        return [];
+    var result = [];
+    for (var i = 1; i <= n; i++) {
+        if (i.toString() === i.toString().split('').reverse().join('')) {
+            result.push(i);
+        }
+    }
+    return result;
+}
+console.log(reverseNumber(100));
+// ------ 比较字符 对应位置---------
+function reverseNumber2(n) {
+    if (n === 0)
+        return [];
+    var result = [];
+    for (var i = 1; i <= n; i++) {
+        var start = 0, end = i.toString().length - 1;
+        var flag = true;
+        while (start < end) {
+            if (i.toString()[start] === i.toString()[end]) {
+                start += 1;
+                end -= 1;
+            }
+            else {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            result.push(i);
+        }
+    }
+    return result;
+}
+console.log(reverseNumber2(100));
+// ----- 通过求数的反转数字 --------
+function reverseNumber3(n) {
+    if (n === 0)
+        return [];
+    var result = [];
+    for (var i = 1; i <= n; i++) {
+        var rev = 0;
+        var x = i;
+        while (x > 0) {
+            rev = rev * 10 + x % 10;
+            x = Math.floor(x / 10);
+        }
+        if (rev === i) {
+            result.push(i);
+        }
+    }
+    return result;
+}
+console.log(reverseNumber3(100));

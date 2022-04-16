@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数截流和防抖</title>
+  <style>
+    .input{width:300px;height:28px;text-indent:4px;}
+    .box{width:100px;height:100px;background-color:pink;}
+  </style>
+</head>
+<body>
+  <h3>函数防抖</h3>
+  <input type="text" class='input' placeholder='请输入关键字'>
+  <h3>函数节流</h3>
+  <div class="box" draggable='true'></div>
+  <script>
+    // ---------------- 函数防抖 ---------------
+    const input = document.querySelector('.input')
+    function debounce(fn, delay = 200) {
+      let timer = null
+      return function() {
+        if(timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this, arguments)
+          timer = null
+        }, delay)
+      }
+    }
+
+    const handler = debounce(function() {
+      const value = arguments[0].target.value.trim()
+      if(!value) {
+        console.log('清空了')
+      }else{
+        console.log('发起请求...')
+      }
+    }, 300)
+
+    input.addEventListener('keyup', handler , false)
+
+    // 节流
+    function throttle1(fn, delay = 100) {
+      let timer = null
+      return function() {
+        if(timer) return
+        timer = setTimeout(() => {
+          fn.apply(this, arguments)
+          timer = null
+          clearTimeout(timer)
+        }, delay)
+      }
+    }
+
+    function throttle2(fn, delay = 100) {
+      let prevTime = 0
+      return function() {
+        if(Date.now() - prevTime < delay) return
+        fn.apply(this, arguments)
+        prevTime = Date.now()
+      }
+    }
+
+    const box = document.querySelector('.box')
+    box.addEventListener('drag', throttle2(function(){
+      console.log('hello')
+    }), false)
+
+/*     box.addEventListener('drag', function(event) {
+      console.log('hello')
+    }, false) */
+  </script>
+</body>
+</html>
