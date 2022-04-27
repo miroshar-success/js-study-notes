@@ -91,6 +91,68 @@ console.log(bac._b) // 4
 
 
 
+// ---------------- bind mdn --------------------
+const m2 = {
+  x: 42,
+  getX: function() {
+    return this.x
+  }
+}
+const bindGetX = m2.getX.bind({x: 50})
+console.log(bindGetX()) // 50
+
+// ---------- 偏函数 ----------
+function list() {
+  return Array.prototype.slice.call(arguments)
+}
+console.log(list(1,2,3,4,5))  // [ 1, 2, 3, 4, 5 ]
+console.log(list(1,2,3))      // [ 1, 2, 3 ]
+
+const leadingThirtysevenList = list.bind(null, 37)
+console.log(leadingThirtysevenList(12,23,34)) // [ 37, 12, 23, 34 ]
+const leadingSeven = list.bind(null, 30)
+console.log(leadingSeven(1,2,3))  // [ 30, 1, 2, 3 ]
 
 
+// -------------- setTimeout ------------
+function Player(name) {
+  this.name = name
+}
+Player.prototype.say = function(){
+  console.log(this.name)
+}
+/* Player.prototype.invoke = function(){
+  window.setTimeout(this.say, 1000)
+} */
+Player.prototype.invoke = function(){
+  window.setTimeout(() => {
+    this.say()
+  },1000)
+}
 
+Player.prototype.invoke = function(){
+  window.setTimeout(this.say,bind(this), 1000) // 'kyrie'
+}
+
+const kyrie = new Player('kyrie')
+// kyrie.invoke()
+
+// ----------- 实现一个bind ----------
+Function.prototype.myBind = function(context, ...args) {
+  const self = this
+  return function(...arguments) {
+    const newArguments = [...args,...arguments]
+    return self.apply(context, ...newArguments)
+  }
+}
+
+const myList = list.bind(null, 30)
+console.log(myList(1,2,4))  // [30, 1, 2, 4]
+
+
+function sum(a, b, c) {
+  return a + b + c
+}
+const s1 = sum.bind(null ,10)
+console.log(s1(20, 30)) // 60
+console.log(s1(30,40))  // 80

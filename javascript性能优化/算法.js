@@ -750,8 +750,9 @@ function reverseNumber3(n) {
         return [];
     var result = [];
     for (var i = 1; i <= n; i++) {
-        var rev = 0;
-        var x = i;
+        // 直接求一个数的反转数
+        var x = i; // 当前数字
+        var rev = 0; // 反转数字
         while (x > 0) {
             rev = rev * 10 + x % 10;
             x = Math.floor(x / 10);
@@ -763,3 +764,69 @@ function reverseNumber3(n) {
     return result;
 }
 console.log(reverseNumber3(100));
+// -------------  sleepMan ---------------
+var SleepMan = /** @class */ (function () {
+    function SleepMan(name) {
+        var _this = this;
+        this.name = name;
+        this.tasks = [];
+        setTimeout(function () {
+            _this.next();
+        }, 0);
+    }
+    SleepMan.prototype.eat = function (food) {
+        var _this = this;
+        var task = function () {
+            console.log("".concat(_this.name, " eat - ").concat(food));
+            _this.next();
+        };
+        this.tasks.push(task);
+        return this;
+    };
+    SleepMan.prototype.sleep = function (time) {
+        var _this = this;
+        var task = function () {
+            setTimeout(function () {
+                console.log("".concat(_this.name, " sleep"));
+                _this.next();
+            }, time * 1000);
+        };
+        this.tasks.push(task);
+        return this;
+    };
+    SleepMan.prototype.next = function () {
+        var task = this.tasks.shift();
+        task && task();
+    };
+    return SleepMan;
+}());
+var kyrie = new SleepMan('kyrie');
+kyrie.eat('apple').sleep(3).eat('banana').sleep(2).eat('orange');
+var tree_array = [
+    { id: 1, name: '部门A', parentId: 0 },
+    { id: 2, name: '部门B', parentId: 1 },
+    { id: 3, name: '部门C', parentId: 1 },
+    { id: 4, name: '部门D', parentId: 2 },
+    { id: 5, name: '部门E', parentId: 2 },
+    { id: 6, name: '部门F', parentId: 3 }
+];
+function convert(array) {
+    var map = new Map();
+    var root = null;
+    array.forEach(function (item) {
+        var id = item.id, name = item.name, parentId = item.parentId;
+        var treeNode = { id: id, name: name };
+        map.set(id, treeNode);
+        var parentNode = map.get(parentId); // 判断是否在某个节点树上
+        if (parentNode) {
+            if (!parentNode.children)
+                parentNode.children = [];
+            parentNode.children.push(treeNode);
+        }
+        if (parentId === 0)
+            root = treeNode;
+    });
+    return root;
+}
+var convert_tree = convert(tree_array);
+console.log(convert_tree, JSON.stringify(convert_tree));

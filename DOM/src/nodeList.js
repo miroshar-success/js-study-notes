@@ -4,7 +4,7 @@ const queryButton = document.querySelector('.querySelectorAllButton')
 const nodeList = document.querySelector('#node-list')
 
 const childNodes = nodeList.childNodes
-
+console.log('childNodes -------', childNodes)
 incrementButton.addEventListener('click', function() {
   const span = document.createElement('span')
   span.textContent = [...text].length + 1
@@ -58,4 +58,13 @@ for(const tag of text){
   console.log('tag', tag)
     // <span class="text">1</span>
   // <span class="text">2</span>
+}
+
+
+//  ----------- 遍历childNodes ---------
+for(const tag of childNodes){
+  console.log('childNodes-tag', tag)
+}
+for(const value of childNodes.values()){
+  console.log('childNodes-value:', value)
 }

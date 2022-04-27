@@ -10,9 +10,10 @@ module.exports = {
     clean:true
   },
   devServer:{
-    port:'9090',
+    port:'9091',
     host:'0.0.0.0',
-    static:path.join(__dirname,'dist')
+    static:path.join(__dirname,'dist'),
+    hot: true
   },
   plugins:[
     new HtmlWebpackPlugin()

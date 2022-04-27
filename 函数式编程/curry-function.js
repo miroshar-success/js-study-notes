@@ -6,7 +6,7 @@ function checkAge(min) {
 
 let check18 = checkAge(18);
 
-console.log(check18(20))  // true 
+console.log(check18(20))  // true
 console.log(check18(16)); // false
 
 
@@ -85,7 +85,7 @@ console.log(['kyrie irving','kevin_love'].filter(haveSpace))
 const add = curried(sum)
 add(1)(2)(3)
 add(1,2)
-*/ 
+*/
 
 function sum(a,b,c,d){
   return a + b + c + d;
@@ -111,17 +111,36 @@ console.log(add(1,2)(3,4))  // 10
 // console.log(add(1)(2)(3,4)) // 10
 
 
-
-function my_curry(fun) {
-  return function (...args) {
-    return function() {
-      const arr = [...args,...arguments]
-      return fun.apply(null,[...arr])
+// ------------ currying --------------
+function currying(fn) {
+  const argsLength = fn.length
+  return function f1(...args) {
+    if(argsLength > args.length) {
+      return function() { // 收集参数
+        const newArgs = [...args, ...arguments]
+        return f1(...newArgs)
+      }
     }
+    return fn(...args)
   }
 }
+const s1 = currying(sum)
+console.log(s1(1)(2)(3)(4))  // 10
+console.log(s1(1,2)(3,4))   // 10
+console.log(s1(1,2,3)(4))   // 10
 
-const my_add = my_curry(sum)
-console.log('h',my_add(1,2)(3,4)) // 10
-console.log(my_add(1,2,3)(4)) // 10
-console.log(my_add(1)(2,3,4)) // 10
+function currying2(fn) {
+  const argsLength = fn.length
+  let args = []
+  return function f1() {
+    args = [...args, ...arguments]
+    if(args.length < argsLength) {
+      return f1
+    }
+    return fn.apply(this, ...args)
+  }
+}
+const s2 = currying(sum)
+console.log(s2(1)(2)(3)(4))  // 10
+console.log(s2(1,2)(3,4))   // 10
+console.log(s2(1,2,3)(4))   // 10

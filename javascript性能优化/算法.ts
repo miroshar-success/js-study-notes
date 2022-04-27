@@ -830,3 +830,83 @@ function reverseNumber3(n: number): number [] {
   return result
 }
 console.log(reverseNumber3(100))
+
+
+// -------------  sleepMan ---------------
+class SleepMan {
+  private name: string
+  private tasks: Function []
+  constructor(name: string) {
+    this.name = name
+    this.tasks = []
+    setTimeout(() => {
+      this.next()
+    }, 0)
+  }
+  eat(food: string) {
+    const task = () => {
+      console.log(`${this.name} eat - ${food}`)
+      this.next()
+    }
+    this.tasks.push(task)
+    return this
+  }
+  sleep(time) {
+    const task = () => {
+      setTimeout(() => {
+        console.log(`${this.name} sleep`)
+        this.next()
+      },time * 1000)
+    }
+    this.tasks.push(task)
+    return this
+  }
+  next() {
+    const task = this.tasks.shift()
+    task && task()
+  }
+}
+const kyrie = new SleepMan('kyrie')
+kyrie.eat('apple').sleep(3).eat('banana').sleep(2).eat('orange')
+
+// ------------- 将数组转化为树 --------------
+interface ArrayNode {
+  id: number
+  name: string
+  parentId: number
+}
+
+interface TreeNode {
+  id: number
+  name: string
+  children?: Array<TreeNode>
+}
+
+const tree_array = [
+  {id:1, name:'部门A', parentId: 0},
+  {id:2, name:'部门B', parentId: 1},
+  {id:3, name:'部门C', parentId: 1},
+  {id:4, name:'部门D', parentId: 2},
+  {id:5, name:'部门E', parentId: 2},
+  {id:6, name:'部门F', parentId: 3}
+]
+
+function convert(array: ArrayNode []) {
+  const map: Map<number, TreeNode> = new Map()
+  let root = null
+  array.forEach(item => {
+    const { id, name, parentId } = item
+    const treeNode: TreeNode = {id, name}
+    map.set(id, treeNode)
+    const parentNode = map.get(parentId)  // 判断是否在某个节点树上
+    if(parentNode) {
+      if(!parentNode.children) parentNode.children = []
+      parentNode.children.push(treeNode)
+    }
+    if(parentId === 0) root = treeNode
+  })
+  return root;
+}
+
+const convert_tree = convert(tree_array)
+console.log(convert_tree, JSON.stringify(convert_tree))
