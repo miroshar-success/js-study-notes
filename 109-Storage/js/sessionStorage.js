@@ -8,3 +8,7 @@ oText.addEventListener('input',(event) => {
 if( window.sessionStorage.getItem('username') ){
 	oText.value = window.sessionStorage.getItem('username');
 }
+
+window.addEventListener('storage', (event) => {
+  console.log(event.key, event.newValue)
+})

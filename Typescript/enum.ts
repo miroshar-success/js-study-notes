@@ -1,41 +1,110 @@
+// ---------- numeric enums -----------
 enum Direction {
-  Up = 1,
-  Down,
-  Left,
-  Right
+  LEFT,
+  RIGHT,
+  UP,
+  DOWN
 }
 
-const up:Direction = Direction.Up
-const down:Direction = Direction.Down
-console.log(up, down) // 1 2
+function respond(recipinet: string, message: Direction): void {
+  console.log(recipinet, message)
+}
+respond('hello', Direction.DOWN)
 
 
 enum Color {
-  Red = 'red',
-  Green = 'green',
-  Blue = 'blue'
-}
-const red:Color = Color.Red
-const green:Color = Color.Green
-const blue:Color = Color.Blue
-console.log(red, green, blue) // red  green   blue
-
-
-// --------------- 常数枚举 --------------
-const enum Enum {
-  A = 1,
-  B = 2
+  RED = 'red',
+  BLUE = 'blue',
+  YELLOW = 'yellow'
 }
 
-const a:Enum = Enum.A
-const b:Enum = Enum.B
-console.log(a, b)
+function getColor(message: string) {
+  console.log(Color, message)
+}
+getColor(Color.BLUE)
+getColor(Color.RED)
+getColor(Color.RED)
 
-const enum Directions {
+
+// computed and constant numbers
+enum FileAccess {
+  None,
+  Read = 1 << 2,
+  Write = 1 << 1,
+  ReadWrite = Read | Write,
+  G = '123'.length
+}
+
+console.log(FileAccess.None, FileAccess.Read, FileAccess.Write, FileAccess.ReadWrite, FileAccess.G)
+// 0 4 2 6 3
+
+
+// -------- union enums and enum member -------
+enum ShapeKind {
+  Circle,
+  Square
+}
+interface Circle {
+  kind: ShapeKind.Circle
+  radius: number
+}
+interface Square {
+  kind: ShapeKind.Square,
+  sideLength: number
+}
+
+const circle: Circle = {
+  kind: ShapeKind.Circle,
+  radius: 100
+}
+const square: Square = {
+  kind: ShapeKind.Square,
+  sideLength: 200
+}
+
+
+
+// ----------- Enums at runtime --------
+enum E {
+  X,
+  Y,
+  Z
+}
+function f(obj: {X: number}) {
+  console.log(obj.X)  // 0
+  // @ts-ignore
+  console.log(obj.Y)  // 1
+}
+f(E)
+
+
+// ----------- Enums at compile time ----------
+enum LogLevel {
+  ERROR,
+  WARN,
+  INFO,
+  DEBUG
+}
+type LogLevelStrings = keyof typeof LogLevel
+console.log(typeof LogLevel)  // object
+function printImportant(key: LogLevelStrings, message: string) {
+  const num = LogLevel[key]
+  if(num <= LogLevel.WARN) {
+    console.log("Log level key is:", key);
+    console.log("Log level value is:", num);
+    console.log("Log level message is:", message);
+  }
+}
+printImportant('ERROR', 'This is a message')
+
+
+// --------- const enum Enum ---------
+const enum Follow {
   Up,
   Down,
   Left,
   Right
 }
-const directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right]
-console.log('directions', directions) // [0,1,2,3]
+let directions = [Follow.Down, Follow.Left, Follow.Right, Follow.Up]
+console.log(directions)
+/* [ 1, 2, 3, 0 ] */

@@ -76,3 +76,9 @@ function setStyle() {
 	}
 }
 setStyle();
+
+/*--------- StorageEvent -----------*/
+// 当前页面使用的storage被其他页面修改时 会触发 StorageEvent事件。
+window.addEventListener('storage', (event) => {
+  console.log(event.key, event.newValue)
+})

@@ -66,9 +66,9 @@ const not_sure_2:any = undefined;
 
 // ----- never -------  表示那些永不存在的值的类型,是任何类型的子类型,可以赋值给任何类型。
 // 没有类型是never的子类型或者可以赋值给never类型
-let neverValue:never;
-const not_sure_3:any = neverValue;
-
+function getResult():never{
+  throw new Error('error')
+}
 
 // ----- 类型断言 ------
 const stringValue:any = 'This is a string';

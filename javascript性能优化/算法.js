@@ -830,3 +830,64 @@ function convert(array) {
 }
 var convert_tree = convert(tree_array);
 console.log(convert_tree, JSON.stringify(convert_tree));
+// ---------------- 将树转化为数组 ---------------
+var tree_node = {
+    id: 1,
+    name: "部门A",
+    children: [
+        {
+            id: 2,
+            name: "部门B",
+            children: [
+                { id: 4, name: "部门D" },
+                { id: 5, name: "部门E" }
+            ]
+        },
+        {
+            id: 3,
+            name: "部门C",
+            children: [
+                { id: 6, name: "部门F" }
+            ]
+        }
+    ]
+};
+//  广度优先遍历
+function tree_to_array(tree) {
+    var temp = [];
+    var queen = [];
+    queen.unshift(tree);
+    var map = new Map();
+    var _loop_1 = function () {
+        var currentNode = queen.pop();
+        if (!currentNode)
+            return "break";
+        var id = currentNode.id, name_1 = currentNode.name, _a = currentNode.children, children = _a === void 0 ? [] : _a; // 最后一个元素
+        var parentNode = map.get(currentNode); // 判断当前节点是否有父节点
+        var parentId = void 0;
+        if (!parentNode) {
+            parentId = 0;
+        }
+        else {
+            parentId = parentNode.id;
+        }
+        temp.push({
+            parentId: parentId,
+            name: name_1,
+            id: id
+        });
+        if (children.length) {
+            children.forEach(function (item) {
+                map.set(item, currentNode); // 将每个节点和父节点做个映射
+                queen.unshift(item); // 将当前节点依次添加进队列里
+            });
+        }
+    };
+    while (queen.length) {
+        var state_1 = _loop_1();
+        if (state_1 === "break")
+            break;
+    }
+    return temp;
+}
+console.log(tree_to_array(tree_node));

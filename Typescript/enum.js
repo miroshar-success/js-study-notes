@@ -1,25 +1,24 @@
+"use strict";
 var Direction;
 (function (Direction) {
-    Direction[Direction["Up"] = 1] = "Up";
-    Direction[Direction["Down"] = 2] = "Down";
-    Direction[Direction["Left"] = 3] = "Left";
-    Direction[Direction["Right"] = 4] = "Right";
+    Direction[Direction["LEFT"] = 0] = "LEFT";
+    Direction[Direction["RIGHT"] = 1] = "RIGHT";
+    Direction[Direction["UP"] = 2] = "UP";
+    Direction[Direction["DOWN"] = 3] = "DOWN";
 })(Direction || (Direction = {}));
-var up = Direction.Up;
-var down = Direction.Down;
-console.log(up, down); // 1 2
+function respond(recipinet, message) {
+    console.log(recipinet, message);
+}
+respond('hello', Direction.DOWN);
 var Color;
 (function (Color) {
-    Color["Red"] = "red";
-    Color["Green"] = "green";
-    Color["Blue"] = "blue";
+    Color["RED"] = "red";
+    Color["BLUE"] = "blue";
+    Color["YELLOW"] = "yellow";
 })(Color || (Color = {}));
-var red = Color.Red;
-var green = Color.Green;
-var blue = Color.Blue;
-console.log(red, green, blue); // red  green   blue
-var a = 1 /* A */;
-var b = 2 /* B */;
-console.log(a, b);
-var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
-console.log('directions', directions);
+function getColor(message) {
+    console.log(Color, message);
+}
+getColor(Color.BLUE);
+getColor(Color.RED);
+getColor(Color.RED);

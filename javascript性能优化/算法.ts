@@ -910,3 +910,70 @@ function convert(array: ArrayNode []) {
 
 const convert_tree = convert(tree_array)
 console.log(convert_tree, JSON.stringify(convert_tree))
+
+
+// ---------------- 将树转化为数组 ---------------
+const tree_node = {
+  id: 1,
+  name: "部门A",
+  children: [
+    {
+      id:2,
+      name: "部门B",
+      children:[
+        {id: 4, name: "部门D" },
+        {id: 5 ,name: "部门E" }
+      ]
+    },
+    {
+      id: 3,
+      name: "部门C",
+      children: [
+        {id: 6, name:"部门F" }
+      ]
+    }
+  ]
+}
+//  广度优先遍历
+function tree_to_array(tree) {
+  const temp = []
+  const queen = []
+  queen.unshift(tree)
+  const map = new Map()
+  while(queen.length) {
+    const currentNode = queen.pop()
+    if(!currentNode) break;
+    const {id, name, children = [] } = currentNode // 最后一个元素
+    const parentNode = map.get(currentNode) // 判断当前节点是否有父节点
+    let parentId
+    if(!parentNode) {
+      parentId = 0
+    }else{
+      parentId = parentNode.id
+    }
+    temp.push({
+      parentId,
+      name,
+      id
+    })
+    if(children.length) {
+      children.forEach(item => {
+        map.set(item, currentNode) // 将每个节点和父节点做个映射
+        queen.unshift(item) // 将当前节点依次添加进队列里
+      })
+    }
+  }
+  return temp
+}
+
+console.log(tree_to_array(tree_node))
+/*
+[
+  { parentId: 0, name: '部门A', id: 1 },
+  { parentId: 1, name: '部门B', id: 2 },
+  { parentId: 1, name: '部门C', id: 3 },
+  { parentId: 2, name: '部门D', id: 4 },
+  { parentId: 2, name: '部门E', id: 5 },
+  { parentId: 3, name: '部门F', id: 6 }
+]
+*/
