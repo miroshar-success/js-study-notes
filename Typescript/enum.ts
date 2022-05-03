@@ -108,3 +108,46 @@ const enum Follow {
 let directions = [Follow.Down, Follow.Left, Follow.Right, Follow.Up]
 console.log(directions)
 /* [ 1, 2, 3, 0 ] */
+
+
+const enum Code {
+  SUCCESS_CODE = 0,
+  ERROR_CODE = 100 * 2,
+  WARNING_CODE = SUCCESS_CODE * 3
+}
+const codes = [Code.ERROR_CODE, Code.SUCCESS_CODE, Code.WARNING_CODE]
+console.log(codes)  // [ 200, 0, 0 ]
+
+const enum BackCode {
+  SUCCESS_CODE = 'success',
+  ERROR_CODE = 'error',
+  WARNING_CODE = 'warning'
+}
+const back_codes = [BackCode.ERROR_CODE, BackCode.SUCCESS_CODE, BackCode.WARNING_CODE]
+console.log(back_codes) // [ 'error', 'success', 'warning' ]
+
+
+// ----------- object vs enum
+const enum EDirection {
+  Up,
+  Down,
+  Left,
+  Right
+}
+
+const ODirection = {
+  Up: 0,
+  Down: 1,
+  Left: 2,
+  Right: 3
+}
+
+function walk(dir: EDirection) {
+  console.log(dir)
+}
+walk(EDirection.Down)
+walk(EDirection.Left)
+
+type MyDirection = typeof ODirection[keyof typeof ODirection]
+
+type DirectionValue = typeof ODirection[keyof typeof ODirection]
