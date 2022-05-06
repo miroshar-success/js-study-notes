@@ -5,7 +5,6 @@ enum Direction {
   UP,
   DOWN
 }
-
 function respond(recipinet: string, message: Direction): void {
   console.log(recipinet, message)
 }
@@ -70,12 +69,12 @@ enum E {
   Y,
   Z
 }
-function f(obj: {X: number}) {
+function f1(obj: {X: number}) {
   console.log(obj.X)  // 0
   // @ts-ignore
   console.log(obj.Y)  // 1
 }
-f(E)
+f1(E)
 
 
 // ----------- Enums at compile time ----------
