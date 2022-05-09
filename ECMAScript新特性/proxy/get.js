@@ -10,17 +10,27 @@ const player = new Proxy({
   lastName:'irving',
   age:30
 }, {
-  get:function(target, prop, receiver){
-    console.log('called:', prop)
+  get: function(target, prop, receiver){
     if(prop === 'age'){
       return 18
     }
     return target[prop]
   }
 })
-
 console.log(player.age) // 18
-console.log(player.firstName)
+console.log(player.firstName) // kyrie
+
+
+// ---------- get方法可以继承 ---------
+const proto = new Proxy({}, {
+  get(target, prop, receiver) {
+    console.log('get', prop)
+    return target[prop]
+  }
+})
+const obj = Object.create(proto)
+console.log(obj.foo)  // get foo
+
 
 
 const object = {}

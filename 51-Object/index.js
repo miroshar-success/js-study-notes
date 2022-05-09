@@ -1,3 +1,5 @@
 import './src/Object.defineProperty.js'
 import './src/Object.getOwnPropertyDescriptor.js'
 import './src/instanceOf.js'
+import './src/map.js'
+import './src/setPrototypeOf.js'
