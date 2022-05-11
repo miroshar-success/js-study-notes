@@ -38,7 +38,7 @@ const player = {}
 console.log(`Hello, ${player}`);  // Hello, [object Object]
 
 
-// fromCharCode() 
+// fromCharCode()
 console.log(String.fromCharCode(0x20BB7));
 
 console.log(String.fromCodePoint(0x20BB7));
@@ -83,21 +83,21 @@ console.log(st.endsWith('h')) // false
 // repeat()
 console.log('x'.repeat(4))  // xxxx
 
-
+// ------------ trimStart() / trimEnd() -------------
 const s1 = 'abc     '
 const s2 = '      abc'
 console.log(s1,s2)
-console.log(s1.trim())
-console.log(s2.trim())
-console.log(s2.trimStart())
-console.log(s1.trimEnd())
+console.log(s1.trim())  // 'abc'
+console.log(s2.trim())  // 'abc'
+console.log(s2.trimStart())  // 'abc'
+console.log(s1.trimEnd()) // 'abc'
 
 
+// ---------- replaceAll ------------
+// replace只能替换一个字符串， 如果要替换所有的, 需要使用正则表达式的g 修饰符
 console.log('aabbc_cc'.replace('c',''))  // aabb_cc
 console.log('aabbccc'.replace(/c/g,''));  // aabb
 console.log('aabbccc'.replaceAll('c',''));  // aabb
-
-
 console.log('aabbccc'.replaceAll('b',() => '_')) // aa_ccc
 
 
