@@ -100,6 +100,33 @@ simply ignored, TypeScript the same way. Functions with fewer parameters can alw
 with more parameters
 */
 
+/*
+Some JavaScript functions can be called in a variety of argument counts and types.
+*/
+function date(timestamp: number): Date
+function date(m: number, d: number, y: number): Date;
+function date(timestamp: number, d?:number, y?:number): Date {
+  if(d !== undefined && y !== undefined) {
+    return new Date(timestamp, d, y)
+  }
+  return new Date(timestamp)
+}
+console.log(date(2022, 5, 17))
+console.log(date(1652791785619))
+
+/*
+The signature of the implementation is not visible from the outside, when writing an overloaded function,
+you should always have two or more signatures above the implementation of the function.
+*/
+
+function get_length(s: string): number
+function get_length(array: number[]): number
+function get_length(s:string | number[]): number {
+  return s.length
+}
+console.log(get_length([1,2,3,4,5]))    // 5
+console.log(get_length('hello world'))  // 11
+
 // ------ 函数重载 ------
 type MessageType = 'image' | 'audio' | 'text'
 type Message = {
@@ -134,3 +161,67 @@ const messages: Message[] = [
     type: 'image'
   }
 ]
+function get_message_list(id: number): Message []
+function get_message_list(type: MessageType): Message[]
+
+function get_message_list(type: number | MessageType):Message[] {
+  if(typeof type === 'number') {
+    const find = messages.find(m => m.id === type)
+    if(find) return [find]
+    return []
+  }else{
+    return messages.filter(m => m.type === type)
+  }
+}
+console.log(get_message_list(4))  // [ { id: 4, title: 'Vuex', type: 'text' } ]
+console.log(get_message_list('image'))
+/*
+[
+  { id: 2, title: 'React', type: 'image' },
+  { id: 5, title: 'React-Redux', type: 'image' }
+]
+*/
+
+// ------------- Declaring this in a function ------------
+const user = {
+  age: 30,
+  firstName: 'kyrie',
+  lastName: 'irving',
+  fullName() {
+    return this.firstName + this.fullName
+  }
+}
+
+
+// ------ rest parameters and arguments ------
+function multiply(n: number, ...m: number[]) {
+  return m.map(x => x * n)
+}
+console.log(multiply(2,2,3,4,5,6,7,8))
+/*
+[4,  6,  8, 10, 12, 14, 16]
+*/
+
+const args = [8, 5] as const
+console.log(Math.atan2(...args))
+
+
+// ---------- parameter destructuring ----------
+function increment ({a, b, c}: {a:number; b:number; c:number}): number {
+  return a + b + c
+}
+increment({a: 10, b: 20, c: 30})
+
+
+type voidFunc = () => void
+const hello1:voidFunc = () => 123
+const hello2:voidFunc = () => true
+const hello3:voidFunc = () => false
+const hello4:voidFunc = () => '123'
+console.log(hello1(), hello2(), hello3(), hello4()) // 123  true  false '123'
+
+
+const source = [1, 2, 3, 4, 5]
+const dest = [0]
+source.forEach(el => dest.push(el))
+console.log(dest) // [ 0, 1, 2, 3, 4, 5 ]
