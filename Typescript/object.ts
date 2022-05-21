@@ -189,3 +189,18 @@ and exactly which types it contains at specific positions.
 */
 const stringHash:[number, string] = [1, '1']
 const numbers: [number, number, number] = [1, 2, 3]
+
+/*
+tuples can have optional properties by writing a question mark after an element's type
+*/
+type OptionalTuple = [number, number, string?]
+const optionalArray1 = [1, 2, '1']
+const optionalArray2 = [1, 2]
+
+type StringNumberBooleans = [string, number, ...boolean []]
+// type StringBooleanNumbers = [string, ...boolean[], number]
+// type BooleanStringNumber = [...boolean[], string, number]
+// 扩展运算符必须在最末尾
+const stringNumberBooleanArray: StringNumberBooleans = ['1', 2, false, true, false]
+
+
