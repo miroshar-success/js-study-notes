@@ -188,4 +188,3 @@ type ConfirmPerson = RemoveOptional<MaybePerson>
 }
 */
 
-// ----------- Template Literal Types ------------
