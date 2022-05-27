@@ -119,3 +119,39 @@ exist.
 /*
 The never type is assignable to every type; however, no type is assignable to never(except never itself)
 */
+
+/*
+缩小变量类型
+typeof / in / instance == ===
+*/
+/*
+对象包含 allowInput 才允许输出
+对象字段是字符串且有空格时, 去除空格 输出
+对象字段是方法 直接输出
+*/
+const player = {
+  name: 'k y   r i e',
+  skill() {
+    console.log('crossover')
+  },
+  age: 30,
+  allowInput: true
+}
+function check_object(obj: any) {
+  if('allowInput' in player) {
+    Object.keys(obj).forEach(k => {
+      if(typeof obj[k] === 'string') {
+        console.log(obj[k].replace(/\s+/g,''))  // kyrie
+      }else if(typeof obj[k] === 'function') {
+        obj[k]()  // crossover
+      }else{
+        console.log('key', k, 'value', obj[k])  // key-age, value-30
+      }
+    })
+  }
+}
+check_object(player)
+
+export {
+
+}
