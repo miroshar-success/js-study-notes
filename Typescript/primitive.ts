@@ -74,3 +74,19 @@ function getResult():never{
 const stringValue:any = 'This is a string';
 const stringLength:number = (<string>stringValue).length
 const stringLength_1:number = (stringValue as string).length
+
+// ---- 元素 --------
+
+const players: string[] = ['kyrie', 'lebron']
+players[0] = 'irving'
+
+const readonly_players: Readonly<string[]> = ['kyrie', 'lebron']
+// readonly_players[0] = 'irving' // 报错
+
+const readonly_singers = ['jay', 'mayday'] as const
+// readonly_singers[0] = 'wang'  // readonly
+// 不用添加数组元素的类型
+
+export {
+
+}

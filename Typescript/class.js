@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -13,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+exports.__esModule = true;
 var Animal = /** @class */ (function () {
     function Animal(x, y) {
         this.x = x;
@@ -228,6 +230,7 @@ var SubReader = /** @class */ (function (_super) {
 var reader = new SubReader('james');
 reader.greet(); // Hello, Irving
 reader.hello(); // Hello, Irving
+console.log(reader['name']); // james
 // reader.getName() 只能在类 或者 子类内部访问
 // console.log(reader.name)  // 报错
 // privated
@@ -246,3 +249,57 @@ var Phone = /** @class */ (function () {
 var phone = new Phone(5999);
 // console.log(phone.price)    报错
 console.log(phone.getPrice()); // 5999
+/*
+Like other aspects of TypeScript's type system, private and protected are only enforced during
+type checking.
+
+This means that JavaScript runtime constructs like in or simple property lookup can still access
+a private or protected member.
+*/
+// ------- static members --------
+var MyClass = /** @class */ (function () {
+    function MyClass() {
+    }
+    MyClass.print = function () {
+        console.log(MyClass.x);
+    };
+    MyClass.x = 0;
+    return MyClass;
+}());
+var SubClass = /** @class */ (function (_super) {
+    __extends(SubClass, _super);
+    function SubClass() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return SubClass;
+}(MyClass));
+console.log(MyClass.x); // 0
+MyClass.print(); // 0
+console.log(SubClass.x); // 0
+SubClass.print(); // 0
+var MouseEvent = /** @class */ (function () {
+    function MouseEvent() {
+    }
+    MouseEvent.prototype.mouseover = function () { };
+    MouseEvent.prototype.mouseout = function () { };
+    return MouseEvent;
+}());
+var MouseEventAdapter = /** @class */ (function (_super) {
+    __extends(MouseEventAdapter, _super);
+    function MouseEventAdapter() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MouseEventAdapter.prototype.click = function () {
+    };
+    MouseEventAdapter.prototype.dblclick = function () {
+    };
+    return MouseEventAdapter;
+}(MouseEvent));
+var Player = /** @class */ (function () {
+    function Player() {
+        this.firstName = '';
+        this.lastName = '';
+    }
+    return Player;
+}());
+new Player();

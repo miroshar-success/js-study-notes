@@ -250,3 +250,33 @@ console.log(MyClass.x)    // 0
 MyClass.print()           // 0
 console.log(SubClass.x)   // 0
 SubClass.print()          // 0
+
+// --------- 抽象类和抽象方法--------
+interface MouseEventProps {
+  click(): void
+  dblclick (): void
+  mouseover(): void
+  mouseout():  void
+}
+abstract class MouseEvent implements MouseEventProps {
+  abstract click(): void
+  abstract dblclick (): void
+  mouseover() {}
+  mouseout() {}
+}
+
+class MouseEventAdapter extends MouseEvent {
+  click() {
+  }
+  dblclick() {
+  }
+}
+
+
+class Player {
+  public firstName: string = ''
+  public lastName: string = ''
+}
+export {
+
+}

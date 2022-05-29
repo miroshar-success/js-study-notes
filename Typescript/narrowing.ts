@@ -152,6 +152,106 @@ function check_object(obj: any) {
 }
 check_object(player)
 
+
+class ClassA {
+  public getLength() {
+    return 123
+  }
+}
+class ClassB {
+  public getLength() {
+    return 456
+  }
+  public getName() {
+    console.log('classB')
+    return 'classB'
+  }
+}
+function get_length(instance: ClassA | ClassB) {
+  if(instance instanceof ClassB) {
+    instance.getName()
+  }
+  return instance.getLength()
+}
+console.log('class-b:', get_length(new ClassB()))
+
+// ----- 多态 -------
+/*
+1. 必须有方法重写
+2. 必须存在继承关系
+*/
+interface PeopleProps {
+  eat:() => void
+}
+class People implements PeopleProps{
+  eat() {
+    console.log('people eat')
+  }
+}
+class Student extends People {
+  study() {
+    console.log('study')
+  }
+  eat() {
+    console.log('student eat')
+  }
+}
+class Stuff extends People {
+  work() {
+    console.log('work')
+  }
+  eat() {
+    console.log('stuff work')
+  }
+}
+
+function console_eat(p: People) {
+  p.eat()
+  // 缺点: 无法直接调用子类独有方法
+  if(p instanceof Stuff) {
+    p.work()
+  }else if(p instanceof Student) {
+    p.study()
+  }
+}
+console_eat(new Student())
+console_eat(new Stuff())
+
+
+
+// ------- 自定义守卫 --------
+function is_string(str: any) : str is string {
+  return typeof str === 'string'
+}
+
+function is_function(fn: any): fn is Function {
+  return typeof fn === 'function'
+}
+
+interface SingerProps {
+  firstName: string
+  lastName: string
+  age: number,
+  sing?: () => void
+}
+const singer: SingerProps = {
+  firstName: 'jay',
+  lastName: 'chou',
+  age: 30
+}
+type SingerKeyType = keyof SingerProps
+Object.keys(singer).forEach((key) => {
+  const value = singer[key as SingerKeyType]
+  if(is_string(value)) {
+    //...
+  }else if(is_function(value)) {
+    value()
+  } else {
+    // ... number
+  }
+})
+
+
 export {
 
 }
