@@ -242,14 +242,24 @@ class MyClass {
   static print() {
     console.log(MyClass.x)
   }
+  // static name: string  报错
+  /*
+  Static property 'name' conflicts with built-in property 'Function.name' of constructor function 'MyClass'
+  */
 }
+// static members are also inherited
 class SubClass extends MyClass {
-
 }
 console.log(MyClass.x)    // 0
 MyClass.print()           // 0
 console.log(SubClass.x)   // 0
 SubClass.print()          // 0
+
+/*
+It is generally not safe/possible to overwrite properties from the Function prototype.
+Function properties like name,length and call are not valid to define as static members.
+*/
+
 
 // --------- 抽象类和抽象方法--------
 interface MouseEventProps {
@@ -271,12 +281,76 @@ class MouseEventAdapter extends MouseEvent {
   dblclick() {
   }
 }
+// -------- Generic classes -------
+class Box<Type> {
+  contents: Type
+  constructor(value: Type) {
+    this.contents = value
+  }
+}
+const box_string = new Box('123')
+const box_number = new Box(123)
 
+/*
+The static members of a generic class can never refer to the class's type parameters.
+*/
+
+// ---------- this ad runtime in classes ----------
+class Monkey {
+  public name: string
+  constructor(name: string) {
+    this.name = name
+  }
+  getName(): string {
+    return this.name
+  }
+  get_name = () => {
+    return this.name
+  }
+}
+const monkey = new Monkey('monkey')
+const dog = {
+  name: 'hello',
+  getName: monkey.getName,
+  get_name: monkey.get_name
+}
+console.log(dog.getName(), dog.get_name())  // hello  monkey
+
+
+/* ------ this parameters ------- */
+/*
+In a method or function definition, an initial parameter named this has special meaning in
+TypeScript, these parameters are erased during compilation
+*/
 
 class Player {
-  public firstName: string = ''
-  public lastName: string = ''
+  public name: string
+  constructor(name: string) {
+    this.name = name
+  }
+  get_name(this: Player): string {
+    return this.name
+  }
 }
+const player = new Player('kyrie')
+console.log(player.get_name()) // kyrie
+const get_name = player.get_name
+// console.log(get_name())  error
+
+
+// --------- parameter properties ---------
+class Params {
+  constructor(
+    public readonly x:number,
+    protected y: number,
+    private z: number
+  ) {
+
+  }
+}
+const params = new Params(1, 2, 3)
+console.log(params.x)
+
 export {
 
 }

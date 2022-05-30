@@ -204,3 +204,5 @@ type StringNumberBooleans = [string, number, ...boolean []]
 const stringNumberBooleanArray: StringNumberBooleans = ['1', 2, false, true, false]
 
 
+
+export {}

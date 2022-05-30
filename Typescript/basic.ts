@@ -218,3 +218,30 @@ const s2: Symbol = Symbol('world')
 
 
 const max_number: bigint = BigInt(1000000)
+
+
+// ------ 联合类型和交叉类型 ------
+type type1 = {
+  firstName: string
+  lastName: string
+}
+type type2 = {
+  age: number
+}
+
+type PersonType = type1 & type2
+const person:PersonType = {
+  firstName: 'kyrie',
+  lastName: 'irving',
+  age: 30
+}
+
+type UnionPersonType = type1 | type2
+const union_person: UnionPersonType = {
+  age: 32
+}
+
+
+export {
+
+}
