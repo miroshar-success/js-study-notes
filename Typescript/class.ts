@@ -1,3 +1,4 @@
+// 继承 / 封装 / 多态
 class Animal {
   x: number;
   y: number;
@@ -261,7 +262,11 @@ Function properties like name,length and call are not valid to define as static 
 */
 
 
-// --------- 抽象类和抽象方法--------
+// --------- abstract classes and members ----------
+/*
+An abstract method or abstract field is one that has not had an implementation provided. These members
+must exist inside an abstract class, which cannot be directly instantiated.
+*/
 interface MouseEventProps {
   click(): void
   dblclick (): void
@@ -281,6 +286,24 @@ class MouseEventAdapter extends MouseEvent {
   dblclick() {
   }
 }
+
+
+class GreeterName {
+  constructor(public name: string) {
+    this.name = name
+  }
+  print() {
+    return this.name
+  }
+}
+
+function greet(ctor: new () => GreeterName) {
+  const instance = new ctor()
+  console.log(instance.print())
+}
+// greet(GreeterName)
+
+
 // -------- Generic classes -------
 class Box<Type> {
   contents: Type

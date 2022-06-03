@@ -182,9 +182,61 @@ class MouseEventAdapter extends MouseEvent {
     dblclick() {
     }
 }
-class Player {
-    constructor() {
-        this.firstName = '';
-        this.lastName = '';
+class GreeterName {
+    constructor(name) {
+        this.name = name;
+        this.name = name;
+    }
+    print() {
+        return this.name;
     }
 }
+function greet(ctor) {
+    const instance = new ctor();
+    console.log(instance.print());
+}
+class Box {
+    constructor(value) {
+        this.contents = value;
+    }
+}
+const box_string = new Box('123');
+const box_number = new Box(123);
+class Monkey {
+    constructor(name) {
+        this.get_name = () => {
+            return this.name;
+        };
+        this.name = name;
+    }
+    getName() {
+        return this.name;
+    }
+}
+const monkey = new Monkey('monkey');
+const dog = {
+    name: 'hello',
+    getName: monkey.getName,
+    get_name: monkey.get_name
+};
+console.log(dog.getName(), dog.get_name());
+class Player {
+    constructor(name) {
+        this.name = name;
+    }
+    get_name() {
+        return this.name;
+    }
+}
+const player = new Player('kyrie');
+console.log(player.get_name());
+const get_name = player.get_name;
+class Params {
+    constructor(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}
+const params = new Params(1, 2, 3);
+console.log(params.x);

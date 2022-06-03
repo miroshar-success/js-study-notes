@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../vuepress-blog"
+		}
+	],
+	"settings": {
+		"typescript.locale": "en"
+	}
+}

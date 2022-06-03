@@ -1,3 +1,6 @@
+/*
+Enums allow a developer to define a set of named constants.
+*/
 // ---------- numeric enums -----------
 enum Direction {
   LEFT,
@@ -8,7 +11,7 @@ enum Direction {
 function respond(recipinet: string, message: Direction): void {
   console.log(recipinet, message)
 }
-respond('hello', Direction.DOWN)
+respond('hello', Direction.DOWN)  // 3
 
 
 enum Color {
@@ -23,6 +26,11 @@ function getColor(message: string) {
 getColor(Color.BLUE)
 getColor(Color.RED)
 getColor(Color.RED)
+/*
+{ RED: 'red', BLUE: 'blue', YELLOW: 'yellow' } blue
+{ RED: 'red', BLUE: 'blue', YELLOW: 'yellow' } red
+{ RED: 'red', BLUE: 'blue', YELLOW: 'yellow' } red
+*/
 
 
 // computed and constant numbers
@@ -61,6 +69,15 @@ const square: Square = {
   sideLength: 200
 }
 
+console.log(circle, square) // { kind: 0, radius: 100 } { kind: 1, sideLength: 200 }
+
+// ------- string enums ------
+enum Message {
+  Success = 'Success',
+  Warn = 'Warn',
+  Error = 'Error'
+}
+// string enums do not have auto-incrementing behavior.
 
 
 // ----------- Enums at runtime --------
@@ -69,15 +86,17 @@ enum E {
   Y,
   Z
 }
-function f1(obj: {X: number}) {
-  console.log(obj.X)  // 0
-  // @ts-ignore
-  console.log(obj.Y)  // 1
-}
-f1(E)
-
+console.log('e:', E)
+/*
+{ '0': 'X', '1': 'Y', '2': 'Z', X: 0, Y: 1, Z: 2 }
+*/
 
 // ----------- Enums at compile time ----------
+/*
+Even though Enums are real objects that exist at runtime, the keyof keyword works differently you might
+expect for typical objects. Instead, use keyof typeof to get a Type that represents all Enum keys
+as strings
+*/
 enum LogLevel {
   ERROR,
   WARN,
@@ -85,26 +104,52 @@ enum LogLevel {
   DEBUG
 }
 type LogLevelStrings = keyof typeof LogLevel
-console.log(typeof LogLevel)  // object
+// type LogLevelStrings = "ERROR" | "WARN" | "INFO" | "DEBUG"
+
 function printImportant(key: LogLevelStrings, message: string) {
   const num = LogLevel[key]
   if(num <= LogLevel.WARN) {
-    console.log("Log level key is:", key);
-    console.log("Log level value is:", num);
+    console.log("Log level key is:", key);  // 'ERROR'
+    console.log("Log level value is:", num);  // 0
     console.log("Log level message is:", message);
   }
 }
 printImportant('ERROR', 'This is a message')
 
+// Keep in mind that string enum members do not get a reverse mapping generated at all.
+enum Size_1 {
+  Big = 'big',
+  Small = 'small',
+  Middle = 'middle'
+}
+enum Size_2 {
+  Big,
+  Small,
+  Middle
+}
+console.log('size:' ,Size_1, Size_2)  // { Big: 'big', Small: 'small', Middle: 'middle' }
+/*
+{
+  '0': 'Big',
+  '1': 'Small',
+  '2': 'Middle',
+  Big: 0,
+  Small: 1,
+  Middle: 2
+}
+*/
 
 // --------- const enum Enum ---------
+/*
+Const enum members are inlined at use sites.They are completely removed during compilation.
+*/
 const enum Follow {
   Up,
   Down,
   Left,
   Right
 }
-let directions = [Follow.Down, Follow.Left, Follow.Right, Follow.Up]
+const directions = [Follow.Down, Follow.Left, Follow.Right, Follow.Up]
 console.log(directions)
 /* [ 1, 2, 3, 0 ] */
 
@@ -139,7 +184,9 @@ const ODirection = {
   Down: 1,
   Left: 2,
   Right: 3
-}
+} as const
+
+console.log('oDirection', ODirection) // { Up: 0, Down: 1, Left: 2, Right: 3 }
 
 function walk(dir: EDirection) {
   console.log(dir)
@@ -147,6 +194,9 @@ function walk(dir: EDirection) {
 walk(EDirection.Down)
 walk(EDirection.Left)
 
-type MyDirection = typeof ODirection[keyof typeof ODirection]
 
 type DirectionValue = typeof ODirection[keyof typeof ODirection]
+
+export {
+
+}

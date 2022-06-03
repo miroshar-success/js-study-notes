@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Direction;
 (function (Direction) {
     Direction[Direction["LEFT"] = 0] = "LEFT";
@@ -44,17 +45,20 @@ const square = {
     kind: ShapeKind.Square,
     sideLength: 200
 };
+console.log(circle, square);
+var Message;
+(function (Message) {
+    Message["Success"] = "Success";
+    Message["Warn"] = "Warn";
+    Message["Error"] = "Error";
+})(Message || (Message = {}));
 var E;
 (function (E) {
     E[E["X"] = 0] = "X";
     E[E["Y"] = 1] = "Y";
     E[E["Z"] = 2] = "Z";
 })(E || (E = {}));
-function f1(obj) {
-    console.log(obj.X);
-    console.log(obj.Y);
-}
-f1(E);
+console.log('e:', E);
 var LogLevel;
 (function (LogLevel) {
     LogLevel[LogLevel["ERROR"] = 0] = "ERROR";
@@ -62,7 +66,6 @@ var LogLevel;
     LogLevel[LogLevel["INFO"] = 2] = "INFO";
     LogLevel[LogLevel["DEBUG"] = 3] = "DEBUG";
 })(LogLevel || (LogLevel = {}));
-console.log(typeof LogLevel);
 function printImportant(key, message) {
     const num = LogLevel[key];
     if (num <= LogLevel.WARN) {
@@ -72,7 +75,20 @@ function printImportant(key, message) {
     }
 }
 printImportant('ERROR', 'This is a message');
-let directions = [1, 2, 3, 0];
+var Size_1;
+(function (Size_1) {
+    Size_1["Big"] = "big";
+    Size_1["Small"] = "small";
+    Size_1["Middle"] = "middle";
+})(Size_1 || (Size_1 = {}));
+var Size_2;
+(function (Size_2) {
+    Size_2[Size_2["Big"] = 0] = "Big";
+    Size_2[Size_2["Small"] = 1] = "Small";
+    Size_2[Size_2["Middle"] = 2] = "Middle";
+})(Size_2 || (Size_2 = {}));
+console.log('size:', Size_1, Size_2);
+const directions = [1, 2, 3, 0];
 console.log(directions);
 const codes = [200, 0, 0];
 console.log(codes);
