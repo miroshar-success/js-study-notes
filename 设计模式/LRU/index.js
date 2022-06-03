@@ -121,6 +121,3 @@ console.log(map)
 keys: [ 'c', 'b' ],
 map: { b: { player: 'kyrie' }, c: { player: 'wade' } }
 */
-
-
-// --------- 双向链表 -----------
