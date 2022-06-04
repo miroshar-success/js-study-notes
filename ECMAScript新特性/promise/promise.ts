@@ -81,3 +81,5 @@ Promise.resolve()
   console.log('e')
 })
 // ---- 返回1个promise会慢两拍,  pending -> fulfilled   microtask queen event loop
+
+

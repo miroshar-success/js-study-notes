@@ -38,3 +38,36 @@ observers.forEach(observer => {
 // subject.add(o2)
 // subject.add(o3)
 subject.notify()
+
+
+
+
+// ------------ node.js  event -------------
+const EventEmitter = require('events').EventEmitter;
+const emitter = new EventEmitter()
+
+emitter.on('update', (info) => {
+  console.log('fn1', info)
+})
+
+emitter.on('update', (info) => {
+  console.log('fn2', info)
+})
+
+emitter.emit('update', 'hello')
+
+class Dog extends EventEmitter {
+  constructor(name) {
+    super()
+    this.name = name
+  }
+  bark() {
+    console.log(`${this.name} bark...`)
+  }
+}
+const dog = new Dog('simon')
+
+dog.on('bark', () => {
+  dog.bark()
+})
+dog.emit('bark')
