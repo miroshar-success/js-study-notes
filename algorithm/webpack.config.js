@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, 'src/string/index.ts'),
+  entry: path.resolve(__dirname, 'src/array/index.ts'),
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -12,8 +12,15 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: ['ts-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use:[
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-typescript']
+            }
+          }
+        ]
       }
     ]
   },
@@ -31,7 +38,7 @@ module.exports = {
     port: '8080',
     host: '0.0.0.0',
     hot: true,
-    open: true,
+    // open: true,
     static: path.resolve(__dirname, 'dist')
   }
 }
