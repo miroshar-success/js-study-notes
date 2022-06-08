@@ -19,6 +19,7 @@ function fn( str: string) {
     }
   }
   if(code.length === 1) return code
+  // @ts-ignore
   function combine(array: string[]) {
     const result: string [] = []
     for(let i = 0; i < array[0].length; i++) {
@@ -26,29 +27,24 @@ function fn( str: string) {
         result.push(`${array[0][i]}${array[1][j]}`)
       }
     }
-    array.splice(0, 2, ...result)
-    if(array.length) {
+    // @ts-ignore
+    array.splice(0, 2, result)
+    if(array.length > 1) {
       combine(array)
-    }else {
+    }else{
       return result
     }
+    return array[0]
   }
+  return combine(code)
 }
+console.log(fn('23')) // ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']
+console.log(fn('234')) // ['adg', 'adh', 'adi', 'aeg', 'aeh', 'aei', 'afg', 'afh', 'afi', 'bdg', 'bdh', 'bdi', 'beg', 'beh', 'bei', 'bfg', 'bfh', 'bfi', 'cdg', 'cdh', 'cdi', 'ceg', 'ceh', 'cei', 'cfg', 'cfh', 'cfi']
+console.log(fn('25'))
 
-
-function combine(array: string[]) {
-  const result: string [] = []
-  for(let i = 0; i < array[0].length; i++) {
-    for(let j = 0; j < array[1].length; j++) {
-      result.push(`${array[0][i]}${array[1][j]}`)
-    }
-  }
-  // @ts-ignore
-  array.splice(0, 2, result)
-  if(array.length) {
-    // combine(array)
-  }else {
-    return result
-  }
+module.exports = {
+  fn
 }
-combine(['abc', 'def'])
+export {
+
+}
