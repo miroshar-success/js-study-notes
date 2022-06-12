@@ -72,4 +72,4 @@ function list_to_array(list_node: NodeItem) {
   return temp
 }
 
-console.log(list_to_array(list_node))
+console.log(list_to_array(list_node)) //[1,2,3,4,5,6,7,8,9,10]
