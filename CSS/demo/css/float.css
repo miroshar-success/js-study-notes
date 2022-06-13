@@ -1,0 +1,50 @@
+.float {
+  border: 1px solid #000;
+}
+.float:after{
+  content:'';
+  display:block;
+  clear: both;
+}
+.float .left{
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-color:red;
+}
+.float .right{
+  float: left;
+  width: 120px;
+  height: 120px;
+  background: pink;
+  /* clear: both; */
+}
+.float .middle {
+  float: left;
+  width: 50px;
+  height: 50px;
+  background: skyblue;
+}
+
+/* 三栏布局 */
+body:after{
+  clear: both;
+  content: '';
+  display:block;
+}
+.left{
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: skyblue;
+}
+.right{
+  float: right;
+  width: 100px;
+  height: 200px;;
+  background-color: orange;
+}
+.middle{
+  height: 200px;
+  overflow: auto;
+}

@@ -1,0 +1,33 @@
+.flex-container{
+  display: flex;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #e8e8e8;
+}
+.flex-container .item1{
+  width: 300px;
+  background-color:pink;
+  flex-shrink: 2;
+}
+
+.flex-container .item2{
+  background-color: skyblue;
+  width: 400px;
+  flex-shrink: 1;
+}
+
+.flex-basic{
+  display: flex;
+  /* flex-direction: column; */
+  width: 300px;
+  height: 300px;
+  border: 1px solid #d9d9d9;
+}
+.flex-basic .item1{
+  flex-basis: content;
+  flex-basis: max-content;
+  flex-basis: min-content;
+  flex-basis: fit-content;
+  height: 100px;
+  background-color: red;
+}

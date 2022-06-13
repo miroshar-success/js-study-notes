@@ -1,0 +1,19 @@
+.display {
+  font-size: 20px;
+  color: red;
+  line-height: 20px;
+  text-indent: 10px;
+  font-weight: bold;
+  letter-spacing: 10px;
+}
+.display .parent{
+  width: 300px;
+  height: 200px;
+  background-color: pink;
+}
+.display .parent .child{
+  padding: 10px;
+  margin: 0 10px;
+  height: 100px;
+  background-color: skyblue;
+}

@@ -1,0 +1,14 @@
+.margin{
+  width: 300px;
+  height: 320px;
+  background-color: red;
+}
+
+.margin .child{
+  margin-top: 10%;
+  margin-left: 10%;
+  margin-left: -10px;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+}

@@ -4,8 +4,8 @@
   层叠样式表
   层叠: CSS样式单中的样式形成一个层次结构,样式规则的优先级由CSS根据这个层次结构决定。其基本目标是让浏览器以指定的特性去绘制页面
   比如颜色,定位,装饰等。由两个部分组成:
-      1. 属性（ property）是一个标识符，用可读的名称来表示其特性。
-      2. 值（value）则描述了浏览器引擎如何处理该特性。每个属性都包含一个有效值的集合，它有正式的语法和语义定义，被浏览器引擎实现。 
+    1. 属性（ property）是一个标识符，用可读的名称来表示其特性。
+    2. 值（value）则描述了浏览器引擎如何处理该特性。每个属性都包含一个有效值的集合，它有正式的语法和语义定义，被浏览器引擎实现。 
   
   CSS的核心功能是将CSS属性设定为特定的值。一个属性与值的键值对被称为'声明'(declaration)。CSS引擎会计算页面上每个元素
   都有哪些声明。并且会根据结果绘制元素,排布样式。
@@ -52,11 +52,6 @@
   @font-face, 描述将下载的外部的字体
   @keyframes, 描述CSS动画的中间步骤
 
-# 4. 选择器命名规范
-
-  1. 命名以字母开头,不能单个字母,不允许带有广告的单词: ad dever/advertising等
-  2. 全小写,以 - 作为连字符,不允许使用 _ , 不要和数字连用(- 会被解析为 减号)
-
 # 5. 选择器优先级
     
   浏览器通过优先级来判断哪些属性值与一个元素最为相关，从而在该元素上应用这些属性值。优先级是基于不同种类选择器
@@ -95,9 +90,9 @@ p { color: green; }
   当元素的一个非继承属性没有指定值时,则取属性的初始值。
   
   可以继承的属性:
-      字体属性: font-family font-weight font-size 
-      文本系列属性: text-indent text-align line-height word-spacing letter-spacing text0transform color
-      元素可见性: visibility
+    字体属性: font-family font-weight font-size 
+    文本系列属性: text-indent text-align line-height word-spacing letter-spacing text-transform color
+    元素可见性: visibility
     
 ## 属性简写
 
@@ -114,8 +109,7 @@ p { color: green; }
       padding和margin的值是从 top 顺时针开始的：top、right、bottom、接着是 lef
   border   
   border-radius:
-        border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius 简写为一个属性。
-					
+    border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius 简写为一个属性。
 					
 	white-space:
 		pre	空白会被浏览器保留。

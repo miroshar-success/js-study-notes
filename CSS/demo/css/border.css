@@ -1,0 +1,25 @@
+.border{
+  padding-left: 10px;
+  margin-top: 10px;
+  width: 300px;
+  height: 300px;
+}
+.border .default{
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+}
+
+.border .outset{
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+  border: 1px outset #000;
+}
+
+.border .inside{
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+  border: 1px inset #000;
+}
