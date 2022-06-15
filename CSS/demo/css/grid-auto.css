@@ -1,0 +1,10 @@
+.grow-auto {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: 100px;
+  width: 300px;
+  height: 300px;
+}
+.grow-auto .item {
+  background-color: pink;
+}

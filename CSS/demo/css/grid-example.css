@@ -1,0 +1,36 @@
+/* .grid-example {
+  display: grid;
+  width: 400px;
+  height: 400px;
+  grid-template-columns: 100px 200px 1fr;
+  grid-template-rows: 100px 200px 1fr;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px)
+}
+.grid-example .item{
+  background-color: pink;
+} */
+
+.grid-example {
+  display: grid;
+  width: 300px;
+  height: 300px;
+  grid-template-areas:
+  'a a a'
+  'b c c'
+  'b c c';
+  grid-template-columns: repeat(3 100px);
+  /* grid-template-rows: repeat(3, 100px); */
+}
+.grid-example .item1{
+  grid-area: a;
+  background-color:pink;
+}
+.grid-example .item2{
+  grid-area: b;
+  background-color: skyblue;
+}
+.grid-example .item3{
+  grid-area: c;
+  background-color: orange;
+}

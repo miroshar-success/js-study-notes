@@ -1,0 +1,21 @@
+.grid-flow {
+  display: grid;
+  width: 400px;
+  height: 400px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 4px;
+  row-gap: 4px;
+  border: 1px solid #e8e88e;
+  grid-auto-flow: column dense;
+}
+.grid-flow .item {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue
+}
+.grid-flow .item-1{
+  grid-row-start: 3;
+  justify-self: center;
+  align-self: center;
+}
