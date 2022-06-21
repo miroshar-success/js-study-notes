@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>哔哩哔哩</title>
+  <style>
+    html, body, ul, ol {
+      padding: 0;
+      margin: 0;
+    }
+    li{list-style: none;}
+    .header{
+      position: relative;
+    }
+    .header:after{
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: 1px solid #e8e8e8;
+    }
+    @media screen and (max-resolution:200dpi) {
+      .header:after {
+        transform: scale(1, .5);
+      }
+      .nav-list li:nth-of-type(1):after {
+        transform: scale(1, .5);
+      }
+    }
+    @media screen and (max-resolution: 300dpi) {
+      .header:after {
+        transform: scale(1, .333);
+      }
+      .nav-list li:nth-of-type(1):after {
+        transform: scale(1, .333);
+      }
+    }
+    .nav-list{
+      display: flex;
+      align-items: center;
+    }
+    .nav-list li{
+      position: relative;
+      width: 7.4667vw;
+      height:10.667vw;
+      padding: 0 4.2667vw;
+      white-space:nowrap;
+      line-height: 10.667vw;
+      text-align: center;
+      color:#505050;
+    }
+    .nav-list li:nth-of-type(1) {
+      color:#fb7299;
+    }
+    .nav-list li:nth-of-type(1):after {
+      content: '';
+      position: absolute;
+      width: 5.2vw;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      border: 2px solid #fb7299;
+    }
+/*     @media (orientation: landscape) {
+      body {
+        background: pink;
+      }
+    }
+    @media (orientation: portrait) {
+      body {
+        background: skyblue;
+      }
+    } */
+/*     @media screen and (max-width:1000px) and (min-width: 500px) {
+      body {
+        background-color:pink;
+      }
+    } */
+    :root {
+      --light: red;
+    }
+    .grid-container{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 50px;
+      grid-auto-rows: 50px;
+      background:var(--light)
+    }
+    @media screen and (min-width: 600px) {
+      .grid-container .col-md-4 {
+        grid-area: auto / auto / auto / span 4
+      }
+    }
+    @media screen and (min-width: 1000px) {
+      .grid-container .col-sm-1 {
+        grid-area: auto / auto / auto / span 1;
+      }
+      .grid-container .col-sm-2{
+        grid-area: auto / auto / auto / span 2;
+      }
+      .grid-container .col-sm-3{
+        grid-area: auto / auto / auto / span 3;
+      }
+      .grid-container .col-sm-4{
+        grid-area: auto / auto / auto / span 4;
+      }
+      .grid-container .col-sm-5{
+        grid-area: auto / auto / auto / span 5;
+      }
+      .grid-container .col-sm-6{
+        grid-area: auto / auto / auto / span 6;
+      }
+      .grid-container .col-sm-7{
+        grid-area: auto / auto / auto / span 7;
+      }
+      .grid-container .col-sm-8{
+        grid-area: auto / auto / auto / span 8;
+      }
+      .grid-container .col-sm-9{
+        grid-area: auto / auto / auto / span 9;
+      }
+      .grid-container .col-sm-10{
+        grid-area: auto / auto / auto / span 10;
+      }
+      .grid-container .col-sm-11{
+        grid-area: auto / auto / auto / span 11;
+      }
+      .grid-container .col-sm-12{
+        grid-area: auto / auto / auto / span 12;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <ul class='nav-list'>
+      <li>首页</li>
+      <li>动画</li>
+      <li>番剧</li>
+      <li>国创</li>
+      <li>音乐</li>
+      <li>舞蹈</li>
+    </ul>
+  </div>
+  <div class="grid-container">
+    <div class="col-sm-2 col-md-4">1</div>
+    <div class="col-sm-2 col-md-4">2</div>
+    <div class="col-sm-2 col-md-4">3</div>
+    <div class="col-sm-2 col-md-4">4</div>
+    <div class="col-sm-2 col-md-4">5</div>
+    <div class="col-sm-2 col-md-4">6</div>
+    <div class="col-sm-2 col-md-4">7</div>
+    <div class="col-sm-2 col-md-4">8</div>
+    <div class="col-sm-2 col-md-4">9</div>
+    <div class="col-sm-2 col-md-4">10</div>
+    <div class="col-sm-2 col-md-4">11</div>
+    <div class="col-sm-2 col-md-4">12</div>
+  </div>
+</body>
+</html>

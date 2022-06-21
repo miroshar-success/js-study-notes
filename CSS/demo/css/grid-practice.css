@@ -1,0 +1,31 @@
+html, body {padding: 0; margin: 0;}
+.grid-practice-container{
+  display: grid;
+  grid-template-areas:
+  'a a a'
+  'b c d'
+  'e e e';
+  height: 500px;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-rows: 100px 300px 100px;
+}
+.grid-practice-container .item-1{
+  grid-area: a;
+  background-color: skyblue;
+}
+.grid-practice-container .item-2{
+  grid-area: b;
+  background-color: orange;
+}
+.grid-practice-container .item-3{
+  grid-area: c;
+  background-color: pink;
+}
+.grid-practice-container .item-4{
+  grid-area: d;
+  background-color: yellowgreen;
+}
+.grid-practice-container .item-5{
+  grid-area: e;
+  background-color: goldenrod;
+}

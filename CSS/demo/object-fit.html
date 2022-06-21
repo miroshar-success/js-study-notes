@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>object-fit</title>
+  <style>
+    .img-container{
+      width: 300px;
+      height: 300px;
+      border: 1px solid #e8e8e8;
+    }
+    .img-container .img{
+      height: 200px;
+      width: 300px;
+      object-position: 50% top;
+      /* object-fit: fill; */
+      object-fit: contain;
+      /* object-fit: cover; */
+    }
+  </style>
+</head>
+<body>
+  <div class='img-container'>
+    <img class='img' src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202003%2F30%2F20200330133641_nPmXJ.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1658244168&t=79fcc8c2cc819cebcddf1b3586d7f4ca" alt="">
+  </div>
+</body>
+</html>

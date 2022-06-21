@@ -28,7 +28,7 @@ ReactDOM.render(
 
 
 function Counter1(){
-  let [count,setCount] = React.useState(0);
+  const [count,setCount] = React.useState(0);
   function handleClick(){
     setCount(count => count+1);
   }
