@@ -1,5 +1,5 @@
 const { createRoot } = window.ReactDOM
-const { Provider, connect, useDispatch, useSelector } = window.ReactRedux
+const { Provider, connect, useDispatch, useSelector, shallowEqual } = window.ReactRedux
 const { useState } = window.React
 const { createStore, combineReducers } = window.Redux
 
@@ -67,7 +67,7 @@ const mapStateToDispatch = {
 }
 
 const Counter = connect(mapStateToProps, mapStateToDispatch)((props) => {
-  console.log(props)
+  // console.log(props)
   return (
     <window.React.Fragment>
       <button onClick={props.increment}>+</button>
@@ -83,7 +83,8 @@ function App() {
   const [ count, setCount ] = useState(0)
   const [ name, setName] = useState('kyrie')
   const dispatch = useDispatch()
-  const multiple = useSelector(state => state.multiple)
+  const multiple = useSelector(state => ({value: state.multiple}))
+  // const multiple = useSelector(state => state.multiple)
   const handleClick = () => {
     setCount(count + 1)
     dispatch({
@@ -95,10 +96,11 @@ function App() {
       setName('irving')
     }
   }
+  console.log('render')
   return (
     <window.React.Fragment>
       <Counter name={name}/>
-      <button onClick={handleClick}>click {count} times ----> {multiple}</button>
+      <button onClick={handleClick}>click {count} times ----> {multiple.value}</button>
     </window.React.Fragment>
   )
 }
