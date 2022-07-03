@@ -1,5 +1,5 @@
 console.log('-------------- Object.setPrototypeOf ------------')
-/* const a = {
+const a = {
   name: 'hello',
 }
 const b = {
@@ -10,19 +10,17 @@ const b = {
 Object.setPrototypeOf(a, b)
 console.log(a.getName())  // hello
 
-
-console.log(Object.getPrototypeOf(a) === b) // true */
-
+console.log(Object.getPrototypeOf(a) === b) // true
 
 
-const z = { a: 3, b: 4}
+/* const z = { a: 3, b: 4}
 z.__proto__.c = 5
 console.log('z', z) // {a: 3, b: 4}
 const { ...m} = z;
 console.log(m)  // {a: 3, b: 4}
 
 const { a, b, c } = z;
-console.log(a, b, c)  // 3 4 5
+console.log(a, b, c)  // 3 4 5 */
 
 
 const o = {
@@ -62,3 +60,21 @@ const target = Object.assign({}, source)
 console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
 
 console.log(Object.getOwnPropertyDescriptors(source))
+
+
+/* Object.prototype.setPrototypeOf(object, prototype) {
+  if(object.__proto__) {
+    object.__proto__ = prototype
+  } else {
+    const Fn = function() {
+      for(const key in object) {
+        Object.defineProperty(this, key, {
+          value: obj[key]
+        })
+      }
+    }
+    Fn.prototype = prototype
+    return new Fn()
+  }
+}
+ */
