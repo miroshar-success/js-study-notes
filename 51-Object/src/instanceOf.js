@@ -1,3 +1,4 @@
+console.log('--------------------- instanceof -------------------')
 function Player(name) {
   this.name = name
 }
@@ -39,3 +40,19 @@ console.log(true instanceof Boolean)  // false
 
 console.log(new Number(123) instanceof Number)  // true
 console.log(new Boolean(false) instanceof Boolean)  // true
+
+
+function is_instance_of(instance, constructor) {
+  if(instance == null) return false
+  if(typeof instance !== 'object' && typeof constructor !== 'function') return false
+  let proto = instance
+  if(Object.getPrototypeOf(proto) === constructor.prototype) {
+    return true
+  } else {
+    proto = Object.getPrototypeOf(proto)
+  }
+  return false
+}
+
+console.log( Object instanceof Function)  // true
+console.log( Function instanceof Object)  // true
