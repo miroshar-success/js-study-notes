@@ -1,3 +1,5 @@
 import './src/number.js'
 import './src/boolean.js'
 import './src/string.js'
+import './src/NaN.js'
+import './src/deep_clone.js'

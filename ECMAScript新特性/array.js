@@ -210,3 +210,119 @@ console.log(flatArray(flat_array, Infinity))
   6, 7, 8, 9, 10
 ]
 */
+
+// ------------ findLast/ findLastIndex -------------
+const players = ['kyrie', 'irving', 'james', 'lebron', 'durant', 'kevin']
+// console.log(players.findLast(n => n === 'kyrie'))
+// console.log(players.findLastIndex( n => n === 'durant'))
+
+
+const has_empty_array = [1, , 3, , 5, , 7]
+console.log(has_empty_array)
+
+has_empty_array.forEach(item => {
+  console.log('forEach', item)
+  /*
+    forEach 1
+    forEach 3
+    forEach 5
+    forEach 7
+  */
+})
+has_empty_array.filter(item => {
+  console.log('filter', item)
+  return item
+})
+/*
+filter 1
+filter 3
+filter 5
+filter 7
+*/
+
+has_empty_array.reduce((prev,next) => {
+  console.log('reduce:', prev, next)
+  return prev + next
+}, 0)
+/*
+reduce: 0 1
+reduce: 1 3
+reduce: 4 5
+reduce: 9 7
+*/
+
+has_empty_array.every(item => {
+  console.log('every', item)
+  return item
+})
+/*
+every 1
+every 3
+every 5
+every 7
+*/
+
+has_empty_array.some(item => {
+  console.log('some', item)
+  return item
+})
+
+console.log(has_empty_array.map(item => {
+  console.log('map', item)
+  return item
+}))
+
+console.log(has_empty_array.toString(), has_empty_array.join())
+// 1,,3,,5,,7 1,,3,,5,,7
+
+console.log(Array.from(has_empty_array, (item) => item))
+// [ 1, undefined, 3, undefined, 5, undefined, 7 ]
+
+
+console.log([...has_empty_array])
+// [ 1, undefined, 3, undefined, 5, undefined, 7 ]
+
+
+for(const item of has_empty_array) {
+  console.log('for...of', item)
+}
+/*
+for...of 1
+for...of undefined
+for...of 3
+for...of undefined
+for...of 5
+for...of undefined
+for...of 7
+*/
+
+console.log([...has_empty_array.entries()])
+/*
+[
+  [ 0, 1 ],
+  [ 1, undefined ],
+  [ 2, 3 ],
+  [ 3, undefined ],
+  [ 4, 5 ],
+  [ 5, undefined ],
+  [ 6, 7 ]
+]
+*/
+console.log([...has_empty_array.keys()])
+/*
+[
+  0, 1, 2, 3,
+  4, 5, 6
+]
+*/
+console.log([...has_empty_array.values()])
+/*
+[ 1, undefined, 3, undefined, 5, undefined, 7 ]
+*/
+
+console.log([,'a'].find(x => true)) // undefined
+console.log([,'a'].findIndex(x => true)) // 0
+
+
+console.log(has_empty_array.includes(undefined))  // true
+console.log(has_empty_array.indexOf(undefined))   // -1
