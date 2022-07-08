@@ -326,3 +326,35 @@ console.log([,'a'].findIndex(x => true)) // 0
 
 console.log(has_empty_array.includes(undefined))  // true
 console.log(has_empty_array.indexOf(undefined))   // -1
+
+// --------------- 序列生成器 -----------
+const range = (start, stop, step) => Array.from({length: (stop-start)/step + 1}, (_, i) => {
+  return start + (i*step)
+})
+
+console.log('range:' ,range(1, 10, 2))  // [1, 3, 5, 7, 9]
+
+const map = new Map()
+map.set({name: 'kyrie'})
+console.log('map:', map)  // map: Map(1) { { name: 'kyrie' } => undefined }
+
+// ----------- 删除数组中的虚值 ---------------
+const has_virtual_item = ['', undefined, NaN, 0, 123, 'hello', false, '你好']
+console.log(has_virtual_item.filter(Boolean)) // [ 123, 'hello', '你好' ]
+
+
+// ------- 顺序执行函数 ---------
+function discount(x) {
+  return x * 0.9
+}
+function decrement(x) {
+  return x > 200 ? x -50 : x
+}
+
+function compose(...args) {
+  return v => {
+    return args.reverse().reduce((prev,next) => next(prev(v)))
+  }
+}
+const get_price = compose(discount, decrement)
+console.log(get_price(100), get_price(300)) // 90   220
