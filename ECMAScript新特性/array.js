@@ -358,3 +358,101 @@ function compose(...args) {
 }
 const get_price = compose(discount, decrement)
 console.log(get_price(100), get_price(300)) // 90   220
+
+
+// ------------------ Array.isArray ----------------
+const p_array = ['hello', 'world']
+
+const proxy_array = new Proxy(p_array,{})
+console.log(Array.isArray(proxy_array)) // true
+console.log(proxy_array.__proto__ === Array.prototype)  // true
+console.log(proxy_array instanceof Array) // true
+console.log(Object.prototype.toString.call(proxy_array))  // [object Array]
+console.log(Proxy.prototype)  // undefined
+
+const my_is_array1 = (arg) => {
+  if(typeof arg !== 'object' || arg === null) return false
+  return arg instanceof Array
+}
+
+const my_is_array2 = (arg) => {
+  return Object.prototype.toString.call(arg).slice(8,-1).toLowerCase() === 'array'
+}
+
+console.log(my_is_array1([1,2,3]), my_is_array1(proxy_array)) // true true
+console.log(my_is_array2([1,2,3]), my_is_array2(proxy_array)) // true true
+
+
+console.log('to-object:',Object([1,2,3,4]))
+
+
+const symbol = Symbol('symbol')
+const includes_array = [1, 2, NaN, 'hello', symbol ,false, '你好']
+const log = console.log
+log(includes_array.includes(NaN, Infinity))   // false
+log(includes_array.includes(NaN, -Infinity))  // true
+log(includes_array.includes(NaN, -8)) // true
+log(includes_array.includes(NaN, 100))  // false
+log(includes_array.includes(NaN, 2))  // true
+log(includes_array.includes(NaN, 3))  // false
+log(includes_array.includes(symbol)) // true
+log(includes_array.includes(NaN, NaN))  // true
+
+log(Math.pow(2, 53) - 1)
+log(Number.MAX_SAFE_INTEGER)
+
+// 将length 转换为 合法的值
+function ToIntegerInfinity(number) {
+  if(typeof number === 'number' || typeof number === 'string') {
+    const n = Number(number)
+    if(Number.isNaN(n)) return 0
+    if(!Number.isFinite(n)) return 0
+    return n > 0 ? n : -n
+  }
+  return 0
+}
+
+function myArrayFrom(arg, callback, thisArg) {
+  if(typeof arg === null) return []
+  if(typeof arg !== 'object') return []
+  if(callback && typeof callback !== 'function') {
+    throw new Error('callback must be a function')
+  }
+  const length = Array.isArray(arg) ? arg.length : ToIntegerInfinity(arg.length)
+  const temp = []
+  for(let i = 0; i < length; i++) {
+    const item = arg[i]
+    if(callback) {
+      temp[i] = typeof thisArg === 'undefined' ? callback(item, i) : callback.call(thisArg, item, i)
+    } else {
+      temp[i] = item
+    }
+  }
+  return temp
+}
+
+const _temp = myArrayFrom({length: 10}, (_, i) => (`hello-${i}`))
+console.log(_temp)
+/*
+[
+  'hello-0', 'hello-1',
+  'hello-2', 'hello-3',
+  'hello-4', 'hello-5',
+  'hello-6', 'hello-7',
+  'hello-8', 'hello-9'
+]
+*/
+const _array = myArrayFrom(['hello', 'world'], (_, i) => ({label: _.toUpperCase(), value: i}))
+console.log(_array)
+/*
+[ { label: 'HELLO', value: 0 }, { label: 'WORLD', value: 1 } ]
+*/
+
+const _this = myArrayFrom(['hello', 'world'], function(_, i) {
+  console.log(this)
+  return {
+    label: this[i] + '-' + _,
+    value: i
+  }
+}, {0: '你好', 1: '世界'})
+// [ { label: '你好-hello', value: 0 }, { label: '世界-world', value: 1 } ]

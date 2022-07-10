@@ -230,3 +230,41 @@ class B extends A {
 }
 const a = new A() // A
 const b = new B() // B
+
+
+// ----------- Function.prototype 和 Object.prototype -----------
+console.log(Function.prototype.__proto__ === Object.prototype)  // true
+console.log(Function.prototype.constructor) // [Function: Function]
+console.log(Object.prototype.__proto__ === null)  // true
+console.log(Player.prototype.__proto__ === Object.prototype)  // true
+console.log(Object.prototype.constructor)
+
+
+function Father(name, age, foods = []) {
+  this.name = name
+  this.age = age
+  this.foods = foods
+}
+Father.prototype.getName = function() {
+  return this.name
+}
+Father.prototype.getAge = function() {
+  return this.age
+}
+
+function Child(name, age, foods) {
+  Father.call(this, name, age, foods)
+}
+Object.setPrototypeOf(Child.prototype, Father.prototype)
+
+const father = new Father('kyrie', 30, [1,2,3,4,5])
+const child_1 = new Child('lebron', 10, [1,2,3])
+const child_2 = new Child('james', 19, [2,3,4])
+console.log(child_1.getName(), child_1.getAge())  // lebron 10
+console.log(child_2.getName(), child_2.getAge())  // james 19
+
+child_1.foods.push('hello')
+child_2.foods.push('world')
+console.log(child_1.foods, child_2.foods) // [ 1, 2, 3, 'hello' ] [ 2, 3, 4, 'world' ]
+
+console.log(Object.getPrototypeOf(child_1), Object.getPrototypeOf(child_2)) // Father {} Father {}

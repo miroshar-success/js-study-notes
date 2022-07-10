@@ -146,7 +146,54 @@ console.log('f2_name:', f_2.name) // f_3
 
 console.log((new Function).name)  // anonymous
 
+const person_1 = {
+  name: 'kyrie',
+  getName: function() {
+    return this.name
+  }
+}
+console.log('function name:',person_1.getName.name) // getName
 
+const person_2 = {
+  name: 'kyrie'
+}
+person_2.getName = function() {
+  return this.name
+}
+console.log('function name:', person_2.getName.name)  // ''
+
+
+const new_function = new Function('number_1', 'number_2', 'return number_1 + number_2')
+console.log(new_function(1,3), new_function.name) // 4 anonymous
+
+const person_3 = {
+  _name: 'kyrie',
+  get name() {
+    return this._name
+  },
+  set name(value) {
+    this._name = value
+  }
+}
+const descriptor = Object.getOwnPropertyDescriptor(person_3, 'name')
+console.log(descriptor.get.name, descriptor.set.name) // get name, set name
+
+
+const person_4 = {
+  name: 'kyrie'
+}
+const get_name = (function getName() {
+  return this.name
+}).bind(person_4)
+console.log(get_name.name)  // bound getName
+
+const person_5 = {
+  name: 'kyrie',
+  [Symbol.for('get_name')]() {
+    return this.name
+  }
+}
+console.log(person_5[Symbol.for('get_name')]['name']) // [get_name]
 
 // ------- this指向 -----------
 var id = 21;
@@ -228,6 +275,17 @@ function bar() {
 bar().call({id:5})
 const b = bar.call({id:100})
 b() // 100
+
+const _name = 'window'
+const _obj = {_name: '张三'}
+function log_name() {
+  console.log(this)
+  console.log(this._name)
+}
+const _person = {_name: 'person', log_name};
+console.log('----------this---------');
+(_person.log_name)();  // person
+(1,_person.log_name)(); // undefined
 
 
 // ---------- 部署管道机制 ------------(pipeline)
@@ -351,3 +409,17 @@ function sum1(x, y) {
 console.log(trampoline(sum1(1, 100000)))
 
 // console.log(trampoline(sum(1,10000)))
+
+
+console.log('------------------- 多重call ----------------')
+
+function function_1() {
+  console.log('function_1 this', this)
+}
+function function_2() {
+  // function_2 this [String: 'function_2']
+  console.log('function_2 this', this)
+}
+// 在一个对象上调用function_2方法
+function_1.call.call.call(function_2, 'function_2')
+
