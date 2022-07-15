@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web-components</title>
+</head>
+<body>
+  <user-card></user-card>
+  <user-card></user-card>
+  <template id='userCardTemplate'>
+    <style>
+      :host{
+        background-color: skyblue;
+      }
+      span.text{color:red;}
+    </style>
+    <div style='padding:10px; width:100px; height:100px; border:1px solid #e8e8e8;'>
+      <img width='100' src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F28%2F20181228201944_eE2F4.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660483524&t=05cfb8eb4c5686ad454e9e2d98053e80" alt="">
+      <span class='text'>Hello, Kyrie</span>
+    </div>
+  </template>
+  <player-card></player-card>
+  <template id='playerCardTemplate'>
+    <div>
+      <span class='firstName'></span>
+      <span class='lastName'></span>
+    </div>
+  </template>
+  <template id='phoneCardTemplate'>
+    <style>
+      .container {
+        margin: 10px 0;
+        padding: 10px;
+        width: 120px;
+        border: 1px solid #e8e8e8;
+        border-radius: 5px;
+      }
+      .container img{width:100%;}
+    </style>
+    <div class='container'>
+      <div class="title"></div>
+      <img src="" alt="" class='image'>
+    </div>
+  </template>
+  <phone-card name='iPhone 13 Pro' url='https://www.apple.com.cn/v/iphone-13-pro/f/images/overview/design/ceramic_shield_1_static__ci68bor3yn6u_large.jpg'></phone-card>
+  <script src='./src/webComponent.js'></script>
+</body>
+</html>

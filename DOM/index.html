@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Node</title>
+  <link rel="stylesheet" href="./src/style.css">
   <style>
     body{padding: 0;margin: 0;}
+    .size-container{width:100px;height:100px;overflow:auto;padding:10px; margin: 10px; border:10px solid #e8e8e8;}
   </style>
 </head>
 <body>
@@ -59,11 +61,22 @@
   <!-- <script src='./src/nodeList.js'></script> -->
   <!-- 元素节点 -->
   <!-- <script src='./src/node.js'></script> -->
+  <div id="map_node"><div class="box"><span>hello</span><span>world</span></div><div class='box'><span>你好</span><span>世界</span></div>  </div>
+  <div>padding:10px;width:100px;height:100px;margin:10px;border:10px;</div>
+  <div class="size-container">
+    <div style='width:300px;height:300px;'></div>
+  </div>
+  <div class="root_container"></div>
+  <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx4.sinaimg.cn%2Fmw690%2F717e626cly1h3v7qpxsosj211x0u0wrv.jpg&refer=http%3A%2F%2Fwx4.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660481305&t=075296da950bb0cdbeecb48cb9701817?v=123986755447" alt="">
+  <img  width='600' src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F28%2F20181228201944_eE2F4.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660482489&t=34951257584ea4fd4f42ee7717a9c495?v=87654" alt="">
   <script>
     function print(message){
       console.log(message)
     }
   </script>
   <script src='./src/create.js'></script>
+  <script src='./src/map_node.js'></script>
+  <script src='./src/size.js'></script>
+  <script src='./src/DomContentLoaded.js'></script>
 </body>
 </html>
