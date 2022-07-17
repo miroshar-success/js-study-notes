@@ -96,3 +96,4 @@ class PhoneCard extends HTMLElement {
 }
 window.customElements.define('phone-card', PhoneCard)
 
+console.log(window.customElements)

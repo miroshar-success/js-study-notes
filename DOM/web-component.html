@@ -44,6 +44,26 @@
     </div>
   </template>
   <phone-card name='iPhone 13 Pro' url='https://www.apple.com.cn/v/iphone-13-pro/f/images/overview/design/ceramic_shield_1_static__ci68bor3yn6u_large.jpg'></phone-card>
+  <!-- custom-elements -->
+  <card-component></card-component>
+  <p is='expanding-paragraph'>你好生活,向生活说你好</p>
+  <!-- 生命周期函数 -->
+  <custom-square l='200' c='red'></custom-square>
+  <button class='update-button'>update</button>
+  <hr>
+  <pop-up></pop-up>
+  <!-- my-paragraph -->
+  <template id='paragraph'>
+    <div class='title'>Hello, Welcome Back</div>
+    <div class='content'>你好, 生活</div>
+  </template>
+  <my-paragraph></my-paragraph>
+  <my-paragraph></my-paragraph>
+  <my-paragraph></my-paragraph>
+  <my-paragraph></my-paragraph>
+  <my-paragraph></my-paragraph>
   <script src='./src/webComponent.js'></script>
+  <script src='./src/custom-element.js'></script>
+  <script src='./src/shadow-dom.js'></script>
 </body>
 </html>
