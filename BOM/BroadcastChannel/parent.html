@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BroadcastChannel - parent</title>
+</head>
+<body>
+  <button class='button'>post</button>
+  <script>
+    const button = document.querySelector('.button')
+    const channel = new BroadcastChannel('cat')
+    button.addEventListener('click', () => {
+      channel.postMessage('hello world')
+      channel.postMessage([{firstName: 'kyrie', lastName: 'irving'}])
+    }, false)
+    console.log(channel.name)
+    setTimeout(() => {
+      channel.close()
+    },5000)
+  </script>
+</body>
+</html>

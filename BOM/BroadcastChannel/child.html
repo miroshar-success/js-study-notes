@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BroadcastChannel - child</title>
+</head>
+<body>
+  <script>
+    const channel = new BroadcastChannel('cat')
+    channel.addEventListener('message', function(e) {
+      console.log(e.data)
+    })
+  </script>
+</body>
+</html>
