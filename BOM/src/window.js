@@ -29,4 +29,5 @@ window.ononline = function() {
 }
 window.onoffline = function() {
   console.log('offline')
+  console.log(window.navigator.onLine)
 }

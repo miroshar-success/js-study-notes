@@ -8,6 +8,14 @@
   <style>
     body{padding: 0;margin: 0;}
     .size-container{width:100px;height:100px;overflow:auto;padding:10px; margin: 10px; border:10px solid #e8e8e8;}
+    .mutation-container{
+      width: 100px;
+      height: 100px;
+      border: 1px solid #e8e8e8;
+      text-align: center;
+      line-height: 100px;
+      background-color: pink;
+    }
   </style>
 </head>
 <body>
@@ -56,7 +64,7 @@
     <div id="d">This is a div.</div>
   </div>
   <!-- <script src='./src/text-content.js'></script> -->
-  <!-- <script src='./src/attributes.js'></script> -->
+  <script src='./src/attributes.js'></script>
   <!-- <script src='./src/insertBefore.js'></script> -->
   <!-- <script src='./src/nodeList.js'></script> -->
   <!-- 元素节点 -->
@@ -69,6 +77,9 @@
   <div class="root_container"></div>
   <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx4.sinaimg.cn%2Fmw690%2F717e626cly1h3v7qpxsosj211x0u0wrv.jpg&refer=http%3A%2F%2Fwx4.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660481305&t=075296da950bb0cdbeecb48cb9701817?v=123986755447" alt="">
   <img  width='600' src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F28%2F20181228201944_eE2F4.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660482489&t=34951257584ea4fd4f42ee7717a9c495?v=87654" alt="">
+  <hr>
+  <div class="mutation-container">hello world</div>
+  <button class="mutation-observer-button">mutation</button>
   <script>
     function print(message){
       console.log(message)
@@ -78,5 +89,6 @@
   <script src='./src/map_node.js'></script>
   <script src='./src/size.js'></script>
   <script src='./src/DomContentLoaded.js'></script>
+  <script src='./src/mutation-ovserver.js'></script>
 </body>
 </html>

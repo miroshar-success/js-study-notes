@@ -8,6 +8,35 @@
 </head>
 <body>
   <button class='open-button'>open</button>
+  <button class='clipboard-button'>clipboard</button>
+  <button class='copy-button'>copy</button>
   <script src='./src/window.js'></script>
+  <script>
+    // ------------ navigator ------------
+    function get_browser() {
+      const browser_list = ['Chrome', 'Safari', 'Edge', 'Opera', 'Firefox', 'MicroMessenger']
+      const urgent = window.navigator.userAgent
+      const b_index = browser_list.findIndex(b => urgent.includes(b))
+      if(~b_index) {
+        return browser_list[b_index]
+      }
+      return 'unknown'
+    }
+    const urgent = get_browser()
+    console.log(window.navigator.onLine)
+    console.log(navigator.clipboard)
+    // ------------- clipboard -----------
+    const clipboard_button = document.querySelector('.clipboard-button')
+    clipboard_button.addEventListener('click', function() {
+      window.navigator.clipboard.writeText('hello world, 你好生活')
+      window.navigator.clipboard.readText().then(res => {
+        console.log(res)
+      })
+    }, false)
+    document.addEventListener('copy', (e) => {
+      e.clipboardData.setData('text/plain', 'Hello World!123456')
+      e.preventDefault()
+    }, false)
+  </script>
 </body>
 </html>
