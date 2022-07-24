@@ -3,9 +3,10 @@ const targetNode = document.querySelector('.mutation-container')
 const observer_button = document.querySelector('.mutation-observer-button')
 
 const observer = new MutationObserver(function(mutationList, observer) {
-  setTimeout(() => {
+  console.log('被监听了...')
+/*   setTimeout(() => {
     console.log('我执行了')
-  }, 0)
+  }, 0) */
   for(const mutation of mutationList) {
     console.log('mutation:', mutation)
     /*
@@ -26,13 +27,9 @@ observer.observe(targetNode, {
 observer_button.addEventListener('click', () => {
   targetNode.style.color = 'red'
   targetNode.setAttribute('data-id', Math.random().toString().substring(0, 6))
-  const element = document.createElement('img')
-  targetNode.appendChild(element) /*
-    {
-      attributeName: null,
-      type: 'childList'
-    }
-  */
+  targetNode.setAttribute('data-id', Math.random().toString().substring(0, 6))
+  targetNode.setAttribute('data-id', Math.random().toString().substring(0, 6))
+  // const element = document.createElement('img')
 }, false)
 
 
