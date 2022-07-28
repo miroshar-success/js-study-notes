@@ -1,0 +1,88 @@
+.box {
+  position: relative;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  left: 0;
+  transition-property: left;
+  transition-duration: 3000ms;
+}
+.box-1{ background-color: pink; transition-timing-function: linear;}
+.box-2{ background-color: skyblue; transition-timing-function: ease;}
+.box-3{ background-color: orange; transition-timing-function: ease-in;}
+.box-4{ background-color: seagreen; transition-timing-function: cubic-bezier(.29, .49, 1, .5)}
+.box.start {
+  left: calc(100% - 100px);
+}
+
+/* container */
+.container {
+  /* position: absolute; */
+  width: 100px;
+  height: 100px;
+  background-color: #0ff;
+  border:1px solid #000;
+  transition: width 2s, height 2s, background-color 2s, transform 2s;
+}
+.container:hover {
+  background-color: #fcc;
+  width: 200px;
+  height: 200px;
+  transform: rotate(180deg)
+}
+
+
+/* animation */
+@keyframes move {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.progress-container{
+  position: relative;
+  height: 30px;
+  border:1px solid #e8e8e8;
+  width: 600px;
+}
+.progress-inner {
+  position: absolute;
+  height: 100%;
+  background-color: skyblue;
+  animation-name: move;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: 3;
+  animation-direction: alternate-reverse;
+}
+.progress-inner.paused {
+  animation-play-state: paused;
+}
+.progress-inner.running {
+  animation-play-state: running;
+}
+
+/* animation-fill-mode */
+@keyframes mode_move {
+  0% {
+    background-color: skyblue;
+    left: 0;
+  }
+  50% {
+    background-color: seagreen;
+  }
+  100% {
+    left: 500px;
+    background-color: skyblue;
+    /* background-color: orange; */
+  }
+}
+
+.mode-container {
+  animation-name: mode_move;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}

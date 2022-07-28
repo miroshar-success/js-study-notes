@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>BOM</title>
+  <style>
+    .animation-container {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+      border: 1px solid #e8e8e8;
+    }
+  </style>
 </head>
 <body>
   <button class='open-button'>open</button>
@@ -19,6 +27,7 @@
   <button class='encrypt-button'>encrypt</button>
   <button class='decrypt-button'>decrypt</button>
   <hr>
+  <div class="animation-container"></div>
   <!-- web crypto -->
   <script src="https://cdn.jsdelivr.net/npm/localstorage-slim"></script>
   <script src='./src/window.js'></script>
@@ -48,6 +57,50 @@
       e.clipboardData.setData('text/plain', 'Hello World!123456')
       e.preventDefault()
     }, false)
+
+    // ------------ requestAnimationFrame ------------
+/*     const container = document.querySelector('.animation-container')
+    let animation_left = 0
+    let animation_id = 0
+    function translate() {
+      container.style.transform = `translate3d(${animation_left++}px, 0, 0)`
+      animation_id = window.requestAnimationFrame(translate)
+      if (animation_left >= 300) {
+        window.cancelAnimationFrame(animation_id)
+      }
+    }
+    translate()
+    const container = document.querySelector('.animation-container')
+    let animation_left = 0
+    let animation_id = 0
+    function translate() {
+      if(animation_id) {
+        clearTimeout(animation_id)
+      }
+      animation_id = window.setTimeout(() => {
+        container.style.transform = `translate3d(${animation_left++}px, 0, 0)`
+        if (animation_left >= 300) {
+          window.clearTimeout(animation_id)
+          return
+        }
+        translate()
+      }, 16)
+    }
+    translate() */
+
+    const container = document.querySelector('.animation-container')
+    let animation_left = 0
+    let animation_id = 0
+    function translate() {
+      animation_id = setInterval(() => {
+        container.style.transform = `translate3d(${animation_left++}px, 0, 0)`
+        if (animation_left >= 300) {
+          window.clearInterval(animation_id)
+          return
+        }
+      }, 16)
+    }
+    translate()
   </script>
 </body>
 </html>

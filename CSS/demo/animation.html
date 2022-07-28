@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transition</title>
+  <link rel="stylesheet" href="./css/animation.css">
+  <style>
+    .mode-container{
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+      border: 1px solid #e8e8e8;
+    }
+  </style>
+</head>
+<body>
+  <div class="box-1 box"></div>
+  <div class="box-2 box"></div>
+  <div class="box-3 box"></div>
+  <div class="box-4 box"></div>
+  <div class="container"></div>
+  <button class='button'>click</button>
+  <hr>
+  <!-- animation -->
+  <button class="progress-button">click</button>
+  <div class="progress-container">
+    <div class="progress-inner"></div>
+  </div>
+  <hr>
+  <!-- animation-fill-mode -->
+  <div class="mode-container"></div>
+  <script>
+    const button = document.querySelector('.button')
+    button.addEventListener('click', () => {
+      [...document.querySelectorAll('.box')].forEach(box => {
+        box.classList.add('start')
+      })
+    }, false)
+
+    Array.from(document.querySelectorAll('.box'), box => {
+      box.addEventListener('transitionend', () => {
+        console.log('end')
+        box.classList.remove('start')
+      })
+    })
+
+    const container = document.querySelector('.container')
+/*     container.addEventListener('transitionend', () => {
+      console.log('end')
+    }) */
+
+    // animation
+    const animation_button = document.querySelector('.progress-button')
+    const progress_container = document.querySelector('.progress-inner')
+    animation_button.addEventListener('click', () => {
+      const style = window.getComputedStyle(progress_container, null)
+      progress_container.style.animationPlayState = style.animationPlayState === 'running' ? 'paused' : 'running';
+    }, false)
+
+
+    progress_container.addEventListener('animationstart', () => {
+      console.log('start')
+    })
+    progress_container.addEventListener('animationend', () => {
+      console.log('end')
+    })
+    progress_container.addEventListener('animationiteration', () => {
+      console.log('hello')
+    })
+  </script>
+</body>
+</html>
