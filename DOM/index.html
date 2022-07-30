@@ -87,6 +87,9 @@
   <div class="outer-container">
     <div class="inner-container"></div>
   </div>
+  <hr>
+  <button class='download_image'>download</button>
+  <button class='download_pdf'>download_pdf</button>
   <script>
     function print(message){
       console.log(message)
@@ -98,5 +101,34 @@
   <script src='./src/DomContentLoaded.js'></script>
   <script src='./src/mutation-ovserver.js'></script>
   <script src='./src/task.js'></script>
+  <script>
+    const download_image = document.querySelector('.download_image')
+    console.log(download_image)
+    download_image.addEventListener('click', function() {
+      const xhr = new XMLHttpRequest()
+      xhr.open('GET', 'https://img2.baidu.com/it/u=2585457000,160774737&fm=253&fmt=auto&app=138&f=JPEG?w=330&h=500', true)
+      xhr.responseType = 'blob'
+      xhr.send(null)
+      xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+          console.log(xhr.response)
+          const blob = window.URL.createObjectURL(xhr.response)
+          const link = document.createElement('a')
+          link.href = blob
+          link.download = 'iu'
+          link.click()
+        }
+      }
+    }, false)
+
+    // 下载文件指定文件名
+    const download_pdf = document.querySelector('.download_pdf')
+    download_pdf.addEventListener('click', () => {
+      const link = document.createElement('a')
+      link.href = 'https://mail.qq.com/cgi-bin/readmail?sid=9mm_gr2QaDzZCUoo&mailid=ZL2806-mQZ7hbp03YmLCkkWKiNDPa7&nocheckframe=true&t=attachpreviewer&select=2&selectfile=&seq='
+      link.download = '发票'
+      link.click()
+    }, false)
+  </script>
 </body>
 </html>

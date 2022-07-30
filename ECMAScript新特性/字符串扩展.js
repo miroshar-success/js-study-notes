@@ -121,4 +121,16 @@ if(原字符串的长度 > 最大长度) {
 }
 */
 
+console.log('\a')
+console.log('\r')
 
+console.log(0x00, 0x11, 0x12, 0x13)
+// 0 17 18 19
+console.log(0xfa, 0xff, 0x01)
+// 250 255 1
+
+console.log('\u0061', '\u0063', '\u0089')
+
+console.log('a'.charCodeAt(0))  // 97
+console.log(encodeURI(' '))
+console.log(encodeURIComponent(' '))
