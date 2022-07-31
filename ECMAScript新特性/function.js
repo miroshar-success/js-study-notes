@@ -423,3 +423,12 @@ function function_2() {
 // 在一个对象上调用function_2方法
 function_1.call.call.call(function_2, 'function_2')
 
+
+// ---------------- 判断函数是否相同 --------------------
+const fn_1 = function() {
+  return 'hello world'
+}
+const fn_2 = function() {
+  return 'hello world'
+}
+console.log(fn_1.toString() === fn_2.toString())  // true
