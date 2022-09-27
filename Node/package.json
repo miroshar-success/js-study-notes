@@ -1,0 +1,21 @@
+{
+  "name": "node-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "node-cli": "./cli/ora.mjs"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.4.0",
+    "download-git-repo": "^3.0.2",
+    "express": "^4.18.1",
+    "inquirer": "^9.1.2",
+    "ora": "^6.1.2"
+  }
+}
