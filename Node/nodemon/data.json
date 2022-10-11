@@ -1,0 +1,17 @@
+[
+  {
+    "firstName": "kyrie",
+    "lastName": "irving",
+    "age": 30
+  },
+  {
+    "firstName": "lebron",
+    "lastName": "james",
+    "age": 38
+  },
+  {
+    "firstName": "kevin",
+    "lastName": "durant",
+    "age": 35
+  }
+]

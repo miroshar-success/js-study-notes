@@ -7,6 +7,10 @@ app.use(express.urlencoded({
   extended: true
 }))
 
+app.use((req, res) => {
+  res.status(404).send('404 Not Found')
+})
+
 router.get('/api/player', (req, res) => {
   res.statusMessage = 'success';
   res.json([
@@ -34,6 +38,6 @@ router.post('/api/create_player', (req, res) => {
 
 app.use(router)
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('app starting listening')
 })
