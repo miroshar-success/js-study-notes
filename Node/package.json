@@ -18,6 +18,7 @@
     "download-git-repo": "^3.0.2",
     "express": "^4.18.1",
     "inquirer": "^9.1.2",
+    "joi": "^17.6.3",
     "mongoose": "^6.6.5",
     "nodemon": "^2.0.20",
     "ora": "^6.1.2"
