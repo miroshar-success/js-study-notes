@@ -7,16 +7,13 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    minLength: 6,
-    maxLength: 15
-  },
-  avatar: {
-    type: String,
-    default: ''
+    required: true
   },
   phone: {
     type: String,
-    unique: true
+    unique: true,
+    minLength: 11,
+    maxLength: 11
   }
 }, {
   timestamps: {
