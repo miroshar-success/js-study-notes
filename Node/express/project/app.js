@@ -21,8 +21,14 @@ app.use(express.urlencoded({
   extended: true
 }))
 
-app.use('/api/v1/user', user_router)
+app.all('*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5050')
+  res.header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE')
+  res.header('Access-Control-Allow-Headers', 'content-type')
+  next()
+})
 
+app.use('/api/v1/user', user_router)
 app.listen(3000, () => {
   console.log('app starting at port 3000')
 })

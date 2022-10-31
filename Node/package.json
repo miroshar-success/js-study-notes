@@ -17,6 +17,7 @@
     "commander": "^9.4.0",
     "download-git-repo": "^3.0.2",
     "express": "^4.18.1",
+    "formidable": "^2.0.1",
     "inquirer": "^9.1.2",
     "joi": "^17.6.3",
     "jsonwebtoken": "^8.5.1",
