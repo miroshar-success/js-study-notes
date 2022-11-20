@@ -1,6 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const path = require('path')
 const { user_router } = require('./router/user')
+const { file_router } = require('./router/file')
+const app = express()
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 mongoose.connect('mongodb://localhost:27017/express', {
   autoIndex: false
@@ -15,7 +20,6 @@ mongoose.connection.on('error', (err) => {
 })
 
 
-const app = express()
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -29,6 +33,7 @@ app.all('*', (req, res, next) => {
 })
 
 app.use('/api/v1/user', user_router)
+app.use('/api/v1/file', file_router)
 app.listen(3000, () => {
   console.log('app starting at port 3000')
 })
