@@ -2,8 +2,6 @@ const { user_model } = require('../model/index')
 const { create_token } = require('../util/jwt')
 const Joi = require('joi')
 const md5 = require('md5')
-const formidable = require('formidable')
-const form = formidable({ multiples: true})
 
 // 用户注册
 const register = async (req, res) => {
@@ -115,34 +113,8 @@ const update = async (req, res) => {
   })
 }
 
-const upload = async (req, res) => {
-  form.parse(req, (err, fields, files) => {
-    if (err) return res.json({
-      code: 0,
-      msg: '上传失败'
-    })
-  })
-}
-
-form.on('field', (name, value) => {
-  console.log('field event', name, value)
-})
-form.on('fileBegin', (formName, file) => {
-  console.log('fileBegin event', formName, file)
-})
-form.on('progress', (bytesReceived, bytesExpected) => {
-  console.log(bytesReceived, bytesExpected)
-})
-form.on('file', (formname, file) => {
-  console.log('file event', formname, file)
-})
-form.on('end', () => {
-  console.log('end')
-})
-
 module.exports = {
   register,
   update,
-  login,
-  upload
+  login
 }

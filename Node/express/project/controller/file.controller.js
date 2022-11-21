@@ -1,6 +1,5 @@
 const formidable = require('formidable')
 const { image_model, video_model } = require('../model/index')
-console.log('video_model',video_model, image_model)
 const path = require('path')
 // 上传文件
 const file_upload_image = async (req, res) => {
@@ -52,6 +51,7 @@ const search_image_file = async (req, res) => {
 
 // 上传视频
 const file_upload_video = async (req, res) => {
+  const { id } = req.user
   const form = formidable({
     multiples: true,
     keepExtensions: true,
@@ -65,17 +65,18 @@ const file_upload_video = async (req, res) => {
       })
     }
     try {
-      const { newFilename } = files.file
+      const { newFilename, originalFilename } = files.file
       await video_model.create({
         filename: `${newFilename}`,
-        url: `/videos/${newFilename}`
+        url: `/videos/${newFilename}`,
+        user_id: id,
+        title: originalFilename
       })
       return res.status(200).json({
         code: 200,
         msg: '上传成功'
       })
     } catch(err) {
-      console.log(err)
       return res.status(200).json({
         code: 0,
         msg: err

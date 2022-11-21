@@ -4,8 +4,10 @@ const {
   file_upload_video, search_video_file
 } = require('../controller/file.controller')
 
+const { user_validate } = require('../middleware/user-validate')
+
 router.post('/upload/image', file_upload_image)
-router.post('/upload/video', file_upload_video)
+router.post('/upload/video', user_validate, file_upload_video)
 router.get('/search/image', search_image_file)
 router.get('/search/video', search_video_file)
 
