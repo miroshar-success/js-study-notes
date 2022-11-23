@@ -34,7 +34,7 @@ const file_upload_image = async (req, res) => {
   })
 }
 
-const search_image_file = async (req, res) => {
+const search_image_list = async (req, res) => {
   try {
     const image_list = await image_model.find()
     res.status(200).json({
@@ -69,7 +69,7 @@ const file_upload_video = async (req, res) => {
       await video_model.create({
         filename: `${newFilename}`,
         url: `/videos/${newFilename}`,
-        user_id: id,
+        user: id,
         title: originalFilename
       })
       return res.status(200).json({
@@ -86,9 +86,14 @@ const file_upload_video = async (req, res) => {
 }
 
 // 获取视频列表
-const search_video_file = async (req, res) => {
+const search_video_list = async (req, res) => {
   try {
-    const video_list = await video_model.find()
+    const video_list = await video_model.find().populate({
+      path: 'user',
+      strictPopulate: false,
+      select: '_id, username'
+    })
+    console.log(video_list)
     res.status(200).json({
       code: 0,
       data: video_list
@@ -101,9 +106,32 @@ const search_video_file = async (req, res) => {
   }
 }
 
+// 获取视频详情
+const search_video_detail = async (req, res) => {
+  try {
+    const { id } = req.params
+    const video = await video_model.findById(id).populate({
+      path: 'user',
+      strictPopulate: false,
+      select: '_id, username'
+    })
+    return res.status(200).json({
+      code: 0,
+      data: video
+    })
+  } catch(err) {
+    console.log('err', err)
+    return res.status(200).json({
+      code: 0,
+      data: null
+    })
+  }
+}
+
 module.exports = {
   file_upload_image,
   file_upload_video,
-  search_image_file,
-  search_video_file
+  search_image_list,
+  search_video_list,
+  search_video_detail
 }

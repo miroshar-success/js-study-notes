@@ -13,9 +13,15 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  user_id: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'user'
+  }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   }
 })
 
