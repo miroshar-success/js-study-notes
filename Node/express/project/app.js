@@ -4,6 +4,7 @@ const path = require('path')
 const { user_router } = require('./router/user')
 const { file_router } = require('./router/file')
 const { subscribe_router } = require('./router/subscribe')
+const { unsubscribe_router } = require('./router/unsubscribe')
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -35,6 +36,7 @@ app.all('*', (req, res, next) => {
 app.use('/api/v1/user', user_router)
 app.use('/api/v1/source', file_router)
 app.use('/api/v1/subscribe', subscribe_router)
+app.use('/api/v1/unsubscribe', unsubscribe_router)
 
 app.listen(3000, () => {
   console.log('app starting at port 3000')

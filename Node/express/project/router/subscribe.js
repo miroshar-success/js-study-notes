@@ -1,6 +1,7 @@
 const router = require('express').Router()
-const { subscribe_video } = require('../controller/subscribe.controller')
-router.post('/video', subscribe_video)
+const { user_validate } = require('../middleware/user-validate')
+const { subscribe_user } = require('../controller/subscribe.controller')
+router.post('/user', user_validate, subscribe_user)
 
 module.exports = {
   subscribe_router: router

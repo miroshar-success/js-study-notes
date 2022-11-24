@@ -6,10 +6,10 @@ const subscribeSchema = new mongoose.Schema({
     required: true,
     ref: 'user'
   },
-  video: {
+  channel: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'video'
+    ref: 'user'
   }
 })
 

@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     minLength: 11,
     maxLength: 11
+  },
+  subscribe_count: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: {
