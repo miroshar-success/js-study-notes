@@ -1,5 +1,6 @@
-const { user_model } = require('../model/index')
-const { create_token } = require('../util/jwt')
+const { user_model, subscribe_model } = require('../model/index')
+const { create_token, verify_token } = require('../util/jwt')
+const { parse_token } = require('../middleware/user-validate')
 const Joi = require('joi')
 const md5 = require('md5')
 
@@ -113,7 +114,76 @@ const update = async (req, res) => {
   })
 }
 
+// 获取订阅的用户列表
+const get_subscribe_list = async (req, res) => {
+  const { id } = req.user
+  try {
+    const list = await subscribe_model.find({user: id})
+    if (list) {
+      return res.status(200).json({
+        code: 200,
+        data: list
+      })
+    }
+    return res.status(200).json({
+      code: 0,
+      data: []
+    })
+  } catch(err) {
+    return res.status(200).join({
+      code: 0,
+      data: []
+    })
+  }
+}
+
+// 获取某个用户信息
+const get_channel_detail = async (req, res) => {
+  let is_subscribe = false
+  const schema = Joi.object({
+    user_id: Joi.string().required()
+  })
+  const { error } = schema.validate(req.params)
+  if (error) {
+    return res.status(200).json({
+      code: 0,
+      msg: error.details.map(item => item.message).join('')
+    })
+  }
+  // 如果登陆了, 是否关注了该用户
+  try {
+    const token = parse_token(req)
+    if (token) {
+      const user = verify_token(token)
+      const data = await subscribe_model.findOne({
+        user: user.id,
+        channel: req.params.user_id
+      })
+      if (data) {
+        is_subscribe = true
+      }
+    }
+    const user = await user_model.findById(req.params.user_id)
+    res.status(200).json({
+      code: 200,
+      data: {
+        is_subscribe,
+        user_id: user._id,
+        username: user.username,
+        subscribe_count: user.subscribe_count
+      }
+    })
+  } catch(err) {
+    res.status(200).json({
+      code: 0,
+      msg: err
+    })
+  }
+}
+
 module.exports = {
+  get_subscribe_list,
+  get_channel_detail,
   register,
   update,
   login

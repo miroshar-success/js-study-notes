@@ -1,22 +1,20 @@
 const { verify_token } = require('../util/jwt')
-// const { user_model } = require('../model/index')
+
+const parse_token = (req) => {
+  const authorization = req.headers.authorization || ''
+  if (!authorization) return false
+  const token = authorization.split('Bearer ')[1]
+  if (!token) return false
+  return token
+}
 
 // 用户登陆token验证
 const user_validate = (req, res, next) => {
-  const authorization = req.headers.authorization || ''
-  if (!authorization) {
-    return res.json({
-      msg: '请携带token',
-      code: 0
-    })
-  }
-  const token = authorization.split('Bearer ')[1]
-  if (!token) {
-    return res.json({
-      msg:'token无效',
-      code: 0
-    })
-  }
+  const token = parse_token(req)
+  if (!token) return res.status(200).json({
+    code: 0,
+    msg: '请携带token'
+  })
   try {
     const user_info = verify_token(token)
     req.user = user_info
@@ -31,5 +29,6 @@ const user_validate = (req, res, next) => {
 
 
 module.exports = {
-  user_validate
+  user_validate,
+  parse_token
 }
