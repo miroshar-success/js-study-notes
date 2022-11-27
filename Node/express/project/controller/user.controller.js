@@ -5,15 +5,15 @@ const Joi = require('joi')
 const md5 = require('md5')
 
 // 用户注册
+const register_schema = Joi.object({
+  username: Joi.string()
+  .min(3)
+  .max(10).required(),
+  password: Joi.string().required(),
+  phone: Joi.string().length(11).required()
+})
 const register = async (req, res) => {
-  const user_schema = Joi.object({
-    username: Joi.string()
-    .min(3)
-    .max(10).required(),
-    password: Joi.string().required(),
-    phone: Joi.string().length(11).required()
-  })
-  const { error } = user_schema.validate(req.body)
+  const { error } = register_schema.validate(req.body)
   if (error) {
     return res.status(200).json({
       code: 0,
@@ -42,11 +42,12 @@ const register = async (req, res) => {
 }
 
 // 用户登陆
+const login_schema = Joi.object({
+  username: Joi.string().min(3).max(10).required(),
+  password: Joi.string().required()
+})
 const login = async (req, res) => {
-  const { error } = Joi.object({
-    username: Joi.string().min(3).max(10).required(),
-    password: Joi.string().required()
-  }).validate(req.body)
+  const { error } = login_schema.validate(req.body)
   if (error) {
     return res.status(200).json({
       code: 0,
@@ -77,12 +78,13 @@ const login = async (req, res) => {
   }
 }
 
+// 用户信息更新
+const update_user_schema = Joi.object({
+  username: Joi.string().required(),
+  phone: Joi.string().required()
+})
 const update = async (req, res) => {
-  const update_validate = Joi.object({
-    username: Joi.string().required(),
-    phone: Joi.string().required()
-  })
-  const { error } = update_validate.validate(req.body)
+  const { error } = update_user_schema.validate(req.body)
   if (error) {
     return res.json({
       msg: error.toString(),
@@ -114,11 +116,15 @@ const update = async (req, res) => {
   })
 }
 
-// 获取订阅的用户列表
-const get_subscribe_list = async (req, res) => {
+// 获取自己订阅的用户列表
+const get_self_subscribe_list = async (req, res) => {
   const { id } = req.user
   try {
-    const list = await subscribe_model.find({user: id})
+    const list = await subscribe_model.find({user: id}).populate({
+      path: 'channel',
+      select: '_id, username',
+      strictPopulate: false,
+    })
     if (list) {
       return res.status(200).json({
         code: 200,
@@ -138,12 +144,12 @@ const get_subscribe_list = async (req, res) => {
 }
 
 // 获取某个用户信息
+const user_schema = Joi.object({
+  user_id: Joi.string().required()
+})
 const get_channel_detail = async (req, res) => {
   let is_subscribe = false
-  const schema = Joi.object({
-    user_id: Joi.string().required()
-  })
-  const { error } = schema.validate(req.params)
+  const { error } = user_schema.validate(req.params)
   if (error) {
     return res.status(200).json({
       code: 0,
@@ -181,8 +187,36 @@ const get_channel_detail = async (req, res) => {
   }
 }
 
+// 获取他人关注的用户列表
+const get_other_subscribe_list = async (req, res) => {
+  const { error } = user_schema.validate(req.params)
+  if (error) return res.status(200).json({
+    code: 0,
+    msg: error.details
+  })
+  try {
+    const data = await subscribe_model.find({
+      user: req.params.user_id
+    }).populate({
+      path: 'channel',
+      strictPopulate: false,
+      select: '_id, username'
+    })
+    res.status(200).json({
+      code: 200,
+      data
+    })
+  }catch(err) {
+    res.status(200).json({
+      code: 0,
+      msg: err
+    })
+  }
+}
+
 module.exports = {
-  get_subscribe_list,
+  get_self_subscribe_list,
+  get_other_subscribe_list,
   get_channel_detail,
   register,
   update,

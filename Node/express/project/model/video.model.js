@@ -17,6 +17,18 @@ const videoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'user'
+  },
+  comment_count: {
+    type: Number,
+    default: 0
+  },
+  like: {
+    type: Number,
+    default: 0
+  },
+  dislike: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: {
