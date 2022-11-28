@@ -22,11 +22,11 @@ const videoSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  like: {
+  like_count: {
     type: Number,
     default: 0
   },
-  dislike: {
+  dislike_count: {
     type: Number,
     default: 0
   }

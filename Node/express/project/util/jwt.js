@@ -3,7 +3,7 @@ const secret_string = 'express_project'
 
 const create_token = (info) => {
   return jwt.sign(info, secret_string, {
-    expiresIn: '1h'
+    expiresIn: '24h'
   })
 }
 

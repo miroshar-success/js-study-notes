@@ -11,7 +11,7 @@ const {
   video_comment, video_comment_list, delete_video_comment
 } = require('../controller/video-comment.controller')
 
-const { video_thumb } = require('../controller/video-thumb.controller')
+const { video_thumb, search_thumb_thumb_list } = require('../controller/video-thumb.controller')
 
 router.post('/upload', user_validate, file_upload_video)
 router.get('/video_list', user_validate, search_video_list)
@@ -20,6 +20,7 @@ router.post('/comment', user_validate, video_comment)
 router.get('/comment_list/:id', user_validate, video_comment_list)
 router.post('/comment/delete_comment', user_validate, delete_video_comment)
 router.post('/thumb', user_validate, video_thumb)
+router.post('/thumb_list', user_validate, search_thumb_thumb_list)
 
 module.exports = {
   video_router: router

@@ -1,5 +1,5 @@
 const formidable = require('formidable')
-const { image_model, video_model } = require('../model/index')
+const { image_model, video_model, video_thumb_model } = require('../model/index')
 const path = require('path')
 // 上传文件
 const file_upload_image = async (req, res) => {
@@ -115,12 +115,28 @@ const search_video_detail = async (req, res) => {
       strictPopulate: false,
       select: '_id, username'
     })
+    if (!video) return res.status(200).json({
+      code: 0,
+      msg: '视频不存在'
+    })
+    // 是否点赞和点踩
+    let like = false, dislike = false;
+    const thumb_data = await video_thumb_model.findOne({
+      user: req.user.id
+    })
+    if (thumb_data) {
+      like = thumb_data.like,
+      dislike = thumb_data.dislike
+    }
     return res.status(200).json({
       code: 0,
-      data: video
+      data: {
+        like,
+        dislike,
+        ...video.toJSON()
+      }
     })
   } catch(err) {
-    console.log('err', err)
     return res.status(200).json({
       code: 0,
       data: null
