@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue</title>
+</head>
+<body>
+  <div id="first-app">
+    <button @click.stop="click">click {{count}} times</button>
+  </div>
+  <hr>
+  <!-- 模板语法 -->
+  <div id="mustache-app">
+    <div>{{message}}</div>
+    <div v-text="raw_html"></div>
+    <div v-html="raw_html"></div>
+    <div>{{raw_html}}</div>
+    <div :id="undefinedAttributeId">undefinedAttributeId</div>
+    <div :id="nullAttributeId">nullAttributeId</div>
+    <div :id="numberAttributeId">numberAttributeId</div>
+    <div :id="stringAttributeId">stringAttributeId</div>
+    <div :id="emptyStringAttribute">emptyStringAttribute</div>
+    <!-- 使用symbol报错 -->
+    <!-- <div :id='symbolAttributeId'>symbolAttributeId</div> -->
+    <button :disbaled="emptyStringDisabled">empty string</button>
+    <button :disbaled="falseDisabled">false string</button>
+    <button :disbaled="trueDisabled">true string</button>
+    <!-- 绑定多个属性 -->
+    <div v-bind='attrObject'></div>
+    <!-- js表达式 -->
+    <div>表达式 number + 1 {{ number + 1 }}</div>
+    <div>三目运算  ok ? 'yes' : 'no' {{ ok ? 'YES' : 'OK' }}</div>
+    <div>message.split('').reverse().join('') {{message.split('').reverse().join('')}}</div>
+    <div :id="`list-${id}`"></div>
+    <!-- 属性 和 模版绑定方法 -->
+    <div :title="getDate()"></div>
+    <div>{{getTimeStamp()}}</div>
+  </div>
+  <script src="../src/vue.development-3.js"></script>
+  <script>
+    const { createApp, ref, reactive } = Vue
+  </script>
+  <script src="./src/01-first-app.js"></script>
+  <script src="./src/02-mustache.js"></script>
+</body>
+</html>
