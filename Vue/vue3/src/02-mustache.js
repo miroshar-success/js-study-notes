@@ -19,6 +19,10 @@ const mustache_app = createApp({
     const id = ref(123)
     const getDate = () => new Date().getTime()
     const getTimeStamp = () => Date.now()
+    const attribute = ref('href')
+    const seen = ref(true)
+    const url = ref('http://www.baidu.com')
+    const complex_attribute = computed(() => attribute.value + 'hello')
     return {
       message,
       id,
@@ -35,7 +39,11 @@ const mustache_app = createApp({
       trueDisabled,
       attrObject,
       number,
-      ok
+      ok,
+      attribute,
+      seen,
+      complex_attribute,
+      url
     }
   }
 })

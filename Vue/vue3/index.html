@@ -37,12 +37,43 @@
     <!-- 属性 和 模版绑定方法 -->
     <div :title="getDate()"></div>
     <div>{{getTimeStamp()}}</div>
+    <!-- 指令 -->
+    <div v-if="seen">You can see me</div>
+    <!-- 动态参数 -->
+    <a v-bind:[attribute]="url">百度</a>
+    <div v-bind:[complex_attribute]="url">复杂动态属性</div>
+  </div>
+  <hr>
+  <div id="computed-app">
+    <div>{{author.books.join('')}}</div>
+    <div>Has publiched books: {{author.books.length ? 'Yes' : 'No'}} - {{publishedBooksMessage}}</div>
+    <div>{{bookMessageMethod()}}</div>
+    <button @click.stop="increment">{{count}} -- {{now}}</button>
+    <!-- getter setter -->
+    <div>
+      <input type="text" placeholder="firstName" v-model="firstName"><span>{{firstName}}</span>
+    </div>
+    <div>
+      <input type="text" placeholder="lastName" v-model="lastName"><span>{{lastName}}</span>
+    </div>
+    <div>
+      <input type="text" v-model="fullName">
+    </div>
+  </div>
+  <hr>
+  <div id="style-class-app">
+    <div :class="{ active: isActive }">Hello World</div>
+    <div :class="classObject">class object</div>
+    <div :class="computedClassObject">computed class object</div>
+    <div :class="classArray">class array</div>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
-    const { createApp, ref, reactive } = Vue
+    const { createApp, ref, reactive, computed, watch, nextTick, onMounted } = Vue
   </script>
   <script src="./src/01-first-app.js"></script>
   <script src="./src/02-mustache.js"></script>
+  <script src="./src/03-computed.js"></script>
+  <script src="./src/04-style-class.js"></script>
 </body>
 </html>
