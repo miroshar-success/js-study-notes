@@ -5,6 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vue</title>
+  <style>
+    .parent{
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+    .child {
+      width: 50px;
+      height: 50px;
+      background-color: skyblue;
+    }
+  </style>
 </head>
 <body>
   <div id="first-app">
@@ -66,6 +78,134 @@
     <div :class="classObject">class object</div>
     <div :class="computedClassObject">computed class object</div>
     <div :class="classArray">class array</div>
+    <div :class="classArrayObject">数组嵌套对象</div>
+    <!-- 在组件上使用 -->
+    <todo-list class="hello" :class="classArray"></todo-list>
+    <!-- 绑定样式 -->
+    <style-component></style-component>
+  </div>
+  <hr>
+  <div id="condition-app">
+    <div v-if="awesome">Vue is awesome!</div>
+    <div v-if="!awesome">Vue is awesome</div>
+    <div v-else>Hello, you can see me!!!</div>
+    <template v-if="show">
+      <div>Hello World</div>
+      <div>你好 世界</div>
+      <div>我在学习 Vue!</div>
+    </template>
+    <div v-show="visible">I am v-show</div>
+    <div v-show="!visible">False</div>
+  </div>
+  <hr>
+  <div id="list-render-app">
+    <ul>
+      <li v-for="item in message_list" :key="item">{{item.message}}</li>
+    </ul>
+    <!-- 解构 -->
+    <ul>
+      <li v-for="({text, id}) in todo_list" :key="id">{{text}}</li>
+    </ul>
+    <!-- 遍历对象 -->
+    <div v-for="(value, key, index) in player">{{value}} - {{key}} - {{index}}</div>
+    <!-- 遍历一个整数 -->
+    <div v-for="n in 10" :key="n">{{n}}</div>
+    <!-- 传递key -->
+    <button @click.stop="toggle">toggle</button>
+    <ul>
+      <li v-for="(todo, i) in todo_list" :data-id="i">{{todo.text}}</li>
+    </ul>
+    <ul>
+      <li v-for="(todo, i) in todo_list" :key="i" :data-id="i">{{todo.text}}</li>
+    </ul>
+    <ul>
+      <li v-for="(todo, i) in todo_list" :key="todo.id" :data-id="i">{{todo.text}}</li>
+    </ul>
+    <ul>
+      <todo-item v-for="todo in todo_list" :key="todo.id" :item="todo"></todo-item>
+    </ul>
+  </div>
+  <hr>
+  <div id="method-app">
+    <button @click="count++">{{count}}</button>
+    <button @click.stop="getName">click</button>
+    <button @click="say('hello')">say</button>
+    <button @click="say('world')">say</button>
+    <!-- 访问event参数 -->
+    <button @click="getEvent('message', $event)">click</button>
+    <!-- 事件修饰符 -->
+    <ul @click="ulClick">
+      <li
+        v-for="player in playerList"
+        :key="player.id"
+        @click.stop="playerClick(player)"
+        >{{player.firstName}} - {{player.lastName}}</li>
+    </ul>
+    <a @click.prevent="jump" href="http://www.baidu.com">百度</a>
+    <div class="parent" @click.self="parentClick">
+      <div class="child" @click="childClick"></div>
+    </div>
+    <!-- enter -->
+    <input type="text" v-model="message" @keyup.enter="search">
+    <div @click.ctrl="tab" class="parent"></div>
+    <button @click.alt="tab">ctrl</button>
+  </div>
+  <hr>
+  <div id="form-app">
+    <div>
+      <input type="text" :value="text" @input="event => text = event.target.value"> {{text}}
+    </div>
+    <!-- input -->
+    <input type="text" v-model="message"> {{message}}
+    <div>
+      <textarea v-model="textarea"></textarea>
+    </div>
+    <!-- checkbox -->
+    <input type="checkbox" v-model="checked"> {{checked}}
+    <div v-for="player in players" :key="player.id">
+      <input type="checkbox" v-model="checkedPlayer" :value="player.id" :id="'player-'+player.id">
+      <label :for="'player-'+player.id">{{player.firstName}} - {{player.lastName}}</label>
+    </div>
+    <div>{{checkedPlayer}}</div>
+    <!-- radio -->
+    <div v-for="player in players" :key="player.id">
+      <input type="radio" v-model="radioPlayer" :value="player.id" :id="'p-' + player.id">
+      <label :for="'p-'+player.id">{{player.firstName}} - {{player.lastName}}</label>
+    </div>
+    <div>{{radioPlayer}}</div>
+    <!-- select -->
+    <select v-model="selectedPlayer">
+      <option :value="0" disabled>select player</option>
+      <option :value="player.id" v-for="player in players" :key="player.id">{{player.firstName}} - {{player.lastName}}</option>
+    </select>
+    <div>{{selectedPlayer}}</div>
+    <!--  true value / false value -->
+    <input type="checkbox" v-model="toggle" true-value="yes" false-value="no"> {{toggle}}
+    <div>
+      <input type="checkbox" v-model="dynamicToggle" :true-value="dynamicTrueValue" :false-value="dynamicFalseValue">
+      {{dynamicToggle}}
+    </div>
+    <!-- radio -->
+    <input type="radio" v-model="sex" :value="1">男
+    <input type="radio" v-model="sex" :value="2">女
+    <div>{{sex}}</div>
+    <!-- 修饰符 -->
+    <input type="text" v-model.lazy="lazyMessage"> {{lazyMessage}}
+    <div>
+      <input type="text" v-model.number="age"> {{age}} {{ typeof age }}
+    </div>
+  </div>
+  <hr>
+  <div id="life-cycle-app">
+    <button @click="increment">{{count}}</button>
+  </div>
+  <div id="watch-app">
+    <input type="text" v-model="question">
+    <div>{{answer}}</div>
+    <div>
+      <input type="text" v-model="player.firstName">
+      <input type="text" v-model="singer.firstName">
+    </div>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
@@ -75,5 +215,11 @@
   <script src="./src/02-mustache.js"></script>
   <script src="./src/03-computed.js"></script>
   <script src="./src/04-style-class.js"></script>
+  <script src="./src/05-condition.js"></script>
+  <script src="./src/06-list-render.js"></script>
+  <script src="./src/07-method.js"></script>
+  <script src="./src/08-form.js"></script>
+  <script src="./src/09-life-cycle.js"></script>
+  <script src="./src/10-watch.js"></script>
 </body>
 </html>
