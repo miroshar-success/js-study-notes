@@ -207,6 +207,42 @@
       <input type="text" v-model="singer.firstName">
     </div>
   </div>
+  <hr>
+  <div id="ref-app">
+    <input type="text" ref="input">
+    <button @click="count++">click {{count}} times</button>
+    <button @click="child_click">child - click</button>
+    <ul>
+      <li v-for="item in items" :key="item" ref="items">{{item}}</li>
+      <li v-for="item in items" :key="item" :ref="getItem">{{item}}</li>
+    </ul>
+    <child-component ref="child"></child-component>
+  </div>
+  <hr>
+  <div id="component-app">
+    <button-component></button-component>
+    <button-component></button-component>
+    <button-component></button-component>
+    <div :style="{fontSize: `${fontSize}rem`}">
+      <blog-post
+        v-for="blog in blog_list" :key="blog.id" :title="blog.title"
+        @enlarge="large"
+      ></blog-post>
+    </div>
+    <!-- 插槽 -->
+    <alert-box>
+      Something bad happend
+    </alert-box>
+    <!-- 动态组件 -->
+    <button @click.stop="tab_component = 'player'">player</button>
+    <button @click.stop="tab_component = 'singer'">singer</button>
+    <component :is="tab_component"></component>
+    <child-component></child-component>
+  </div>
+  <hr>
+  <div id="props-app">
+    
+  </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
     const { createApp, ref, reactive, computed, watch, nextTick, onMounted } = Vue
@@ -221,5 +257,8 @@
   <script src="./src/08-form.js"></script>
   <script src="./src/09-life-cycle.js"></script>
   <script src="./src/10-watch.js"></script>
+  <script src="./src/11-ref.js"></script>
+  <script src="./src/12-component.js"></script>
+  <script src="./src/13-props.js"></script>
 </body>
 </html>
