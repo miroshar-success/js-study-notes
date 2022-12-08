@@ -16,6 +16,9 @@
       height: 50px;
       background-color: skyblue;
     }
+    button{outline: none;}
+    button.primary{ background-color:#1890ff; color:#fff;}
+    button.danger{background-color:red; color:#fff;}
   </style>
 </head>
 <body>
@@ -241,7 +244,29 @@
   </div>
   <hr>
   <div id="props-app">
-    
+    <message-component :message="message"></message-component>
+    <message-component message="你好 生活 ！"></message-component>
+    <message-component :message="1234567"></message-component>
+    <is-published :is-published="false"></is-published>
+    <is-published :is-published="true"></is-published>
+    <player :list="player_list"></player>
+    <blog-post :author="{name: '京东', company: '刘强东'}"></blog-post>
+    <!-- 直接传递一个对象 -->
+    <computer-app v-bind="computer"></computer-app>
+    <!-- initial-count -->
+    <counter :count="2"></counter>
+    <counter :count="3"></counter>
+    <!-- computed -->
+    <uppercase-component message="hello world"></uppercase-component>
+    <button-component type="primary"></button-component>
+    <button-component type="danger"></button-component>
+    <!-- function -->
+    <function-component :number="number" :increment="increment"></function-component>
+  </div>
+  <hr>
+  <div id="component-event-app">
+    {{count}}
+    <child-component @increment="increment" @increment_async="increment_async"></child-component>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
@@ -260,5 +285,6 @@
   <script src="./src/11-ref.js"></script>
   <script src="./src/12-component.js"></script>
   <script src="./src/13-props.js"></script>
+  <script src="./src/14-component-event.js"></script>
 </body>
 </html>
