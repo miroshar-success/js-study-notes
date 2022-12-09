@@ -19,6 +19,11 @@
     button{outline: none;}
     button.primary{ background-color:#1890ff; color:#fff;}
     button.danger{background-color:red; color:#fff;}
+    .input-wrapper {
+      height: 30px;
+      width: 300px;
+    }
+    .input-wrapper .input{ border:none; outline:none; height:100%; width: 100%; }
   </style>
 </head>
 <body>
@@ -267,6 +272,12 @@
   <div id="component-event-app">
     {{count}}
     <child-component @increment="increment" @increment_async="increment_async"></child-component>
+    <button @click.once="click_once">click once</button>
+    <son-component @increment="increment_with_message" @add="add_with_message"></son-component>
+    <!-- validate emit -->
+    <validate-event-component @validate="validate" @validate_player="validate_player"></validate-event-component>
+    <search-input v-model="message"></search-input>
+    <div>{{message}}</div>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
