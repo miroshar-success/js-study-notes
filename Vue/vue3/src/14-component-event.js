@@ -2,6 +2,8 @@ const component_event_app = createApp({
   setup () {
     const count = ref(1)
     const message = ref('hello, world')
+    const first_name = ref('kyrie')
+    const last_name = ref('irving')
     const increment = () => {
       count.value += 1
     }
@@ -34,7 +36,9 @@ const component_event_app = createApp({
       increment_with_message,
       add_with_message,
       validate,
-      validate_player
+      validate_player,
+      first_name,
+      last_name
     }
   }
 })
@@ -137,5 +141,102 @@ component_event_app.component('search-input', {
   }
 })
 
+// custom-input
+// v-model 在组件上使用默认都是 modelValue 作为prop
+component_event_app.component('custom-input', {
+  template: `<input type='text' v-model='value' style='border:1px solid red;'>`,
+  props: {
+    modelValue: {
+      type: [Number, String],
+      required: true
+    }
+  },
+  emits: ['update:modelValue'],
+  computed: {
+    value: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      }
+    }
+  }
+})
+
+// 绑定多个 v-model
+component_event_app.component('user-name', {
+  template: `<div>
+    <input type='text' :value='firstName' @input='handle_input("firstName", $event)'>
+    <input type='text' :value='lastName' @input='handle_input("lastName", $event)'>
+  </div>`,
+  props: {
+    firstName: String,
+    lastName: String
+  },
+  emits: ['update:firstName', 'update:lastName'],
+  setup (props, context) {
+    const handle_input = (type, event) => {
+      context.emit(`update:${type}`, event.target.value)
+    }
+    return {
+      handle_input
+    }
+  }
+})
+
+// 自定义修饰符
+component_event_app.component('capitalize-input', {
+  template: `<input type='text' :value='modelValue' @input='handleInput' style='border:1px solid blue;'>`,
+  props: {
+    modelValue: String,
+    modelModifiers: {
+      default: () => ({})
+    }
+  },
+  emits: ['update:modelValue'],
+  created() {
+    console.log(this.modelModifiers)
+  },
+  setup (props, context) {
+    const handleInput = (event) => {
+      console.log(props.modelModifiers.capitalize)
+      let val = event.target.value
+      if (props.modelModifiers.capitalize) {
+        val = val.substring(0, 1).toUpperCase() + val.slice(1)
+      }
+      context.emit('update:modelValue', val)
+    }
+    return {
+      handleInput
+    }
+  }
+})
+
+// 自定义修饰符 + arg
+component_event_app.component('title-component', {
+  template: `<input type='text' :value='title' @input='handleInput'>`,
+  props: {
+    title: {
+      type: [String, Number]
+    },
+    titleModifiers: {
+      default: () => ({})
+    }
+  },
+  emits: ['update:title'],
+  setup (props, context) {
+    const handleInput = (event) => {
+      let value = event.target.value;
+      if (props.titleModifiers.capitalize) {
+        value = value.toUpperCase()
+      }
+      context.emit('update:title', value)
+    }
+    return {
+      handleInput
+    }
+  }
+})
 
 component_event_app.mount('#component-event-app')

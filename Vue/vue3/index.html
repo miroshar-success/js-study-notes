@@ -278,6 +278,27 @@
     <validate-event-component @validate="validate" @validate_player="validate_player"></validate-event-component>
     <search-input v-model="message"></search-input>
     <div>{{message}}</div>
+    <custom-input v-model="message"></custom-input>
+    <user-name
+      v-model:first-name="first_name"
+      v-model:last-name="last_name"
+    ></user-name>
+    <span>{{first_name}}</span>
+    <span>{{last_name}}</span>
+    <!-- 自定义修饰符 -->
+    <div>
+      <capitalize-input v-model.capitalize="message"></capitalize-input>
+      <title-component v-model:title.capitalize="message"></title-component>
+    </div>
+  </div>
+  <hr>
+  <div id="attrs-app">
+    <primary-button class="primary-button" @click="increment"></primary-button>
+    <!-- 深层继承 -->
+    <parent-component class="hello"></parent-component>
+    <!-- 禁用自动传递 -->
+    <user-component id="123" class="456" :style="{fontSize: '20px'}"></user-component>
+    <multiple-root-component id="123" class="456"></multiple-root-component>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
@@ -297,5 +318,6 @@
   <script src="./src/12-component.js"></script>
   <script src="./src/13-props.js"></script>
   <script src="./src/14-component-event.js"></script>
+  <script src="./src/15-attrs.js"></script>
 </body>
 </html>
