@@ -24,6 +24,21 @@
       width: 300px;
     }
     .input-wrapper .input{ border:none; outline:none; height:100%; width: 100%; }
+    .dialog-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, .45);
+    }
+    .dialog-wrapper .layout-container{
+      width: 1000px; height:100%; background-color:#fff;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .dialog-wrapper .dialog-header{padding-left: 20px;border-bottom: 1px solid #e8e8e8; height: 50px; line-height: 50px;}
   </style>
 </head>
 <body>
@@ -300,6 +315,36 @@
     <user-component id="123" class="456" :style="{fontSize: '20px'}"></user-component>
     <multiple-root-component id="123" class="456"></multiple-root-component>
   </div>
+  <hr>
+  <div id="slot-app">
+    <fancy-button>Primary Button</fancy-button>
+    <fancy-button></fancy-button>
+    <!-- 插槽的作用域 -->
+    <fancy-button>{{message}}</fancy-button>
+    <!-- 具名插槽 -->
+    <layout-component>
+      <template v-slot:header>我是头部</template>
+      <template v-slot:main>我是身体</template>
+      <template v-slot:footer>我是底部</template>
+    </layout-component>
+    <button @click.stop="visible = !visible">toggle</button>
+    <div class="dialog-wrapper" v-if="visible">
+      <layout-component>
+        <template #header><div class="dialog-header">具名插槽</div></template>
+        <template #main>我是身体</template>
+        <template #footer>我是底部</template>
+      </layout-component>
+    </div>
+    <!-- 作用域插槽 -->
+    <greet-component v-slot="{message, count}">
+      <div>{{message}} --- {{count}}</div>
+    </greet-component>
+    <data-slot v-slot="{players}" :count="123">
+      <ul>
+        <li v-for="player in players" :key="player">{{player}}</li>
+      </ul>
+    </data-slot>
+  </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
     const { createApp, ref, reactive, computed, watch, nextTick, onMounted } = Vue
@@ -319,5 +364,6 @@
   <script src="./src/13-props.js"></script>
   <script src="./src/14-component-event.js"></script>
   <script src="./src/15-attrs.js"></script>
+  <script src="./src/16-slot.js"></script>
 </body>
 </html>
