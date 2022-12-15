@@ -54,13 +54,35 @@ slot_app.component('data-slot', {
 // 具名插槽作用域
 slot_app.component('name-data-slot', {
   template: `<div>
-    <slot name='header'></slot>
+    <slot name='header' :count='count'></slot>
     <slot name='footer' :message='message'></slot>
   </div>`,
   setup () {
     const message = ref('我是底部信息')
+    const count = ref(1)
     return {
-      message
+      message,
+      count
+    }
+  }
+})
+
+// mousetracker
+slot_app.component('mouse-tracker', {
+  template: `<slot :x='x' :y='y'></slot>`,
+  setup () {
+    const x = ref(0)
+    const y = ref(0)
+    const listen_mousemove = (event) => {
+      x.value = event.clientX
+      y.value = event.clientY
+    }
+    onMounted(() => {
+      document.addEventListener('mousemove', listen_mousemove, false)
+    })
+    return {
+      x,
+      y
     }
   }
 })

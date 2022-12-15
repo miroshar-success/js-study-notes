@@ -344,10 +344,39 @@
         <li v-for="player in players" :key="player">{{player}}</li>
       </ul>
     </data-slot>
+    <!-- 动态 -->
+    <name-data-slot>
+      <template #header="{count}"><div>count --- {{count}}</div></template>
+      <template #footer="{message}"><div>message --- {{message}}</div></template>
+    </name-data-slot>
+    <mouse-tracker v-slot="{x, y}">
+      <div>{{x}} - {{y}}</div>
+    </mouse-tracker>
+  </div>
+  <div id="inject-app">
+    <child-component></child-component>
+  </div>
+  <hr>
+  <div id="setup-app">
+    <div>Mouse position: {{x}} {{y}}</div>
+    <button ref='button'>click</button>
+    <div>
+      <template v-if="loading">Loading...</template>
+      <template v-else>
+        <div v-if="error">{{error}}</div>
+        <div v-else>{{data}}</div>
+      </template>
+    </div>
+    <button @click="increment">increment {{counter}}</button>
+  </div>
+  <hr>
+  <div id="directive-app">
+    <input type="text" v-focus>
+    <button @click="increment" :data-count="count">click {{count}}</button>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
-    const { createApp, ref, reactive, computed, watch, nextTick, onMounted } = Vue
+    const { createApp, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
   </script>
   <script src="./src/01-first-app.js"></script>
   <script src="./src/02-mustache.js"></script>
@@ -365,5 +394,8 @@
   <script src="./src/14-component-event.js"></script>
   <script src="./src/15-attrs.js"></script>
   <script src="./src/16-slot.js"></script>
+  <script src="./src/17-inject.js"></script>
+  <script src="./src/18-setup.js"></script>
+  <script src="./src/19-directive.js"></script>
 </body>
 </html>
