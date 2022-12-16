@@ -26,7 +26,21 @@ const directive_app = createApp({
     }
   },
   directives: {
-    focus
+    focus,
+    example: {
+      mounted(el, binding, vnode, preVnode) {
+        console.log(el, binding, vnode, preVnode)
+      }
+    }
+  }
+})
+
+directive_app.use({
+  install: (app, options) => {
+    console.log('app options',app, options)
+    app.config.globalProperties.upperCase = (key) => {
+      return key.toUpperCase()
+    }
   }
 })
 

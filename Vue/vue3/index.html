@@ -39,7 +39,10 @@
       transform: translateX(-50%);
     }
     .dialog-wrapper .dialog-header{padding-left: 20px;border-bottom: 1px solid #e8e8e8; height: 50px; line-height: 50px;}
-  </style>
+    /* transition */
+    .v-enter-active,.v-leave-active{transition: opacity 2.5s ease;}
+    .v-enter-from, .v-leave-to{opacity: 0}
+</style>
 </head>
 <body>
   <div id="first-app">
@@ -368,11 +371,36 @@
       </template>
     </div>
     <button @click="increment">increment {{counter}}</button>
+    <!-- 异步hooks -->
+    <template v-if="spinning"><div>Spinning...</div></template>
+    <template v-else>
+      <ul>
+        <li v-for="player in players" :key="player.firstName">{{player.firstName}} --- {{player.lastName}}</li>
+      </ul>
+    </template>
+    <div>multiple: {{async_multiple_counter}}</div>
   </div>
   <hr>
   <div id="directive-app">
     <input type="text" v-focus>
     <button @click="increment" :data-count="count">click {{count}}</button>
+    <input type="text" v-example:foo.bar.baz="200">
+    <div>{{upperCase('hello world')}}</div>
+  </div>
+  <hr>
+  <div id="transition-app">
+    <button @click="show_visible = !show_visible">toggle show</button>
+    <button @click="if_visible = !if_visible">toggle if</button>
+    <button @click.stop="toggle_component">toggle component</button>
+    <Transition>
+      <div v-show="show_visible">v-show</div>
+    </Transition>
+    <transition>
+      <div v-if="if_visible">Hello, 我是v-if动画</div>
+    </transition>
+    <transition>
+      <component :is="tab"></component>
+    </transition>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
@@ -397,5 +425,6 @@
   <script src="./src/17-inject.js"></script>
   <script src="./src/18-setup.js"></script>
   <script src="./src/19-directive.js"></script>
+  <script src="./src/20-transition.js"></script>
 </body>
 </html>

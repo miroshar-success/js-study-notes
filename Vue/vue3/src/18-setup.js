@@ -59,6 +59,47 @@ const useCounter = (counter) => {
   }
 }
 
+
+// 异步hook
+const usePlayer = () => {
+  const players = ref([])
+  const spinning = ref(true)
+  const get_players = () => {
+    setTimeout(() => {
+      players.value = [
+        {
+          firstName: 'kyrie',
+          lastName: 'irving'
+        },
+        {
+          firstName: 'kevin',
+          lastName: 'durant'
+        },
+        {
+          firstName: 'lebron',
+          lastName: 'james'
+        }
+      ]
+      spinning.value = false
+    }, 3000)
+  }
+  get_players()
+  return {
+    players,
+    spinning
+  }
+}
+
+
+const useAsyncCounter = (data) => {
+  const counter = ref(3)
+  Vue.watchEffect(() => {
+    counter.value = counter.value * data.value
+  })
+  return counter
+}
+
+
 const setup_app = createApp({
   setup () {
 /*     const x = ref(0)
@@ -89,6 +130,13 @@ const setup_app = createApp({
     const increment = () => {
       counter.value += 1
     }
+    const multiple = ref(2)
+    // 获取异步数据
+    const { spinning, players } = usePlayer()
+    const async_multiple_counter = useAsyncCounter(multiple)
+    setTimeout(() => {
+      multiple.value += 1
+    },2000)
     return {
       increment,
       data,
@@ -97,7 +145,10 @@ const setup_app = createApp({
       y,
       button,
       counter,
-      loading
+      loading,
+      spinning,
+      players,
+      async_multiple_counter
     }
   }
 })
