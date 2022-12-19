@@ -40,8 +40,72 @@
     }
     .dialog-wrapper .dialog-header{padding-left: 20px;border-bottom: 1px solid #e8e8e8; height: 50px; line-height: 50px;}
     /* transition */
-    .v-enter-active,.v-leave-active{transition: opacity 2.5s ease;}
-    .v-enter-from, .v-leave-to{opacity: 0}
+/*     .v-enter-active,.v-leave-active{transition: opacity 2.5s ease;}
+    .v-enter-from, .v-leave-to{opacity: 0} */
+    /* slide-transition */
+    .slide-enter-active, .slide-leave-active{transition: transform .4s;}
+    .slide-enter-from, .slide-leave-to{transform: translateX(100px);}
+    /* fade */
+    .fade-enter-active {transition:all .3s ease-out;}
+    .fade-leave-active {transition:all .8s cubic-bezier(1, 0.5, 0.8, 1);}
+    .fade-enter-from, .fade-leave-to{transform: translateX(20px); opacity:0;}
+    /* debounce */
+    .debounce-enter-active{
+      animation: debounce-in .5s;
+    }
+    .debounce-leave-active{ animation: debounce-in .5s reverse}
+    @keyframes debounce-in {
+      0% {
+        transform: scale(0)
+      }
+      50% {
+        transform: scale(1.25)
+      }
+      100% {
+        transform: scale(1)
+      }
+    }
+    @keyframes move {
+      0% {
+        transform: rotate(0deg)
+      }
+      50% {
+        transform: rotate(180deg)
+      }
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+    .hello-enter-active, .hello-leave-active{
+      transition: opacity .3s;
+    }
+    .hello-enter-active {
+      animation: move .8s;
+    }
+    .hello-leave-active {
+      animation: move .8s reverse;
+    }
+    .hello-enter-from, .hello-leave-to{
+      opacity: 0;
+    }
+    /* 嵌套的 */
+    .nested-enter-active .inner,
+    .nested-leave-active .inner{
+      transition:all .5s ease-in-out;
+    }
+    .nested-enter-from .inner,
+    .nested-leave-to .inner {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    /* 可复用的动画 */
+    .my-transition-enter-active, .my-transition-leave-active{
+      transition: all .4s;
+    }
+    .my-transition-enter-from, .my-transition-leave-to{
+      opacity:0;
+      transform: translateX(100px);
+    }
 </style>
 </head>
 <body>
@@ -401,6 +465,67 @@
     <transition>
       <component :is="tab"></component>
     </transition>
+    <!-- 切换其他属性 -->
+    <div>
+      <button @click.stop="toggle_slide">click</button>
+      <transition name="slide">
+        <div style="width: 200px; height:30px; background-color: pink;" v-if="slide_visible"></div>
+      </transition>
+    </div>
+    <div>
+      <button @click.stop="fade_visible = !fade_visible">toggle fade</button>
+      <transition name="fade">
+        <div v-if="fade_visible">Hello World!</div>
+      </transition>
+    </div>
+    <!-- animation -->
+    <div>
+      <button @click="animation_visible = !animation_visible">toggle animation</button>
+      <transition name="debounce">
+        <div v-if="animation_visible" style="text-align: center;">Hello here is some bouncy text!</div>
+      </transition>
+    </div>
+  </div>
+  <!-- 有两个动画 -->
+  <div id="transition-animation-app">
+    <button @click="visible = !visible">toggle</button>
+    <transition name="hello" type="animation">
+      <div v-if="visible" style="display: inline-block;">我是复合类型动画。。。</div>
+    </transition>
+    <button @click="inner_visible = !inner_visible">toggle nested</button>
+    <transition name="nested" :duration="550">
+      <div v-if="inner_visible" class="outer">
+        <div class="inner">Hello World!!!</div>
+      </div>
+    </transition>
+  </div>
+  <!-- js-transition hook -->
+  <div id="transition-hook-app">
+    <button @click.stop="visible = !visible">toggle</button>
+    <transition
+      @before-enter="before_enter"
+      @enter="enter"
+      @after-enter="after_enter"
+      @enter-cancelled="enter_cancelled"
+      @before-leave="before_leave"
+      @leave="leave"
+      @after-leave="after_leave"
+      @leave-cancelled="leave_cancelled"
+    >
+      <div v-if="visible" :class="false">Hello World! --- 你好生活!</div>
+    </transition>
+  </div>
+  <hr>
+  <!-- 复用 -->
+  <div id="transition-slot-app">
+    <button @click="visible_1 = !visible_1">click me</button>
+    <button @click="visible_2 = !visible_2">点击我</button>
+    <transition-component>
+      <div v-if="visible_1">你好生活</div>
+    </transition-component>
+    <transition-component>
+      <div v-if="visible_2">Say Hello To Life</div>
+    </transition-component>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
