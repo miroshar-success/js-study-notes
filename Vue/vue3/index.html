@@ -527,6 +527,43 @@
       <div v-if="visible_2">Say Hello To Life</div>
     </transition-component>
   </div>
+  <hr>
+  <div id="keep-alive-app">
+    <button @click.stop="toggle_component">toggle component</button>
+    <!-- 使用include 显示地分配一个name -->
+    <keep-alive>
+      <component :is="active"></component>
+    </keep-alive>
+  </div>
+  <hr>
+  <div id="modal-app"></div>
+  <div id="teleport-app">
+    <button @click.stop="visible = true">open dialog</button>
+    <template v-if="visible">
+      <teleport to="body">
+        <div class="dialog-wrapper">
+          <div class="dialog-container"></div>
+        </div>
+      </teleport>
+    </template>
+    <button @click.stop="modal_visible = true">insert one modal</button>
+    <template v-if="modal_visible">
+      <teleport to="#modal-app"><singer-modal></singer-modal></teleport>
+      <teleport to="#modal-app"><player-modal></singer-modal></teleport>
+    </template>
+  </div>
+  <hr>
+  <div id="router-app">
+    <a href="#home">home</a>
+    <a href="#about">about</a>
+    <component :is="component_view"></component>
+  </div>
+  <hr>
+  <div id="store-app">
+    <button @click="click">click</button>
+    <component-a></component-a>
+    <component-b></component-b>
+  </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
     const { createApp, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
@@ -551,5 +588,9 @@
   <script src="./src/18-setup.js"></script>
   <script src="./src/19-directive.js"></script>
   <script src="./src/20-transition.js"></script>
+  <script src="./src/21-keep-alive.js"></script>
+  <script src="./src/22-teleport.js"></script>
+  <script src="./src/23-router.js"></script>
+  <script src="./src/24-store.js"></script>
 </body>
 </html>
