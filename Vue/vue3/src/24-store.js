@@ -21,7 +21,8 @@ store_app.component('component-a', {
       counter_store.count += 1
     }
     return {
-      click
+      click,
+      counter_store
     }
   }
 })
@@ -34,7 +35,8 @@ store_app.component('component-b', {
       counter_store.count += 1
     }
     return {
-      click
+      click,
+      counter_store
     }
   }
 })

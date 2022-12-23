@@ -564,9 +564,17 @@
     <component-a></component-a>
     <component-b></component-b>
   </div>
+  <hr>
+  <div id="api-app">
+    <button>{{count}}</button>
+    <div>{{player}}</div>
+    <provide-inject-component></provide-inject-component>
+    <input type="text" v-focus>
+    <counter-component></counter-component>
+  </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
-    const { createApp, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
+    const { createApp, provide, inject, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
   </script>
   <script src="./src/01-first-app.js"></script>
   <script src="./src/02-mustache.js"></script>
@@ -592,5 +600,6 @@
   <script src="./src/22-teleport.js"></script>
   <script src="./src/23-router.js"></script>
   <script src="./src/24-store.js"></script>
+  <script src="./src/25-api.js"></script>
 </body>
 </html>
