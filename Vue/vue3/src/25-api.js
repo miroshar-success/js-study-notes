@@ -13,6 +13,21 @@ const api_app = createApp({
   setup (props) {
     provide('player', props.player)
     provide('count', props.count)
+    const parent_count = ref(0)
+    setInterval(() => {
+      parent_count.value += 1
+    }, 2000)
+    const counter_button = ref(null)
+    const handle_click = () => {
+      nextTick(() => {
+        counter_button.value.increment()
+      })
+    }
+    return {
+      parent_count,
+      handle_click,
+      counter_button
+    }
   }
 }, {
   count: 1,
@@ -100,6 +115,43 @@ api_app.component('counter-component', {
       count,
       increment
     }
+  }
+})
+
+// setup
+api_app.component('setup-child-component', {
+  template: `<div>
+    <button @click='increment'>setup click {{count}} times --- {{parent_count}} - {{inherit_count}}</button>
+  </div>`,
+  props: ['parent_count', 'title'],
+  setup (props, context) {
+    console.log(props, context)
+    const { parent_count: _count } = toRefs(props)
+    const inherit_count = toRef(props, 'parent_count')
+    const count = ref(0)
+    const increment = () => {
+      count.value += 1
+    }
+    return {
+      count,
+      parent_count: _count,
+      inherit_count,
+      increment
+    }
+  }
+})
+
+// setup 与渲染函数一起使用
+api_app.component('counter-button', {
+  setup (props, context) {
+    const count = ref(1000)
+    const increment = () => {
+      count.value += 1
+    }
+    context.expose({
+      increment
+    })
+    return () => h('button', count.value)
   }
 })
 

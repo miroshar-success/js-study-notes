@@ -571,10 +571,21 @@
     <provide-inject-component></provide-inject-component>
     <input type="text" v-focus>
     <counter-component></counter-component>
+    <hr>
+    <setup-child-component :parent_count="parent_count" title="hello world"></setup-child-component>
+    <button @click="handle_click">click counter button</button>
+    <counter-button ref="counter_button"></counter-button>
+  </div>
+  <hr>
+  <div id="setup-api-app">
+    <button @click="increment">{{count}} --- {{double}} ---- {{tribble}}</button>
+    <ul>
+      <li v-for='(value, key) in player'>{{key}}-{{value}}</li>
+    </ul>
   </div>
   <script src="../src/vue.development-3.js"></script>
   <script>
-    const { createApp, provide, inject, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
+    const { createApp, watchEffect, provide, inject, toRefs, h, toRef, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
   </script>
   <script src="./src/01-first-app.js"></script>
   <script src="./src/02-mustache.js"></script>
@@ -601,5 +612,6 @@
   <script src="./src/23-router.js"></script>
   <script src="./src/24-store.js"></script>
   <script src="./src/25-api.js"></script>
+  <script src="./src/26-setup-api.js"></script>
 </body>
 </html>
