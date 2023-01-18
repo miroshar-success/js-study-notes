@@ -151,4 +151,62 @@ console.log(number_c, number_d, typeof number_c, typeof number_d) */
 
 // ---------------- 函数重载 -----------------
 // (1: 一条或多条函数重载语句 2: 一条函数实现语句 )
+function heavy_load_function(x: number, y: number): number;
+function heavy_load_function(x: number[], y: number[]): number;
+function heavy_load_function(x: number|number[], y: number|number[]):number {
+  if (typeof x === 'number' && typeof y === 'number') return x + y
+  if (Array.isArray(x) && Array.isArray(y)) {
+    return x.reduce((p, n) => p + n, 0) + y.reduce((p, n) => p + n, 0)
+  }
+  return 0
+}
 
+console.log(heavy_load_function(3, 5))  // 8
+console.log(heavy_load_function([1, 2, 3], [3, 4, 5]))  // 18
+
+
+/**
+ * 函数重载的语法不包含 函数体, 它只提供了函数的类型信息。函数重载只存在于代码编译阶段。
+*/
+function translate_number(number: number): number;
+function translate_number(number: string): number;
+function translate_number(number: number | string): number { // 函数实现中的函数签名不属于重载函数的调用签名之一
+  if (typeof number === 'string') return Number(number)
+  return number
+}
+console.log(translate_number(123))    // 123
+console.log(translate_number('234'))  // 234
+
+
+// ------ 函数重载的联合类型 ---------
+function foo_union(x: number): number;
+function foo_union(x: string): void;
+
+function foo_union(x: number | string): any {
+  return Number(x)
+}
+
+console.log(foo_union('123')) // 123
+console.log(foo_union(345))   // 345
+
+// ----------- 函数重载的顺序 ------------
+function function_order(x: string): string;
+function function_order(x: 'hello'): 'hello world';
+function function_order(x: string): string {
+  if (x === 'hello') return `${x} world`;
+  return x
+}
+console.log(function_order('hello'))    // 'hello world'
+console.log(function_order('123'))      // '123'
+console.log(function_order('345'))      // '345'
+
+function fn_1(x: 'hello'): '你好 世界';
+function fn_1(x: string): string;
+
+function fn_1(x: string): string {
+  if (x === 'hello') return `你好 世界`
+  return x
+}
+
+console.log(fn_1('hello'))        // 你好 世界
+console.log(fn_1('123'))          // 123
