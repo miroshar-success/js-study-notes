@@ -94,3 +94,30 @@ type ReadonlyPhoneProps<T> = {
   + readonly [P in keyof T]: T[P]
 }
 type RequiredPhone = ReadonlyPhoneProps<MyRequiredPhoneProps>
+
+
+// ------------ 同态映射对象类型深入 --------------
+type HmotType<T, X> = { [P in keyof T]: X }
+type MotKey = string
+type HmotChildType = HmotType<MotKey, boolean>  // string 与boolean无关
+
+// 联合动态映射对象
+type UnionHmotKey = { a: string } | { b: number }
+type HmotUnionChildType = HmotType<UnionHmotKey, boolean>
+
+const union_hmot_obj: HmotUnionChildType = { a: true, b: false }
+
+// 数组
+type ArrayKey = number[]
+type HMOTArray = HmotType<ArrayKey, string> // string[]
+
+type ReadonlyArrayKey = readonly string[]
+type ReadonlyHMOTArray = HmotType<ReadonlyArrayKey, number> // readonly number[]
+
+type ArrayHMOT<T> = {[P in keyof T]: T[P]}
+type ReadonlyNumberArray = ArrayHMOT<readonly number[]>
+type ReadonlyStringArray = ArrayHMOT<readonly string[]>
+
+
+// ------ 元祖 -------
+type TupleHMOTType = ArrayHMOT<[number, string]>
