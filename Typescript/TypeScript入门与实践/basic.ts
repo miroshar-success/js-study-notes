@@ -45,8 +45,8 @@ const foo_null: null = null
 const foo_undefined: undefined = undefined
 
 // strictNullChecks
-const string_or_null: string = null
-console.log(string_or_null.length)
+// const string_or_null: string = null
+// console.log(string_or_null.length)
 
 
 function log(name: string):void {
@@ -59,5 +59,9 @@ const log_message = (name: string):void => {
 }
 
 const log_name = (name: string):void => {
-  return null
+  return undefined
+}
+
+export {
+
 }
