@@ -82,5 +82,11 @@ const sum = (a: number, b: number) => a + b
 const numbers = [1, 2] as const
 console.log(sum(...numbers))
 
+// ---------------- !类型断言 ----------------
+let player_age: number = 0
+const ages = [20, 23, 25, 30, 17]
+const find_age = ages.find(item => item === 30)
+
+player_age = find_age!
 export {
 }
