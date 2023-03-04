@@ -49,3 +49,27 @@ namespace Player {
   }
 }
 Player.print({ firstName: 'kyrie', lastName: 'irving', age: 31 })
+
+// ----------- 别名导入 ------------------
+namespace Plugins {
+  export function isString(value: any) {
+    return typeof value === 'string'
+  }
+  export interface Point {
+    x: number
+    y: number
+  }
+}
+
+namespace App {
+  import isString = Plugins.isString
+  console.log(isString('hello'))
+  console.log(isString(123))
+  console.log(isString(undefined))
+  import Point = Plugins.Point
+  const p: Point = { x: 1, y: 2 }
+  console.log(p)
+}
+export {
+  
+}

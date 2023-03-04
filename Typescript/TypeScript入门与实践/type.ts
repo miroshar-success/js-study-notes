@@ -68,3 +68,6 @@ const interface_x_y: InterfaceNumberString = {
 }
 
 
+// ---------- 使用外部声明 -------------
+// book.is_published = false
+alert('hello world')
