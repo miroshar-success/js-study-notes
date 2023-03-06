@@ -1,3 +1,6 @@
+// import { is_string } from './app/utils'
+// console.log(is_string('123'))
+
 // ------- 联合类型 和 类型保护 ---------
 interface Counter {
   count: number
@@ -32,4 +35,43 @@ function trainAnimal(animal: Bird | Dog) {
   }else{
     animal.bark()
   }
+}
+
+// import { is_string } from '@/app/utils'
+
+// console.log(is_string('hello world'))
+
+/**
+ * @description sayHello
+ * @param {string} name
+*/
+const sayHello = (name: string): void => {
+  console.log(`Hello, ${name}`)
+}
+
+/**
+ * @description 将数值转化为千分位
+ * @param {string|number} number
+ * @returns {number}
+*/
+const translate_number = (number: string | number): number => {
+  if (typeof number === 'string') return Number(number)
+  return number
+}
+
+/**
+ * @typedef {(number | string)} NumberLike
+*/
+
+/**
+ * @type {number}
+*/
+const a = 123
+
+/**
+ * @type {string}
+*/
+const c = '123'
+export {
+
 }

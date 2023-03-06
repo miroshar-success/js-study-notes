@@ -203,6 +203,4 @@ type StringNumberBooleans = [string, number, ...boolean []]
 // 扩展运算符必须在最末尾
 const stringNumberBooleanArray: StringNumberBooleans = ['1', 2, false, true, false]
 
-
-
 export {}

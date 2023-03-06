@@ -70,4 +70,9 @@ const interface_x_y: InterfaceNumberString = {
 
 // ---------- 使用外部声明 -------------
 // book.is_published = false
-alert('hello world')
+
+const p1: Drawing.Point = { x: 1, y: 2, z: 3 }
+
+export {
+  
+}
