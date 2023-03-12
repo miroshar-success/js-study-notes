@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
 const { user_router } = require('./router/user')
-const { file_router } = require('./router/file')
+const { video_router } = require('./router/video')
 const { subscribe_router } = require('./router/subscribe')
 const { unsubscribe_router } = require('./router/unsubscribe')
 const app = express()
@@ -34,7 +34,7 @@ app.all('*', (req, res, next) => {
 })
 
 app.use('/api/v1/user', user_router)
-app.use('/api/v1/source', file_router)
+app.use('/api/v1/video', video_router)
 app.use('/api/v1/subscribe', subscribe_router)
 app.use('/api/v1/unsubscribe', unsubscribe_router)
 
