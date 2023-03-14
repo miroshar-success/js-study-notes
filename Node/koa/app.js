@@ -60,8 +60,7 @@ app.listen(3000, () => {
 }) */
 
 app.use(koaBody())
-
-app.use(userRouter.routes())
+app.use(userRouter.routes()).use(userRouter.allowedMethods())
 
 app.listen(3000, () => {
   console.log('app starting at 3000')
