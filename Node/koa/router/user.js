@@ -1,5 +1,8 @@
-const { register, login } = require('../controller/userController')
-const { userRegisterValidate, userLoginValidate } = require('../middleware/userValidate')
+const { register, login, user_modify } = require('../controller/userController')
+const {
+  userRegisterValidate, userLoginValidate, userTokenValidate,
+  modifyUserValidate
+} = require('../middleware/userValidate')
 const Router = require('@koa/router')
 
 const router = new Router({
@@ -8,5 +11,6 @@ const router = new Router({
 
 router.post('/login', userLoginValidate, login)
 router.post('/register', userRegisterValidate, register)
+router.post('/modifyUser', userTokenValidate(), modifyUserValidate, user_modify)
 
 module.exports = router

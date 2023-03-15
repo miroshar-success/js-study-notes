@@ -2,11 +2,10 @@ const mongoose = require('mongoose')
 /**
  * @description 用户注册表
 */
-const userRegisterSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     required: true,
-    type: String,
-    unique: true
+    type: String
   },
   password: {
     type: String,
@@ -18,11 +17,14 @@ const userRegisterSchema = new mongoose.Schema({
  * @description 用户信息表
 */
 const userInfoSchema = new mongoose.Schema({
-  phone: {
-    type: Number,
+  user: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: 'User'
   },
-  password: {
+  phone: {
     type: String,
+    default: ''
   },
   personal_signature: {
     type: String,
@@ -47,6 +49,6 @@ const userInfoSchema = new mongoose.Schema({
 })
 
 module.exports = {
-  userRegisterSchema,
+  userSchema,
   userInfoSchema
 }
