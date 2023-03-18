@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const { koaBody } = require('koa-body')
 // router
 const userRouter = require('./router/user')
+const videoRouter = require('./router/video')
+const path = require('path')
 
 // 连接数据库
 const connect = () => {
@@ -59,8 +61,15 @@ app.listen(3000, () => {
   console.log('app starting listen 3000')
 }) */
 
-app.use(koaBody())
+app.use(koaBody({
+  multipart: true,
+  formidable: {
+    keepExtensions: true,
+    uploadDir: path.resolve(__dirname, 'videos')
+  }
+}))
 app.use(userRouter.routes()).use(userRouter.allowedMethods())
+app.use(videoRouter.routes()).use(videoRouter.allowedMethods())
 
 app.listen(3000, () => {
   console.log('app starting at 3000')

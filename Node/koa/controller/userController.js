@@ -48,7 +48,7 @@ const login = async (ctx) => {
     ctx.body = {
       token,
       msg: '登陆成功',
-      code: 1
+      code: 200
     }
   } catch (err) {
     ctx.body = {
@@ -70,13 +70,47 @@ const user_modify = async (ctx) => {
       msg: `用户 ${username} 不存在`
     }
   }
-  const data = { user: id, ...ctx.request.body}
-  const result = await userInfoModel.create(data)
-  ctx.body = 'hello'
+  try {
+    const data = { user: id, ...ctx.request.body}
+    await userInfoModel.create(data)
+    ctx.body = {
+      code: 200,
+      msg: '保存成功'
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      msg: err
+    }
+  }
+}
+
+/**
+ * @description 获取用户信息
+*/
+const get_userinfo = async (ctx) => {
+  const { id } = ctx.userinfo
+  try {
+    const userinfo = await userInfoModel.findOne({ user: id }).populate({
+      path: 'user',
+      strictPopulate: false,
+      select: 'username _id'
+    })
+    ctx.body = {
+      code: 200,
+      data: userinfo
+    }
+  } catch(err) {
+    ctx.body = {
+      code: 0,
+      msg: err
+    }
+  }
 }
 
 module.exports = {
   register,
   login,
-  user_modify
+  user_modify,
+  get_userinfo
 }
