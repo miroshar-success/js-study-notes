@@ -1,6 +1,6 @@
-const { upload, get_video_list } = require('../controller/videoController')
+const { upload, get_video_list, video_comment } = require('../controller/videoController')
 const { userTokenValidate } = require('../middleware/userValidate')
-const { videoUploadValidate } = require('../middleware/videoValidate')
+const { videoUploadValidate, videoCommentValidate } = require('../middleware/videoValidate')
 const Router = require('@koa/router')
 
 const router = new Router({
@@ -9,4 +9,6 @@ const router = new Router({
 
 router.post('/upload', userTokenValidate(), videoUploadValidate, upload)
 router.post('/videoList', get_video_list)
+router.post('/createComment', userTokenValidate(), videoCommentValidate, video_comment)
+
 module.exports = router

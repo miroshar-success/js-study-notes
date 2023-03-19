@@ -23,6 +23,30 @@ const videoUploadValidate = async (ctx, next) => {
   }
 }
 
+/**
+ * @description 验证视频评论的参数
+*/
+const videoCommentSchema = Joi.object({
+  video_id: Joi.string().required(),
+  user_id: Joi.string().required(),
+  content: Joi.string().required()
+})
+const videoCommentValidate = async (ctx, next) => {
+  try {
+    const { id } = ctx.userinfo
+    const { id: video_id, content } = ctx.request.body || {}
+    const { error } = videoCommentSchema.validate({ video_id, content , user_id: id })
+    if (error) return ctx.body = {
+      msg: error,
+      code: 0
+    }
+    await next()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 module.exports = {
-  videoUploadValidate
+  videoUploadValidate,
+  videoCommentValidate
 }

@@ -1,7 +1,7 @@
 /**
  * @description 视频文件上传
 */
-const { videoModel } = require('../model/index')
+const { videoModel, videoCommentModel } = require('../model/index')
 
 const upload = async (ctx) => {
   const { id } = ctx.userinfo
@@ -36,12 +36,7 @@ const get_video_list = async ctx => {
         path: 'uploader',
         model: 'User',
         strictPopulate: false,
-        select: 'username _id',
-        populate: {
-          path: 'likes',
-          strictPopulate: false,
-          model: 'User',
-        }
+        select: 'username _id'
       })
     ctx.body = {
       code: 200,
@@ -56,7 +51,39 @@ const get_video_list = async ctx => {
   }
 }
 
+/**
+ * @description 视频评论
+*/
+const video_comment = async (ctx) => {
+  const { id, content } = ctx.request.body
+  const user_id = ctx.userinfo.id
+  try {
+    const findVideo = videoModel.findById(id)
+    if (!findVideo) {
+      return ctx.body = {
+        code: 0,
+        msg: '视频不存在'
+      }
+    }
+    await videoCommentModel.create({
+      video: id,
+      content,
+      user: user_id
+    })
+    ctx.body = {
+      code: 200,
+      msg: '评论成功'
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      msg: err
+    }
+  }
+}
+
 module.exports = {
   upload,
+  video_comment,
   get_video_list
 }

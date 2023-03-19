@@ -17,8 +17,7 @@ const videoSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true
-  },
-  likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
+  }
 })
 
 module.exports = videoSchema
