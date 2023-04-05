@@ -1,6 +1,6 @@
 # HTTP
 
-  HTTP(HyperText Transfer Protocol) 超文本传输协议
+  HTTP(HyperText Transfer Protocol) 超文本传输协议 是一种能够获取如HTML这样的网络资源的 通讯协议。它是Web上进行数据交换的基础。
 
   TCP/IP协议族按层次分四层: 应用层, 传输层, 网络层 和数据链路层。
 
@@ -51,9 +51,55 @@
   Resource: 资源的 定义是 '可标识的任何东西'
   Identifier: 表示可标识的对象, 也称为标识符。
 
+  常见的方案/协议:
+  data / file / ftp(文件传输协议) / http/https / mailto / ssh / tel / urn / view-source(资源的源代码)
+
+  data URL: 允许内容创建者向文档中嵌入小文件。
+
+## MIME类型
+
+  媒体类型(Multipurpost Internet Mail Extensions)是一种标准，用来表示文档,文件或字节流的性质和格式。
+  语法:
+    type/subtype
+1. text/plain
+2. text/html
+3. image/jpeg
+4. image/png
+5. audio/ogg
+6. audio/mpeg
+7. video/mp4
+8. application/json
+9. application/javascript
+
+
 ## 报文
 
   报文头大体可以分为四类: 通用报文头/请求报文头/响应报文头/实体报文头
+
+  HTTP消息是服务器和客户端之间交换数据的方式。有两种类型的消息: request / response。HTTP消息由采用ASCII编码的多行文本构成。在HTTP/2
+  中,为了优化和性能方面的改进,曾经可人工阅读的消息被分到多个HTTP帧中。
+
+### HTTP请求
+
+  HTTP请求是由客户端发出的消息,用来使服务器执行动作。 HTTP请求和响应具有相似的结构。
+1. 一行起始行用于描述要执行的请求,或者是对应的状态,成功或失败, 这个起始行总是单行的。
+2. 一个可选的HTTP标头集合指明请求或描述消息主体。
+3. 一个空行指示所有关于请求的元数据已经发送完毕。
+4. 一个可选的包含请求相关数据的主体,或者响应相关的文档。主体的大小由起始行的HTTP头来指定。
+  
+  起始行包含三个元素:
+1. 一个HTTP方法 (GET/POST等)
+2. 请求目标
+3. HTTP版本(HTTP version)
+
+  标头(Header)
+1. 通用标头(General header)
+2. 请求标头(Request header)
+3. 表示标头(Representation header)
+
+  主体(body)
+
+  请求的最后一部分是主体。
 
 ## 请求方法
 
@@ -130,3 +176,13 @@
 ## HTTP缓存
 
   Cache-Control: 请求/响应头, 缓存控制字段
+
+
+## HTTP2.0
+
+  性能增强的核心: 二进制分帧
+  HTTP/1.1 以及更早的HTTP协议报文都是语义可读的。在HTTP/2中, 这些报文被嵌入到了一个心的二进制结构,帧。帧允许实现很多优化。
+  比如报文标头的压缩以及多路复用。
+
+  HTTP/2是二进制协议而不是文本协议。不再可读 这是一个多路复用协议。并行的请求能在同一个链路中处理, 移除了HTTP/1.x中顺序和阻塞的约束
+  压缩了标头。因为标头在一系列请求中常常是相似的,其移除了重复和传输重复数据的成本。
