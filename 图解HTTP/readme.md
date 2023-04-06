@@ -93,7 +93,7 @@
 3. HTTP版本(HTTP version)
 
   标头(Header)
-1. 通用标头(General header)
+1. 通用标头(General header) 指代同时适用于请求和响应的消息。
 2. 请求标头(Request header)
 3. 表示标头(Representation header)
 
@@ -144,6 +144,11 @@
 
   持久连接的好处在于减少了TCP连接的重复建立和断开所造成额外开销,减轻了服务器端的负载。在HTTP/1.1中,所有的连接默认都是持久连接。
 
+  长连接也还是有缺点的,就算是在空闲状态, 它还是会消耗服务器资源的, 而且在重覆载时, 还有可能遭受Dos攻击。连接在空闲一段时间后
+  会被关闭(服务器可以使用 Keep-Alive 协议头来指定一个最小的连接保持时间)。
+
+  Dos攻击: 是一种网络攻击手段, 它通过给服务器发送大量请求来阻止对资源的合法使用。
+
 ### 管线化
 
   持久连接使得多数请求以管线化(pipelining) 方式发送成为可能。从前发送请求后需等待并收到响应,才能发送下一个请求。管线化技术出现后,不用等待
@@ -186,3 +191,40 @@
 
   HTTP/2是二进制协议而不是文本协议。不再可读 这是一个多路复用协议。并行的请求能在同一个链路中处理, 移除了HTTP/1.x中顺序和阻塞的约束
   压缩了标头。因为标头在一系列请求中常常是相似的,其移除了重复和传输重复数据的成本。
+
+## HTTP安全
+
+  内容安全策略(CSP)是一个额外的安全层, 用于检测并削弱某些特定类型的攻击。包括跨站脚本(XSS)和数据注入攻击等。
+  为使CSP可用, 你需要配置你的网络服务器返回 Content-Security-Policy HTTP标头。 除此之外, <meta> 元素也可以被用来配置该策略
+```html
+<meta
+  http-equiv='Content-Security-Policy'
+  content="default-src 'self'; img-src https://*; child-src 'none'"
+>
+```
+  CSP通过指定有效域 - 使服务器管理者有能力减少或消除XSS攻击所依赖的载体。一个CSP兼容的浏览器将会仅从白名单域获取到的脚本文件,忽略所有的其他脚本。
+
+  default-src:
+1. child-src (定义了使用如 frame 和 iframe 等元素在加载web worker和嵌套浏览上下文时的有效来源。)
+2. connect-src
+  用于限制通过使用脚本接口加载的URL。其中受限制的API如下:
+  2.1 <a>
+  2.2 fetch()
+  2.3 XMLHttpRequest()
+  2.4 EventSource
+  2.5 WebSocket
+
+3. font-src
+4. frame-src
+5. img-src
+6. manifest-src
+7. media-src
+8. object-src
+9. script-src
+10. style-src
+11. worker-src
+
+
+  'self': 指向与要保护的文件所在的源。包括相同的URL scheme 与端口号。
+  'unsafe-inline': 允许使用内联资源。
+  'none': 不允许任何内容
