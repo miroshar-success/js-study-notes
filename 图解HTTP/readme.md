@@ -71,7 +71,6 @@
 8. application/json
 9. application/javascript
 
-
 ## 报文
 
   报文头大体可以分为四类: 通用报文头/请求报文头/响应报文头/实体报文头
@@ -181,7 +180,34 @@
 ## HTTP缓存
 
   Cache-Control: 请求/响应头, 缓存控制字段
+  在 HTTP Caching 标准中, 有两种不同类型的缓存: 私有缓存 和 共享缓存。
+1. 私有缓存时绑定到特定客户端的缓存 ---- 通常是浏览器缓存。
+```js
+{
+  'Cache-Control': 'private'
+}
+```
+  存储的HTTP响应有两种状态: *fresh* 和 *stale*, *fresh* 通常表示响应仍然有效, 可以重复使用。而*stale*状态表示缓存的响应已经过期。
 
+  在HTTP/1.0中, 新鲜度过去由Expires标头指定。Expires标头使用明确的时间而不是通过指定经过的时间来指定缓存的生命周期。
+  如果Expires 和 Cache-Control: max-age 都可用, 则将 max-age定义为首选。
+
+  如果在max-age定义的日期内再次发起请求, 则使用缓存数据而不发起http请求。
+
+```js
+{
+  Vary: 'Accept-Language'
+}
+```
+  通过在Vary标头的值中添加 'Accept-Language', 根据语言单独缓存响应。
+  如果不希望重复使用响应, 而是希望始终从服务器获取最新内容, 则可以使用 *no-cache* 指令强制验证。*no-cache* 指令不会阻止
+  响应的存储, 而是阻止在没有重新验证的情况下重用响应。*no-cache* 指令将强制客户端在重用任何存储的响应之前发送验证请求。
+  如果不希望将响应存储在任何缓存中, 应该使用 *no-store*
+
+### 验证响应
+
+  过时的响应不会立即被丢弃。HTTP有一种机制, 可以通过询问源服务器将陈旧的响应转换为新的响应。这称为**验证**, 有时也称为 **重新验证**。
+  验证是通过 **If-Modified-Since** 或者 **If-None-Match** 请求标头的 **条件请求** 完成的。
 
 ## HTTP2.0
 
@@ -213,7 +239,6 @@
   2.3 XMLHttpRequest()
   2.4 EventSource
   2.5 WebSocket
-
 3. font-src
 4. frame-src
 5. img-src
