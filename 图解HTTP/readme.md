@@ -228,7 +228,7 @@
   HTTP/2是二进制协议而不是文本协议。不再可读 这是一个多路复用协议。并行的请求能在同一个链路中处理, 移除了HTTP/1.x中顺序和阻塞的约束
   压缩了标头。因为标头在一系列请求中常常是相似的,其移除了重复和传输重复数据的成本。
 
-## HTTP安全
+## CSP(Content Security Policy)
 
   内容安全策略(CSP)是一个额外的安全层, 用于检测并削弱某些特定类型的攻击。包括跨站脚本(XSS)和数据注入攻击等。
   为使CSP可用, 你需要配置你的网络服务器返回 Content-Security-Policy HTTP标头。 除此之外, <meta> 元素也可以被用来配置该策略
@@ -238,7 +238,16 @@
   content="default-src 'self'; img-src https://*; child-src 'none'"
 >
 ```
+  CSP的主要目标是减少和报告XSS攻击。XSS攻击利用了浏览器对于从服务器获取的内容的信任。
+
   CSP通过指定有效域 - 使服务器管理者有能力减少或消除XSS攻击所依赖的载体。一个CSP兼容的浏览器将会仅从白名单域获取到的脚本文件,忽略所有的其他脚本。
+
+  配置内容安全策略涉及到添加 **Content-Security-Policy** HTTP标头到一个页面,并配置相应的值,以控制用户代理 可以为该页面获取哪些资源。策略由一系列 策略指令所组成,每个策略指令都描述了针对某个特定资源的类型以及策略生效的范围。
+```js
+res.writeHead(200, {
+  'Content-Security-Policy': 'default-src \'self\''
+})
+```
 
   default-src:
 1. child-src (定义了使用如 frame 和 iframe 等元素在加载web worker和嵌套浏览上下文时的有效来源。)
@@ -262,3 +271,30 @@
   'self': 指向与要保护的文件所在的源。包括相同的URL scheme 与端口号。
   'unsafe-inline': 允许使用内联资源。
   'none': 不允许任何内容
+
+[Content-Security-Plicy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP)
+
+## 重定向
+
+  **URL重定向** 是一种为页面,表单或者整个web站点/应用提供多个URL地址的技术。HTTP对此操作有一种特殊类型的响应,称为**HTTP重定向**。
+  在HTTP协议中,重定向操作由服务器向请求发送特殊的重定向响应而触发。重定向响应包含以3开头的状态码, 以及**Location** 标头,其保存着重定向的URL。
+
+1. 永久重定向
+  这种重定向操作是永久性的.它表示原URL不应再被使用,而是选用新的URL替换它。
+2. 临时重定向
+  有时请求的资源无法从其标准地址访问,但是却可以从另外的地方访问。 在这种情况下,可以使用临时重定向。
+3. 特殊重定向
+  304（Not Modified) 会使页面跳转到本地的缓存副本中.
+
+  http重定向机制.
+```html
+<head>
+  <meta http-equiv="Refresh" content="0; URL=http://example.com/" />
+</head>
+```
+  content属性的值开头是一个数字,指示浏览器在等待该数字表示的秒数之后再进行跳转。
+
+  JavaScript重定向机制的原理是设置 **window.location**的属性值,然后加载新的页面。
+```js
+window.location.href = 'http://www.baidu.com'
+```
