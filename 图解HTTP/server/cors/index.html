@@ -21,13 +21,28 @@
   </script>
 
   <!-- 预请求 -->
-  <script>
+<!--   <script>
     fetch('http://localhost:3001', {
       method: 'POST',
       headers: {
         'X-Test-Cors': '123'
       }
     })
+  </script> -->
+  <script>
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', 'http://127.0.0.1:3001', true)
+    xhr.setRequestHeader('X-Test-Cors', 123)
+    xhr.withCredentials = true
+    xhr.onreadystatechange = () => {
+      if (xhr.status === 200 && xhr.readyState === 4) {
+        console.log(xhr.response, xhr.getAllResponseHeaders())
+      }
+    }
+    xhr.onerror = function(error) {
+      console.log(error)
+    }
+    xhr.send(null)
   </script>
 </body>
 </html>

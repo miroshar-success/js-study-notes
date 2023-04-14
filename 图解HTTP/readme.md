@@ -298,3 +298,19 @@ res.writeHead(200, {
 ```js
 window.location.href = 'http://www.baidu.com'
 ```
+
+## CORS
+
+  CORS(跨域资源共享) 是一种基于HTTP头的机制,该机制通过允许服务器标示出了它自己以外的其他源(域名/协议/端口),使得浏览器允许这些源访问
+  自己加载的资源。CORS机制允许Web应用服务器进行跨源访问机制,从而使跨源数据传输得以安全进行。
+
+  对那些可能对服务器数据产生副作用的HTTP请求方法,浏览器必须首选用 **OPTIONS** 方法发起一个预检请求 (preflight request),
+  从而获知服务端是否允许该跨源请求。
+
+  当响应的是附带身份凭证的请求时, 服务端必须明确 **Access-Control-Allow-Origin** 的值, 而不能使用通配符 *。
+
+1. Access-Control-Allow-Origin
+2. Access-Control-Max-Age: 指定了preflight请求的结果能够被缓存多久。
+3. Access-Control-Allow-Credentials: 指定了当浏览器的credentials为true时是否允许浏览器读取response的内容。
+4. Access-Control-Allow-Methods: 访问资源时允许使用的请求方法, 用于预检请求的响应。
+5. Access-Control-Allow-Headers: 用于预检请求的响应。
