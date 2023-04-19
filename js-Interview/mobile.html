@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rem</title>
+  <style>
+    .container {
+      height: 300px;
+      display: flex;
+    }
+    .container .left { width: 3rem; height: 100%; }
+    .container .right{ width: 4rem; height: 100%; }
+    .vw-container {height: 200px; display: flex;}
+    .vw-container .left{height: 100%; width:30%; background-color:red;}
+    .vw-container .right{height:100%; width: 70%; background-color: pink;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+  <hr>
+  <div class="vw-container">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+  <script>
+/*     const baseFontSize = 100;
+    const fixedWidth = 750
+    const listen_resize = () => {
+      const html = document.querySelector('html')
+      const width = html.getBoundingClientRect().width || window.screen.width
+      html.style.fontSize = baseFontSize / (fixedWidth / width) + 'px';
+    }
+    listen_resize() */
+    const listen_resize = () => {
+      const rate = window.devicePixelRatio;
+      const fontSize = 100 / rate
+      document.querySelector('html').style.fontSize = fontSize + 'px'
+    }
+    window.addEventListener('resize', listen_resize, false)
+    listen_resize()
+    console.log(window.screen.width)
+    console.log(window.innerWidth)
+    console.log(document.body.clientWidth)
+  </script>
+</body>
+</html>

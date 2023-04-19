@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS面试题</title>
+  <style>
+    body {
+      font-size: 20px;
+      line-height: 200%;
+    }
+    .box-1 {
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      border: 2px solid #e8e8e8;
+      margin: 10px;
+    }
+    .box-2 {
+      box-sizing: border-box;
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      border: 2px solid #1890ff;
+      margin: 10px;
+    }
+    p{
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+    .margin-box{
+      /* margin-left: -100px; */
+      /* margin-right: 100px; */
+      /* margin-top: -100px; */
+      /* margin-bottom: -100px; */
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+    .text {
+      font-size: 14px;
+    }
+    .line-height-text {
+      line-height: 1.5;
+      /* font-size: 13px; */
+      /* line-height: 1.5; */
+      /* line-height: 30px; */
+      /* line-height: 2em; */
+    }
+    .line-text{ line-height: 1.5;}
+    .margin-top-box, .margin-bottom-box { width: 100px; height: 100px; border:1px solid #1890ff;}
+    .margin-top-box { margin-bottom: -20px;}
+    /* 浮动 */
+    .float-container {display: flow-root; border:1px solid red;}
+    .float-container img{
+      width: 200px;
+      float: left;
+    }
+    .float-container div{background-color: grey; line-height: 32px;}
+    .float-margin-container {display:flow-root; width: 110px; border: 1px solid skyblue;}
+    .float-margin-container .item-1, .float-margin-container .item-2{ width: 100px; height: 100px; background-color: pink;}
+    .float-margin-container .item-1{margin-bottom: 10px; float: left;}
+    .float-margin-container .item-2{margin-top: 20px; float: left;}
+    /* margin边距坍塌 */
+    .margin-container {width: 100px; height: 100px; background-color:black;}
+    .margin-container .margin-item{margin-top: 10px;width:50px; height:50px; background-color:red;}
+    /* .margin-container:before{content:"";display:block;overflow:hidden;} */
+    section { margin-top: 13px; margin-bottom: 87px; }
+    section header { margin-top: 87px; }
+    section footer { margin-bottom: 13px; }
+    .p-box p:nth-child(1){ margin-bottom: 13px; }
+    .p-box p:nth-child(2){ margin-top: 87px; }
+    /* 三栏布局 */
+    .float-three-container {
+      width: 100%;
+      height: 200px;
+    }
+    .float-three-container:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    .float-three-container .content{
+      background-color: red;
+    }
+    .float-three-container .left{
+      float: left; width: 100px; height: 100%; background-color:pink;
+    }
+    .float-three-container .right{float: right; width: 100px; height: 100%; background-color: skyblue}
+  </style>
+</head>
+<body>
+  <!-- <script src="./js/typeof.js"></script> -->
+  <div class="box-1"></div>
+  <div class="box-2"></div>
+  <hr>
+  <p class="hello-text">HELLO</p>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p class="world-text">WORLD</p>
+  <hr>
+  <div class="margin-box">margin</div>
+  <div class="line-height-text">Hello World</div>
+  <span class="line-text">Line Text</span>
+  <hr>
+  <span style="margin-right: 20px;">margin-left</span>
+  <span>margin-right</span>
+  <hr>
+  <div class="margin-top-box"></div>
+  <div class="margin-bottom-box"></div>
+  <hr>
+  <div class="float-container">
+    <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202106%2F09%2F20210609100330_78ce2.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1684243156&t=fa3a4443c788f79c2833206def49e86e" alt="">
+    <div>Hello World</div>
+  </div>
+  <hr>
+  <div class="float-margin-container">
+    <div class="item-1"></div>
+    <div class="item-2"></div>
+  </div>
+  <hr>
+  <div class="margin-container">
+    <div class="margin-item"></div>
+  </div>
+  <hr>
+  <section>
+    <header>上边界重叠87</header>
+    <main></main>
+    <footer>下边界重叠 87 不能再高了</footer>
+  </section>
+  <hr>
+  <p style="margin: 0;">下边界范围是87...</p>
+  <div style="margin-top:13px; margin-bottom:87px;"></div>
+  <p>...上边界是87</p>
+  <hr>
+  <div class="p-box">
+    <p>下边界范围会...</p>
+    <p>...会跟这个元素的上边界范围重叠。</p>
+  </div>
+  <hr>
+  <!-- 浮动 -->
+  <div class="float-three-container">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="content">1111</div>
+  </div>
+  <script src="./js/css.js"></script>
+  <script src="./js/typeof.js"></script>
+  <script src="./js/clone.js"></script>
+  <script src="./js/prototype.js"></script>
+  <script src="./js/instanceof.js"></script>
+  <script src="./js/closure.js"></script>
+  <script src="./js/this.js"></script>
+</body>
+</html>
