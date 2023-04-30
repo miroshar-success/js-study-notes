@@ -36,3 +36,33 @@ function fn() {
 }
 
 print(fn)
+
+console.log('--------------------- 闭包隐藏数据 -----------------------')
+const create_cache = () => {
+  const data = Object.create(null)
+  return {
+    set: (key, val) => {
+      data[key] = val
+    },
+    get: (key) => {
+      return data[key]
+    }
+  }
+}
+
+const cache_fn = create_cache()
+cache_fn.set('firstName', 'kyrie')
+cache_fn.set('lastName', 'irving')
+console.log(cache_fn.get('age'))
+console.log(cache_fn.get('firstName'))
+console.log(cache_fn.get('lastName'))
+
+console.log('------------------------事件循环绑定 -------------------')
+for(let i = 0; i < 10; i++) {
+  const link = document.createElement('div')
+  link.addEventListener('click', () => {
+    console.log(i)
+  })
+  link.textContent = `link - ${i}`;
+  document.body.appendChild(link)
+}

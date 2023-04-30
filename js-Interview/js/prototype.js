@@ -101,3 +101,21 @@ console.log(name, age ,colors, say)
 
 const { ...copy_son } = s1
 console.log(copy_son)
+
+String.prototype._trim = function() {
+  return this.replace(/^\s+/, '').replace(/\s+$/, '')
+}
+
+console.log('  hello  world   '._trim())
+
+// 求最大值
+const get_max_val = (array) => {
+  let max = -Infinity
+  for (const v of array) {
+    if (v > max) {
+      max = v
+    }
+  }
+  return max
+}
+console.log(get_max_val([1,2,3,4,6]), get_max_val([3,6,2,1,5])) // 6  6

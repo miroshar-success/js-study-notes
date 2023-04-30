@@ -90,6 +90,17 @@
       float: left; width: 100px; height: 100%; background-color:pink;
     }
     .float-three-container .right{float: right; width: 100px; height: 100%; background-color: skyblue}
+    .text-center-box{
+      display: flex;
+      align-items: center;
+      text-align: center;
+      height: 300px;
+      width: 300px;
+      border: 1px solid #e8e8e8;
+    }
+    #node-container{border-top-width: 20px; border-left-width: 30px; border-style:solid;}
+    .input{width: 400px; height: 28px; outline: none; border:1px solid #d9d9d9; font-size:14px;}
+    .drag-box{width: 200px; height:200px; border:1px solid #e8e8e8; text-align: center; line-height:200px;}
   </style>
 </head>
 <body>
@@ -148,12 +159,51 @@
     <div class="right"></div>
     <div class="content">1111</div>
   </div>
-  <script src="./js/css.js"></script>
+  <hr>
+  <div class="text-center-box">
+    华为是全球领先的ICT(信息与通信)基础设施和智能终端提供商,致力于把数字世界带入每个人、每个家庭、每个组织,构建万物互联的智能世界。
+  </div>
+  <hr>
+  <div id="task-container"></div>
+  <hr>
+  <div id="node-container">
+    hello world
+    <p>hello</p>
+    <!-- <p>注释</p> -->
+    <p>world</p>
+    <div>你好</div>
+    <div>生活</div>
+  </div>
+  <hr>
+  <ul class="event-list">
+    <li>kyrie</li>
+    <li>durant</li>
+    <li>lebron</li>
+  </ul>
+  <input type="text" class="input">
+  <hr>
+  <div class="drag-box" draggable="true">可拖拽</div>
+<!--   <script src="./js/css.js"></script>
   <script src="./js/typeof.js"></script>
   <script src="./js/clone.js"></script>
-  <script src="./js/prototype.js"></script>
   <script src="./js/instanceof.js"></script>
   <script src="./js/closure.js"></script>
+  <script src="./js/this.js"></script> -->
+  <!-- <script src="./js/async.js"></script> -->
+  <!-- <script src="./js/task.js"></script> -->
+  <!-- <script src="./js/dom.js"></script> -->
+  <!-- <script src="./js/event.js"></script> -->
+  <!-- <script src="./js/debounce.js"></script> -->
+  <!-- <script src="./js/throttle.js"></script> -->
+  <script src="./js/is-equal.js"></script>
   <script src="./js/this.js"></script>
+  <script src="./js/prototype.js"></script>
+  <script src="./js/flat.js"></script>
+  <script>
+/*     const fn = (data) => {
+      console.log(data)
+    } */
+  </script>
+  <!-- <script src="http://localhost:3000/player?callback=fn"></script> -->
 </body>
 </html>

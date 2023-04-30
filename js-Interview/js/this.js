@@ -73,3 +73,12 @@ Function.prototype.Apply = function() {
 
 const numbers = [1, 2, 3, 4, 5]
 console.log(Math.min.Apply(null, numbers))
+
+
+const counter = {
+  count: 1,
+  get_count(){
+    console.log(this.count)
+  }
+}
+counter.get_count()
