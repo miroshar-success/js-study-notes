@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue2</title>
+</head>
+<body>
+  <div id="key-app">
+    <button @click="increment">click</button>
+    <ul>
+      <li v-for="(player) in player_list" :data-name="player.firstName" :key="player.firstName">{{player.firstName}} - {{player.lastName}}</li>
+    </ul>
+    <input type="checkbox" v-model="is_email">
+    <input type="text" placeholder="邮箱" v-if="is_email">
+    <input type="text" placeholder="用户名" v-else>
+  </div>
+  <script src="../src/vue.development-2.js"></script>
+  <script src="./src/key.js"></script>
+</body>
+</html>
