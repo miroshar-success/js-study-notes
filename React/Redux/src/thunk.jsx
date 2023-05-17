@@ -1,7 +1,3 @@
-const { useDispatch, useSelector, Provider } = window.ReactRedux
-const { createStore, applyMiddleware } = window.Redux
-const { createRoot } = window.ReactDOM
-
 function createThunkMiddleware() {
   const middleware = function middleware(_ref) {
     var dispatch = _ref.dispatch,
@@ -34,7 +30,7 @@ const decrement = () => ({type: 'decrement'})
 
 const increment_async = () => {
   return (dispatch, getState) => {
-    console.log(getState())
+    console.log(getState)
     setTimeout(() => {
       dispatch(increment())
     }, 1000)

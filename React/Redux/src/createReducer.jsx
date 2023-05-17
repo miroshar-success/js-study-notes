@@ -1,7 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { configureStore, createSlice, createAsyncThunk, createEntityAdapter, createAction, createReducer } = window.RTK
-const { Provider, useDispatch, useSelector } = window.ReactRedux
-
 const increment = createAction('counter/increment')
 const decrement = createAction('counter/decrement')
 console.log(typeof increment)

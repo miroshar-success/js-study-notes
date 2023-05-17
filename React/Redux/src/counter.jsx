@@ -1,7 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { Provider, useSelector, useDispatch } = window.ReactRedux
-const { createStore } = window.Redux
-
 const INCREMENT = 'counter/increment'
 const DECREMENT = 'counter/decrement'
 

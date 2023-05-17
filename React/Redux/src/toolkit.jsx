@@ -1,7 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { configureStore, createSlice, createAsyncThunk, createEntityAdapter } = window.RTK
-const { Provider, useDispatch, useSelector } = window.ReactRedux
-
 function logger(state) {
   return next => {
     return action => {

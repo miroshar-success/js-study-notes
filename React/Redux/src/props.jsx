@@ -1,8 +1,3 @@
-const { Provider, useDispatch, useSelector } = window.ReactRedux
-const { createStore } = window.Redux
-const { useState } = window.React
-const { createRoot } = window.ReactDOM
-
 function reducer(state = 1, action) {
   switch(action.type) {
     case 'increment':

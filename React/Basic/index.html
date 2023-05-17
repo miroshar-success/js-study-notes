@@ -20,17 +20,39 @@
   <div id="life-cycle-app"></div>
   <hr>
   <div id="condition-app"></div>
+  <hr>
+  <div id="list-app"></div>
+  <hr>
+  <div id="event-app"></div>
+  <hr>
+  <div id="context-app"></div>
+  <hr>
+  <div id="lazy-app"></div>
+  <hr>
+  <div id="should-component-update-app"></div>
+  <hr>
+  <div id="hoc-app"></div>
+  <hr>
+  <div id="render-props-app"></div>
+  <hr>
   <script src="../src/babel.js"></script>
   <script src="../src/react.js"></script>
   <script src="../src/react-dom.js"></script>
   <script>
     const { React, ReactDOM } = window
-    const { useState, useEffect } = React
+    const { useState, useEffect, memo, useMemo, useCallback } = React
   </script>
+  <script src="https://www.unpkg.com/@reduxjs/toolkit@1.9.5/dist/redux-toolkit.umd.min.js"></script>
   <script src="./src/quick-start.jsx" type="text/babel"></script>
   <script src="./src/props.jsx" type="text/babel"></script>
   <script src="./src/form.jsx" type="text/babel"></script>
   <script src="./src/life-cycle.jsx" type="text/babel"></script>
   <script src="./src/condition.jsx" type="text/babel"></script>
+  <script src="./src/list.jsx" type="text/babel"></script>
+  <script src="./src/event.jsx" type="text/babel"></script>
+  <script src="./src/context.jsx" type="text/babel"></script>
+  <script src="./src/shouldComponentUpdate.jsx" type="text/babel"></script>
+  <script src="./src/hoc.jsx" type="text/babel"></script>
+  <script src="./src/render-props.jsx" type="text/babel"></script>
 </body>
 </html>

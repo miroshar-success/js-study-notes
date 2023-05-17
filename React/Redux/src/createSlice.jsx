@@ -1,7 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { nanoid, configureStore, createSlice, createAsyncThunk, createEntityAdapter, createAction, createReducer } = window.RTK
-const { Provider, useDispatch, useSelector } = window.ReactRedux
-const { useState } = window.React
 
 const uppercase = createAction('todo/uppercase')
 

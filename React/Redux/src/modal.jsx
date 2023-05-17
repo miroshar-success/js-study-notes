@@ -1,7 +1,3 @@
-const { Provider, useDispatch, useSelector } = window.ReactRedux
-const { createStore } = window.Redux
-const { createRoot } = window.ReactDOM
-
 function toggle(payload) {
   return {
     type: 'toggle',

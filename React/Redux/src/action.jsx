@@ -1,6 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { Provider, useSelector, useDispatch } = window.ReactRedux
-const { createStore } = window.Redux
 // ------ 给 action传递参数 ----------
 function increment(payload) {
   return {

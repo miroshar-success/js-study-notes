@@ -1,9 +1,4 @@
 // ------- useSelector 依赖于 props ----------
-const { Provider, useDispatch, useSelector } = window.ReactRedux
-const { createStore } = window.Redux
-const { useState } = window.React
-const { createRoot } = window.ReactDOM
-
 const initial_todos = {
   1: {
     text: 'Learn React',

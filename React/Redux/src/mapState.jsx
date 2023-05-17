@@ -1,8 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { Provider, connect, useDispatch, useSelector, shallowEqual } = window.ReactRedux
-const { useState } = window.React
-const { createStore, combineReducers } = window.Redux
-
 //  第一个reducer
 function counter(state = 0, action) {
   const { type, payload } = action
@@ -100,7 +95,7 @@ function App() {
   return (
     <window.React.Fragment>
       <Counter name={name}/>
-      <button onClick={handleClick}>click {count} times ----> {multiple.value}</button>
+      <button onClick={handleClick}>click {count} times {multiple.value}</button>
     </window.React.Fragment>
   )
 }
