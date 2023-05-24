@@ -6,11 +6,25 @@ const path = require('path')
 
 3. mode: development/production/node
 */
-module.exports = {
+/* module.exports = {
   mode:'none',
   entry:path.join(__dirname,'src/index.js'),
   output:{
     filename:'index.js',
     path:path.join(__dirname,'dist')
+  }
+} */
+
+module.exports = {
+  mode: 'none',
+  entry: {
+    pageOne: path.resolve(__dirname, 'src/page-one.js'),
+    pageTwo: path.resolve(__dirname, 'src/page-two.js'),
+    pageThree: path.resolve(__dirname, 'src/page-three.js')
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true
   }
 }
