@@ -74,6 +74,44 @@ const Form = () => {
   )
 }
 
+// ------------------ function 跨组件传递 ----------------------------
+const TodoItem = ({todo, onChange}) => {
+  const handleToggleTodo = (todo) => {
+    onChange(todo)
+  }
+  return (
+    <li>
+      <input type="checkbox" checked={todo.completed} onChange={() => handleToggleTodo(todo)}/>
+      <span>{todo.text}</span>
+    </li>
+  )
+}
+
+const TodoList = ({list, onChange}) => {
+  return (
+    <ul>
+      { list.map(todo => (<TodoItem todo={todo} key={todo.id} onChange={onChange}/>))}
+    </ul>
+  )
+}
+
+const TodoApp = () => {
+  const [todoList, setTodoList] = useState([
+    { id: 1, text: '学习Vue', completed: false },
+    { id: 2, text: '学习React', completed: true },
+    { id: 3, text: '学习Redux', completed: false }
+  ])
+  const handleTodoChanged = (todo) => {
+    setTodoList(todoList.map(item => {
+      if (todo.id === item.id) return Object.assign({}, item, { completed: !item.completed })
+      return item
+    }))
+  }
+  return (
+    <TodoList list={todoList} onChange={handleTodoChanged}/>
+  )
+}
+
 const App = () => (
   <>
     <Counter/>
@@ -82,6 +120,7 @@ const App = () => (
     <UploadButton/>
     <Toolbar/>
     <Form/>
+    <TodoApp/>
   </>
 )
 

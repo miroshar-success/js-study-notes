@@ -161,6 +161,124 @@ class Color extends React.Component {
   }
 }
 
+// input type='radio'
+const InputRadio = () => {
+  const [sex, setSex] = useState('male')
+  const handleToggle = (e) => {
+    console.log(e.target.value)
+    setSex(e.target.value)
+  }
+  return (
+    <>
+      <label>
+        男:
+        <input type="radio" value='male' checked={sex === 'male'} onChange={handleToggle}/>
+      </label>
+      <label>
+        女:
+        <input type="radio" value='female' checked={sex === 'female'} onChange={handleToggle}/>
+      </label>
+    </>
+  )
+}
+const playersList = [
+  { id: 1, value: 'James'}, { id: 2, value: 'Durant'},
+  { id: 3, value: 'Kyrie'}, { id: 4, value: 'Wade' }
+]
+const InputCheckbox = () => {
+  const [player, setPlayer] = useState([])
+  const handleToggle = (p, e) => {
+    const idx = player.indexOf(p.id)
+    if (idx === -1) {
+      setPlayer(player.concat(p.id))
+    } else {
+      setPlayer([...player.slice(0, idx), ...player.slice(idx+1)])
+    }
+  }
+  return (
+    <>
+    {playersList.map(p => (
+      <label key={p.id}>
+        {p.value}
+        <input type="checkbox" value={p.id} checked={player.indexOf(p.id) !== -1} onChange={(e) => handleToggle(p, e)}/>
+      </label>
+    ))}
+    </>
+  )
+}
+
+// ------------- select -----------------
+const cityList = [
+  { id: 1, value: '北京' },
+  { id: 2, value: '上海' },
+  { id: 3, value: '深圳' }
+]
+const CitySelect = () => {
+  const [city, setCity] = useState(1)
+  const [area, setArea] = useState([])
+  const handleChange = (e) => {
+    setCity(e.target.value)
+  }
+  //多选
+  const handleSelectMultiple = (e) => {
+    const cityId = e.target.value
+    const idx = area.indexOf(cityId)
+    console.log('idx', idx)
+    if (idx === -1) {
+      setArea(area.concat(cityId))
+    } else {
+      setArea(area.filter(id => id !== cityId))
+    }
+  }
+  return (
+    <>
+      <select value={city} onChange={handleChange}>
+        {cityList.map(c => (<option value={c.id} key={c.id}>{c.value}</option>))}
+      </select>
+      <select multiple={true} value={area} onChange={handleSelectMultiple}>
+        {cityList.map(c => (<option value={c.id} key={c.id}>{c.value}</option>))}
+      </select>
+    </>
+  )
+}
+
+// ---------------------------- 非受控组件 ---------------------------------
+const UnControlForm = () => {
+  const handleInput = (e) => {
+    console.log(e.target.value)
+  }
+  const handleToggleChecked = (e) => {
+    console.log(e.target.checked)
+  }
+  return (
+    <div>
+      <input
+        type='text'
+        onChange={handleInput}
+        placeholder='What next to do?'
+        defaultValue={'hello world'}
+      />
+      <select defaultValue='lebron'>
+        <option value="lebron">lebron</option>
+        <option value="kyrie">kyrie</option>
+        <option value="durant">durant</option>
+      </select>
+      <label>
+        lebron:
+        <input
+          type="checkbox"
+          value={'lebron'}
+          defaultChecked={false}
+          onChange={handleToggleChecked}
+        />
+      </label>
+      <label>
+        kyrie:
+        <input type="checkbox" value={'kyrie'} defaultChecked={true}/>
+      </label>
+    </div>
+  )
+}
 const App = () => (
   <>
     <Input/>
@@ -168,6 +286,10 @@ const App = () => (
     <Radio/>
     <Counter/>
     <Color/>
+    <InputRadio/>
+    <InputCheckbox/>
+    <CitySelect/>
+    <UnControlForm/>
   </>
 )
 ReactDOM.createRoot(document.getElementById('form-app')).render(<App/>)

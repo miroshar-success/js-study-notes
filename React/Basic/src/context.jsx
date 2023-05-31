@@ -31,7 +31,6 @@ class ClassButton extends React.Component {
   }
 }
 // ClassButton.contextType = ThemeContext
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -56,4 +55,48 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.createRoot(document.getElementById('context-app')).render(<App/>)
+// context传递事件
+const themes = {
+  light: {
+    foreground: '#000000',
+    background: '#eeeeee',
+  },
+  dark: {
+    foreground: '#ffffff',
+    background: '#222222',
+  }
+}
+
+const ButtonThemeContext = React.createContext({
+  theme: themes.dark,
+  toggleTheme: () => {}
+})
+const ThemeButton = () => {
+  return (
+    <ButtonThemeContext.Consumer>{({theme, toggleTheme}) => (
+      <button onClick={toggleTheme} style={{backgroundColor: theme.background, color: theme.foreground}}>toggle theme234</button>
+    )}</ButtonThemeContext.Consumer>
+  )
+}
+
+const ContextApp = () => {
+  const [theme, setTheme] = useState(themes.dark)
+  const toggleTheme = () => {
+    setTheme(state => {
+      const theme = state === themes.light ? themes.dark : themes.light
+      return theme
+    })
+  }
+  return (
+    <ButtonThemeContext.Provider value={{theme, toggleTheme}}>
+      <ThemeButton/>
+    </ButtonThemeContext.Provider>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('context-app')).render(
+  <>
+    <App/>
+    <ContextApp/>
+  </>
+)
