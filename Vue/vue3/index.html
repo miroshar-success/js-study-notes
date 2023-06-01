@@ -289,6 +289,7 @@
   <div id="life-cycle-app">
     <button @click="increment">{{count}}</button>
   </div>
+  <hr>
   <div id="watch-app">
     <input type="text" v-model="question">
     <div>{{answer}}</div>
@@ -583,6 +584,7 @@
       <li v-for='(value, key) in player'>{{key}}-{{value}}</li>
     </ul>
   </div>
+  <hr>
   <script src="../src/vue.development-3.js"></script>
   <script>
     const { createApp, watchEffect, provide, inject, toRefs, h, toRef, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue

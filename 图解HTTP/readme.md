@@ -314,3 +314,12 @@ window.location.href = 'http://www.baidu.com'
 3. Access-Control-Allow-Credentials: 指定了当浏览器的credentials为true时是否允许浏览器读取response的内容。
 4. Access-Control-Allow-Methods: 访问资源时允许使用的请求方法, 用于预检请求的响应。
 5. Access-Control-Allow-Headers: 用于预检请求的响应。
+
+  XMLHttpRequest 或者 Fetch 对于跨源请求,浏览器不会发送身份凭证信息。如果需要发送凭证信息,需要设置XMLHttpRequest对象的某个特殊标志位!
+
+  如果跨域访问, 前端设置了 withCredentials: true, 而后台没有设置 *Access-Control-Allow-Credentials: true*, 请求会报错。
+  如果后台设置了 *Access-Control-Allow-Credentials: true*, 而前端没有设置 withCredentials: true, 则不会跨域传递cookie。
+
+  *Access-Control-Request-Method* 告知服务器,实际请求将使用*POST*方法。标头字段*Access-Control-Request-Headers* 告知服务器,实际请求携带自定义标头字段。
+
+  *Access-Control-Max-Age* 给定了预检请求可供缓存的时间长短。 默认为5s

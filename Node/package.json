@@ -7,7 +7,8 @@
     "node-cli": "./cli/ora.mjs"
   },
   "scripts": {
-    "start": "nodemon ./express/project/app.js"
+    "start": "nodemon ./express/project/app.js",
+    "dev": "egg-bin dev"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "chalk": "^5.0.1",
     "commander": "^9.4.0",
     "download-git-repo": "^3.0.2",
+    "egg": "^3.15.0",
     "express": "^4.18.1",
     "formidable": "^2.0.1",
     "inquirer": "^9.1.2",
@@ -29,5 +31,8 @@
   "nodemonConfig": {
     "colours": true,
     "ext": "js,json"
+  },
+  "devDependencies": {
+    "egg-bin": "^6.1.2"
   }
 }

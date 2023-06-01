@@ -1,2 +1,3 @@
 /node_modules
-/db
+/koa/db
+/koa/videos/**

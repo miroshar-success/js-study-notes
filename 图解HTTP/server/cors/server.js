@@ -6,7 +6,7 @@ http.createServer((req, res) => {
     "Access-Control-Allow-Origin": 'http://127.0.0.1:5500',
     'Access-Control-Allow-Headers': 'X-Test-Cors',
     'Access-Control-Allow-Methods': 'GET',
-    'Access-Control-Max-Age': '86400',
+    // 'Access-Control-Max-Age': '86400',
     'Access-Control-Allow-Credentials': true,
     'Set-Cookie': ['name=123']
   })
