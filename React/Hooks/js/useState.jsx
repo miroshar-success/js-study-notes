@@ -1,6 +1,3 @@
-const { useState, useEffect } = window.React
-const { createRoot } = window.ReactDOM
-
 const state_root = createRoot(document.getElementById('state-app'))
 
 function Counter() {

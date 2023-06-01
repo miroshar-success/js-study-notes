@@ -1,6 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { useState, useCallback, memo, useMemo, useRef } = window.React
-
 const callback_app = createRoot(document.getElementById('callback-app'))
 const set = new Set()
 

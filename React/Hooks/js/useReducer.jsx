@@ -1,6 +1,3 @@
-const { createRoot } = window.ReactDOM
-const { useReducer, useState } = window.React
-
 const reducer_root = createRoot(document.getElementById('reducer-app'))
 
 function reducer(state, payload) {
@@ -48,6 +45,37 @@ function App() {
   )
 }
 
+// ---------- 复习一次 ----------
+const counter_reducer = (state = 1, action) => {
+  const { type } = action
+  switch (type) {
+    case 'even':
+      return state + 2
+    case 'odd':
+      return state + 1
+    default:
+      return state
+  }
+}
+const Counter = () => {
+  const [count, dispatch] = useReducer(counter_reducer)
+  const handleClick = (type) => {
+    dispatch({
+      type
+    })
+  }
+  return (
+    <>
+      <button onClick={() => handleClick('odd')}>odd</button>
+      {count}
+      <button onClick={() => handleClick('even')}>even</button>
+    </>
+  )
+}
+
 reducer_root.render(
-  <App/>
+  <>
+    <App/>
+    <Counter/>
+  </>
 )

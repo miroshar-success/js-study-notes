@@ -11,11 +11,19 @@
   <div id="reducer-app"></div>
   <hr>
   <div id='callback-app'></div>
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <hr>
+  <div id="ref-app"></div>
+  <script src="../src/babel.js"></script>
+  <script src="../src/react.js"></script>
+  <script src="../src/react-dom.js"></script>
+  <script>
+    const { React, ReactDOM } = window
+    const { useState, useEffect, memo, useMemo, useCallback, useReducer, useContext, useRef } = React
+    const { createRoot } = ReactDOM
+  </script>
   <script src='./js/useState.jsx' type='text/babel'></script>
   <script src='./js/useReducer.jsx' type='text/babel'></script>
   <script src='./js/useCallback.jsx' type='text/babel'></script>
+  <script src="./js/useRef.jsx" type="text/babel"></script>
 </body>
 </html>
