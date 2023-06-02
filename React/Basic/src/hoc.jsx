@@ -119,6 +119,69 @@ const UserLogin = LoginWrapper(class LoginComponent extends React.Component {
   }
 })
 
+// ---------------- 请求数据高阶组件 ---------------------
+const PromisedWrapperComponent = (promiseProps, Component) => {
+  return class PromiseComponent extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        loading: true,
+        error: null,
+        value: null
+      }
+    }
+    componentDidMount() {
+      promiseProps()
+        .then(res => {
+          this.setState({
+            loading: false,
+            value: res
+          })
+        })
+        .catch((err) => {
+          this.setState({
+            loading: false,
+            error: err
+          })
+        })
+    }
+    render () {
+      const { error, value, loading} = this.state
+      if (loading) return <div style={{color: '#1890ff'}}>Loading...</div>
+      if (error) return <div style={{color: 'red'}}>Something went wrong {error}</div>
+      return (
+        <Component data={value}/>
+      )
+    }
+  }
+}
+
+const fetch_data = () => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const number = Math.random()
+    if (number > 0.5) {
+      resolve(['王力宏', '周杰伦', '陶喆'])
+    } else {
+      reject('暂无数据！')
+    }
+  }, 2000)
+})
+
+
+const PlayerListComonent = PromisedWrapperComponent(fetch_data, class Player extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const { data } = this.props
+    return (
+      <ul>
+        { data.map(singer => (<li key={singer}>{singer}</li>))}
+      </ul>
+    )
+  }
+})
+
 const App = () => (
   <>
     <MousePosition name={'hello'}/>
@@ -127,6 +190,7 @@ const App = () => (
     <EmailInput placeholder='邮箱'/>
     <UserLogin isLogin={true}/>
     <UserLogin isLogin={false}/>
+    <PlayerListComonent/>
   </>
 )
 

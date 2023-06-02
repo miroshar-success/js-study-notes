@@ -76,4 +76,86 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.createRoot(document.getElementById('life-cycle-app')).render(<App/>)
+// 生命周期函数
+class ChildCounter extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      count: 0
+    }
+  }
+  componentWillReceiveProps(data) {
+    console.log('componentWillReceiveProps', data, this.state)
+  }
+  componentDidMount() {
+    console.log('componentDidMount', this.state.count)
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate', this.state.count)
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate', nextState, this.state)
+    return true
+  }
+  handleIncrement = () => {
+/*     this.setState(state => ({
+      count: state.count + 2
+    })) */
+    this.setState({count: this.state.count + 1})
+    console.log('第一次:', this.state.count)  // 0
+    this.setState({count: this.state.count + 1})
+    console.log('第二次:', this.state.count)  // 0
+    window.setTimeout(() => {
+      this.setState({count: this.state.count + 1})
+      console.log('第三次:', this.state.count)  // 1
+
+      this.setState({count: this.state.count + 1})
+      console.log('第四次:', this.state.count)  // 1
+    }, 0)
+  }
+  render() {
+    return (
+      <React.Fragment>
+        <button onClick={this.handleIncrement}>子组件 count {this.state.count}</button>
+        <button>父组件 count {this.props.count}</button>
+      </React.Fragment>
+    )
+  }
+}
+// 无状态组件
+class NoStateComponent extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  componentDidUpdate() {
+    console.log('无状态组件 componentDidUpdate')
+  }
+  shouldComponentUpdate() {
+    console.log('无状态组件 shouldComponentUpdate')
+    return true
+  }
+  render() {
+    return (<button>无状态组件 ---- {this.props.count}</button>)
+  }
+}
+const ParentCounter = () => {
+  const [count, setCount] = useState(0)
+  const handleClick = () => {
+    setCount(count + 1)
+  }
+  return (
+    <>
+      <button onClick={handleClick}>click {count}</button>
+      <NoStateComponent count={count}/>
+      <ChildCounter count={count}/>
+    </>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('life-cycle-app'))
+.render(
+  <>
+    <App/>
+    <ParentCounter/>
+  </>
+)
