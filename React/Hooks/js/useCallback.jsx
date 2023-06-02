@@ -1,100 +1,41 @@
-const callback_app = createRoot(document.getElementById('callback-app'))
+const CounterComponent = (props) => {
+  console.log('callback child component render')
+  return <button onClick={props.onClick}>click me</button>
+}
 const set = new Set()
 
-const Child = memo((props) => {
-  return (
-    <button onClick={props.click}>child button</button>
-  )
+// input组件
+const Input = memo(({onChange}) => {
+  console.log('input render')
+  return <input type='text' onChange={onChange}/>
 })
 
+
 const App = () => {
-  const [count, setCount] = useState(0)
-  const memoizedValue1 = useMemo(() => {
-    const array = []
-    for(let i = 0; i <= 50; i++) {
-      array.push(i)
-    }
-    console.log('computed1...')
-    return array.reduce((prev,next) => prev + next, 0)
-  }, [])
-  const handleClick = () => {
-    setCount(count + 1)
-  }
-  const memoizedValue2 = (() => {
-    const array = []
-    for(let i = 0; i <= 50; i++) {
-      array.push(i)
-    }
-    console.log('computed2...')
-    return array.reduce((prev,next) => prev + next, 0)
-  })()
-  return (
-    <div>
-      <div>{memoizedValue1} - {memoizedValue2}</div>
-      <button onClick={handleClick}>click - {count}</button>
-    </div>
-  )
-}
-
-function Counter() {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCount(count + 1)
-    }, 1000)
-    return () => clearInterval(id)
-  }, [])
-  return (
-    <div>
-      <button>111111-----{count}</button>
-    </div>
-  )
-}
-
-function HelloWorld() {
-  let timer = null
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    timer = setInterval(() => {
-      setCount(count => count+1)
-    }, 1000)
-    setTimeout(() => {
-      console.log(count);  // 0
-    }, 5000)
-  }, [])
-  useEffect(() => {
-    if(count > 5) {
-      clearInterval(timer)
-    }
+  const [count, setCount] = useState(10)
+  const [visible, setVisible] = useState(false)
+  // 这种情况没必要使用useCallback
+  const handleClick = useCallback(() => {
+    setCount(count+1)
   }, [count])
+  // input框
+  const handleChange = useCallback((e) => {
+    console.log(e.target.value)
+  },[])
+  set.add(handleChange)
+  console.log(set.size)
   return (
-    <div>{count}</div>
-  )
-}
-function MeasureSize() {
-  const [width, setWidth] = useState(10)
-  const boxRef = useRef(null)
-  const handleClick = () => {
-    setWidth(width+ 10)
-  }
-  useEffect(() => {
-    console.log(boxRef)
-    console.log(boxRef.current.getBoundingClientRect().width)
-  }, [])
-  return (
-    <div>
-      <div style={{width: `${width}px`, height: '100px', backgroundColor:'pink'}} ref={boxRef}></div>
-      <button onClick={handleClick}>click</button>
-    </div>
+    <>
+      <div style={{color: 'red'}}>{count}</div>
+      <CounterComponent onClick={handleClick}/>
+      <button onClick={() => setVisible(!visible)}>toggle</button>
+      <Input onChange={handleChange}/>
+    </>
   )
 }
 
-
-callback_app.render(
+createRoot(document.getElementById('callback-app')).render(
   <window.React.Fragment>
     <App/>
-    <Counter/>
-    <HelloWorld/>
-    <MeasureSize/>
   </window.React.Fragment>
 )
