@@ -1,8 +1,4 @@
-// reducer增强
-// [1, 2, 3, 4, 5]
-// past: [1, 2, 3, 4]
-// preset: 4
-// future:  
+// --------------------- todo reducer ----------------------
 const undoTodo = (reducer) => {
   const initialState = {
     past: [],
@@ -30,7 +26,6 @@ const undoTodo = (reducer) => {
 }
 
 const todoReucer = (state = [], action) => {
-  console.log('实际的reducer', state)
   const { type, payload } = action
   switch (type) {
     case 'increment':
@@ -39,9 +34,48 @@ const todoReucer = (state = [], action) => {
       return state
   }
 }
+// --------------------- counter reducer -----------------------
+const counterRedo = (reducer) => {
+  let past = []
+  let futures = []
+  return function (state, action) {
+    switch(action.type) {
+      case 'counter/redo': {
+        if (!futures.length) return state
+        const current = futures[futures.length - 1]
+        past.push(current)
+        futures = futures.slice(0, futures.length - 1)
+        return current
+      }
+      case 'counter/undo': {
+        if (!past.length) return state
+        const current = past[past.length - 1]
+        futures.push(current)
+        past = past.slice(0, past.length - 1)
+        return current
+      }
+      default:
+        const count = reducer(state, action)
+        futures.push(count)
+        return count
+    }
+  }
+}
+const counterReducer = (state = 0, action) => {
+  const { type } = action
+  switch (type) {
+    case 'counter/increment':
+      return state + 1
+    case 'counter/decrement':
+      return state - 1
+    default:
+      return state
+  }
+}
 
 const reducers = combineReducers({
-  todo: undoTodo(todoReucer)
+  todo: undoTodo(todoReucer),
+  counter: counterRedo(counterReducer)
 })
 
 const store = createStore(reducers)
@@ -108,6 +142,7 @@ const TodoList = () => {
   )
 }
 
+// todo-list
 const TodoApp = () => {
   return (
     <>
@@ -117,9 +152,29 @@ const TodoApp = () => {
   )
 }
 
+// counter
+const CounterApp = () => {
+  const counter = useSelector(state => state.counter)
+  const dispatch = useDispatch()
+  return (
+    <>
+      <button onClick={() => dispatch({type: 'counter/increment'})}>increment</button>
+      <button>click {counter} times</button>
+      <button onClick={() => dispatch({type: 'counter/decrement'})}>decrement</button>
+      <button onClick={() => dispatch({type: 'counter/redo'})}>redo</button>
+      <button onClick={() => dispatch({type: 'counter/undo'})}>undo</button>
+    </>
+  )
+}
+
 createRoot(document.getElementById('redux-redo-app'))
 .render(
   <Provider store={store}>
     <TodoApp/>
+    <hr />
+    <CounterApp/>
   </Provider>
 )
+
+
+// 其他工具 redux-form-utils /  redux-form

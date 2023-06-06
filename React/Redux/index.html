@@ -47,18 +47,24 @@
   <div id="redux-redo-app"></div>
   <hr>
   <div id="customize-middleware-app"></div>
+  <hr>
+  <div id="reselect-app"></div>
+  <hr>
+  <div id="redux-performance-optimization-app"></div>
   <script src="../src/babel.js"></script>
   <script src="../src/react.js"></script>
   <script src="../src/react-dom.js"></script>
   <script src="../src/react-redux.js"></script>
   <script src="../src/redux-toolkit.js"></script>
   <script src="../src/redux.js"></script>
+  <script src="../src/reselect.js"></script>
   <script>
-    const { React, ReactDOM, ReactRedux, Redux, RTK } = window
+    const { React, ReactDOM, ReactRedux, Redux, RTK, Reselect } = window
     const { useState, useEffect, memo, useMemo, useCallback } = React
     const { useDispatch, useSelector, Provider, connect, shallowEqual } = ReactRedux
     const { createStore, applyMiddleware, combineReducers } = Redux
     const { createRoot } = ReactDOM
+    const { createSelector } = Reselect
     const {
       nanoid, configureStore, createSlice, createAsyncThunk, createEntityAdapter, createAction, createReducer 
     } = RTK
@@ -79,7 +85,9 @@
   <script src='./src/createSlice.jsx' type='text/babel'></script> -->
   <!-- <script src="./src/redux-counter.jsx" type="text/babel"></script> -->
   <!-- <script src="./src/create-slice-counter.jsx" type="text/babel"></script> -->
-  <script src="./src/customize-middleware.jsx" type="text/babel"></script>
-  <script src="./src/redux-redo.jsx" type="text/babel"></script>
+  <!-- <script src="./src/customize-middleware.jsx" type="text/babel"></script> -->
+  <!-- <script src="./src/redux-redo.jsx" type="text/babel"></script> -->
+  <!-- <script src="./src/reselect.jsx" type='text/babel'></script> -->
+  <script src="./src/redux-performance-optimization.jsx" type="text/babel"></script>
 </body>
 </html>
