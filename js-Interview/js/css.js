@@ -6,6 +6,8 @@ const box2 = document.querySelector('.box-2')
 console.log(box2.offsetWidth, box2.offsetHeight, box2.clientWidth, box2.clientHeight)
 // 100 100 96 96
 
+// client 包括 width / padding
+// offset 包括 width / padding / padding
 
 const hello_text = document.querySelector('.hello-text')
 const world_text = document.querySelector('.world-text')
