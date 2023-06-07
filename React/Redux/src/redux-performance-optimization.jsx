@@ -7,9 +7,13 @@ const productList = [
 ]
 
 const shopCarReducer = (state = [], action) => {
+  console.log('shop执行了吗')
   const { type, payload } = action
   switch (type) {
     case 'shoppingcar/increment': {
+      // 方便计算一个reducer的时长
+/*       for (let i = 0; i < 500000000; i++) {
+      } */
       const idx = state.findIndex(product => product.id === payload.id)
       if (idx === -1) {
         return state.concat(Object.assign({}, payload, { count: 1 }))
@@ -44,10 +48,49 @@ const shopCarReducer = (state = [], action) => {
       return state
   }
 }
-const reducers = combineReducers({
-  car: shopCarReducer
-})
-const store = createStore(reducers)
+// counter
+const counterReducer = (state = 0, action) => {
+  console.log('counter执行了吗')
+  const { type, payload } = action
+  switch (type) {
+    case 'counter/increment':
+      return state + payload
+    case 'counter/decrement':
+      return state - payload
+    default:
+      return state
+  }
+}
+
+const logShowReducers = (reducers) => {
+  Object.keys(reducers).forEach(name => {
+    const originalReducer = reducers[name]
+    reducers[name] = (state, action) => {
+      const start = Date.now()
+      const result = originalReducer(state, action)
+      console.log(`time-diff ${Date.now() - start}`)
+      return result
+    }
+  })
+  return combineReducers(reducers)
+}
+
+// 拦截reducer 判断当前reducer 能不能执行
+const specialActions = (reducer, prefix, defaultState) => {
+  return (state, action) => {
+    console.log(prefix, action, state)
+    if (action.type.match(prefix)) {
+      return reducer(state, action)
+    }
+    // 需给一个默认值, 因为action不匹配 没有走到reducer里面, 没有获取到reducer里的默认值
+    return defaultState
+  }
+}
+
+const store = createStore(logShowReducers({
+  car: specialActions(shopCarReducer, 'shoppingcar', []),
+  counter: specialActions(counterReducer, 'counter', 0)
+}))
 
 const ProductList = () => {
   const [list, setList] = useState(productList)
@@ -78,9 +121,38 @@ const ProductList = () => {
   )
 }
 
+const CarList = () => {
+  const goodsList = useSelector(state => state.car)
+  return (
+    <ul>
+      { goodsList.map(good => (
+        <li key={good.id} style={{display: 'flex'}}>
+          <span style={{width: 100 }}>{good.name}</span>
+          <span>{good.count} * {good.price } = {good.count * good.price }</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 const ShoppingApp = () => {
   return (
-    <ProductList/>
+    <>
+      <ProductList/>
+      <CarList/>
+    </>
+  )
+}
+//dispatch的时候 每个reducer都会执行判断action.type。
+const CounterApp = () => {
+  const counter = useSelector(state => state.counter)
+  const dispatch = useDispatch()
+  return (
+    <>
+      <button onClick={() => dispatch({type: 'counter/increment', payload: 2})}>increment 2</button>
+      <button>{counter}</button>
+      <button onClick={() => dispatch({type: 'counter/decrement', payload: 3})}>decrement 3</button>
+    </>
   )
 }
 
@@ -88,5 +160,6 @@ createRoot(document.getElementById('redux-performance-optimization-app'))
 .render(
   <Provider store={store}>
     <ShoppingApp/>
+    <CounterApp/>
   </Provider>
 )
