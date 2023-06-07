@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue3-review</title>
+</head>
+<body>
+  <div id="condition-app">
+    <ul>
+      <!-- v-if 和 v-for在一起使用  v-if会有更高的优先级 -->
+      <!-- <li v-for="p in player_list" v-if="p.age > 35">{{p.firstName}} - {{p.lastName}}</li> -->
+      <template v-for="p in player_list">
+        <li v-if="p.age > 36">
+          {{p.firstName}} - {{p.lastName}}
+        </li>
+      </template>
+    </ul>
+  </div>
+  <div id="watch-app">
+    <button @click="increment" ref="count_button">{{count}}</button>
+  </div>
+  <hr>
+  <div id="form-app">
+    <input type="radio" value="hello" v-model="radio_checked">
+    <input type="checkbox" true-value="yes" false-value="no" v-model="checked">
+  </div>
+  <hr>
+  <div id="multiple-event">
+    <button @click="increment(), decrement()">{{count}}</button>
+  </div>
+  <div id="ref-app">
+    <ul>
+      <!-- ref / :ref 选择一个 -->
+      <li
+        v-for="p in player_list"
+        :key="p.firstName" 
+        ref="li" 
+        :ref="setLiRef"
+      >{{p.firstName}} - {{p.lastName}}</li>
+    </ul>
+  </div>
+  <hr>
+  <div id="hook-app">
+    {{x}}-{{y}}
+  </div>
+  <hr>
+  <div id="table-app">
+    <table>
+      <player-tr :list="list"></player-tr>
+    </table>
+    <table>
+      <tr is="vue:player-tr" :list="list"></tr>
+    </table>
+  </div>
+  <hr>
+  <div id="watch-effect-app">
+    <button @click="increment">{{count}}</button>
+  </div>
+  <script src="../src/vue.development-3.js"></script>
+  <script>
+    const {
+      createApp, watchEffect, provide, inject, toRefs, h, toRef, ref, onUnmounted,
+      reactive, computed, watch, nextTick, onMounted
+    } = Vue
+  </script>
+  <script src="./src/review.js"></script>
+</body>
+</html>
