@@ -7,7 +7,8 @@ const productList = [
 ]
 
 const shopCarReducer = (state = [], action) => {
-  console.log('shop执行了吗')
+  // console.log('shop执行了吗', state, action)
+  console.group('shop执行了吗')
   const { type, payload } = action
   switch (type) {
     case 'shoppingcar/increment': {
@@ -78,7 +79,6 @@ const logShowReducers = (reducers) => {
 // 拦截reducer 判断当前reducer 能不能执行
 const specialActions = (reducer, prefix, defaultState) => {
   return (state, action) => {
-    console.log(prefix, action, state)
     if (action.type.match(prefix)) {
       return reducer(state, action)
     }
@@ -88,7 +88,8 @@ const specialActions = (reducer, prefix, defaultState) => {
 }
 
 const store = createStore(logShowReducers({
-  car: specialActions(shopCarReducer, 'shoppingcar', []),
+  // car: specialActions(shopCarReducer, 'shoppingcar', []),
+  car: shopCarReducer,
   counter: specialActions(counterReducer, 'counter', 0)
 }))
 
