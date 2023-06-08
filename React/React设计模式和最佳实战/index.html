@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React实战</title>
+</head>
+<body>
+  <div id="watch-app"></div>
+  <hr>
+  <div id="high-order-app"></div>
+  <script src="../src/babel.js"></script>
+  <script src="../src/react.js"></script>
+  <script src="../src/react-dom.js"></script>
+  <script>
+    const { React, ReactDOM } = window
+    const { useState, useEffect, useRef, memo, useMemo, useCallback } = React
+    const { createRoot } = ReactDOM
+  </script>
+  <script src="./src/watch.jsx" type="text/babel"></script>
+  <script src="./src/high-order.jsx" type="text/babel"></script>
+</body>
+</html>

@@ -94,10 +94,19 @@ const logger3 = (store) => next => action => {
   next(action)
   console.log('end-3')
 }
+// 异步调用
+const thunk = (store) => next => action => {
+  const { dispatch, getState } = store
+  if (typeof action === 'function') {
+    action(dispatch, getState)
+  }
+  next(action)
+}
 const store = createStore(reducer, applyMiddleware(
   logger1,
   logger2,
-  logger3
+  logger3,
+  thunk
 ))
 // middleware 在 dispatch action和到达reducer之间提供第三方扩展点。
 function applyMiddleware() {
@@ -128,4 +137,14 @@ function compose () {
   }
 }
 store.dispatch({type: 'counter/increment'})
-console.log(store.dispatch.toString())
+// console.log(store.dispatch.toString())
+
+const increment_async = () => {
+  return (dispatch, getState) => {
+    window.setTimeout(() => {
+      dispatch({type: 'counter/increment'})
+      console.log(getState())
+    }, 2000)
+  }
+}
+store.dispatch(increment_async())
