@@ -5,20 +5,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>React实战</title>
+  <style>
+    .layout-page {display: flex; height: 400px;background: #f9f9f9;}
+    .left ul{list-style: none; padding:10px; margin: 0;}
+    .content{flex: 1;text-align:center;}
+  </style>
 </head>
 <body>
   <div id="watch-app"></div>
   <hr>
   <div id="high-order-app"></div>
+  <hr>
+  <div id="context-app"></div>
+  <hr>
+  <div id="render-props-app"></div>
+  <hr>
+  <div id="context-root"></div>
+  <hr>
+  <div id="combination-pattern-app"></div>
   <script src="../src/babel.js"></script>
   <script src="../src/react.js"></script>
   <script src="../src/react-dom.js"></script>
   <script>
     const { React, ReactDOM } = window
-    const { useState, useEffect, useRef, memo, useMemo, useCallback } = React
+    const { useState, useEffect, useRef, memo, useMemo, useCallback, useContext } = React
     const { createRoot } = ReactDOM
   </script>
   <script src="./src/watch.jsx" type="text/babel"></script>
   <script src="./src/high-order.jsx" type="text/babel"></script>
+  <script src="./src/render-props.jsx" type="text/babel"></script>
+  <script src="./src/context.jsx" type="text/babel"></script>
+  <script src="./src/combination-pattern.jsx" type="text/babel"></script>
 </body>
 </html>
