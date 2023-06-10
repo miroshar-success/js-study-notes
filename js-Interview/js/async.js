@@ -160,3 +160,15 @@ const multiple = (number) => {
     console.log(res)
   }
 })()
+
+// ---------------- await阻塞 ------------------
+const f1 = async () => {
+  const result = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve('hello')
+    }, 1000)
+  })
+  console.log(result)
+}
+f1()
+console.log('我可以执行吗') // 先执行(不会因为f1的执行需要等待)

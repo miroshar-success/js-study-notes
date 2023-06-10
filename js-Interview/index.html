@@ -101,6 +101,13 @@
     #node-container{border-top-width: 20px; border-left-width: 30px; border-style:solid;}
     .input{width: 400px; height: 28px; outline: none; border:1px solid #d9d9d9; font-size:14px;}
     .drag-box{width: 200px; height:200px; border:1px solid #e8e8e8; text-align: center; line-height:200px;}
+    /* animation-box */
+    .animation-box{
+      width:100px;
+      height:100px;
+      border:1px solid #e8e8e8;
+      background-color: pink;
+    }
   </style>
 </head>
 <body>
@@ -196,14 +203,26 @@
     <span class="text">1</span>
     <span class="text">2</span>
   </div>
+  <hr>
   <button class="create-node-btn">click</button>
+  <hr>
+  <button class="garbage-collect-btn">垃圾回收</button>
+  <div class="weakmap-container">
+    <button class="btn-1">button-click-1</button>
+    <button class="btn-2">button-click-2</button>
+  </div>
+  <hr>
+  <ul class="player-list"></ul>
+  <hr>
+  <button class="animation-btn">animationFrame</button>
+  <div class="animation-box"></div>
 <!--   <script src="./js/css.js"></script>
   <script src="./js/typeof.js"></script>
   <script src="./js/clone.js"></script>
   <script src="./js/instanceof.js"></script>
   <script src="./js/closure.js"></script>
   <script src="./js/this.js"></script> -->
-  <!-- <script src="./js/async.js"></script> -->
+  <script src="./js/async.js"></script>
   <!-- <script src="./js/task.js"></script> -->
   <!-- <script src="./js/dom.js"></script> -->
   <!-- <script src="./js/event.js"></script> -->
@@ -222,5 +241,7 @@
     } */
   </script>
   <!-- <script src="http://localhost:3000/player?callback=fn"></script> -->
+  <!-- <script src="./js/garbage-collect.js"></script> -->
+  <script src="./js/requestAnimationFrame.js"></script>
 </body>
 </html>
