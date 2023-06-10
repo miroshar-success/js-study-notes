@@ -587,7 +587,10 @@
   <hr>
   <script src="../src/vue.development-3.js"></script>
   <script>
-    const { createApp, watchEffect, provide, inject, toRefs, h, toRef, ref, onUnmounted, reactive, computed, watch, nextTick, onMounted } = Vue
+    const {
+      createApp, watchEffect, provide, inject, toRefs, h, toRef, ref, onUnmounted, reactive,
+      computed, watch, nextTick, onMounted, onBeforeMount, onBeforeUpdate, onUpdated, onBeforeUnmount
+    } = Vue
   </script>
   <script src="./src/01-first-app.js"></script>
   <script src="./src/02-mustache.js"></script>

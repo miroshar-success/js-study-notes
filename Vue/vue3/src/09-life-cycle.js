@@ -11,6 +11,24 @@ const lifeCycleApp = createApp({
   },
   setup () {
     console.log('setup invoked')
+    onBeforeMount(() => {
+      console.log('onBeforeMount')
+    })
+    onMounted(() => {
+      console.log('onMounted')
+    })
+    onBeforeUpdate(() => {
+      console.log('onBeforeUpdate')
+    })
+    onUpdated(() => {
+      console.log('onUpdated')
+    })
+    onBeforeUnmount(() => {
+      console.log('onBeforeUnmount')
+    })
+    onUnmounted(() => {
+      console.log('unMounted')
+    })
   },
   beforeCreate() {
     console.log('beforeCreate')
