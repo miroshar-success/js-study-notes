@@ -323,3 +323,26 @@ window.location.href = 'http://www.baidu.com'
   *Access-Control-Request-Method* 告知服务器,实际请求将使用*POST*方法。标头字段*Access-Control-Request-Headers* 告知服务器,实际请求携带自定义标头字段。
 
   *Access-Control-Max-Age* 给定了预检请求可供缓存的时间长短。 默认为5s
+
+## cookie
+
+  禁止网页引入的第三方JS设置cookie。
+
+  主域名相同 可共享Cookie。
+  单点登录 SSO
+  OAuth2.0
+
+## TCP/UDP
+
+  UDP 无连接/无断开,效率低。 适合视频/语音
+
+  prefetch 资源预先获取 (preload相关)
+  dns-prefetch / preconnect
+
+  前端攻击
+  XSS (跨站脚本攻击). 将JS代码插入到网页内容中,渲染时执行JS代码。
+  预防: 特殊字符替换
+
+  CSRF(跨站请求伪造) 诱导用户访问另一个网站接口,伪造请求。
+  1. 严格的跨域请求限制
+  2. 为cookie设置SameSite, 禁止跨域传递cookie.
