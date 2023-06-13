@@ -117,14 +117,55 @@ p { color: green; }
 		pre-wrap: 保留空白符序列，但是正常地进行换行。
 		pre-line: 合并空白符序列，但是保留换行符。
         
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
+## 重绘和重拍
+
+1. 网页生成的过程
+
+1.1   HTML转化为DOM
+1.2   CSS转化为CSSOM (CSS Object Model)
+1.3   结合DOM和CSSOM, 生成一颗渲染树
+1.4   生成布局, 并将布局绘制到屏幕上
+
+  一般来说,如果有下面这些属性的读取操作,都会引发浏览器立即重新渲染。(尽量不要把读操作和写操作放在一个语句里)
+
+```js
+// bad
+div.style.left = div.offsetLeft + 10 + "px";
+div.style.top = div.offsetTop + 10 + "px";
+
+// good
+var left = div.offsetLeft;
+var top  = div.offsetTop;
+div.style.left = left + 10 + "px";
+div.style.top = top + 10 + "px";
+```
+
+* offsetTop/offsetLeft/offsetWidth/offsetHeight
+* scrollTop/scrollLeft/scrollWidth/scrollHeight
+* clientTop/clientLeft/clientWidth/clientHeight
+* getComputedStyle()
+
+2. 性能提升
+
+* 如果某个样式是通过重排得到的, 可以缓存结果。避免下一次使用时再次重排。
+* 通过class或者cssText一次性修改样式
+* 使用Document Fragment对象操作多个DOM
+* visibility:hidden 只会重绘有影响,不影响重排。
+
+```js
+$(window).on('scroll', () => { // 推迟到下一次重新渲染
+  window.requestAnimationFrame(scrollHandler)
+})
+
+
+// 将某些代码放到下一次重新渲染时执行,让读操作和写操作分离,把所有的写操作都放到下一次重新渲染
+function doubleHeight(element) {
+  const currentHeight = element.clientHeight;
+  window.requestAnimationFrame(() => {
+    element.style.height = currentHeight * 2 + 'px'
+  })
+}
+elements.forEach(doubleHeight)
+```
+
+[网页性能管理详解](https://www.ruanyifeng.com/blog/2015/09/web-page-performance-in-depth.html)

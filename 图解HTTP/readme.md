@@ -346,3 +346,5 @@ window.location.href = 'http://www.baidu.com'
   CSRF(跨站请求伪造) 诱导用户访问另一个网站接口,伪造请求。
   1. 严格的跨域请求限制
   2. 为cookie设置SameSite, 禁止跨域传递cookie.
+  3. SQL注入
+  4. DOS
