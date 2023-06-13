@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tab-1</title>
+</head>
+<body>
+  <!-- tab选项卡间的通讯 -->
+  <button class="btn">click me</button>
+  <button class="iframe-btn">iframe-btn</button>
+  <iframe src="./tab-2.html" id="iframe" style="width:400px; height:400px;"></iframe>
+  <script src="../js/bus.js"></script>
+  <script>
+    const btn = document.querySelector('.btn')
+    const channel = new window.BroadcastChannel('cat')
+    btn.addEventListener('click', () => {
+/*       window.localStorage.setItem('name', 'hello')
+      // window.sessionStorage.setItem('name', 'hello') // 使用sessionStorage无效 */
+      // bus.emit('update', {name: 'kyrie'})
+      channel.postMessage('hello world')
+    }, false)
+
+    // 和iframe通讯
+    const iframe_btn = document.querySelector('.iframe-btn')
+    iframe_btn.addEventListener('click', () => {
+      window.iframe.contentWindow.postMessage('hello', 'http://127.0.0.1:5500')
+    }, false)
+    // ------- 接收子iframe传递过来的事件--------
+    window.addEventListener('message', (e) => {
+      console.log('iframe-message', e)
+    }, false)
+  </script>
+</body>
+</html>

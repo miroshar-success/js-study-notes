@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tab-2</title>
+</head>
+<body>
+  <p>hello world</p>
+  <button class="back-btn">iframe-button-back</button>
+  <script src="../js/bus.js"></script>
+  <script>
+    // 监听storage事件
+    window.addEventListener('storage', () => {
+      console.log('更新了吗')
+    })
+    /**
+     * 业务场景:
+     * 1. 列表页 查看详情, 详情页修改 列表更新
+    */
+   bus.on('update', (data) => {
+    console.log(data.detail)
+   })
+/*    window.setTimeout(() => {
+    bus.emit('update', {name: 'hello'})
+   }, 2000) */
+
+   const channel = new window.BroadcastChannel('cat')
+   channel.addEventListener('message', (e) => {
+      console.log(e)
+   })
+
+   // ------ iframe接收父页面的事件 ---------
+   window.addEventListener('message', (event) => {
+    console.log('origin', event.origin)
+   })
+
+  //  ----------- iframe btn 通知父组件-----------
+  const iframe_btn = document.querySelector('.back-btn')
+  iframe_btn.addEventListener('click', () => {
+    window.parent.postMessage('world')
+  }, false)
+  </script>
+</body>
+</html>
