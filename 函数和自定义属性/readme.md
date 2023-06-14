@@ -10,7 +10,6 @@
 
 ```js
 // 1. 匿名函数
-
 function () {};
 () => {};
 
@@ -36,6 +35,8 @@ function foo1(){
 (function foo2(){
 	console.log('foo2')
 })
+// foo2()		ReferenceError: foo2 is not defined
+// 此处的函数被识别为函数表达式可以立即调用,而函数声明作为语句,求值结果是undefined,而不是定义的函数 无法立即调用。
 ```
   polyfill 用于表示根据新特性的定义,创建一段与之行为等价但能够在旧的JavaScript环境中运行的代码。
 ```js
@@ -74,6 +75,26 @@ console.log( (function(a,b = 1,c){}).length ) // 1
 	Function.prototype.toString()
 
 
+## 箭头函数
+
+	JavaScript为了支持面向对象编程, 给函数添加到许多相关的功能和行为。箭头函数取消了这些行为。更适合与函数式编程。
+
+1. 箭头函数没有this,使用的是包含该箭头函数的上下文中的this. 也无法通过call/apply/bind修改this.
+2. 箭头函数不能作为构造函数, 它没有prototype, 无法使用new.target (new.target属性允许检测函数或构造方法是否通过new 运算符调用。)
+3. 箭头函数没有arguments, 箭头函数里出现的arguments 包含的是箭头函数所在外套函数中的arguments的值,就像this绑定一样。
+
+```js
+function foo (num) { 
+	const bar = () => { 
+		// arguments 包含的是函数 foo 的参数值。
+		console.log (arguments[O] ); 
+	}
+	bar(2); 
+}
+foo (1); 
+// 1
+```
+	4. 箭头函数不能用作Generator.
 
 
 

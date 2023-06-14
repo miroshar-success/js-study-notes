@@ -91,3 +91,18 @@ inside_m1() // 10
 const inside_m2 = m1(5)
 inside_m2() // 6
 inside_m2() // 7
+
+// ---------------------- 闭包返回一个引用类型 -----------------------------
+function baz (v) {
+  return () => v
+}
+const f1 = baz({})
+const result = f1()
+result.name = 'hello'
+console.log(f1(), result) // { name: 'hello' } { name: 'hello' }
+
+// ----------------- 闭包返回一个不可变值 -----------------------
+const f2 = baz(3)
+let p_value = f2()
+p_value = 10
+console.log(p_value, f2())  // 10 3

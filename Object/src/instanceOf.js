@@ -56,3 +56,21 @@ function is_instance_of(instance, constructor) {
 
 console.log( Object instanceof Function)  // true
 console.log( Function instanceof Object)  // true
+
+// ----------------------------- 假阴性和假阳性 --------------------------
+const isObject = (val) => val instanceof Object
+console.log(isObject(Object.prototype))     // false
+console.log(isObject(Object.create(null)))  // false
+
+const isObject_2 = (value) => typeof value === 'object'
+console.log(isObject_2(null), isObject_2({name: 'kyrie'}), isObject_2(new Map([['name', 'kyrie'], ['age', 30]])))
+// true true true
+
+
+// -------------- Object -----------------------
+console.log(Object(null), Object(undefined))  // {}, {}
+
+const player = {name: 'kyrie'}
+console.log(Object(player) === player)  // true
+
+console.log(Object(1))  // Number {1}
