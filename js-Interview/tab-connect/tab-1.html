@@ -16,10 +16,11 @@
     const btn = document.querySelector('.btn')
     const channel = new window.BroadcastChannel('cat')
     btn.addEventListener('click', () => {
-/*       window.localStorage.setItem('name', 'hello')
-      // window.sessionStorage.setItem('name', 'hello') // 使用sessionStorage无效 */
+/*   
+      window.sessionStorage.setItem('name', 'hello') // 使用sessionStorage无效 */
       // bus.emit('update', {name: 'kyrie'})
-      channel.postMessage('hello world')
+      // channel.postMessage('hello world')
+      window.localStorage.setItem('name', 'hello')
     }, false)
 
     // 和iframe通讯

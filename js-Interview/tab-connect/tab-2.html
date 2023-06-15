@@ -11,7 +11,11 @@
   <button class="back-btn">iframe-button-back</button>
   <script src="../js/bus.js"></script>
   <script>
-    // 监听storage事件
+    // 监听storage事件, 当前页面使用的storage被其他页面修改时会触发StorageEvent事件。
+    /**
+     * 事件在同一个域下的不同页面之间触发, 即在A页面注册了storage的监听处理,只有在跟A同域名下的B页面操作storage对象,A页面才会被触发
+     * storage事件
+    */
     window.addEventListener('storage', () => {
       console.log('更新了吗')
     })
