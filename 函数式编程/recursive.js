@@ -29,3 +29,79 @@ console.info(isOdd(11), isOdd(10))  // true false
  * 4. return f() && g()       // g()是尾部调用
  * 
 */
+
+// ------------- 尾递归优化 -------------------
+function fibonacci (n) {
+  if (n <= 1) return 1
+  return fibonacci(n - 1) + fibonacci(n - 2)
+}
+// console.log(fibonacci(40))  // 165580141   很慢
+// console.log(fibonacci(45))
+
+function fibonacci_2 (n, n1 = 1, n2 = 1) {
+  if (n <= 1) return n2
+  return fibonacci_2(n - 1, n2, n1 + n2)
+}
+console.log('fibonacci_2:', fibonacci_2(1000))
+
+// --------------- 使用循环 -------------------
+function fibonacci_3 (n) {
+  if (n < 2) return n;
+  let a = 0, b = 1, c = 1;
+  for (let i = 2; i <= n; i++) {
+    c = a + b
+    a = b
+    b = c
+  }
+  return c
+}
+console.log('fibonacci_3:', fibonacci_3(1001))
+
+// ------ 阶层 ------------
+function stratum(n) {
+  if (n <= 1) return n
+  return stratum(n - 1) * n
+}
+console.time('start')
+console.log(stratum(170))
+console.timeEnd('start')
+
+// 快一些
+function stratum_2(n, total = 1) {
+  if (n <= 1) return total
+  return stratum_2(n - 1, n * total)
+}
+
+console.time('start')
+console.log(stratum_2(170))
+console.timeEnd('start')
+
+function totalizer(n) {
+  if (n <= 0) return n
+  return n + totalizer(n - 1)
+}
+console.log(totalizer(10300))  // 53050150
+
+/* function sumTotal (num) {
+  function _sum (num, accum) {
+    if (num === 0) {
+      return accum
+    }
+    return _sum(num - 1, accum + num)
+  }
+  return _sum (num, 0)
+}
+ */
+
+function fibonacci_4  () {
+  const memory = [0, 1] // 缓存
+  return function fn (n) {
+    if (memory.length <= n) {
+      memory[n] = fn(n - 1) + fn(n - 2)
+    }
+    return memory[n]
+  }
+}
+// 虽然包含两次递归调用, 但是实际上对于每个n, 函数只计算了一次。
+const f_a = fibonacci_4()
+console.log(f_a(1000))
