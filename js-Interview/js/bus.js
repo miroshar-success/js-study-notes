@@ -13,3 +13,8 @@ class Bus extends EventTarget {
 }
 
 const bus = new Bus()
+
+// -------------- 自行实现 -------------
+class EventBus {
+  
+}

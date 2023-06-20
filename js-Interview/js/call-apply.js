@@ -15,8 +15,8 @@ Function.prototype._call = function (context, ...args) {
   return result
 }
 
+// ------------- 测试 -------------
 const car = {color: 'red', price: '100w' }
-
 function logCarInfo () {
   console.log(this.color, this.price)
 }
