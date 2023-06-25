@@ -142,5 +142,28 @@ function currying2(fn) {
 }
 const s2 = currying(sum)
 console.log(s2(1)(2)(3)(4))  // 10
-console.log(s2(1,2)(3,4))   // 10
-console.log(s2(1,2,3)(4))   // 10
+console.log(s2(1,2)(3,4))    // 10
+console.log(s2(1,2,3)(4))    // 10
+
+// ----------------- 查找数组中的数字 ------------------
+const _match = currying(function(expr, str) {
+  return str.match(expr)
+})
+const has_number = _match(/[0-9]+/)
+
+console.log(['js', 'number1', 'abc', '123'].filter(has_number)) // ['number1', '123']
+
+const _map = currying(function(f, array) {
+  return array.map(f)
+})
+
+const square = _map(x => Math.pow(x, 2))
+console.log(square([1, 2, 3]), square([3, 5, 9]), square([2, 6, 11]))
+// [1, 4, 9]    [9, 25, 81]   [4, 36, 121]
+
+const _filter = currying(function(f, array) {
+  return array.filter(f)
+})
+const number_bigger_than_10 = _filter(x => x > 10)
+console.log(number_bigger_than_10([1, 3, 5, 10, 20, 17, 15]), number_bigger_than_10([12, 17, 5, 9, 13]))
+// [20, 17, 15]     [12, 17, 13]

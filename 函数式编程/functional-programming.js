@@ -310,8 +310,10 @@ const player_1 = { name: 'lebron', age: 38 }
 const player_2 = { name: 'kyrie', age: 32 }
 const player_3 = { name: 'durant', age: 35 }
 
-console.log(get_name(player_1), get_name(player_2), get_name(player_3)) // 'lebron' / 'kyrie' / 'durant'
-console.log(get_age(player_1), get_age(player_2), get_age(player_3))  // 38  32  35
+console.log(get_name(player_1), get_name(player_2), get_name(player_3))
+// 'lebron' / 'kyrie' / 'durant'
+console.log(get_age(player_1), get_age(player_2), get_age(player_3)) 
+// 38  32  35
 
 
 // ------------------- 从右向左科里化 --------------------------------
