@@ -1,4 +1,5 @@
 // 函数组合, 将就数组的最后一个元素 以函数组合的形式实现
+// 每个程序的输出 应该是另一个尚未可知的程序的输入。
 function reverse(array) { // 将数组倒序
   return array.reverse()
 }
@@ -62,3 +63,27 @@ const tap = (val) => {
 const compose_fn = _compose(sum, tap, multiple);
 // 从右向左举个调用, 每个函数的返回值 传递给下一个函数作参数
 console.log(compose_fn(1), compose_fn(2)) // 4    16
+
+
+// ------------------ 从左往右执行 ------------------
+const compose_left_to_right = (...fns) => {
+  return function(arg) {
+    let result = arg
+    for (let i = 0, length = fns.length; i < length; i++) {
+      const fn = fns[i]
+      result = fn(result)
+    }
+    return result
+  }
+}
+
+const upperCase = x => x.toUpperCase()
+const lowerCase = x => x.slice(0, 1) + x.slice(1).toLowerCase()
+const compose_tap = x => {
+  console.log('x:', x)
+  return x
+}
+
+const first_letter_uppercase = compose_left_to_right(upperCase, compose_tap, lowerCase)
+console.log(first_letter_uppercase('hello world'), first_letter_uppercase('may be'))
+// Hello world May be

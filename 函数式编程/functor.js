@@ -1,3 +1,4 @@
+// ------------------ 函子 -------------------
 class Container {
   constructor(value){
     this._value = value;
