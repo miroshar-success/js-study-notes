@@ -149,3 +149,14 @@ c_2.say()
 c_1.colors.pop()
 console.log(c_1, c_2)
 
+
+// ---------------------- new 两个对象是否 影响 构造函数上的 属性 --------------------------
+function CreateColor() {
+  this.colors = ['red', 'blue', 'green', 'yellow']
+}
+const colour1 = new CreateColor()
+const colour2 = new CreateColor()
+console.log('before:', colour1, colour2)
+colour1.colors.pop()
+console.log('after:', colour1, colour2)
+// 互不影响

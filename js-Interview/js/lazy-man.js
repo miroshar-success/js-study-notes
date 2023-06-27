@@ -33,3 +33,9 @@ class SleepMan {
 }
 const kyrie = new SleepMan('kyrie')
 kyrie.eat('apple').sleep(3).eat('banana').sleep(2).eat('grape')
+/**
+ *  kyrie eat apple ------>   kyrie start sleep! ---->(等待3s)  kyrie sleep 3 s!
+    kyrie eat banana -----> kyrie start sleep! ----->(等待2s) kyrie sleep 2 s!
+    kyrie eat grape
+ * 
+*/

@@ -132,3 +132,106 @@ console.log(c1.increment === c2.increment, c1, c2)  // true { _val: 0 } { _val: 
 c1.increment()
 c1.increment()
 console.log(c1, c2)
+
+// ----------------------------- 开始设计模式 -----------------------------
+const Validate = function() {}
+Validate.prototype.checkName = function() {
+  console.log('验证姓名')
+  return this
+}
+Validate.prototype.checkEmail = function() {
+  console.log('验证邮箱')
+  return this
+}
+Validate.prototype.checkPassword = function() {
+  console.log('验证密码')
+  return this
+}
+const validate = new Validate()
+validate.checkName()
+validate.checkEmail()
+validate.checkPassword()
+
+// ------ 链式调用 -------
+const chain_validate = new Validate()
+chain_validate.checkName().checkEmail().checkPassword()
+
+// ------------- 函数原型上添加方法 ------------------
+const symbol = Symbol.for('add_method')
+Function.prototype[symbol] = function(name, fn) {
+  this[name] = fn
+  return this
+}
+const methods = function() {}
+methods[symbol]('checkName', () => {
+  console.log('验证姓名')
+  return this
+})[symbol]('checkEmail', function() {
+  console.log('验证邮箱')
+  return this
+})[symbol]('checkPassword', () => {
+  console.log('验证密码')
+})
+console.log(methods.checkName())
+console.log(methods.checkEmail())
+methods.checkPassword()
+
+// ---------------- 私有属性/私有方法/共有属性/共有方法 --------------------
+/* function Book(id, name, price) {
+  this.id = id
+  this.name = name
+  this.price = price
+  let num = 1
+  function increment() {
+    console.log('执行了吗')
+    num += 1
+    console.log('num-----', num)
+  }
+  this.getName = function() {
+    console.log('num:', num)
+    return this.name
+  }
+  increment()
+}
+const book = new Book(1, '你不知道的JavaScript', 80)
+// console.log('book:', book)
+console.log('name:', book.getName())
+
+const book_2 = new Book(2, '深入浅出React', 90)
+// console.log('book_2', book_2)
+console.log('name:', book_2.getName()) */
+
+// ------------- 使用闭包 -----------------
+const Book = (function() {
+  let num = 0
+  return function(id, name, price) {
+    this.id = id
+    this.name = name
+    this.price = price
+    num += 1
+    this.getName = function() {
+      console.log(num)
+      return this.name
+    }
+  }
+})()
+const book = new Book(1, '你不知道的JavaScript', 100)
+console.log(book.getName())
+const book_2 = new Book(2, '深入浅出Redux', 90)
+console.log(book.getName())
+
+
+// ---------------- 防止未通过new调用 ------------------------
+function Player(firstName, lastName) {
+/*   if (new.target !== Player) {
+    return new Player(firstName, lastName)
+  } */
+  if (!(this instanceof Player)) {
+    return new Player(firstName, lastName)
+  }
+  this.firstName = firstName
+  this.lastName = lastName
+}
+const kyrie = new Player('kyrie', 'irving')
+const wade = Player('dwyane', 'wade')
+console.log(kyrie, wade)
