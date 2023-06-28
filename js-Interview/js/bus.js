@@ -74,7 +74,7 @@ const listener = () => {
 bus.on('key', listener)
 bus.emit('key') // 输出 hello
 bus.off('key')  // 解绑
-bus.emit('key') // 再次出发无输出
+bus.emit('key') // 再次触发无输出
 
 bus.clear()
 bus.emit('update')
