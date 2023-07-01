@@ -1,4 +1,8 @@
 // ------------------桥接模式------------------
+/**
+ * 实现层与与抽象层解耦分离, 使两部分可以独立变化
+ * 
+*/
 const changeStyle = (dom, styles) => {
   for (const key in styles) {
     dom.style[key] = styles[key]
