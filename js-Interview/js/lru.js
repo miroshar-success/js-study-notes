@@ -90,3 +90,90 @@ cache_1.get(3)
 console.log(cache_1)  // { map: { '3': 3, '4': 4 }, array: [ 4, 3 ], length: 2 }
 console.log(cache_1.get(10))  // null
 console.log(cache_1)  // { map: { '3': 3, '4': 4 }, array: [ 4, 3 ], length: 2 }
+
+
+// -------------- 双向链表 -------------
+class CacheByListNode {
+  constructor(length) {
+    this.length = length
+    this.dataLength = 0
+    this.data = {}
+    this.tail = null  // 头
+    this.head = null  // 尾
+  }
+  get (key) {
+    const node = this.data[key]
+    if (!node) return null
+    // 如果是最后一个, 直接返回
+    if (node === this.tail) return node
+    // 如果是中间的话, 移动到最后一个位置
+    this.moveToTail(node)
+    return node.value
+  }
+  set (key, value) {
+    const node = this.data[key]
+    if (!node) {
+      // 新增
+      const newNode = { key, value }
+      this.moveToTail(newNode)
+      this.data[key] = newNode
+      this.dataLength += 1
+      if (this.dataLength === 1) {
+        this.head = newNode
+      }
+    } else {
+      node.value = value
+      this.moveToTail(node)
+    }
+  }
+  moveToTail(node) {
+    if (this.node === this.tail) return
+    // 让prev next 断绝与 curNode的关系
+    const prevNode = node.prev
+    const nextNode = node.next
+    if (prevNode) {
+      if (nextNode) {
+        // 上下节点都有
+        prevNode.next = nextNode
+      } else {
+        Reflect.deleteProperty(prevNode, 'next')
+      }
+    }
+    if (nextNode) {
+      if (prevNode) {
+        nextNode.prev = prevNode
+      } else {
+        Reflect.defineProperty(nextNode, 'prev')
+      }
+      //  如果头部节点正好是当前节点
+      if (this.head === node) {
+        this.head = nextNode
+      }
+    }
+    // 删除当前节点前后节点只想
+    Reflect.deleteProperty(node, 'prev')
+    Reflect.deleteProperty(node, 'next')
+    // 将当前节点移动到末尾
+    const tail = this.tail
+    if (tail) {
+      tail.next = node
+      node.prev = tail
+    }
+    this.tail = node
+  }
+  clean() {
+    while (this.dataLength > this.length) {
+      if (!this.head) return
+      const headNode = this.head
+      if (!headNode.next) return
+      Reflect.deleteProperty(headNode, 'next')
+      const headNextNode = headNode.next
+      Reflect.deleteProperty(headNextNode, 'prev')
+      this.head = headNextNode
+      // 重新计数
+      this.dataLength -= 1
+      // 清空data
+      Reflect.deleteProperty(this.data, this.head.key)
+    }
+  }
+}
