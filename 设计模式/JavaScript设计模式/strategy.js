@@ -71,7 +71,6 @@ console.log(is_arr)
 FormValidateStragegy.add_strategy('is_array', (v) => {
   return Array.isArray(v)
 })
-
 const is_array_1 = FormValidateStragegy.check('is_array', [])
 const is_array_2 = FormValidateStragegy.check('is_array', {})
 console.log(is_array_1, is_array_2) // true  false
