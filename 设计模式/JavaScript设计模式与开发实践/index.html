@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设计模式</title>
+</head>
+<body>
+  <div id="container"></div>
+  <button class="button">click me</button>
+  <script>
+    const getElementById = document.getElementById // 函数内部可能用到了 this
+    // console.log(getElementById('#container')) // Illegal invocation
+    const getId = (function(fn) {
+      return function() {
+        return fn.apply(document, arguments)
+      }
+    })(document.getElementById)
+    console.log(getId('container'))
+
+    const $ = (selector) => {
+      return document.getElementById(selector)
+    }
+    console.log($('container'))
+
+    // ------------- call 和 apply 传入null ----------------
+    function print(arguments) {
+      console.log(this, arguments)
+    }
+    print.call(null, 1, 2, 3)
+
+    function log(a) {
+      'use strict'
+      // 严格模式下 this 为 null
+      console.log(this, a)
+    }
+    log.call(null, 8, 9)
+
+    // ---------------- 使用bind 绑定 ElementById ----------------
+    const _ = document.getElementById.bind(document)
+    console.log(_('container'))
+
+    function sum (a, b, c) {
+      return a + b + c
+    }
+    const bind_sum = sum.bind(null, 100)
+    console.log(bind_sum(200, 300), bind_sum(200 ,200)) // 600 500
+
+    // -------------- push ------------------
+    /**
+     * push方法是设置下标属性 并且修改length属性
+    */
+   const arr_object = {}
+   Array.prototype.push.call(arr_object, 1, 2, 3)
+   console.log(arr_object)
+  </script>
+  <script>
+    // 命令模式
+    const radio = {
+      open () {
+        console.log('打开收音机')
+      },
+      close () {
+        console.log('关上收音机')
+      }
+    }
+    const Command = function(receiver) {
+      this.receiver = receiver
+    }
+    Command.prototype.execute = function() {
+      this.receiver.open()
+    }
+    Command.prototype.undo = function() {
+      this.receiver.close()
+    }
+
+    const command = new Command(radio)
+    command.execute()
+    command.undo()
+
+    // ------------ 面向对象 -----------
+    const createCommand = function(receiver) {
+      const execute = function() {
+        return receiver.open()
+      }
+      const undo = function() {
+        return receiver.close()
+      }
+      return {
+        execute,
+        undo
+      }
+    }
+    const { execute, undo } = createCommand(radio)
+    execute()
+    undo()
+
+    // -------------------- 面向切面 ---------------------
+    Function.prototype.before = function(before_fn) {
+      const self = this
+      return function() {
+        before_fn.apply(this, arguments)
+        return self.apply(this, arguments)
+      }
+    }
+    Function.prototype.after = function(after_fn) {
+      const self = this
+      return function() {
+        const result = self.apply(this, arguments)
+        after_fn.apply(this, arguments)
+        return result
+      }
+    }
+    let print_number = () => {
+      console.log('2')
+    }
+    print_number = print_number.before(function() {
+      console.log(1)
+    }).after(function() {
+      console.log(3)
+    })
+    print_number()
+  </script>
+  <script>
+    // ------------------ 浏览器兼容性 嗅探工作 ---------------
+    const addEvent = function(element, type, handler) {
+      console.log('执行了第一次')
+      if (window.addEventListener) {
+        return element.addEventListener(type, handler, false)
+      }
+      if (window.attachEvent) {
+        return element.attachEvent(`on${type}`, handler)
+      }
+    }
+    const button = document.querySelector('.button')
+    addEvent(button, 'click', () => {
+      console.log('click me')
+    })
+    addEvent(button, 'mouseover', () => {
+      console.log('mouseover')
+    })
+    addEvent(button, 'mouseout', () => {
+      console.log('mouseout')
+    })
+    // 缺点： 每次调用都会执行if else 判断
+
+    const addEventListener = (function() {
+      console.log('执行了第二次')
+      if (window.addEventListener) {
+        return function(element, type, handler) {
+          element.addEventListener(type, handler, false)
+        }
+      }
+      if (window.attachEvent) {
+        return function(element, type, handler) {
+          element.attachEvent(`on${type}`, handler)
+        }
+      }
+    })();
+
+    addEventListener(button, 'click', () => {
+      console.log('double click')
+    })
+    addEventListener(button, 'mouseover', () => {
+      console.log('mouseover')
+    })
+    addEventListener(button, 'mouseout', () => {
+      console.log('mouseout')
+    })
+  </script>
+</body>
+</html>

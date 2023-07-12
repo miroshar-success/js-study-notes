@@ -58,11 +58,40 @@ console.log(cache_fn.get('firstName'))
 console.log(cache_fn.get('lastName'))
 
 console.log('------------------------事件循环绑定 -------------------')
-for(let i = 0; i < 10; i++) {
+/* for(let i = 0; i < 10; i++) {
   const link = document.createElement('div')
   link.addEventListener('click', () => {
     console.log(i)
   })
   link.textContent = `link - ${i}`;
   document.body.appendChild(link)
-}
+} */
+
+console.log('--------------------- 闭包实现缓存 ----------------------------')
+const cache = (function() {
+  const cache = {}
+  return function() {
+    const args = Array.prototype.slice(arguments).join('')
+    if (cache[args]) return cache[args]
+    console.log('我执行了吗？') // 只输出1次
+    let a = 1
+    for (let i = 0, length = arguments.length; i < length; i++) {
+      const val = arguments[i]
+      a += a * val
+    }
+    return cache[args] = a
+  }
+})();
+
+console.log(cache(1, 2, 3, 4))
+console.log(cache(1, 2, 3, 4))
+
+// --------------------- 延迟局部变量的寿命 ------------------------
+const report = (function() {
+  const imgs = []
+  return function(src) {
+    const img = new Image()
+    imgs.push(img)
+    img.src = src
+  }
+})()
