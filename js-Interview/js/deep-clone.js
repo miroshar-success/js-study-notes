@@ -12,7 +12,7 @@ const deep_clone = (obj) => {
   }
   return temp
 }
-
+// ------------- 测试 --------------
 const player = {
   age: 30,
   firstName: 'kyrie',
@@ -27,12 +27,8 @@ console.log(clone_player, player)
  * { age: 30, firstName: 'kyrie', lastName: 'irving' }
  * { age: 30, firstName: 'lebron', lastName: 'james' }
 */
-
 const person = {
-  fullName: {
-    firstName: 'jack',
-    lastName: 'green'
-  }
+  fullName: { firstName: 'jack', lastName: 'green' }
 }
 const clone_person = deep_clone(person)
 clone_person.fullName.firstName = 'joe'
@@ -56,20 +52,14 @@ console.log(clone_obj, obj)
 */
 
 // -------- 测试循环引用 --------
-const obj_b = {
-  a: 1,
-  b: 2
-}
 const obj_a = {
   a: 3,
   b: 4
 }
-// obj_a.c = obj_b
-// obj_b.c = obj_a
 obj_a.self = obj_a
-
 // const clone_circle_obj = deep_clone(obj_a) // 报错
 
+// 缺点: 不支持map/set等结构的拷贝, 而且遇到循环引用时会报错
 const deep_clone_next_version = function(obj, map = new WeakMap()) {
   if (obj === null || typeof obj !== 'object') return obj
   const from_obj = map.get(obj)
@@ -110,15 +100,22 @@ const deep_clone_next_version = function(obj, map = new WeakMap()) {
 
 const person_next_version = deep_clone_next_version(person)
 console.log('--------------- 下一个版本 ----------------')
-console.log(person_next_version, person)
 person_next_version.fullName.firstName = 'kyrie'
 person_next_version.fullName.lastName = 'irving'
 console.log(person_next_version, person)
 
+/**
+{ fullName: { firstName: 'kyrie', lastName: 'irving' } } 
+{ fullName: { firstName: 'jack', lastName: 'green' } }
+*/
 
 // set和map
 const obj_next_person = deep_clone_next_version(obj)
 console.log(obj, obj_next_person)
+/**
+ * { map: Map(1) { 'message' => 'hello' }, set: Set(3) { 1, 2, 3 } } 
+ * { map: Map(1) { 'message' => 'hello' }, set: Set(3) { 1, 2, 3 } }
+*/
 
 // map
 const map = new Map([[{message: 'hello'}, {message: 'world'}]])
