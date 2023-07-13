@@ -47,15 +47,18 @@ const categoryList = [
   { id: 7, name: '耳机', categoryId: 8, parentCategoryId: 3 },
   { id: 8, name: '电脑', categoryId: 9, parentCategoryId: 3 },
   { id: 9, name: '电子手表', categoryId: 10, parentCategoryId: 3 },
-  { id: 10, name: '烤鸭', categoryId: 11, parentCategoryId: 2 }
+  { id: 10, name: '烤鸭', categoryId: 11, parentCategoryId: 2 },
+  { id: 11, name: '苹果', categoryId: 12, parentCategoryId: 7 },
+  { id: 12, name: '小米', categoryId: 13, parentCategoryId: 7 },
+  { id: 13, name: '华为', categoryId: 14, parentCategoryId: 7 },
+  { id: 14, name: '北京全聚德烤鸭', categoryId: 15, parentCategoryId: 11 },
+  { id: 15, name: '安庆烤鸭', categoryId: 16, parentCategoryId: 11 }
 ]
 
 const convert = (list = []) => {
   const map = {}
   list.forEach(item => {
-    if (item.parentCategoryId === 0) {
-      map[item.categoryId] = item
-    }
+    map[item.categoryId] = item
   })
   list.forEach(item => {
     if(map[item.parentCategoryId]) {
@@ -66,7 +69,7 @@ const convert = (list = []) => {
       parentCategory.children.push(item)
     }
   })
-  return map
+  return Object.values(map).filter(item => item.parentCategoryId == 0)
 }
 console.log('----------')
 console.log(JSON.stringify(convert(categoryList), null, 2))
