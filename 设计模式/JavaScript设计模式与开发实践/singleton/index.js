@@ -21,7 +21,7 @@ console.log(singleton_a, singleton_b, singleton_a === singleton_b)
 
 // ------------- 下一个例子 --------------------
 /**
- * 用代理模式实现单例模式, 既可以当成普通的实例的类, 也可以当做单例模式使用
+ * 用代理实现单例模式, 既可以让这个类变成普通的实例可产生多个实例, 也可以当做单例模式使用！
 */
 const CreateDialog = function(content) {
   this.content = content
@@ -32,18 +32,23 @@ CreateDialog.prototype.init = function() {
   element.textContent = this.content
   document.body.appendChild(element)
 }
+CreateDialog.getInstance = function(content) {
+  return new CreateDialog(content)
+}
+
+// 代理实例 使之变成一个 单例
 const ProxySingletonDialog = (function() {
   let instance
   return function(content) {
     if (!instance) {
-      instance = new CreateDialog(content)
+      instance = CreateDialog.getInstance(content)
     }
     return instance
   }
 })()
 
-const dialog_1 = new CreateDialog('hello')
-const dialog_2 = new CreateDialog('world')
+const dialog_1 = CreateDialog.getInstance('hello')
+const dialog_2 = CreateDialog.getInstance('world')
 console.log(dialog_1, dialog_2, dialog_1 === dialog_2)
 // CreateDialog {content: 'hello'}   CreateDialog {content: 'world'}   false
 
@@ -91,7 +96,7 @@ single_btn.addEventListener('click', () => {
 })
 
 
-// -------------------- 创建元素逻辑分离 ------------------------
+// -------------------- 根据单一职责原则 将实例的逻辑 和 创建单例 逻辑分离 ------------------------
 const getSingle = function(fn) {
   let result = null
   return function() {
@@ -127,6 +132,15 @@ const bindEvent = getSingle(function() {
   }, false)
   return true
 })
+
+// 这样写事件会绑定三次
+/* const bindEvent = function() {
+  const list = document.querySelector('.list')
+  list.addEventListener('click', () => {
+    console.log('click')
+  }, false)
+} */
+
 const render = () => {
   console.log('开始渲染列表')
   bindEvent()
@@ -134,3 +148,4 @@ const render = () => {
 render()
 render()
 render()
+// 开始渲染列表输出3次, 事件只绑定一次
