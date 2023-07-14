@@ -81,7 +81,7 @@ const tree_to_array = (root) => {
   const temp = []
   const list = [root]
   while (list.length > 0) {
-    const node = list.pop()
+    const node = list.shift()
     if (!node) break
     const { id, name, parentId, children = [] } = node
     temp.push({ id, name, parentId })
