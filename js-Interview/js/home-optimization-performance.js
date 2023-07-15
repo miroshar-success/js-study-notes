@@ -9,3 +9,5 @@
 
 // lighthouse
 // lighthouse url --view --preset=desktop
+
+// performance.timing
