@@ -18,12 +18,15 @@ const binary_tree: BinaryTreeProps = {
             value: 500,
             left: {
               value: 600
+            },
+            right: {
+              value: 700
             }
           }
         }
       },
       right: {
-        value: 300
+        value: 300 
       }
     },
     right: {
@@ -70,11 +73,37 @@ preorder_traversal(binary_tree)
 * ]
  * 
 */
-console.log('----------------- 中序遍历 ----------------')
 const midorder_traversal = (node: BinaryTreeProps | undefined) => {
+  console.log('我进来了,', node)
   if (!node) return
   midorder_traversal(node.left)
   console.log(node)
   midorder_traversal(node.right)
 }
-// midorder_traversal(binary_tree)
+
+const a: BinaryTreeProps = {
+  value: 1,
+  left: {
+    value: 2,
+    left: {
+      value: 100,
+      left: {
+        value: 200
+      }
+    },
+    right: {
+      value: 300
+    }
+  },
+  right: {
+    value: 3,
+    left: {
+      value: 4,
+    },
+    right: {
+      value: 5
+    }
+  }
+}
+console.log('---------------------中序遍历---------------------')
+midorder_traversal(a)
