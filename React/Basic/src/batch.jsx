@@ -62,6 +62,34 @@ const Counter5 = () => {
   )
 }
 
+const Counter6 = () => {
+  const [count, setCount] = useState(0)
+  const handleClick = () => {
+    setTimeout(() => {
+/*       setCount(count + 1)
+      setCount(count + 1)
+      setCount(count + 1) */
+      // 只执行最后一次
+/*       setCount(count+1)
+      setCount(c => c + 1)
+      setCount(count+2) */
+      // 只执行最后一次
+
+/*       setCount(count => count+1)
+      setCount(count => count+2)
+      setCount(count => count+3) */
+      // 执行3次  结果为6
+
+      setCount(count+ 2)
+      setCount(count => count+3)
+      // 执行2次, 结果为5
+    }, 0)
+  }
+  return (
+    <button onClick={handleClick}>click {count} times</button>
+  )
+}
+
 const App = () => (
   <>
     <Counter1/>
@@ -69,6 +97,7 @@ const App = () => (
     <Counter3/>
     <Counter4/>
     <Counter5/>
+    <Counter6/>
   </>
 )
 

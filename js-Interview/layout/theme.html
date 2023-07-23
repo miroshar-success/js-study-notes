@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS主题</title>
+  <style>
+    html {
+      --color: red;
+    }
+    html.dark {
+      --color: blue;
+    }
+    p, div {
+      color: var(--color);
+    }
+  </style>
+</head>
+<body>
+  <p>Hello World</p>
+  <div>世界那么大 我想去看看</div>
+  <button class="button">切换主题</button>
+  <script>
+    const btn = document.querySelector('.button')
+    btn.addEventListener('click', () => {
+      document.querySelector('html').classList.toggle('dark')
+    })
+  </script>
+</body>
+</html>

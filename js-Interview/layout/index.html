@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>布局</title>
+  <style>
+    html, body{ padding: 0;margin: 0;}
+    html, body, .container{height: 100%;}
+    .container{ display: flex; flex-direction: column;}
+    .container .header{height: 50px; background-color:pink;}
+    .container .footer{height: 50px; background-color:yellow;}
+    .container .main{flex: 1; display:flex;}
+    .main .left{width: 100px; background-color: blue}
+    .main .right{width: 100px; background-color: green;}
+    .main .content{flex: 1; background-color: red;}
+  </style>
+</head>
+<body>
+  <!-- HTML标签语义化 -->
+  <div class="container">
+    <div class="header"></div>
+    <div class="main">
+      <div class="left">left</div>
+      <div class="content"></div>
+      <div class="right">right</div>
+    </div>
+    <div class="footer"></div>
+  </div>
+</body>
+</html>
