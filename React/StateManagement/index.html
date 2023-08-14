@@ -8,14 +8,23 @@
 </head>
 <body>
   <div id="statement-management-app"></div>
+  <div id="state-app"></div>
+  <div id="state-shared-app"></div>
+  <div id="state-replacement-app"></div>
+  <hr>
+  <div id="reducer-app"></div>
   <script src="../src/react.js"></script>
   <script src="../src/babel.js"></script>
   <script src="../src/react-dom.js"></script>
   <script>
     const { React, ReactDOM } = window
-    const { useState, useEffect, useCallback, useMemo, memo } = React
+    const { useState, useRef, useEffect, useCallback, useMemo, memo, useReducer, useContext, createContext } = React
     const { createRoot } = ReactDOM
   </script>
   <script src="./src/index.jsx" type="text/babel"></script>
+  <script src="./src/state.jsx" type='text/babel'></script>
+  <script src="./src/state-shared.jsx" type="text/babel"></script>
+  <script src="./src/state-replacement.jsx" type="text/babel"></script>
+  <script src="./src/reducer.jsx" type="text/babel"></script>
 </body>
 </html>
