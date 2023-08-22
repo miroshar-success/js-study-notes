@@ -50,3 +50,22 @@
   并发数指系统同时能处理的请求数量, 反应了系统的负载能力。
 
   Graphite / Grafana 监控Node.js应用
+
+# Nestjs
+
+## Install
+
+```js
+npm i -g @nestjs/cli
+nest new project-name
+```
+  使用--strict 标识创建一个TypeScript的项目。
+
+```js
+npm run start
+```
+  启动服务, 默认监听在3000端口, 如果需要监听文件的变化, 使用下面的命令:
+```js
+npm run start:dev
+```
+  This command will watch your files, automatically recompiling and reloading the server.
