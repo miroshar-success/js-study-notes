@@ -20,22 +20,7 @@
 
 ## nvm
 
-  使用git下载:
-```js
-cd ~/ git clone https://github.com/nvm-sh/nvm.git .nvm
-. ./nvm.sh
-```
-[nvm下载](https://github.com/nvm-sh/nvm)
-
-## 镜像管理
-
-```js
-npm install nrm -g
-
-nrm ls  查看镜像源
-nrm use <镜像名称>
-npm config get registry (获取当前的镜像源)
-```
+  
 
 ## USE Method
 
