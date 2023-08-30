@@ -144,3 +144,18 @@ export class UserController {
 ```
 
 ## Provider
+
+```js
+@Controller()
+export class PlayerController {
+  // This dependency is resolved and passed to your controller's constructor (or assigned to the indicated property)
+  constructor(private playerService: PlayerSerivice) {}
+}
+```
+
+The **private** syntax. This shorthand allows us to both declare and initialize the **catsService** member
+immediately in the same location
+
+## Module
+
+Each application has at least one module.

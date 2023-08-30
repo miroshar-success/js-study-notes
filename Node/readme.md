@@ -215,3 +215,40 @@ export class UserController {
   }
 }
 ```
+
+## Module
+
+Module 下的属性
+
+1. providers
+2. controllers
+3. imports: the list of imported modules that export the providers which are required in this module
+4. exports: the subset of providers that are provided by this module and should be available in other modules
+   which import this module.
+
+### Feature modules
+
+A feature module simply organizes code relevant for a specific feature, keeping code organized and establishing clear
+boundaries.
+
+```js
+// cats.module.ts
+import { Module } from "@nestjs/common";
+import { CatsController } from "./cats.controller";
+import { CatsService } from "./cats.service";
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+
+// app.module.ts
+import { Module } from "@nestjs/common";
+import { CatsModule } from "./cats/cats.module";
+
+@Module({
+  imports: [CatsModule],
+})
+export class AppModule {}
+```
