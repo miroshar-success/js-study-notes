@@ -159,3 +159,118 @@ immediately in the same location
 ## Module
 
 Each application has at least one module.
+
+## Module
+
+Module 下的属性
+
+1. providers
+2. controllers
+3. imports: the list of imported modules that export the providers which are required in this module
+4. exports: the subset of providers that are provided by this module and should be available in other modules
+   which import this module.
+
+### Feature modules
+
+A feature module simply organizes code relevant for a specific feature, keeping code organized and establishing clear
+boundaries.
+
+```js
+// cats.module.ts
+import { Module } from "@nestjs/common";
+import { CatsController } from "./cats.controller";
+import { CatsService } from "./cats.service";
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+
+// app.module.ts
+import { Module } from "@nestjs/common";
+import { CatsModule } from "./cats/cats.module";
+
+@Module({
+  imports: [CatsModule],
+})
+export class AppModule {}
+```
+
+### Shared modules
+
+modules are singletons by default.
+Every module is automatically a **shared module**. Once created it can be reused by any module.
+In order to share an instance, we first need to **export** the **CatService** provided by adding
+it to the module's exports array.
+
+```js
+// cat.module.ts
+import { Module } from '@nestjs/common';
+import { CatsController } from './cats.controller';
+import { CatService } from './cats.service';
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatService] // 导出CatService, 其他module中引入 当前module, 然后在controller中可用catService
+})
+```
+
+```js
+// player.module.ts
+import { CatModule } from '../cat/cat.module.ts'
+import { PlayerController } from './player.controller.ts'
+@Module({
+  imports: [CatModule],
+  controllers: [PlayerController]
+})
+
+// player.controller.ts
+import { CatService } from '../cat/cat.service.ts'
+@Controller()
+export class PlayerContrller {
+  // 此处可用 cat.module.ts中导出的 CatService
+  constructor(private readonly catService: CatService) {}
+}
+```
+
+## Dependency injection
+
+在 Module 中使用 provider
+
+```js
+import { Module } from '@nestjs/common';
+import { SingerController } from './singer.controller';
+import { SingerService } from './singer.service';
+
+@Module({
+  imports: [CatModule],
+  controllers: [SingerController],
+  providers: [SingerService],
+})
+export class SingerModule {
+  constructor(private singerService: SingerService) {}
+}
+```
+
+### Global Module
+
+When you want to provide a set of providers which should be available everywhere out-of-the-box, make the module **global** with the **@Global()** decorator.
+
+```js
+// 全局module
+import { Module, Global } from "@nestjs/common";
+import { CatsController } from "./cats.controller";
+import { CatsService } from "./cats.service";
+
+@Global() // 使之成为全局module, 在其他controller中引入当前module的 provider 即可
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService],
+})
+export class CatsModule {}
+```
+
+The **@Global()** decorator makes the module global-scoped, Global modules should be registered only once.
+generally by the root or core module.
