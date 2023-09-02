@@ -274,3 +274,54 @@ export class CatsModule {}
 
 The **@Global()** decorator makes the module global-scoped, Global modules should be registered only once.
 generally by the root or core module.
+
+## Middleware
+
+Middleware is a function which is called before the route handler. Middleware functions have access to the **request**
+and **response** objects.
+
+中间件可以是函数或者一个使用**Injectable**装饰器的构造函数。构造函数需要实现 **NestMiddleware** 接口。 函数中间件没有特殊的要求.
+(You implement custom Nest middleware in either a function, or in a class with an @Injectable() decorator. The class should implement the NestMiddleware interface, while the function does not have any special requirements.)
+
+```ts
+// logger.middleware.ts
+// 定义一个中间件 (中间件的基本用法)
+import { Injectable, NestMiddleware } from "@nestjs/common";
+import { Request, Response, NextFunction } from "express";
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware {
+  use(req: Request, res: Response, next: NextFunction) {
+    // 执行中间件的逻辑
+    next();
+  }
+}
+
+// 使用中间件 (在modul中使用configure方法, Module需要实现NestModule接口)
+// logger.module.ts
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from "@nestjs/common";
+import { LoggerMiddleware } from "./logger.middleware";
+@Module({
+  controllers: [LoggerController],
+  providers: [LoggerService],
+})
+export class LoggerModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // forRoutes: 指定哪个路由使用中间件
+    // 也可以指定特定的方法和特定的路径 传递一个对象参数, { path, method }
+    //(We may also futher restrict a middleware to a particular request method by passing an object containing
+    // the route path and request method to the forRoutes() method when configuring the middleware)
+    consumer.apply(LoggerMiddleware).forRoutes("login");
+
+    consumer.apply(LoggerMiddleware).forRouter({
+      path: "login",
+      method: RequestMethod.GET,
+    });
+  }
+}
+```
