@@ -283,6 +283,8 @@ and **response** objects.
 中间件可以是函数或者一个使用**Injectable**装饰器的构造函数。构造函数需要实现 **NestMiddleware** 接口。 函数中间件没有特殊的要求.
 (You implement custom Nest middleware in either a function, or in a class with an @Injectable() decorator. The class should implement the NestMiddleware interface, while the function does not have any special requirements.)
 
+### 构造函数中间件
+
 ```ts
 // logger.middleware.ts
 // 定义一个中间件 (中间件的基本用法)
@@ -322,6 +324,86 @@ export class LoggerModule implements NestModule {
       path: "login",
       method: RequestMethod.GET,
     });
+
+    // 也可以传递一个或者多个controller classes, 使用逗号分隔。
+    // (In most cases, you will probably just pass a list of controllers separated by commas)
+    consumer.apply(LoggerMiddleware).forRoutes(PlayerController);
+  }
+}
+```
+
+### Functional middleware
+
+将上述类的中间件转换为函数中间件写法 如下:
+
+```ts
+// logger.middleware
+import { Request, Response, NextFunction } from "express";
+export function logger(req: Request, res: Response, next: NextFunction) {
+  console.log("request...");
+  next();
+}
+
+// logger.module.ts
+// 使用函数中间件
+// ...
+export class LoggerModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(logger).forRoutes(PlayerController);
+  }
+}
+```
+
+### Global middleware
+
+全局中间件
+
+```js
+const app = await NestFactory.create(AppModule);
+app.use(logger);
+await app.listen(3000);
+```
+
+使用多个中间件
+
+```js
+// ...
+consumer.apply(cors(), helmet(), logger).forRoutes(CatsController);
+```
+
+## Pipe
+
+Pipes 通常有两个功能:
+
+1. transformation: transform input data to the desired form (转换输入的数据格式)
+2. evaluate input data and if valid, simply pass it through unchanged, otherwise, throw an exception.
+
+### ParseIntPipe
+
+```ts
+// 转换动态路由参数
+import { Response, Param } from "@nestjs/common";
+export class CatService {
+  @Get(":id")
+  // ParseIntPipe 将id 从字符串转换为数字
+  findCat(@Param("id", ParseIntPipe) id: number, @Res() res: Response) {
+    return res.status(200).json({
+      code: 0,
+      msg: "success",
+      data: this.catService.findOne(id),
+    });
+  }
+  // 实例化一个 ParseIntPipe()构造函数, 给构造函数传递参数自定义相应行为
+  @Get('/cat/:id')
+  findBrand (
+    @Param('id', new ParseIntPipe( { errorHttpStatusCode: HttpStauts: NOT_ACCEPTABLE } ))
+    id: number
+  ) {
+    return this.catService.findOne(id)
+  }
+  @Get()
+  findBrand (@Query('id', ParseIntPipe) id: number) {
+    return this.catService.findOne(id)
   }
 }
 ```
