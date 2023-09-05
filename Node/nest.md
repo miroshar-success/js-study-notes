@@ -373,12 +373,12 @@ consumer.apply(cors(), helmet(), logger).forRoutes(CatsController);
 
 ## Pipe
 
+### Built-in pipes
+
 Pipes 通常有两个功能:
 
 1. transformation: transform input data to the desired form (转换输入的数据格式)
 2. evaluate input data and if valid, simply pass it through unchanged, otherwise, throw an exception.
-
-### ParseIntPipe
 
 ```ts
 // 转换动态路由参数
@@ -405,5 +405,65 @@ export class CatService {
   findBrand (@Query('id', ParseIntPipe) id: number) {
     return this.catService.findOne(id)
   }
+  @Get(':uuid')
+  findBrand (@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    // 检测参数是否为uuid, 也可以指定特定版本的uuid
+    // (you are passing UUID inversion 3,4,5, if you only require a specific version of UUID,
+    // you can pass a version in the pipe options)
+  }
 }
 ```
+
+### Custom pipes
+
+```ts
+// validation.ts
+import { PipeTransform, Injectable, ArgumentMetadata } from "@nestjs/common";
+
+@Injectable()
+export class ValidationPipe implements PipeTransform {
+  transform(value: any, metadata: ArgumentMetadata) {
+    /**
+     * console.log(value,  metadata) 动态参数
+     * value: 123 { metatype: [Function: String], type: 'param', data: 'id' }
+     *
+     * // 查询参数
+     * value: 123 {"type":"query","data":"id"}
+     */
+    return value;
+  }
+}
+
+@Controller()
+export class CatController {
+  @Get("/:id") //动态路由参数
+  findCat(@Param("id", new ValidationPipe()) id: string) {}
+  @Get("/query") // 查询参数
+  findCat(@Param("id", new ValidationPipe()) id: string) {}
+  @Post("/create")
+  createCat(@Body(new ValidationPipe()) body: { id: number; name: string }) {}
+}
+
+/**
+ * PipeTransform 是一个泛型接口。
+ * PipeTransform<T, R> is a generic that must be implemented by any pipe. The generic interface uses
+ * T to indicate the type of the input value (T 表示输入值的类型), and R indicate the return type of the
+ * transform() method. (R transform()表示输出函数值类型)
+ */
+```
+
+Every pipe must implement the **transform()** method to fulfill the **PipeTransform** interface contract.
+transform 函数有两个参数：
+
+1. value (value is received by the route handling method)
+2. metadata (metadata 是一个对象包含三个属性)
+
+```ts
+interface ArgumentMetadata {
+  type: "body" | "query" | "param" | "custom"; // 参数来源
+  metatype?: Type<unknown>; // 参数的原类型, 如 String
+  data?: string; //
+}
+```
+
+### Schema based validation
