@@ -461,9 +461,66 @@ transform 函数有两个参数：
 ```ts
 interface ArgumentMetadata {
   type: "body" | "query" | "param" | "custom"; // 参数来源
-  metatype?: Type<unknown>; // 参数的原类型, 如 String
-  data?: string; //
+  metatype?: Type<unknown>; // 在使用ts时给参数的注解类型, 如 String, 如果使用的是js, 则为undefined
+  data?: string; // 传递给装饰器的参数 如id.
 }
 ```
 
 ### Schema based validation
+
+我们需要在请求时判断传递的参数是否是合法的, 所以在提交给服务器的数据需要先进行校验. 可以在 controller 中进行数据校验,但是这样做
+会违反单一职责原则。
+(We want to ensure that any incoming request to the create method contains a valid body. So we have to validate
+object. We could do this inside the route handler method, but doing so is not ideal as is would break the single
+responsibility rule).
+
+As noted earlier, a **validation pipe** either returns the value unchanged or throws an exception.
+
+借用第三方库进行数据验证
+
+```ts
+npm install --save zod
+```
+
+```ts
+// todo.validation.ts
+// 用法
+import { PipeTransform, BadRequestException } from "@nestjs/common";
+import { ZodObject } from "zod";
+
+export class TodoValidationPipe implements PipeTransform {
+  constructor(private schema: ZodObject<any>) {}
+  transform(value: any) {
+    try {
+      this.schema.parse(value);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+    return value; // 返回未修改过的value
+  }
+}
+
+// 定义数据类型
+import { z } from "zod";
+export const createCatSchema = z
+  .object({
+    text: z.string(),
+    id: z.number(),
+    completed: z.boolean(),
+  })
+  .required();
+
+export type CreateTodoDto = z.infer<typeof createCatSchema>;
+```
+
+```ts
+// todo.controller.ts
+@Controller()
+export class TodoController {
+  @Post("/createTodo")
+  @UsePipes(new TodoValidationPipe(createCatSchema))
+  createTodo(@Body() createTodo: CreateTodoDTO) {
+    this.todoService.create(createTodo);
+  }
+}
+```
