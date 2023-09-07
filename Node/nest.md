@@ -464,6 +464,10 @@ interface ArgumentMetadata {
   metatype?: Type<unknown>; // 在使用ts时给参数的注解类型, 如 String, 如果使用的是js, 则为undefined
   data?: string; // 传递给装饰器的参数 如id.
 }
+
+// 使用场景: 1. converting a string to an integer. (转换数据格式)
+// 2 some required data fields may be missing, and we would like to apply defaut values.
+// (给一个缺失的值默认值)
 ```
 
 ### Schema based validation
@@ -491,6 +495,7 @@ import { ZodObject } from "zod";
 export class TodoValidationPipe implements PipeTransform {
   constructor(private schema: ZodObject<any>) {}
   transform(value: any) {
+    // 可以是一个异步函数
     try {
       this.schema.parse(value);
     } catch (err) {
@@ -521,6 +526,65 @@ export class TodoController {
   @UsePipes(new TodoValidationPipe(createCatSchema))
   createTodo(@Body() createTodo: CreateTodoDTO) {
     this.todoService.create(createTodo);
+  }
+}
+```
+
+### Global scoped pipes
+
+it is applied to every route handler across the entire application.
+
+```ts
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(3000);
+}
+```
+
+Global pipes are used across the whole application, for every controller and every route handler.
+
+### Providing defaults
+
+To allow an endpoint to handle missing querystring parameter values. we have to provide a default value.
+
+```ts
+// todo.pipe.ts
+// 默认值pipe
+const default_todo_props = {
+  id: Date.now(),
+  text: "我是默认值",
+  completed: false,
+};
+export class DefaultPipe implements PipeTransform {
+  // 创建todo, 没有传递参数
+  transform(value: any = {}) {
+    for (const key in default_todo_props) {
+      if (!value.hasOwnProperty(key)) {
+        value[key] = default_todo_props[key];
+      }
+    }
+    return value;
+  }
+}
+```
+
+```ts
+// todo.controller.ts
+// DefaultValuePipe
+@Controller()
+export class TodoController {
+  @Get("/query/todo")
+  queryTodo(
+    @Query("page", new DefaultValuePipe(0), ParseIntPipe) page: number,
+    @Query("size", new DefaultValuePipe(20), ParseIntPipe) size: number,
+    @Res() res: Response
+  ) {
+    return res.status(200).json({
+      code: 0,
+      message: "success",
+      data: null,
+    });
   }
 }
 ```
