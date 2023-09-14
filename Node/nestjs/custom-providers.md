@@ -42,7 +42,7 @@ import { Module } from '@nestjs/common';
 2. You want to re-use an existing class in a second dependency
 3. You want to override a class with a mock version for testing
 
-### useValue
+## useValue
 
 useValue syntax is useful for injecting a constant value. Putting an external library into the Nest container, or replacing a real implementation with a mock object.
 
@@ -66,7 +66,7 @@ const mockCatService = {
 })
 ```
 
-### useClass
+## useClass
 
 The useClass syntax allow you to dynamically determine a class that a token should resolve to.
 
@@ -83,4 +83,72 @@ const configServiceProvider = {
   providers: [configServiceProvider],
 })
 export class AppModule {}
+```
+
+## useFactory
+
+The **useFactory** syntax allows for creating providers dynamically. The actual provider will be supplied
+by the value returned from a factory function.
+
+## useExisting
+
+The **useExisting** ayntax allows you to create aliases for existing providers.
+
+```ts
+@Module({
+  providers: [
+    {
+      provide: "AliasedLoggerService",
+      useExisting: LoggerService,
+    },
+    LoggerService,
+  ],
+  controllers: [LoggerController],
+})
+export class LoggerModule {}
+```
+
+# Asynchronous providers
+
+At times, the application start should be delayed until one or more asynchronous tasks are completed.
+The syntax for this is to use **async/wait** with the **useFactory** syntax.The factory returns a promise.
+
+# Dynamic modules
+
+Modules define groups of components like providers and controllers that fit together as a modular part of an overall
+application.
+
+When a provider needs to be visible outside of a module, it is first exported from its host module,and then imported
+into its consuming module.
+
+## Dynamic module use case
+
+configuration module, This makes it easy to dynamically change the application settings in different deployements.
+
+In other words, dynamic modules provide an API for importing one module into another, and customizing the
+properties and behavior of that module when it is imported.
+
+In fact, what our **register()** method will return is a **DynamicModule**. A dynamic module is nothing more than a module
+created at run-time, with the same exact properties as a static module, plus one additional property called **module**.
+
+<!-- 动态模块其实 是一个运行时的模块 包含一个额外的属性 叫做module -->
+
+1. **@Module()** decorator's **imports** property can take not only a module class name, but also a function returning a dynamic
+   module.
+2. A dynamic module can itself import other modules. (如果动态模块依赖于其他的 modules, 可以在**imports**属性中导入它们)
+
+```ts
+import { DynamicModule } from "@nestjs/common";
+import { ConfigService } from "./config.service";
+
+@Module({})
+export class ConfigModule {
+  static register(): DynamicModule {
+    return {
+      module: ConfigModule,
+      providers: [ConfigService],
+      exports: [ConfigService],
+    };
+  }
+}
 ```

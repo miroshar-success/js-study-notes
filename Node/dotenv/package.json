@@ -1,0 +1,15 @@
+{
+  "name": "dotenv",
+  "version": "1.0.0",
+  "description": "Dotenv is a zero-dependency module that loads environment variables from a **.env** file into process.env. Storing configuration in the environment separate from code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
