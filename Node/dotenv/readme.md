@@ -60,3 +60,23 @@ const dotenv = require("dotenv");
 const buf = Buffer.from("BASIC=basic");
 console.log(dotenv.parse(buf)); // { BASIC: 'basic' }
 ```
+
+## Populate
+
+It accepts a target, a source, and options, This is useful for power users who want to supply their
+own objects.
+
+```js
+const dotenv = require("dotenv");
+const parsed = { HELLO: "world" };
+
+dotenv.populate(process.env, parsed);
+console.log(process.env.HELLO); // world
+```
+
+# FAQ
+
+## Should I commit my **.env** file?
+
+No, We strongly recommend against committing your **.env** file to your version control. It should
+only include environment-specific values such as database passwords or API keys.

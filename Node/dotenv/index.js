@@ -10,3 +10,8 @@ console.log(dotenv.parse(buf))  // { BASIC: 'basic' }
 
 const result = dotenv.config()
 console.log('result', result)
+
+console.log('------------------------')
+const parsed = { HELLO: 'world' }
+dotenv.populate(process.env, parsed)
+console.log(process.env.HELLO)  // world
