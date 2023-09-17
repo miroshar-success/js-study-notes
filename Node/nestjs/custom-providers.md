@@ -143,12 +143,104 @@ import { ConfigService } from "./config.service";
 
 @Module({})
 export class ConfigModule {
-  static register(): DynamicModule {
+  static register(options): DynamicModule {
+    /**
+     * Out remaining task it to somehow inject the options object from the register() step into our ConfigureService
+     */
+
+    /** We'll need to first bind the options object to the Nest IOC container, and then have Nest inject it
+      into our ConfigService.
+     * */
     return {
       module: ConfigModule,
       providers: [ConfigService],
       exports: [ConfigService],
     };
+  }
+}
+```
+
+```ts
+//*.module.ts
+// 重点：register中接收的参数 怎么注入到 service中。
+@Module({})
+export class ConfigModule {
+  static register(options: Record<string, any>): DynamicModule {
+    return {
+      module: ConfigModule,
+      providers: [
+        {
+          provide: "CONFIG_OPTIONS",
+          useValue: options,
+        },
+        ConfigService,
+      ],
+      exports: [ConfigService],
+    };
+  }
+}
+
+// *.service.ts
+@Injectable()
+export class ConfigService {
+  constructor(@Inject("CONFIG_OPTIONS") private options: Record<string, any>) {
+    console.log(options);
+  }
+}
+```
+
+### register
+
+you are expectin to configure a dynamic module with a specific configuration for use only by the calling module.
+
+<!-- 为动态路由指定一个特殊的配置, 只应用到当前的模块 -->
+
+### forRoot
+
+you are expecting to configure a dynamic module once and reuse that configuration in multiple places
+
+### forFeature
+
+youe are expecting to use the configuration of a dynamic module's **forRoot** but need to modify some
+configuration specific to the calling module's needs.
+
+## ConfigurableModuleBuilder
+
+```ts
+type ConfigModuleOptions = {
+  folder: string;
+};
+// config.module-definition.ts
+import { ConfigurableModuleBuilder } from "@nestjs/common";
+export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
+  new ConfigurableBuilder<ConfigurableModuleBuilder>().build();
+
+// config.module.ts
+import { ConfigurableModuleClass } from "./config.module-definition";
+@Module({
+  providers: [ConfigService],
+  exports: [ConfigService],
+})
+export class ConfigModule extends ConfigurableModuleClass {}
+```
+
+Extending the **ConfigurableModuleClass** means that **ConfigModule** provides now not only the **register**
+method, but also the **registerAsync** method which allows consumers asynchronously configure that module.
+
+```ts
+import { ConfigurableModuleClass } from "./config.module-definition";
+@Module({
+  providers: [ConfigService],
+  exports: [ConfigService],
+})
+export class ConfigModule extends ConfigurableModuleClass {}
+
+// config.service.ts
+import { MODULE_OPTIONS_TOKEN } from "./config.module-definition";
+@Injectable()
+export class ConfigService {
+  constructor(@Inject(MODULE_OPTIONS_TOKEN) private options) {
+    console.log("options", options);
   }
 }
 ```
