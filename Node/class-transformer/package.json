@@ -1,0 +1,15 @@
+{
+  "name": "class-transformer",
+  "version": "1.0.0",
+  "description": "class-transfomer allows you to transform plain object to some instance of class and versa. It allows to serialize/deserialize object based on criteria.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "class-transformer": "^0.5.1"
+  }
+}
