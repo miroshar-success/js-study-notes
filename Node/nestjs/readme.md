@@ -588,3 +588,40 @@ export class TodoController {
   }
 }
 ```
+
+## Versioning
+
+Versioning allows you to have **different versions** of your controllers or individual routes running within the same
+application.
+
+### URI version type
+
+路由版本控制, 通过在路径设置版本号的方式: 如 https://example.com/v1/route.
+
+```js
+// main.ts
+const app = await NestFactory.create(AppModule);
+app.enableVersioning({
+  type: VersioningType.URI,
+  prefix: "v", // 默认为v, 可以手动设置
+});
+
+// user.controller.ts
+@Controller({
+  path: "user",
+  version: 1,
+})
+export class UserClass {
+  // route versions
+  @Version("1")
+  @Get("user")
+  getUserInfo(): string {
+    return "hello world";
+  }
+}
+
+// Global default version (全局默认的版本)
+app.enableVersioning({
+  defaultVersion: "1",
+});
+```
