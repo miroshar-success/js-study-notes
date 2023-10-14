@@ -625,3 +625,28 @@ app.enableVersioning({
   defaultVersion: "1",
 });
 ```
+
+### Header Versioning Type
+
+Header Versioning uses a custom, user specified, request header to specify the version where the value
+of the header will be the version to use for the request.
+通过在请求头设置指定的版本号
+
+```js
+app.enableVersioning({
+  type: VersioningType.HEADER,
+  header: "Custom-Header",
+});
+```
+
+### Media Type Versioning Type
+
+Media Type Versioning uses the **Accept** header of the request to specify the version.(版本号通过包含在 Accept 请求头, 通过分号分隔, 以键值对形式存在 key=value) Within the **Accept** header, the version will be separated from the media type with a
+semi-colon, **;**. such as **Accept: application/json;v=2**
+
+```js
+app.enableVersioning({
+  type: VersioningType.MEDIA_TYPE,
+  key: "v=",
+})``;
+```
