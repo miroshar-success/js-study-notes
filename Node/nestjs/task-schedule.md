@@ -88,3 +88,126 @@ export class TimeoutService {
   }
 }
 ```
+
+## Dynamic cron jobs
+
+Obtain a reference to a **CronJob** instance by name from anywhere in your code using the **ScheduleRegistry** API.
+
+```js
+import { SchedulerRegistry } from '@nestjs/schedule'
+constructor(private schedulerRegistry: SchedulerRegistry) {
+  @Cron('* * * * * *', { name: 'notifications' })
+  triggerNotifications() {
+    const job = this.schedulerRegistry.getCron('notifications')
+  }
+}
+```
+
+The **getCronJob()** method returns the named cron job. The returned **CronJob** object has the following methods:
+
+1. stop() 停止计时程序
+2. start() 重新开始一个停止的计时程序
+3. setTime(time) stops a job, sets a new time for it, and then starts it.
+4. lastDate() returns a string representation of the last date a job executed
+5. nextDates()
+
+### addCronJob
+
+create a new cron job dynamically using the **SchedulerRegistry#addCronJob** method
+
+```ts
+export class ScheduleService {
+  addCronJob(name: string, secons: string) {
+    const job = new CronJob(`${seconds} * * * * *`, () => {
+      this.logger.warn("hello.....");
+    });
+    this.schedulerRegistry.addCronJob(name, job);
+    job.start();
+  }
+  deleteCron(name: string) {
+    this.schedulerRegistry.deleteCronJob(name);
+  }
+}
+```
+
+## Dynamic intervals
+
+Obtain a reference to an interval with the **ScheduleRegistry#getInterval** method.
+
+```ts
+export class ScheculeController {
+  addInterval(name: string, milliseconds: number) {
+    const callback = () => {
+      this.logger.warn(`Interval ${name} executing at time (${milliseconds})!`);
+    };
+    const interval = setInterval(callback, milliseconds);
+    this.schedulerRegistry.addInterval(name, interval);
+    /**
+     * we create a standard JavaScript interval, then pass it to the SchedulerRegistry#addInterval method.
+     */
+  }
+  // 删除
+  deleteInterval(name: string) {
+    this.scheduleRegistry.deleteInterval(name);
+  }
+}
+```
+
+## Dynamic timeouts
+
+Obtain a reference to a timeout with the **SchedulerRegistry#getTimeout** method.
+
+```ts
+import { SchedulerRegistry } from "@nestjs/schedule";
+export class ScheduleController {
+  constructor(schedulerRegistry: SchedulerRegistry) {}
+  addTimeout(name: string, milliseconds: number) {
+    const cb = () => {
+      this.logger.warn(`Timeout ${name} executing after ${milliseconds}!`);
+    };
+    const timeout = setTimeout(cb, milliseconds);
+    this.schedulerRegistry.addTimeout("timeout", name);
+    /**
+     * we create a standard JavaScript timeout, then pass it to the **SchedulerRegistry#addTimeout** method.
+     */
+  }
+  // 删除功能
+  deleteTimeout(name: string) {
+    this.schedulerRegistry.deleteTimeout(name);
+  }
+}
+```
+
+# node-cron
+
+Cron is a tool that allows you to execute something on a schedule. This is typically done using the cron syntax.
+
+## Usage
+
+```js
+npm install cron --save
+
+import { CronJob } from 'cron'
+const job = new CronJob('* * * * * *', function() {
+  console.log('hello world!')
+})
+// 一个每秒中执行一次的计时任务 (takes a cron pattern as its first argument, and a callback to be executed when the cron timer
+// fires as its second argument.)
+
+// CronJob(cronTime, onTick, onComplete, start, timeZone, context, runOnInit, utcOffset, unrefTimeout)的参数
+/**
+ * 第一个和第二个参数是 必须的
+*/
+1. cronTime: The time to fire off your job.
+2. onTick:   The function to fire at the specified time. If an **onComplete** callback was provided, **onTick** will
+receive it as an argument.
+3. onComplete: (可选的), 当执行job.stop()时 这个函数会被执行。
+```
+
+```js
+// CronJob() 函数的一些方法
+job.start(); // runs your job
+job.stop(); // stops your job
+job.lastDate(); // tells you the last execution date
+job.nextDate(); // provides the next date that will trigger an **onTick**
+```
