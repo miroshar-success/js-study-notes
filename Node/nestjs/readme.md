@@ -650,3 +650,43 @@ app.enableVersioning({
   key: "v=",
 })``;
 ```
+
+## Logging
+
+禁用日志功能, 给**NestFactory.create()** 方法的第二个参数, 设置 logger 属性为 false 即可.
+
+```ts
+const app = await NestFactory.create(AppModule, {
+  logger: false, // 禁用日志
+  logger: ["error", "warn"], // 设置日志的级别
+  // 可选的参数: log / error / warn / debug / verbose
+});
+await app.listen(3000);
+```
+
+### Custom implementation
+
+Implementing your own custom logger is straightforward. Simply implement each of the methods of the **LoggerService** interface.
+
+```ts
+import { LoggerService } from "@nestjs/common";
+export class MyLogger implements LoggerService {
+  log (message: any) {},
+  warn (message: any) {},
+  error (message: any) {}
+}
+const app = await NestFactory.create(AppModule, {
+  logger: new MyLogger()
+})
+```
+
+### Extend build-in logger
+
+```ts
+import { ConsoleLogger } from "@nestjs/common";
+export class MyLogger extends ConsoleLogger {
+  log(message: any, stack?: string, context?: string) {
+    super.log(...arguments);
+  }
+}
+```
