@@ -205,3 +205,56 @@ export class UserController {
 }
 // {"id":1,"firstName":"kyrie","lastName":"irving","role":"管理员","fullName":"kyrie irving"}
 ```
+
+## Events
+
+**Event Emitter** package provides a simple observer implementation, allowing you to subscribe and listen for various events that occur in your application.
+
+```js
+npm install @nestjs/event-emitter
+
+// app.module.ts
+import { EventEmitterModule } from '@nestjs/event-emitter'
+@Module({
+  imports: [
+    EventEmitterModule.forRoot({
+      wildcard: false // set this to 'true' to use wildcards
+    })
+  ]
+})
+
+// event.controller.ts
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
+@Controller()
+export class EventController {
+  constructor(eventEmitter: EventEmitter2) {}
+  // 触发事件
+  this.eventEmitter.emit('order.created', 'hello world')
+  // 监听事件 (listening to events)
+  @OnEvent('order.created')
+  handleOrderCreatedEvent(payload: string) {
+    console.log(payload)  // hello world
+  }
+}
+
+/**
+ * options
+*/
+EventEmitterModule.forRoot({
+  wildcard: true  // 可以使用数组/通配符 的方式触发事件
+/**
+ * this.eventEmitter(['order', 'created'], 'hello world')
+ * this.eventEmitter('order.*', 'hello world')
+*/
+})
+```
+
+```js
+@Controller()
+export class {
+  @OnEvent('**') // create an event listener that catches all events
+  handleEverything(payload: any) {
+    // handle and process an event
+  }
+}
+```

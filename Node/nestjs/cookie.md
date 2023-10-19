@@ -47,7 +47,7 @@ cookie.serialize("foo", "bar", {
 @Controller()
 export class LoginController {
   @Get("/")
-  getUserInfo(@Res() res: Response) {
+  getUserInfo(@Res({ passthrough: true }) res: Response) {
     res.cookie(name, value, {
       // options 传递给 cookie.serialize()的第三个参数
     });
