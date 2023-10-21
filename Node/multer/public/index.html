@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World</title>
+</head>
+<body>
+  <form action="" class="form">
+    <div>
+      <span>用户名</span>
+      <input type="text" class="username">
+    </div>
+    <div>
+      <span>密码</span>
+      <input type="text" class="password">
+    </div>
+    <div>
+      <span>证件照</span>
+      <input type="file" multiple class="file">
+    </div>
+    <button class="button">上传</button>
+  </form>
+  <script>
+    const $ = (selector) => document.querySelector(selector)
+    $('.form .button').addEventListener('click', function(e) {
+      e.preventDefault()
+      console.log('hello')
+      const username = $('.form .username').value
+      const password = $('.form .password').value
+      const files = Object.values($('.form .file').files || [])
+      const data = new FormData()
+      data.append('username', username)
+      data.append('password', password)
+      for (const file of files) {
+        data.append('photos', file)
+      }
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', 'http://localhost:3000/api/v1/upload/videos', true)
+      // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
+      // 无需手动传递设置 Content-Type: 'multipart/form-data' 否则后台会报错
+      // https://xin3721.com/Articlejquery/javascript29942.html
+      xhr.send(data)
+      xhr.onreadystatechange = function () {
+        if (xhr.status === 200 && xhr.responseType === 4) {
+          console.log(xhr.response)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
