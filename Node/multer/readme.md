@@ -36,10 +36,40 @@ In case you omit the options object, the files will be kept in memory and never 
 const multer = require("multer");
 const upload = multer({
   dest: "/upload", // where to store the files
-  fileFilter: function () {
+  fileFilter: function (req, file, cb) {
+    cb(null, false); // reject file
+    cb(null, true); // accept file
     // function to control which files are accepted
   },
+  limits: {
+    // An object specifying the size limits of the following optional properties
+    fieldNameSize: 100, // max field name size
+    fieldSize: 1024, // max field value size
+    fileSize: Infinity, // the max file size (in bytes)
+    // ...
+    // Specifying the limits can help protect your site against denial of service attacks.
+  },
 });
+```
+
+## storage
+
+The disk storage engine gives you full control on storing files to disk
+
+```js
+const storage = multer.diskStorage({
+  // 文件存储在什么地方 (destination is used to determine within which folder the uploaded files should be stored)
+  // 可以传递一个字符串 或者一个函数 (如果传递的是一个函数, 需要先创建好目录)
+  destination: function (req, file, cb) {
+    cb(null, "/videos");
+  },
+  // filename is used to determine what the file should be named inside the folder. If no filename
+  // is given, each file will be given a random name that doesn't include any file extension.
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
 ```
 
 ## Method
