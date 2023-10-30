@@ -27,19 +27,19 @@ let clicked = 0
 let rate = 1000
 let lastClick = Date.now() - rate
 $('#getting-start .per-second-btn').addEventListener('click', () => {
-/*   if (Date.now() - lastClick >= rate) {
-    console.log(`clicked ${++clicked} times`)
-    lastClick = Date.now()
-  } */
+  /*   if (Date.now() - lastClick >= rate) {
+      console.log(`clicked ${++clicked} times`)
+      lastClick = Date.now()
+    } */
 })
 
 fromEvent($('#getting-start .per-second-btn'), 'click')
   .pipe(
     throttleTime(1000),
     scan((count) => count + 1, 0)
-).subscribe((count) => {
-  console.log(`clicked ${count} times!`)
-})
+  ).subscribe((count) => {
+    console.log(`clicked ${count} times!`)
+  })
 
 // --------- values --------
 fromEvent($('#getting-start .add-btn'), 'click')
@@ -47,7 +47,7 @@ fromEvent($('#getting-start .add-btn'), 'click')
     throttleTime(1000),
     map(event => event.clientX),
     scan((count, clientX) => count + clientX, 0)
-)
+  )
   .subscribe((count) => {
-  console.log(count)
-})
+    console.log(count)
+  })
