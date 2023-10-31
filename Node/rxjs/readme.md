@@ -215,3 +215,18 @@ subscription.unsubscribe();
   }, 8000);
 })();
 ```
+
+## Observer
+
+An Observer is a consumer of values delivered by an Observable. Observers are simply a set of callbacks.
+
+```js
+const observer = {
+  next: (x) => console.log(x),
+  error: (err) => console.log(err),
+  complete: () => console.log("complete"),
+};
+
+observable.subscribe(observer);
+// Observers are just objects with three callbacks.
+```
