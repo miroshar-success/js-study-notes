@@ -690,3 +690,58 @@ export class MyLogger extends ConsoleLogger {
   }
 }
 ```
+
+## Model-View-Controller
+
+模版引擎
+
+```js
+cnpm install --save hbs
+```
+
+```js
+// usage
+import { join } from "path";
+import { NestFactory } from "@nestjs/core";
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.setBaseViewsDir(join(__dirname, "..", "views")); // 模版引擎的目录
+  app.setViewEngine("hbs");
+  await app.listen(3000);
+}
+// app.controller.ts
+import { Get, Render, Controller } from "@nestjs/common";
+@Controller()
+export class AppController {
+  @Get()
+  @Render("index")
+  root() {
+    return { message: "hello world" };
+  }
+}
+```
+
+```hbs
+<body>
+  <p>{{message}}</p>
+</body>
+```
+
+动态模版渲染(If the application logic must dynamically decide which template to render)
+// 如果程序的逻辑需要判断使用哪一个模版去渲染
+
+```js
+import { Controller, Res, Render } from "@nestjs/common";
+import { Response } from "express";
+
+@Controller()
+export class AppController {
+  @Get()
+  root(@Res() res: Response) {
+    return res.render(this.appService.getViewName(), {
+      message: "hello world!",
+    });
+  }
+}
+```

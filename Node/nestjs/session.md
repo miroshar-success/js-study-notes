@@ -51,3 +51,11 @@ used to sign the session ID cookie. (如果传递了一个数组, 仅数组的�
 
 1. The use of environment variables to store the secret, ensuring the secret it self does not exist in your repository
 2. Periodic updates of the secret, while ensuring the previous secret is in the array. (Chaning the secret value will invalidate all existing sessions. ....with the new secret as first element of the array, and including previous secrets as the later elements)
+
+### options#saveUninitialized
+
+Forces a session that is **uninitialized** to be saved to the store. Chossing false is useful for implementing login sessions.
+
+### options#resave
+
+Forces the session to be saved back to the session store, even if the session was never modified during the request.
