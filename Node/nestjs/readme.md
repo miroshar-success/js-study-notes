@@ -745,3 +745,8 @@ export class AppController {
   }
 }
 ```
+
+## SSE (Server-Sent Events)
+
+Server-Sent Events(SSE) is a server push technology enabling a client to receive automatic updates from a server via
+HTTP connection.
