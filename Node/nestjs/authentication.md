@@ -46,9 +46,10 @@ import { JwtModule } from '@nestjs/jwt'
 
 ### API
 
-1. jwtService.sign() 生成 token 的方法 The sign method is an implementation of jsonwebtoken **.sign()**.
+1. jwtService.sign(payload) 生成 token 的方法 The sign method is an implementation of jsonwebtoken **.sign()**.
    Differing from jsonwebtoken it also allows an additional **secret**, **privateKey** and **publicKey** properties on
    **options** to override options passed in from the module.
+   If payload is not a buffer or a string, it will be coerced into a string using JSON.stringify (如果加密数据是对象, 将会使用 JSON.stringify()方法将对象转换为字符串)
 2. jwtService.signAsync() 生成 token 异步方法
 3. jwtService.verify() 验证 token 的方法. The verify method is an implementation of jsonwebtoken **.verify()**
 4. jwtService.devode()
