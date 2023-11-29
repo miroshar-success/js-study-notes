@@ -1,5 +1,7 @@
 # Nestjs
 
+Pipe(请求数据校验) ---> Guard(请求认证鉴权设计) ---> Controller(路由) -----> Service(功能逻辑) ----数据库操作(Respository)
+
 ## Install
 
 ```js

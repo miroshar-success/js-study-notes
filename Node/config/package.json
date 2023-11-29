@@ -1,0 +1,20 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "description": "Node-config organizes hierarchical configurations for your app deployments.It lets you define a set of default parameters, and extend them for different deployment environments. (允许你这是一系列参数 并在不同的部署环境时 扩展它们)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "prod": "cross-env NODE_ENV=production node index.js",
+    "def": "cross-env NODE_ENV=default node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.9"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
