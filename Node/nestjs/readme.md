@@ -2,6 +2,15 @@
 
 Pipe(请求数据校验) ---> Guard(请求认证鉴权设计) ---> Controller(路由) -----> Service(功能逻辑) ----数据库操作(Respository)
 
+FP (functional programming) 函数式编程
+OOP (object oriented programming) 面向对象编程
+AOP (aspect oriented programming) 面向切面编程
+
+Inversion Of Control (控制反转)
+Dependency Injection (依赖注入)
+
+reflect-metadata
+
 ## Install
 
 ```js
