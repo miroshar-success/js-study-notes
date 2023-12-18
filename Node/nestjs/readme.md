@@ -11,6 +11,9 @@ Dependency Injection (依赖注入)
 
 reflect-metadata
 
+DTO (Data Transfer Object)
+DAO (Data Access Object)
+
 ## Install
 
 ```js
